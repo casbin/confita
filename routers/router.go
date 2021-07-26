@@ -29,4 +29,11 @@ func initAPI() {
 	beego.Router("/api/update-conference", &controllers.ApiController{}, "POST:UpdateConference")
 	beego.Router("/api/add-conference", &controllers.ApiController{}, "POST:AddConference")
 	beego.Router("/api/delete-conference", &controllers.ApiController{}, "POST:DeleteConference")
+
+	beego.Router("/api/get-resources", &controllers.ApiController{}, "GET:GetResources")
+	beego.Router("/api/get-resource", &controllers.ApiController{}, "GET:GetResource")
+	beego.Router("/api/update-resource", &controllers.ApiController{}, "POST:UpdateResource")
+	beego.Router("/api/add-resource", &controllers.ApiController{}, "POST:AddResource")
+	beego.Router("/api/delete-resource", &controllers.ApiController{}, "POST:DeleteResource")
+	beego.Router("/api/upload-resource", &controllers.ApiController{}, "POST:UploadResource")
 }

@@ -34,3 +34,25 @@ func (c *ApiController) SetSessionUser(claims *auth.Claims) {
 	s := util.StructToJson(claims)
 	c.SetSession("user", s)
 }
+
+func (c *ApiController) GetSessionUsername() string {
+	claims := c.GetSessionUser()
+	if claims == nil {
+		return ""
+	}
+	return claims.Username
+}
+
+func (c *ApiController) SetSessionUsername(username string) {
+	claims := &auth.Claims{}
+	claims.Username = username
+	c.SetSessionUser(claims)
+}
+
+func wrapActionResponse(affected bool) *Response {
+	if affected {
+		return &Response{Status: "ok", Msg: "", Data: "Affected"}
+	} else {
+		return &Response{Status: "ok", Msg: "", Data: "Unaffected"}
+	}
+}

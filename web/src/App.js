@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {Switch, Redirect, Route, withRouter} from 'react-router-dom';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
 import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import './App.css';
@@ -11,6 +11,9 @@ import * as Conf from "./Conf";
 import HomePage from "./HomePage";
 import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
+import ResourceListPage from "./ResourceListPage";
+import ResourceEditPage from "./ResourceEditPage";
+import SigninPage from "./SigninPage";
 
 const {Header, Footer} = Layout;
 
@@ -39,6 +42,8 @@ class App extends Component {
       this.setState({selectedMenuKey: '/'});
     } else if (uri.includes('/conferences')) {
       this.setState({ selectedMenuKey: '/conferences' });
+    } else if (uri.includes('/resources')) {
+      this.setState({ selectedMenuKey: '/resources' });
     } else {
       this.setState({selectedMenuKey: 'null'});
     }
@@ -190,8 +195,34 @@ class App extends Component {
         </a>
       </Menu.Item>
     );
+    res.push(
+      <Menu.Item key="/resources">
+        <a href="/resources">
+          Resources
+        </a>
+      </Menu.Item>
+    );
 
     return res;
+  }
+
+  renderHomeIfSignedIn(component) {
+    if (this.state.account !== null && this.state.account !== undefined) {
+      return <Redirect to='/' />
+    } else {
+      return component;
+    }
+  }
+
+  renderSigninIfNotSignedIn(component) {
+    if (this.state.account === null) {
+      return <Redirect to='/signin' />
+    } else if (this.state.account === undefined) {
+      return null;
+    }
+    else {
+      return component;
+    }
   }
 
   renderContent() {
@@ -218,8 +249,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/callback" component={AuthCallback}/>
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
-          <Route exact path="/conferences" render={(props) => <ConferenceListPage account={this.state.account} {...props} />}/>
-          <Route exact path="/conferences/:conferenceName" render={(props) => <ConferenceEditPage account={this.state.account} {...props} />}/>
+          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
+          <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/resources" render={(props) => this.renderSigninIfNotSignedIn(<ResourceListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/resources/:resourceName" render={(props) => this.renderSigninIfNotSignedIn(<ResourceEditPage account={this.state.account} {...props} />)}/>
         </Switch>
       </div>
     )

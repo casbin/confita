@@ -5,14 +5,6 @@ import (
 	"xorm.io/core"
 )
 
-type Scope struct {
-	Id    int    `xorm:"notnull pk" json:"id"`
-	Type  string `xorm:"varchar(100)" json:"type"`
-	Range string `xorm:"varchar(100)" json:"range"`
-	Text  string `xorm:"varchar(100)" json:"text"`
-	AskId int    `json:"askId"`
-}
-
 type Conference struct {
 	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
 	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
