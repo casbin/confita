@@ -3,12 +3,17 @@ package main
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/confita/confita/object"
 	"github.com/confita/confita/routers"
+	"github.com/confita/confita/util"
 
 	_ "github.com/confita/confita/routers"
 )
 
 func main() {
+	object.InitAdapter()
+	util.InitIpDb()
+
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "PUT", "PATCH"},

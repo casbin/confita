@@ -9,6 +9,8 @@ import * as Auth from "./auth/Auth";
 import AuthCallback from "./auth/AuthCallback";
 import * as Conf from "./Conf";
 import HomePage from "./HomePage";
+import ConferenceListPage from "./ConferenceListPage";
+import ConferenceEditPage from "./ConferenceEditPage";
 
 const {Header, Footer} = Layout;
 
@@ -35,8 +37,8 @@ class App extends Component {
     const uri = location.pathname;
     if (uri === '/') {
       this.setState({selectedMenuKey: '/'});
-    } else if (uri.includes('/topic-edit')) {
-      this.setState({ selectedMenuKey: '/topic-edit' });
+    } else if (uri.includes('/conferences')) {
+      this.setState({ selectedMenuKey: '/conferences' });
     } else {
       this.setState({selectedMenuKey: 'null'});
     }
@@ -182,9 +184,9 @@ class App extends Component {
       </Menu.Item>
     );
     res.push(
-      <Menu.Item key="/topic-edit">
-        <a href="/topic-edit">
-          Topics
+      <Menu.Item key="/conferences">
+        <a href="/conferences">
+          Conferences
         </a>
       </Menu.Item>
     );
@@ -216,6 +218,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/callback" component={AuthCallback}/>
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
+          <Route exact path="/conferences" render={(props) => <ConferenceListPage account={this.state.account} {...props} />}/>
+          <Route exact path="/conferences/:conferenceName" render={(props) => <ConferenceEditPage account={this.state.account} {...props} />}/>
         </Switch>
       </div>
     )

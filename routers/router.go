@@ -24,5 +24,9 @@ func initAPI() {
 	beego.Router("/api/get-account", &controllers.ApiController{}, "GET:GetAccount")
 	beego.Router("/api/get-users", &controllers.ApiController{}, "GET:GetUsers")
 
-	beego.Router("/api/get-posts", &controllers.ApiController{}, "POST:GetPosts")
+	beego.Router("/api/get-conferences", &controllers.ApiController{}, "GET:GetConferences")
+	beego.Router("/api/get-conference", &controllers.ApiController{}, "GET:GetConference")
+	beego.Router("/api/update-conference", &controllers.ApiController{}, "POST:UpdateConference")
+	beego.Router("/api/add-conference", &controllers.ApiController{}, "POST:AddConference")
+	beego.Router("/api/delete-conference", &controllers.ApiController{}, "POST:DeleteConference")
 }
