@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Switch, Redirect, Route, withRouter} from 'react-router-dom';
+import {Switch, Redirect, Route, withRouter, Link} from 'react-router-dom';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
 import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import './App.css';
@@ -78,7 +78,7 @@ class App extends Component {
           });
 
           Setting.showMessage("success", `Successfully signed out, redirected to homepage`);
-          Setting.goToLink("/");
+          this.props.history.push("/");
         } else {
           Setting.showMessage("error", `Signout failed: ${res.msg}`);
         }
@@ -183,23 +183,23 @@ class App extends Component {
 
     res.push(
       <Menu.Item key="/">
-        <a href="/">
+        <Link to="/">
           Home
-        </a>
+        </Link>
       </Menu.Item>
     );
     res.push(
       <Menu.Item key="/conferences">
-        <a href="/conferences">
+        <Link to="/conferences">
           Conferences
-        </a>
+        </Link>
       </Menu.Item>
     );
     res.push(
       <Menu.Item key="/resources">
-        <a href="/resources">
+        <Link to="/resources">
           Resources
-        </a>
+        </Link>
       </Menu.Item>
     );
 

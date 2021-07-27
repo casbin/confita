@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {Button, Col, Popconfirm, Row, Table, Tooltip, Upload} from 'antd';
 import {EditOutlined, UploadOutlined} from "@ant-design/icons";
 import moment from "moment";
@@ -160,7 +161,9 @@ class ResourceListPage extends React.Component {
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
-            <a target="_blank" href={`/resources/${text}`}>{text}</a>
+            <Link to={`/resources/${text}`}>
+              {text}
+            </Link>
           )
         }
       },
@@ -216,7 +219,7 @@ class ResourceListPage extends React.Component {
           return (
             <div style={{display: "inline"}}>
               <Tooltip placement="topLeft" title="Edit">
-                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.openLink(`/conferences/${text}`)} />
+                <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => this.props.history.push(`/conferences/${text}`)} />
               </Tooltip>
               {
                 text
@@ -276,7 +279,7 @@ class ResourceListPage extends React.Component {
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => Setting.openLink(`/resources/${record.name}`)}>Edit</Button>
+              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/resources/${record.name}`)}>Edit</Button>
               <Popconfirm
                 title={`Sure to delete resource: ${record.name} ?`}
                 onConfirm={() => this.deleteResource(index)}
