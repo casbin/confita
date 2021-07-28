@@ -11,6 +11,8 @@ import * as Conf from "./Conf";
 import HomePage from "./HomePage";
 import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
+import SubmissionListPage from "./SubmissionListPage";
+import SubmissionEditPage from "./SubmissionEditPage";
 import ResourceListPage from "./ResourceListPage";
 import ResourceEditPage from "./ResourceEditPage";
 import SigninPage from "./SigninPage";
@@ -42,6 +44,8 @@ class App extends Component {
       this.setState({selectedMenuKey: '/'});
     } else if (uri.includes('/conferences')) {
       this.setState({ selectedMenuKey: '/conferences' });
+    } else if (uri.includes('/submissions')) {
+      this.setState({ selectedMenuKey: '/submissions' });
     } else if (uri.includes('/resources')) {
       this.setState({ selectedMenuKey: '/resources' });
     } else {
@@ -196,6 +200,13 @@ class App extends Component {
       </Menu.Item>
     );
     res.push(
+      <Menu.Item key="/submissions">
+        <Link to="/submissions">
+          Submissions
+        </Link>
+      </Menu.Item>
+    );
+    res.push(
       <Menu.Item key="/resources">
         <Link to="/resources">
           Resources
@@ -252,6 +263,8 @@ class App extends Component {
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/submissions/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/resources" render={(props) => this.renderSigninIfNotSignedIn(<ResourceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/resources/:resourceName" render={(props) => this.renderSigninIfNotSignedIn(<ResourceEditPage account={this.state.account} {...props} />)}/>
         </Switch>

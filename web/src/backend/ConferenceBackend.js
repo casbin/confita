@@ -1,5 +1,12 @@
 import * as Setting from "../Setting";
 
+export function getGlobalConferences() {
+  return fetch(`${Setting.ServerUrl}/api/get-global-conferences`, {
+    method: "GET",
+    credentials: "include"
+  }).then(res => res.json());
+}
+
 export function getConferences(owner) {
   return fetch(`${Setting.ServerUrl}/api/get-conferences?owner=${owner}`, {
     method: "GET",

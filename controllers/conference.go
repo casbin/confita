@@ -6,6 +6,11 @@ import (
 	"github.com/confita/confita/object"
 )
 
+func (c *ApiController) GetGlobalConferences() {
+	c.Data["json"] = object.GetGlobalConferences()
+	c.ServeJSON()
+}
+
 func (c *ApiController) GetConferences() {
 	owner := c.Input().Get("owner")
 

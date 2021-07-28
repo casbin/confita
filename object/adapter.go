@@ -90,6 +90,11 @@ func (a *Adapter) createTable() {
 		panic(err)
 	}
 
+	err = a.engine.Sync2(new(Submission))
+	if err != nil {
+		panic(err)
+	}
+
 	err = a.engine.Sync2(new(Resource))
 	if err != nil {
 		panic(err)

@@ -1,8 +1,10 @@
 import React from "react";
-import {Button, Card, Col, DatePicker, Input, Row} from 'antd';
+import {Button, Card, Col, DatePicker, Input, Row, Select} from 'antd';
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import moment from "moment";
+
+const { Option } = Select;
 
 class ConferenceEditPage extends React.Component {
   constructor(props) {
@@ -11,8 +13,6 @@ class ConferenceEditPage extends React.Component {
       classes: props,
       conferenceName: props.match.params.conferenceName,
       conference: null,
-      tasks: [],
-      resources: [],
     };
   }
 
@@ -120,6 +120,21 @@ class ConferenceEditPage extends React.Component {
             <Input value={this.state.conference.address} onChange={e => {
               this.updateConferenceField('address', e.target.value);
             }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            Status:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.conference.status} onChange={(value => {this.updateConferenceField('status', value);})}>
+              {
+                [
+                  {id: 'Public', name: 'Public (Everyone can see it)'},
+                  {id: 'Hidden', name: 'Hidden (Only yourself can see it)'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >

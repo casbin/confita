@@ -17,8 +17,19 @@ type Conference struct {
 	Logo      string `xorm:"varchar(100)" json:"logo"`
 	Location  string `xorm:"varchar(100)" json:"location"`
 	Address   string `xorm:"varchar(100)" json:"address"`
+	Status    string `xorm:"varchar(100)" json:"status"`
 
 	IntroText string `xorm:"mediumtext" json:"introText"`
+}
+
+func GetGlobalConferences() []*Conference {
+	conferences := []*Conference{}
+	err := adapter.engine.Asc("owner").Desc("created_time").Find(&conferences)
+	if err != nil {
+		panic(err)
+	}
+
+	return conferences
 }
 
 func GetConferences(owner string) []*Conference {

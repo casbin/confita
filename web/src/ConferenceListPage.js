@@ -39,6 +39,7 @@ class ConferenceListPage extends React.Component {
       logo: `${Setting.CdnBaseUrl}/logo/logo_752x368.png`,
       location: "Shanghai, China",
       address: "3663 Zhongshan Road North",
+      status: "Public",
       introText: "Introduction..",
     }
   }
@@ -150,6 +151,13 @@ class ConferenceListPage extends React.Component {
         key: 'address',
         width: '120px',
         sorter: (a, b) => a.address.localeCompare(b.address),
+      },
+      {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        width: '80px',
+        sorter: (a, b) => a.status.localeCompare(b.status),
       },
       {
         title: 'Action',
