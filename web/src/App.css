@@ -43,3 +43,11 @@
 .ant-table-body {
   overflow-y: hidden !important
 }
+
+.ant-upload.ant-upload-select-picture-card {
+  width: 100%;
+}
+
+.ant-upload-list-picture-card-container {
+  width: 100%;
+}

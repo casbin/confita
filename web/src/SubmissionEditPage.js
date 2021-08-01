@@ -4,6 +4,7 @@ import * as SubmissionBackend from "./backend/SubmissionBackend";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import {LinkOutlined} from "@ant-design/icons";
+import UploadFile from "./UploadFile";
 
 const { Option } = Select;
 
@@ -98,24 +99,35 @@ class SubmissionEditPage extends React.Component {
             }} />
           </Col>
         </Row>
+        {/*<Row style={{marginTop: '20px'}} >*/}
+        {/*  <Col style={{marginTop: '5px'}} span={2}>*/}
+        {/*    Word file:*/}
+        {/*  </Col>*/}
+        {/*  <Col span={22} >*/}
+        {/*    <Input prefix={<LinkOutlined/>} value={this.state.submission.wordFileUrl} onChange={e => {*/}
+        {/*      this.updateSubmissionField('wordFileUrl', e.target.value);*/}
+        {/*    }} />*/}
+        {/*  </Col>*/}
+        {/*</Row>*/}
+        {/*<Row style={{marginTop: '20px'}} >*/}
+        {/*  <Col style={{marginTop: '5px'}} span={2}>*/}
+        {/*    PDF file:*/}
+        {/*  </Col>*/}
+        {/*  <Col span={22} >*/}
+        {/*    <Input prefix={<LinkOutlined/>} value={this.state.submission.pdfFileUrl} onChange={e => {*/}
+        {/*      this.updateSubmissionField('pdfFileUrl', e.target.value);*/}
+        {/*    }} />*/}
+        {/*  </Col>*/}
+        {/*</Row>*/}
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Word file:
+            File upload:
           </Col>
-          <Col span={22} >
-            <Input prefix={<LinkOutlined/>} value={this.state.submission.wordFileUrl} onChange={e => {
-              this.updateSubmissionField('wordFileUrl', e.target.value);
-            }} />
+          <Col style={{marginRight: '10px'}} span={6} >
+            <UploadFile fileUrl={this.state.submission.wordFileUrl} urlKey={"wordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            PDF file:
-          </Col>
-          <Col span={22} >
-            <Input prefix={<LinkOutlined/>} value={this.state.submission.pdfFileUrl} onChange={e => {
-              this.updateSubmissionField('pdfFileUrl', e.target.value);
-            }} />
+          <Col span={6} >
+            <UploadFile fileUrl={this.state.submission.pdfFileUrl} urlKey={"pdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
