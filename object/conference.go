@@ -5,6 +5,13 @@ import (
 	"xorm.io/core"
 )
 
+type TreeItem struct {
+	Key      string      `xorm:"varchar(100)" json:"key"`
+	Title    string      `xorm:"varchar(100)" json:"title"`
+	Content  string      `xorm:"mediumtext" json:"content"`
+	Children []*TreeItem `xorm:"varchar(1000)" json:"children"`
+}
+
 type Conference struct {
 	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
 	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
@@ -19,7 +26,8 @@ type Conference struct {
 	Address   string `xorm:"varchar(100)" json:"address"`
 	Status    string `xorm:"varchar(100)" json:"status"`
 
-	IntroText string `xorm:"mediumtext" json:"introText"`
+	IntroText string      `xorm:"mediumtext" json:"introText"`
+	TreeItems []*TreeItem `xorm:"mediumtext" json:"treeItems"`
 }
 
 func GetGlobalConferences() []*Conference {

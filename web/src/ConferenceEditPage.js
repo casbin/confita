@@ -3,6 +3,8 @@ import {Button, Card, Col, DatePicker, Input, Row, Select} from 'antd';
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import moment from "moment";
+import Conference from "./Conference";
+import ConferenceEdit from "./ConferenceEdit";
 
 const { Option } = Select;
 
@@ -145,6 +147,22 @@ class ConferenceEditPage extends React.Component {
             <Input value={this.state.conference.introText} onChange={e => {
               this.updateConferenceField('introText', e.target.value);
             }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            Menu:
+          </Col>
+          <Col span={22} >
+            <ConferenceEdit conference={this.state.conference} onUpdateTreeItems={(value) => { this.updateConferenceField('treeItems', value)}} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            Preview:
+          </Col>
+          <Col span={22} >
+            <Conference conference={this.state.conference} />
           </Col>
         </Row>
       </Card>

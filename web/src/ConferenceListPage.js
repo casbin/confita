@@ -41,6 +41,7 @@ class ConferenceListPage extends React.Component {
       address: "3663 Zhongshan Road North",
       status: "Public",
       introText: "Introduction..",
+      treeItems: [{key: "Home", title: "Home", content: "Content", children: []}],
     }
   }
 
