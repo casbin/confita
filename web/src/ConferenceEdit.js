@@ -178,6 +178,21 @@ class ConferenceEdit extends React.Component {
     return res;
   }
 
+  addTreeItemRow() {
+    let treeItems = this.props.conference.treeItems;
+
+    const treeItem = {key: `Title - ${treeItems.length + 1}`, title: `Title - ${treeItems.length + 1}`, content: `Content - ${treeItems.length + 1}`, children: []};
+    treeItems = Setting.addRow(treeItems, treeItem);
+    this.props.onUpdateTreeItems(treeItems);
+  }
+
+  deleteTreeItemRow() {
+    let treeItems = this.props.conference.treeItems;
+
+    treeItems = Setting.deleteRow(treeItems, treeItems.length - 1);
+    this.props.onUpdateTreeItems(treeItems);
+  }
+
   renderTree(treeItems) {
     // const treeData = this.getTree(treeItems);
 
@@ -201,21 +216,31 @@ class ConferenceEdit extends React.Component {
     // let data = `[{"title":"0-0","key":"0-0","children":[{"title":"0-0-0","key":"0-0-0","children":[{"title":"0-0-0-0","key":"0-0-0-0"},{"title":"0-0-0-1","key":"0-0-0-1"},{"title":"0-0-0-2","key":"0-0-0-2"}]},{"title":"0-0-1","key":"0-0-1","children":[{"title":"0-0-1-0","key":"0-0-1-0"},{"title":"0-0-1-1","key":"0-0-1-1"},{"title":"0-0-1-2","key":"0-0-1-2"}]},{"title":"0-0-2","key":"0-0-2"}]},{"title":"0-1","key":"0-1","children":[{"title":"0-1-0","key":"0-1-0","children":[{"title":"0-1-0-0","key":"0-1-0-0"},{"title":"0-1-0-1","key":"0-1-0-1"},{"title":"0-1-0-2","key":"0-1-0-2"}]},{"title":"0-1-1","key":"0-1-1","children":[{"title":"0-1-1-0","key":"0-1-1-0"},{"title":"0-1-1-1","key":"0-1-1-1"},{"title":"0-1-1-2","key":"0-1-1-2"}]},{"title":"0-1-2","key":"0-1-2"}]},{"title":"0-2","key":"0-2"}]`
     // alert(JSON.stringify(this.state.gData))
     return (
-      <Tree
-        className="draggable-tree"
-        defaultExpandAll={true}
-        // defaultExpandedKeys={this.state.expandedKeys}
-        draggable
-        blockNode
-        onDragEnter={this.onDragEnter}
-        onDrop={this.onDrop}
-        // switcherIcon={<DownOutlined  />}
-        icon={null}
-        defaultSelectedKeys={[]}
-        onSelect={onSelect}
-        // treeData={this.state.gData}
-        treeData={treeItems}
-      />
+      <div>
+        <Row style={{marginTop: '10px', marginBottom: '10px'}} >
+          <Tooltip placement="topLeft" title="Add">
+            <Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow()} />
+          </Tooltip>
+          <Tooltip placement="topLeft" title="Delete">
+            <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRow()} />
+          </Tooltip>
+        </Row>
+        <Tree
+          className="draggable-tree"
+          defaultExpandAll={true}
+          // defaultExpandedKeys={this.state.expandedKeys}
+          draggable
+          blockNode
+          onDragEnter={this.onDragEnter}
+          onDrop={this.onDrop}
+          // switcherIcon={<DownOutlined  />}
+          icon={null}
+          defaultSelectedKeys={[]}
+          onSelect={onSelect}
+          // treeData={this.state.gData}
+          treeData={treeItems}
+        />
+      </div>
     )
   }
 
@@ -232,7 +257,7 @@ class ConferenceEdit extends React.Component {
   }
 
   renderPage(treeItem) {
-    if (treeItem === null) {
+    if (treeItem === undefined || treeItem === null) {
       return (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )
@@ -257,7 +282,7 @@ class ConferenceEdit extends React.Component {
           </Col>
           <Col span={22} >
             <div style={{height: '400px', border: '1px solid rgb(217,217,217)'}} >
-              <HtmlEditorBraft text={treeItem.content} onUpdateText={(text) => {
+              <HtmlEditorBraft key={treeItem.key} text={treeItem.content} onUpdateText={(text) => {
                 this.updateTreeItemField('content', text);
               }} />
             </div>
