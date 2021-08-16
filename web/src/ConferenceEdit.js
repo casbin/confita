@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Col, Empty, Input, Row, Tooltip, Tree} from "antd";
 import {DeleteOutlined, PlusOutlined,} from "@ant-design/icons";
 import * as Setting from "./Setting";
+import HtmlEditorBraft from "./HtmlEditorBraft";
 
 const x = 3;
 const y = 2;
@@ -245,6 +246,7 @@ class ConferenceEdit extends React.Component {
           </Col>
           <Col span={22} >
             <Input value={treeItem.title} onChange={e => {
+              this.updateTreeItemField('key', e.target.value);
               this.updateTreeItemField('title', e.target.value);
             }} />
           </Col>
@@ -254,9 +256,11 @@ class ConferenceEdit extends React.Component {
             Content:
           </Col>
           <Col span={22} >
-            <Input value={treeItem.content} onChange={e => {
-              this.updateTreeItemField('content', e.target.value);
-            }} />
+            <div style={{height: '400px', border: '1px solid rgb(217,217,217)'}} >
+              <HtmlEditorBraft text={treeItem.content} onUpdateText={(text) => {
+                this.updateTreeItemField('content', text);
+              }} />
+            </div>
           </Col>
         </Row>
       </div>

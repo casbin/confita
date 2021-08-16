@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "4.15.5",
+    "braft-editor": "^2.3.9",
     "copy-to-clipboard": "^3.3.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
