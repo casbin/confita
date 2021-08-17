@@ -1,22 +1,22 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.logo_with_text {
-  background: url("logo_with_text.png");
+.logo {
+  background: url("https://cdn.casbin.org/img/logo_384x96.png");
   background-size: 108px, 33px;
   width: 108px;
-  height: 33px;
+  height: 27px;
   /*background: rgba(0, 0, 0, 0.2);*/
   margin: 17px 10px 16px 20px;
   float: left;
@@ -28,4 +28,44 @@ code {
 
 .ant-list-sm .ant-list-item {
   padding: 2px !important;
+}
+
+.highlight-row {
+  background: rgb(249,198,205);
+}
+
+.alert-row {
+  background: #ffccc7;
+}
+
+/*http://react-china.org/t/topic/33846/3*/
+.ant-table-header {
+  scrollbar-color:transparent transparent
+}
+.ant-table-header::-webkit-scrollbar {
+  background-color:transparent
+}
+
+.import-output {
+  height: 500px;
+}
+
+.CodeMirror {
+  height: 100% !important;
+}
+
+.App {
+  padding: 20px;
+}
+
+.red-row {
+  background: #ffccc7;
+}
+
+.yellow-row {
+  background: #ffffb8;
+}
+
+.green-row {
+  background: #d9f7be;
 }

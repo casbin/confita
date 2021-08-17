@@ -241,7 +241,7 @@ class App extends Component {
       <div>
         <Header style={{padding: '0', marginBottom: '3px'}}>
           {
-            Setting.isMobile() ? null : <a className="logo_with_text" href={"/"}/>
+            Setting.isMobile() ? null : <a className="logo" href={"/"}/>
           }
           <Menu
             // theme="dark"
