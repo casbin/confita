@@ -9,7 +9,7 @@ class Conference extends React.Component {
     super(props);
     this.state = {
       classes: props,
-      selectedKey: null,
+      selectedKey: 0,
     };
   }
 
@@ -30,7 +30,7 @@ class Conference extends React.Component {
     return (
       <Menu
         // style={{ width: 256 }}
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['0']}
         defaultOpenKeys={['sub1']}
         mode={mode}
         theme={theme}
