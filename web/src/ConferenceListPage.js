@@ -19,7 +19,7 @@ class ConferenceListPage extends React.Component {
   }
 
   getConferences() {
-    ConferenceBackend.getConferences(this.props.account.username)
+    ConferenceBackend.getConferences(this.props.account.name)
       .then((res) => {
         this.setState({
           conferences: res,
@@ -29,7 +29,7 @@ class ConferenceListPage extends React.Component {
 
   newConference() {
     return {
-      owner: this.props.account.username,
+      owner: this.props.account.name,
       name: `conference_${this.state.conferences.length}`,
       createdTime: moment().format(),
       startDate: moment().format("YYYY-MM-DD"),

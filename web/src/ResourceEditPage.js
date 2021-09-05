@@ -24,7 +24,7 @@ class ResourceEditPage extends React.Component {
   }
 
   getResource() {
-    ResourceBackend.getResource(this.props.account.username, this.state.resourceName)
+    ResourceBackend.getResource(this.props.account.name, this.state.resourceName)
       .then((resource) => {
         this.setState({
           resource: resource,
@@ -33,7 +33,7 @@ class ResourceEditPage extends React.Component {
   }
 
   getConferences() {
-    ConferenceBackend.getConferences(this.props.account.username)
+    ConferenceBackend.getConferences(this.props.account.name)
       .then((res) => {
         this.setState({
           conferences: res,

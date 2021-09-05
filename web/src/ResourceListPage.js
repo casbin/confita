@@ -27,7 +27,7 @@ class ResourceListPage extends React.Component {
   }
 
   getResources() {
-    ResourceBackend.getResources(this.props.account.username)
+    ResourceBackend.getResources(this.props.account.name)
       .then((res) => {
         this.setState({
           resources: res,
@@ -37,7 +37,7 @@ class ResourceListPage extends React.Component {
 
   newResource() {
     return {
-      owner: this.props.account.username,
+      owner: this.props.account.name,
       name: `resource_${this.state.resources.length}`,
       createdTime: moment().format(),
       type: "image",

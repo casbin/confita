@@ -1,58 +1,74 @@
 package controllers
 
 import (
+	"encoding/gob"
+
 	"github.com/astaxie/beego"
 	"github.com/casdoor/casdoor-go-sdk/auth"
-	"github.com/confita/confita/util"
 )
 
 type ApiController struct {
 	beego.Controller
 }
 
-func (c *ApiController) GetSessionUser() *auth.Claims {
+func init() {
+	gob.Register(auth.Claims{})
+}
+
+func GetUserName(user *auth.User) string {
+	if user == nil {
+		return ""
+	}
+
+	return user.Name
+}
+
+func (c *ApiController) GetSessionClaims() *auth.Claims {
 	s := c.GetSession("user")
 	if s == nil {
 		return nil
 	}
 
-	claims := &auth.Claims{}
-	err := util.JsonToStruct(s.(string), claims)
-	if err != nil {
-		panic(err)
-	}
-
-	return claims
+	claims := s.(auth.Claims)
+	return &claims
 }
 
-func (c *ApiController) SetSessionUser(claims *auth.Claims) {
+func (c *ApiController) SetSessionClaims(claims *auth.Claims) {
 	if claims == nil {
 		c.DelSession("user")
 		return
 	}
 
-	s := util.StructToJson(claims)
-	c.SetSession("user", s)
+	c.SetSession("user", *claims)
+}
+
+func (c *ApiController) GetSessionUser() *auth.User {
+	claims := c.GetSessionClaims()
+	if claims == nil {
+		return nil
+	}
+
+	return &claims.User
+}
+
+func (c *ApiController) SetSessionUser(user *auth.User) {
+	if user == nil {
+		c.DelSession("user")
+		return
+	}
+
+	claims := c.GetSessionClaims()
+	if claims != nil {
+		claims.User = *user
+		c.SetSessionClaims(claims)
+	}
 }
 
 func (c *ApiController) GetSessionUsername() string {
-	claims := c.GetSessionUser()
-	if claims == nil {
+	user := c.GetSessionUser()
+	if user == nil {
 		return ""
 	}
-	return claims.Username
-}
 
-func (c *ApiController) SetSessionUsername(username string) {
-	claims := &auth.Claims{}
-	claims.Username = username
-	c.SetSessionUser(claims)
-}
-
-func wrapActionResponse(affected bool) *Response {
-	if affected {
-		return &Response{Status: "ok", Msg: "", Data: "Affected"}
-	} else {
-		return &Response{Status: "ok", Msg: "", Data: "Unaffected"}
-	}
+	return GetUserName(user)
 }

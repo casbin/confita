@@ -23,7 +23,7 @@ class ConferenceEditPage extends React.Component {
   }
 
   getConference() {
-    ConferenceBackend.getConference(this.props.account.username, this.state.conferenceName)
+    ConferenceBackend.getConference(this.props.account.name, this.state.conferenceName)
       .then((conference) => {
         this.setState({
           conference: conference,

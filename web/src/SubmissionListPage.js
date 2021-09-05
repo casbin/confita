@@ -19,7 +19,7 @@ class SubmissionListPage extends React.Component {
   }
 
   getSubmissions() {
-    SubmissionBackend.getSubmissions(this.props.account.username)
+    SubmissionBackend.getSubmissions(this.props.account.name)
       .then((res) => {
         this.setState({
           submissions: res,
@@ -29,7 +29,7 @@ class SubmissionListPage extends React.Component {
 
   newSubmission() {
     return {
-      owner: this.props.account.username,
+      owner: this.props.account.name,
       name: `submission_${this.state.submissions.length}`,
       createdTime: moment().format(),
       conference: "conference_0",

@@ -7,13 +7,6 @@ export function getAccount() {
     }).then(res => res.json());
 }
 
-export function getUsers(owner) {
-    return fetch(`${Setting.ServerUrl}/api/get-users?owner=${owner}`, {
-        method: 'GET',
-        credentials: 'include'
-    }).then(res => res.json());
-}
-
 export function signin(code, state) {
     return fetch(`${Setting.ServerUrl}/api/signin?code=${code}&state=${state}`, {
         method: 'POST',

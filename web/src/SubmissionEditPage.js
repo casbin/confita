@@ -34,7 +34,7 @@ class SubmissionEditPage extends React.Component {
   }
 
   getSubmission() {
-    SubmissionBackend.getSubmission(this.props.account.username, this.state.submissionName)
+    SubmissionBackend.getSubmission(this.props.account.name, this.state.submissionName)
       .then((submission) => {
         this.setState({
           submission: submission,
