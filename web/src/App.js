@@ -17,6 +17,7 @@ import ResourceListPage from "./ResourceListPage";
 import ResourceEditPage from "./ResourceEditPage";
 import SigninPage from "./SigninPage";
 import i18next from "i18next";
+import SelectLanguageBox from "./SelectLanguageBox";
 
 const {Header, Footer} = Layout;
 
@@ -60,11 +61,23 @@ class App extends Component {
     });
   }
 
+  setLanguage(account) {
+    let language = account?.language;
+    if (language !== "" && language !== i18next.language) {
+      Setting.setLanguage(language);
+    }
+  }
+
   getAccount() {
     AccountBackend.getAccount()
       .then((res) => {
+        let account = res.data;
+        if (account !== null) {
+          this.setLanguage(account);
+        }
+
         this.setState({
-          account: res.data,
+          account: account,
         });
       });
   }
@@ -156,21 +169,21 @@ class App extends Component {
       res.push(
         <Menu.Item key="/signup" style={{float: 'right', marginRight: '20px'}}>
           <a href={Auth.getSignupUrl()}>
-            Sign Up
+            {i18next.t("account:Sign Up")}
           </a>
         </Menu.Item>
       );
       res.push(
         <Menu.Item key="/signin" style={{float: 'right'}}>
           <a href={Auth.getSigninUrl()}>
-            Sign In
+            {i18next.t("account:Sign In")}
           </a>
         </Menu.Item>
       );
       res.push(
         <Menu.Item key="/" style={{float: 'right'}}>
           <a href="/">
-            Home
+            {i18next.t("general:Home")}
           </a>
         </Menu.Item>
       );
@@ -261,6 +274,7 @@ class App extends Component {
             {
               this.renderAccount()
             }
+            <SelectLanguageBox />
           </Menu>
         </Header>
         <Switch>

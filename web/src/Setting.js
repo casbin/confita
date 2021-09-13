@@ -1,6 +1,8 @@
 import {AutoComplete, Col, message, Row} from "antd";
 import React from "react";
 import {isMobile as isMobileDevice} from "react-device-detect";
+import i18next from "i18next";
+import moment from "moment";
 
 const { Option } = AutoComplete;
 
@@ -162,4 +164,41 @@ export function getAvatarColor(s) {
     random = -random;
   }
   return colorList[random % 4];
+}
+
+export function setLanguage(language) {
+  localStorage.setItem("language", language);
+  changeMomentLanguage(language);
+  i18next.changeLanguage(language);
+}
+
+export function changeLanguage(language) {
+  localStorage.setItem("language", language);
+  changeMomentLanguage(language);
+  i18next.changeLanguage(language);
+  window.location.reload(true);
+}
+
+export function changeMomentLanguage(lng) {
+  return;
+  if (lng === "zh") {
+    moment.locale("zh", {
+      relativeTime: {
+        future: "%s内",
+        past: "%s前",
+        s: "几秒",
+        ss: "%d秒",
+        m: "1分钟",
+        mm: "%d分钟",
+        h: "1小时",
+        hh: "%d小时",
+        d: "1天",
+        dd: "%d天",
+        M: "1个月",
+        MM: "%d个月",
+        y: "1年",
+        yy: "%d年",
+      },
+    });
+  }
 }

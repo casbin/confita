@@ -5,3 +5,6 @@ export const AuthConfig = {
   appName: "app-confita",
   organizationName: "casbin",
 };
+
+export const ForceLanguage = "";
+export const DefaultLanguage = "en";
