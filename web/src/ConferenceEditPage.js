@@ -141,6 +141,23 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            Carousels:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} mode="tags" style={{width: '100%'}} placeholder="Please input"
+                    value={this.state.conference.carousels}
+                    onChange={value => {
+                      this.updateConferenceField('carousels', value);
+                    }}
+            >
+              {
+                this.state.conference.carousels.map((carousel, index) => <Option key={carousel}>{carousel}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             Introduction text:
           </Col>
           <Col span={22} >

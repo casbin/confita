@@ -26,6 +26,7 @@ type Conference struct {
 	Address   string `xorm:"varchar(100)" json:"address"`
 	Status    string `xorm:"varchar(100)" json:"status"`
 
+	Carousels []string    `xorm:"mediumtext" json:"carousels"`
 	IntroText string      `xorm:"mediumtext" json:"introText"`
 	TreeItems []*TreeItem `xorm:"mediumtext" json:"treeItems"`
 }

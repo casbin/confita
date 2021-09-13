@@ -40,6 +40,7 @@ class ConferenceListPage extends React.Component {
       location: "Shanghai, China",
       address: "3663 Zhongshan Road North",
       status: "Public",
+      carousels: [],
       introText: "Introduction..",
       treeItems: [{key: "Home", title: "Home", content: "Content", children: []}],
     }

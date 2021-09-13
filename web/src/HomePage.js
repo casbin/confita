@@ -1,4 +1,5 @@
 import React from "react";
+import {Carousel} from "antd";
 import Conference from "./Conference";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 
@@ -28,6 +29,32 @@ class HomePage extends React.Component {
       });
   }
 
+  renderCarousel(conference) {
+    const contentStyle = {
+      height: '200px',
+      color: '#fff',
+      lineHeight: '160px',
+      textAlign: 'center',
+      background: '#364d79',
+    };
+
+    return (
+      <Carousel autoplay>
+        {
+          conference.carousels.map((carousel, i) => {
+            return (
+              <div>
+                <h3 style={contentStyle}>
+                  <img alt={`carousel-${i}`} style={{width: '100%', height: '100%'}} src={carousel}/>
+                </h3>
+              </div>
+            )
+          })
+        }
+      </Carousel>
+    )
+  }
+
   render() {
     if (this.state.conference === null) {
       return null;
@@ -35,6 +62,9 @@ class HomePage extends React.Component {
 
     return (
       <div>
+        {
+          this.renderCarousel(this.state.conference)
+        }
         <Conference conference={this.state.conference} />
       </div>
     )
