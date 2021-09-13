@@ -7,10 +7,12 @@
     "antd": "4.15.5",
     "braft-editor": "^2.3.9",
     "copy-to-clipboard": "^3.3.1",
+    "i18next": "^19.8.9",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.1",
+    "react-i18next": "^11.8.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.4"
   },

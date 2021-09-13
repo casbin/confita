@@ -1,0 +1,11 @@
+{
+  "general": {
+    "Home": "首页"
+  },
+  "account": {
+    "My Account": "我的账户",
+    "Sign Up": "注册",
+    "Sign In": "登录",
+    "Sign Out": "登出"
+  }
+}

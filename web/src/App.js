@@ -16,6 +16,7 @@ import SubmissionEditPage from "./SubmissionEditPage";
 import ResourceListPage from "./ResourceListPage";
 import ResourceEditPage from "./ResourceEditPage";
 import SigninPage from "./SigninPage";
+import i18next from "i18next";
 
 const {Header, Footer} = Layout;
 
@@ -90,9 +91,9 @@ class App extends Component {
   }
 
   handleRightDropdownClick(e) {
-    if (e.key === '0') {
+    if (e.key === '/account') {
       Setting.openLink(Auth.getMyProfileUrl(this.state.account));
-    } else if (e.key === '1') {
+    } else if (e.key === '/logout') {
       this.signout();
     }
   }
@@ -116,30 +117,32 @@ class App extends Component {
   renderRightDropdown() {
     const menu = (
       <Menu onClick={this.handleRightDropdownClick.bind(this)}>
-        <Menu.Item key='0'>
+        <Menu.Item key="/account">
           <SettingOutlined />
-          My Account
+          {i18next.t("account:My Account")}
         </Menu.Item>
-        <Menu.Item key='1'>
+        <Menu.Item key="/logout">
           <LogoutOutlined />
-          Signout
+          {i18next.t("account:Logout")}
         </Menu.Item>
       </Menu>
     );
 
     return (
-      <Dropdown key="200" overlay={menu} >
-        <a className="ant-dropdown-link" href="#" style={{float: 'right'}}>
+      <Dropdown key="/rightDropDown" overlay={menu} className="rightDropDown">
+        <div className="ant-dropdown-link" style={{float: 'right', cursor: 'pointer'}}>
+          &nbsp;
+          &nbsp;
           {
             this.renderAvatar()
           }
           &nbsp;
           &nbsp;
-          {Setting.isMobile() ? null : Setting.getShortName(this.state.account.name)} &nbsp; <DownOutlined />
+          {Setting.isMobile() ? null : Setting.getShortName(this.state.account.displayName)} &nbsp; <DownOutlined />
           &nbsp;
           &nbsp;
           &nbsp;
-        </a>
+        </div>
       </Dropdown>
     )
   }
@@ -151,21 +154,21 @@ class App extends Component {
       return null;
     } else if (this.state.account === null) {
       res.push(
-        <Menu.Item key="101" style={{float: 'right', marginRight: '20px'}}>
+        <Menu.Item key="/signup" style={{float: 'right', marginRight: '20px'}}>
           <a href={Auth.getSignupUrl()}>
-            Signup
+            Sign Up
           </a>
         </Menu.Item>
       );
       res.push(
-        <Menu.Item key="102" style={{float: 'right'}}>
+        <Menu.Item key="/signin" style={{float: 'right'}}>
           <a href={Auth.getSigninUrl()}>
-            Signin
+            Sign In
           </a>
         </Menu.Item>
       );
       res.push(
-        <Menu.Item key="103" style={{float: 'right'}}>
+        <Menu.Item key="/" style={{float: 'right'}}>
           <a href="/">
             Home
           </a>
