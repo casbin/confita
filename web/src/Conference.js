@@ -97,11 +97,11 @@ class Conference extends React.Component {
 
     return (
       <div>
-        <div style={{textAlign: "center", fontSize: "x-large"}}>
-          {
-            treeItem.title
-          }
-        </div>
+        {/*<div style={{textAlign: "center", fontSize: "x-large"}}>*/}
+        {/*  {*/}
+        {/*    treeItem.title*/}
+        {/*  }*/}
+        {/*</div>*/}
         <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{ __html: treeItem.content }} />
       </div>
     )
