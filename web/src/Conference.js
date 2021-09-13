@@ -38,6 +38,10 @@ class Conference extends React.Component {
       >
         {
           treeItems.map((treeItem, i) => {
+            if (i === 0) {
+              return null;
+            }
+
             return (
               <Menu.Item key={`${i}`}>
                 {treeItem.title}

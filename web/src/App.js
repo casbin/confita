@@ -187,9 +187,12 @@ class App extends Component {
 
     res.push(
       <Menu.Item key="/">
-        <Link to="/">
+        <a href="/">
           Home
-        </Link>
+        </a>
+        {/*<Link to="/">*/}
+        {/*  Home*/}
+        {/*</Link>*/}
       </Menu.Item>
     );
     res.push(
