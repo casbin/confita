@@ -136,7 +136,7 @@ class App extends Component {
         </Menu.Item>
         <Menu.Item key="/logout">
           <LogoutOutlined />
-          {i18next.t("account:Logout")}
+          {i18next.t("account:Sign Out")}
         </Menu.Item>
       </Menu>
     );
@@ -204,7 +204,7 @@ class App extends Component {
     res.push(
       <Menu.Item key="/">
         <a href="/">
-          Home
+          {i18next.t("general:Home")}
         </a>
         {/*<Link to="/">*/}
         {/*  Home*/}
@@ -214,21 +214,21 @@ class App extends Component {
     res.push(
       <Menu.Item key="/conferences">
         <Link to="/conferences">
-          Conferences
+          {i18next.t("general:Conferences")}
         </Link>
       </Menu.Item>
     );
     res.push(
       <Menu.Item key="/submissions">
         <Link to="/submissions">
-          Submissions
+          {i18next.t("general:Submissions")}
         </Link>
       </Menu.Item>
     );
     res.push(
       <Menu.Item key="/resources">
         <Link to="/resources">
-          Resources
+          {i18next.t("general:Resources")}
         </Link>
       </Menu.Item>
     );
