@@ -3,16 +3,42 @@ import React from "react";
 import {isMobile as isMobileDevice} from "react-device-detect";
 import i18next from "i18next";
 import moment from "moment";
+import Sdk from "casdoor-js-sdk";
 
 const { Option } = AutoComplete;
 
 export let ServerUrl = '';
+export let CasdoorSdk;
 
 export function initServerUrl() {
   const hostname = window.location.hostname;
   if (hostname === 'localhost') {
     ServerUrl = `http://${hostname}:12000`;
   }
+}
+
+export function initCasdoorSdk(config) {
+  CasdoorSdk = new Sdk(config);
+}
+
+export function getSignupUrl() {
+  return CasdoorSdk.getSignupUrl();
+}
+
+export function getSigninUrl() {
+  return CasdoorSdk.getSigninUrl();
+}
+
+export function getUserProfileUrl(userName, account) {
+  return CasdoorSdk.getUserProfileUrl(userName, account);
+}
+
+export function getMyProfileUrl(account) {
+  return CasdoorSdk.getMyProfileUrl(account);
+}
+
+export function signin() {
+  return CasdoorSdk.signin(ServerUrl);
 }
 
 export function parseJson(s) {
@@ -98,50 +124,6 @@ export function getFormattedDateShort(date) {
 
 export function getShortName(s) {
   return s.split('/').slice(-1)[0];
-}
-
-export function getFriendlyFileSize(size) {
-  if (size < 1024) return size + ' B'
-  let i = Math.floor(Math.log(size) / Math.log(1024))
-  let num = (size / Math.pow(1024, i))
-  let round = Math.round(num)
-  num = round < 10 ? num.toFixed(2) : round < 100 ? num.toFixed(1) : round
-  return `${num} ${'KMGTPEZY'[i-1]}B`
-}
-
-export function getResourceThumbnail(resource) {
-  if (resource.type === "image") {
-    return (
-      <img src={resource.url} alt={resource.name} height={30} />
-    )
-  } else if (resource.type === "video") {
-    return (
-      <video height={50} controls>
-        <source src={resource.url} type="video/mp4" />
-      </video>
-    )
-  } else {
-    return null;
-  }
-}
-
-export function getResourceOptions(resources, task="") {
-  return (
-    resources.filter(resource => resource.task === "" || resource.task === task).map((resource, index) =>
-      <Option key={index} value={resource.url}>
-        <Row>
-          <Col span={4} >
-            {
-              getResourceThumbnail(resource)
-            }
-          </Col>
-          <Col span={20} >
-            {`${resource.task === "" ? "（全局）" : resource.task} | ${resource.name} | `}
-          </Col>
-        </Row>
-      </Option>
-    )
-  )
 }
 
 function getRandomInt(s) {

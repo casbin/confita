@@ -5,8 +5,7 @@ import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import './App.css';
 import * as Setting from "./Setting";
 import * as AccountBackend from "./backend/AccountBackend";
-import * as Auth from "./auth/Auth";
-import AuthCallback from "./auth/AuthCallback";
+import AuthCallback from "./AuthCallback";
 import * as Conf from "./Conf";
 import HomePage from "./HomePage";
 import ConferenceListPage from "./ConferenceListPage";
@@ -31,7 +30,7 @@ class App extends Component {
     };
 
     Setting.initServerUrl();
-    Auth.initAuthWithConfig(Conf.AuthConfig);
+    Setting.initCasdoorSdk(Conf.AuthConfig);
   }
 
   componentWillMount() {
@@ -105,7 +104,7 @@ class App extends Component {
 
   handleRightDropdownClick(e) {
     if (e.key === '/account') {
-      Setting.openLink(Auth.getMyProfileUrl(this.state.account));
+      Setting.openLink(Setting.getMyProfileUrl(this.state.account));
     } else if (e.key === '/logout') {
       this.signout();
     }
@@ -168,14 +167,14 @@ class App extends Component {
     } else if (this.state.account === null) {
       res.push(
         <Menu.Item key="/signup" style={{float: 'right', marginRight: '20px'}}>
-          <a href={Auth.getSignupUrl()}>
+          <a href={Setting.getSignupUrl()}>
             {i18next.t("account:Sign Up")}
           </a>
         </Menu.Item>
       );
       res.push(
         <Menu.Item key="/signin" style={{float: 'right'}}>
-          <a href={Auth.getSigninUrl()}>
+          <a href={Setting.getSigninUrl()}>
             {i18next.t("account:Sign In")}
           </a>
         </Menu.Item>
