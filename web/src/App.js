@@ -12,8 +12,6 @@ import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
 import SubmissionListPage from "./SubmissionListPage";
 import SubmissionEditPage from "./SubmissionEditPage";
-import ResourceListPage from "./ResourceListPage";
-import ResourceEditPage from "./ResourceEditPage";
 import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
@@ -47,8 +45,6 @@ class App extends Component {
       this.setState({ selectedMenuKey: '/conferences' });
     } else if (uri.includes('/submissions')) {
       this.setState({ selectedMenuKey: '/submissions' });
-    } else if (uri.includes('/resources')) {
-      this.setState({ selectedMenuKey: '/resources' });
     } else {
       this.setState({selectedMenuKey: 'null'});
     }
@@ -226,9 +222,9 @@ class App extends Component {
     );
     res.push(
       <Menu.Item key="/resources">
-        <Link to="/resources">
+        <a target="_blank" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
           {i18next.t("general:Resources")}
-        </Link>
+        </a>
       </Menu.Item>
     );
 
@@ -284,8 +280,6 @@ class App extends Component {
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/resources" render={(props) => this.renderSigninIfNotSignedIn(<ResourceListPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/resources/:resourceName" render={(props) => this.renderSigninIfNotSignedIn(<ResourceEditPage account={this.state.account} {...props} />)}/>
         </Switch>
       </div>
     )
