@@ -1,13 +1,14 @@
 package i18n
 
-import (
-	"testing"
-
-	"github.com/confita/confita/util"
-)
+import "testing"
 
 func TestGenerateI18nStrings(t *testing.T) {
-	data := parseToData()
-	s := util.StructToJson(data)
-	println(s)
+	dataEn := parseToData()
+	writeI18nFile("en", dataEn)
+
+	dataZh := readI18nFile("zh")
+	println(dataZh)
+
+	applyData(dataEn, dataZh)
+	writeI18nFile("zh", dataEn)
 }

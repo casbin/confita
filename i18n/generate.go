@@ -10,9 +10,7 @@ import (
 	"github.com/confita/confita/util"
 )
 
-type I18nData struct {
-	Namespaces map[string]map[string]string
-}
+type I18nData map[string]map[string]string
 
 var reI18n *regexp.Regexp
 
@@ -69,17 +67,17 @@ func parseToData() *I18nData {
 	}
 	fmt.Printf("%v\n", allWords)
 
-	data := &I18nData{Namespaces: map[string]map[string]string{}}
+	data := I18nData{}
 	for _, word := range allWords {
 		tokens := strings.Split(word, ":")
 		namespace := tokens[0]
 		key := tokens[1]
 
-		if _, ok := data.Namespaces[namespace]; !ok {
-			data.Namespaces[namespace] = map[string]string{}
+		if _, ok := data[namespace]; !ok {
+			data[namespace] = map[string]string{}
 		}
-		data.Namespaces[namespace][key] = key
+		data[namespace][key] = key
 	}
 
-	return data
+	return &data
 }

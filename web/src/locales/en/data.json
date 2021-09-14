@@ -1,11 +1,14 @@
 {
-  "general": {
-    "Home": "Home"
-  },
   "account": {
     "My Account": "My Account",
-    "Sign Up": "Sign Up",
     "Sign In": "Sign In",
-    "Sign Out": "Sign Out"
+    "Sign Out": "Sign Out",
+    "Sign Up": "Sign Up"
+  },
+  "general": {
+    "Conferences": "Conferences",
+    "Home": "Home",
+    "Resources": "Resources",
+    "Submissions": "Submissions"
   }
 }
