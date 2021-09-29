@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Switch, Redirect, Route, withRouter, Link} from 'react-router-dom';
 import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
 import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
-import './App.css';
+import './App.less';
 import * as Setting from "./Setting";
 import * as AccountBackend from "./backend/AccountBackend";
 import AuthCallback from "./AuthCallback";

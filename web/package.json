@@ -4,24 +4,26 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.6.2",
+    "@craco/craco": "6.1.1",
     "antd": "4.15.5",
     "braft-editor": "^2.3.9",
     "casdoor-js-sdk": "^0.0.2",
     "copy-to-clipboard": "^3.3.1",
+    "craco-less": "1.17.1",
     "i18next": "^19.8.9",
     "moment": "^2.29.1",
-    "react": "^17.0.1",
+    "react": "^17.0.2",
     "react-device-detect": "^1.17.0",
-    "react-dom": "^17.0.1",
+    "react-dom": "^17.0.2",
     "react-i18next": "^11.8.7",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.4"
+    "react-scripts": "4.0.3"
   },
   "scripts": {
-    "start": "set PORT=11001 && react-scripts start",
-    "build": "del build.zip 2>nul && set \"GENERATE_SOURCEMAP=false\" && react-scripts build && 360zip.exe -ar build %cd%/build.zip || ECHO.",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "set PORT=11001 && craco start",
+    "build": "del build.zip 2>nul && set \"GENERATE_SOURCEMAP=false\" && craco build && 360zip.exe -ar build %cd%/build.zip || ECHO.",
+    "test": "craco test",
+    "eject": "craco eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {

@@ -2,7 +2,7 @@ import React from "react";
 import * as Setting from "./Setting";
 import { Menu, Dropdown} from "antd";
 import { createFromIconfontCN } from '@ant-design/icons';
-import './App.css';
+import './App.less';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_2680620_ffij16fkwdg.js',
