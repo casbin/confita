@@ -1,5 +1,5 @@
 import React from "react";
-import {Carousel} from "antd";
+import {Carousel, Col, Row} from "antd";
 import Conference from "./Conference";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 
@@ -31,7 +31,7 @@ class HomePage extends React.Component {
 
   renderCarousel(conference) {
     const contentStyle = {
-      height: '200px',
+      height: '250px',
       color: '#fff',
       lineHeight: '160px',
       textAlign: 'center',
@@ -55,7 +55,7 @@ class HomePage extends React.Component {
     )
   }
 
-  render() {
+  renderHome() {
     if (this.state.conference === null) {
       return null;
     }
@@ -68,6 +68,24 @@ class HomePage extends React.Component {
         <Conference conference={this.state.conference} />
       </div>
     )
+  }
+
+  render() {
+    return (
+      <div>
+        <Row style={{width: "100%"}}>
+          <Col span={3}>
+          </Col>
+          <Col span={18}>
+            {
+              this.renderHome()
+            }
+          </Col>
+          <Col span={3}>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 
