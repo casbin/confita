@@ -35,6 +35,8 @@ class SubmissionListPage extends React.Component {
       conference: "conference_0",
       title: `Submission ${this.state.submissions.length}`,
       authors: [{name: this.props.account.name, affiliation: this.props.account.affiliation, email: this.props.account.email, isNotified: true, isCorresponding: true}],
+      type: "Symposium",
+      subType: "Default",
       status: "Draft",
       wordFileUrl: "",
       pdfFileUrl: "",

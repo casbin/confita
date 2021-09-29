@@ -21,6 +21,8 @@ type Submission struct {
 	Conference  string        `xorm:"varchar(100)" json:"conference"`
 	Title       string        `xorm:"varchar(100)" json:"title"`
 	Authors     []*AuthorItem `xorm:"varchar(10000)" json:"authors"`
+	Type        string        `xorm:"varchar(100)" json:"type"`
+	SubType     string        `xorm:"varchar(100)" json:"subType"`
 	WordFileUrl string        `xorm:"varchar(100)" json:"wordFileUrl"`
 	PdfFileUrl  string        `xorm:"varchar(100)" json:"pdfFileUrl"`
 	Status      string        `xorm:"varchar(100)" json:"status"`

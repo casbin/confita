@@ -121,6 +121,46 @@ class SubmissionEditPage extends React.Component {
         {/*</Row>*/}
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            Type:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.submission.type} onChange={(value => {
+              this.updateSubmissionField('type', value);
+              if (this.state.submission.type === "Oral") {
+                this.updateSubmissionField('subType', "Default");
+              } else {
+                this.updateSubmissionField('subType', "Default");
+              }
+            })}>
+              {
+                [
+                  {id: 'Symposium', name: 'Symposium'},
+                  {id: 'Workshop', name: 'Workshop'},
+                  {id: 'Oral', name: 'Oral'},
+                  {id: 'Poster', name: 'Poster'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            Sub type:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.submission.subType} onChange={(value => {this.updateSubmissionField('subType', value);})}>
+              {
+                (this.state.submission.type !== "Oral" ? [
+                  {id: 'Default', name: 'Default'},
+                ] : [
+                  {id: 'Default', name: 'Default'},
+                ]).map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             File upload:
           </Col>
           <Col style={{marginRight: '10px'}} span={6} >
