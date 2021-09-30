@@ -44,7 +44,7 @@ class Conference extends React.Component {
 
             return (
               <Menu.Item key={`${i}`}>
-                {treeItem.title}
+                {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
               </Menu.Item>
             )
           })
@@ -106,7 +106,7 @@ class Conference extends React.Component {
         {/*    treeItem.title*/}
         {/*  }*/}
         {/*</div>*/}
-        <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{ __html: treeItem.content }} />
+        <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{ __html: this.props.language !== "en" ? treeItem.content : treeItem.contentEn }} />
       </div>
     )
   }

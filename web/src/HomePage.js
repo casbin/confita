@@ -2,6 +2,7 @@ import React from "react";
 import {Carousel, Col, Row} from "antd";
 import Conference from "./Conference";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
+import * as Setting from "./Setting";
 
 const owner = "admin";
 const conferenceName = "conference_0";
@@ -65,7 +66,7 @@ class HomePage extends React.Component {
         {
           this.renderCarousel(this.state.conference)
         }
-        <Conference conference={this.state.conference} />
+        <Conference conference={this.state.conference} language={Setting.getLanguage()} />
       </div>
     )
   }

@@ -168,10 +168,25 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            Language:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.conference.language} onChange={(value => {this.updateConferenceField('language', value);})}>
+              {
+                [
+                  {id: 'Zh', name: 'Zh'},
+                  {id: 'En', name: 'En'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             Menu:
           </Col>
           <Col span={22} >
-            <ConferenceEdit conference={this.state.conference} onUpdateTreeItems={(value) => { this.updateConferenceField('treeItems', value)}} />
+            <ConferenceEdit conference={this.state.conference} language={this.state.conference.language} onUpdateTreeItems={(value) => { this.updateConferenceField('treeItems', value)}} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
@@ -179,7 +194,7 @@ class ConferenceEditPage extends React.Component {
             Preview:
           </Col>
           <Col span={22} >
-            <Conference conference={this.state.conference} />
+            <Conference conference={this.state.conference} language={this.state.conference.language} />
           </Col>
         </Row>
       </Card>

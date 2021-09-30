@@ -6,10 +6,12 @@ import (
 )
 
 type TreeItem struct {
-	Key      string      `xorm:"varchar(100)" json:"key"`
-	Title    string      `xorm:"varchar(100)" json:"title"`
-	Content  string      `xorm:"mediumtext" json:"content"`
-	Children []*TreeItem `xorm:"varchar(1000)" json:"children"`
+	Key       string      `xorm:"varchar(100)" json:"key"`
+	Title     string      `xorm:"varchar(100)" json:"title"`
+	Content   string      `xorm:"mediumtext" json:"content"`
+	TitleEn   string      `xorm:"varchar(100)" json:"titleEn"`
+	ContentEn string      `xorm:"mediumtext" json:"contentEn"`
+	Children  []*TreeItem `xorm:"varchar(1000)" json:"children"`
 }
 
 type Conference struct {
@@ -25,6 +27,7 @@ type Conference struct {
 	Location  string `xorm:"varchar(100)" json:"location"`
 	Address   string `xorm:"varchar(100)" json:"address"`
 	Status    string `xorm:"varchar(100)" json:"status"`
+	Language  string `xorm:"varchar(100)" json:"language"`
 
 	Carousels []string    `xorm:"mediumtext" json:"carousels"`
 	IntroText string      `xorm:"mediumtext" json:"introText"`

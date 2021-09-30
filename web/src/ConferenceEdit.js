@@ -270,9 +270,9 @@ class ConferenceEdit extends React.Component {
             Title:
           </Col>
           <Col span={22} >
-            <Input value={treeItem.title} onChange={e => {
+            <Input value={this.props.language !== "en" ? treeItem.title : treeItem.titleEn} onChange={e => {
               this.updateTreeItemField('key', e.target.value);
-              this.updateTreeItemField('title', e.target.value);
+              this.updateTreeItemField(this.props.language !== "en" ? 'title' : 'titleEn', e.target.value);
             }} />
           </Col>
         </Row>
@@ -282,8 +282,8 @@ class ConferenceEdit extends React.Component {
           </Col>
           <Col span={22} >
             <div style={{height: '600px', border: '1px solid rgb(217,217,217)'}} >
-              <HtmlEditorBraft key={treeItem.key} text={treeItem.content} onUpdateText={(text) => {
-                this.updateTreeItemField('content', text);
+              <HtmlEditorBraft key={`${treeItem.key}-${this.props.language}`} text={this.props.language !== "en" ? treeItem.content : treeItem.contentEn} onUpdateText={(text) => {
+                this.updateTreeItemField(this.props.language !== "en" ? 'content' : 'contentEn', text);
               }} />
             </div>
           </Col>
