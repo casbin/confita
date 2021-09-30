@@ -5,6 +5,7 @@ import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import {LinkOutlined} from "@ant-design/icons";
 import UploadFile from "./UploadFile";
+import i18next from "i18next";
 
 const { Option } = Select;
 
@@ -69,7 +70,7 @@ class SubmissionEditPage extends React.Component {
       } style={{marginLeft: '5px'}} type="inner">
         <Row style={{marginTop: '10px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Name:
+            {i18next.t("general:Name")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.submission.name} onChange={e => {
@@ -79,7 +80,7 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Conference:
+            {i18next.t("submission:Conference")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.submission.conference} onChange={(value => {this.updateSubmissionField('conference', value);})}>
@@ -91,7 +92,7 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Title:
+            {i18next.t("submission:Title")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.submission.title} onChange={e => {
@@ -121,7 +122,7 @@ class SubmissionEditPage extends React.Component {
         {/*</Row>*/}
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Type:
+            {i18next.t("submission:Type")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.submission.type} onChange={(value => {
@@ -145,7 +146,7 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Sub type:
+            {i18next.t("submission:Sub type")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.submission.subType} onChange={(value => {this.updateSubmissionField('subType', value);})}>
@@ -161,7 +162,7 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            File upload:
+            {i18next.t("submission:File upload")}:
           </Col>
           <Col style={{marginRight: '10px'}} span={6} >
             <UploadFile fileUrl={this.state.submission.wordFileUrl} urlKey={"wordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
@@ -172,7 +173,7 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Status:
+            {i18next.t("general:Status")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.submission.status} onChange={(value => {this.updateSubmissionField('status', value);})}>

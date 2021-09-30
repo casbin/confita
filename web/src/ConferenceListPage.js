@@ -4,6 +4,7 @@ import {Button, Col, Popconfirm, Row, Table} from 'antd';
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
+import i18next from "i18next";
 
 class ConferenceListPage extends React.Component {
   constructor(props) {
@@ -78,7 +79,7 @@ class ConferenceListPage extends React.Component {
   renderTable(conferences) {
     const columns = [
       {
-        title: 'Name',
+        title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
         width: '120px',
@@ -92,76 +93,76 @@ class ConferenceListPage extends React.Component {
         }
       },
       {
-        title: 'Start date',
+        title: i18next.t("conference:Start date"),
         dataIndex: 'startDate',
         key: 'startDate',
-        width: '160px',
+        width: '70px',
         sorter: (a, b) => a.startDate.localeCompare(b.startDate),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
         }
       },
       {
-        title: 'End date',
+        title: i18next.t("conference:End date"),
         dataIndex: 'endDate',
         key: 'endDate',
-        width: '160px',
+        width: '70px',
         sorter: (a, b) => a.endDate.localeCompare(b.endDate),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
         }
       },
       {
-        title: 'Full name',
+        title: i18next.t("conference:Full name"),
         dataIndex: 'fullName',
         key: 'fullName',
-        width: '120px',
+        width: '200px',
         sorter: (a, b) => a.fullName.localeCompare(b.fullName),
       },
       {
-        title: 'Organizer',
+        title: i18next.t("conference:Organizer"),
         dataIndex: 'organizer',
         key: 'organizer',
         width: '120px',
         sorter: (a, b) => a.organizer.localeCompare(b.organizer),
       },
       {
-        title: 'Location',
+        title: i18next.t("conference:Location"),
         dataIndex: 'location',
         key: 'location',
         width: '120px',
         sorter: (a, b) => a.location.localeCompare(b.location),
       },
       {
-        title: 'Address',
+        title: i18next.t("conference:Address"),
         dataIndex: 'address',
         key: 'address',
         width: '120px',
         sorter: (a, b) => a.address.localeCompare(b.address),
       },
       {
-        title: 'Status',
+        title: i18next.t("general:Status"),
         dataIndex: 'status',
         key: 'status',
         width: '80px',
         sorter: (a, b) => a.status.localeCompare(b.status),
       },
       {
-        title: 'Action',
+        title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
         width: '120px',
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/conferences/${record.name}`)}>Edit</Button>
+              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/conferences/${record.name}`)}>{i18next.t("general:Edit")}</Button>
               <Popconfirm
                 title={`Sure to delete conference: ${record.name} ?`}
                 onConfirm={() => this.deleteConference(index)}
                 okText="OK"
                 cancelText="Cancel"
               >
-                <Button style={{marginBottom: '10px'}} type="danger">Delete</Button>
+                <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
               </Popconfirm>
             </div>
           )
@@ -174,8 +175,8 @@ class ConferenceListPage extends React.Component {
         <Table columns={columns} dataSource={conferences} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
                title={() => (
                  <div>
-                   Conferences&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addConference.bind(this)}>Add</Button>
+                   {i18next.t("general:Conferences")}&nbsp;&nbsp;&nbsp;&nbsp;
+                   <Button type="primary" size="small" onClick={this.addConference.bind(this)}>{i18next.t("general:Add")}</Button>
                  </div>
                )}
                loading={conferences === null}

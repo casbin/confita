@@ -5,10 +5,40 @@
     "Sign Out": "登出",
     "Sign Up": "注册"
   },
+  "conference": {
+    "Address": "地址",
+    "Carousels": "轮播图",
+    "End date": "结束日期",
+    "Full name": "全名",
+    "Introduction text": "介绍",
+    "Language": "语言",
+    "Location": "城市",
+    "Menu": "菜单",
+    "Organizer": "主办方",
+    "Start date": "开始日期"
+  },
   "general": {
+    "Action": "操作",
+    "Add": "添加",
     "Conferences": "我的会议",
+    "Created time": "创建时间",
+    "Delete": "删除",
+    "Edit": "编辑",
     "Home": "首页",
+    "Name": "名称",
+    "Preview": "预览",
     "Resources": "我的资源",
+    "Status": "状态",
     "Submissions": "我的稿件"
+  },
+  "submission": {
+    "Authors": "作者",
+    "Conference": "会议",
+    "File upload": "稿件上传",
+    "PDF file": "PDF文件",
+    "Sub type": "子类型",
+    "Title": "标题",
+    "Type": "类型",
+    "Word file": "Word文件"
   }
 }

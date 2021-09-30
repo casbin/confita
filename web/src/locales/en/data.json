@@ -5,10 +5,40 @@
     "Sign Out": "Sign Out",
     "Sign Up": "Sign Up"
   },
+  "conference": {
+    "Address": "Address",
+    "Carousels": "Carousels",
+    "End date": "End date",
+    "Full name": "Full name",
+    "Introduction text": "Introduction text",
+    "Language": "Language",
+    "Location": "Location",
+    "Menu": "Menu",
+    "Organizer": "Organizer",
+    "Start date": "Start date"
+  },
   "general": {
+    "Action": "Action",
+    "Add": "Add",
     "Conferences": "Conferences",
+    "Created time": "Created time",
+    "Delete": "Delete",
+    "Edit": "Edit",
     "Home": "Home",
+    "Name": "Name",
+    "Preview": "Preview",
     "Resources": "Resources",
+    "Status": "Status",
     "Submissions": "Submissions"
+  },
+  "submission": {
+    "Authors": "Authors",
+    "Conference": "Conference",
+    "File upload": "File upload",
+    "PDF file": "PDF file",
+    "Sub type": "Sub type",
+    "Title": "Title",
+    "Type": "Type",
+    "Word file": "Word file"
   }
 }

@@ -5,6 +5,7 @@ import * as Setting from "./Setting";
 import moment from "moment";
 import Conference from "./Conference";
 import ConferenceEdit from "./ConferenceEdit";
+import i18next from "i18next";
 
 const { Option } = Select;
 
@@ -58,7 +59,7 @@ class ConferenceEditPage extends React.Component {
       } style={{marginLeft: '5px'}} type="inner">
         <Row style={{marginTop: '10px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Name:
+            {i18next.t("general:Name")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.conference.name} onChange={e => {
@@ -68,7 +69,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Start date:
+            {i18next.t("conference:Start date")}:
           </Col>
           <Col span={5} >
             <DatePicker defaultValue={moment(this.state.conference.startDate, "YYYY-MM-DD")} onChange={(time, timeString) => {
@@ -76,7 +77,7 @@ class ConferenceEditPage extends React.Component {
             }} />
           </Col>
           <Col style={{marginTop: '5px'}} span={2}>
-            End date:
+            {i18next.t("conference:End date")}:
           </Col>
           <Col span={10} >
             <DatePicker defaultValue={moment(this.state.conference.endDate, "YYYY-MM-DD")} onChange={(time, timeString) => {
@@ -86,7 +87,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Full name:
+            {i18next.t("conference:Full name")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.conference.fullName} onChange={e => {
@@ -96,7 +97,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Organizer:
+            {i18next.t("conference:Organizer")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.conference.organizer} onChange={e => {
@@ -106,7 +107,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Location:
+            {i18next.t("conference:Location")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.conference.location} onChange={e => {
@@ -116,7 +117,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Address:
+            {i18next.t("conference:Address")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.conference.address} onChange={e => {
@@ -126,7 +127,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Status:
+            {i18next.t("general:Status")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.conference.status} onChange={(value => {this.updateConferenceField('status', value);})}>
@@ -141,7 +142,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Carousels:
+            {i18next.t("conference:Carousels")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} mode="tags" style={{width: '100%'}} placeholder="Please input"
@@ -158,7 +159,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Introduction text:
+            {i18next.t("conference:Introduction text")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.conference.introText} onChange={e => {
@@ -168,7 +169,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Language:
+            {i18next.t("conference:Language")}:
           </Col>
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.conference.language} onChange={(value => {this.updateConferenceField('language', value);})}>
@@ -183,7 +184,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Menu:
+            {i18next.t("conference:Menu")}:
           </Col>
           <Col span={22} >
             <ConferenceEdit conference={this.state.conference} language={this.state.conference.language} onUpdateTreeItems={(value) => { this.updateConferenceField('treeItems', value)}} />
@@ -191,7 +192,7 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Preview:
+            {i18next.t("general:Preview")}:
           </Col>
           <Col span={22} >
             <Conference conference={this.state.conference} language={this.state.conference.language} />

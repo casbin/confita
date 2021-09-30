@@ -4,6 +4,7 @@ import moment from "moment";
 import * as Setting from "./Setting";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
 import {Link} from "react-router-dom";
+import i18next from "i18next";
 
 class SubmissionListPage extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class SubmissionListPage extends React.Component {
   renderTable(submissions) {
     const columns = [
       {
-        title: 'Name',
+        title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
         width: '120px',
@@ -89,7 +90,7 @@ class SubmissionListPage extends React.Component {
         }
       },
       {
-        title: 'Created time',
+        title: i18next.t("general:Created time"),
         dataIndex: 'createdTime',
         key: 'createdTime',
         width: '100px',
@@ -99,7 +100,7 @@ class SubmissionListPage extends React.Component {
         }
       },
       {
-        title: 'Conference',
+        title: i18next.t("submission:Conference"),
         dataIndex: 'conference',
         key: 'conference',
         width: '120px',
@@ -113,14 +114,14 @@ class SubmissionListPage extends React.Component {
         }
       },
       {
-        title: 'Title',
+        title: i18next.t("submission:Title"),
         dataIndex: 'title',
         key: 'title',
         width: '120px',
         sorter: (a, b) => a.title.localeCompare(b.title),
       },
       {
-        title: 'Authors',
+        title: i18next.t("submission:Authors"),
         dataIndex: 'authors',
         key: 'authors',
         width: '300px',
@@ -154,42 +155,42 @@ class SubmissionListPage extends React.Component {
         },
       },
       {
-        title: 'Word file',
+        title: i18next.t("submission:Word file"),
         dataIndex: 'wordFileUrl',
         key: 'wordFileUrl',
         width: '120px',
         sorter: (a, b) => a.wordFileUrl.localeCompare(b.wordFileUrl),
       },
       {
-        title: 'PDF file',
+        title: i18next.t("submission:PDF file"),
         dataIndex: 'pdfFileUrl',
         key: 'pdfFileUrl',
         width: '120px',
         sorter: (a, b) => a.pdfFileUrl.localeCompare(b.pdfFileUrl),
       },
       {
-        title: 'Status',
+        title: i18next.t("general:Status"),
         dataIndex: 'status',
         key: 'status',
         width: '80px',
         sorter: (a, b) => a.status.localeCompare(b.status),
       },
       {
-        title: 'Action',
+        title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
         width: '140px',
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/submissions/${record.name}`)}>Edit</Button>
+              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/submissions/${record.name}`)}>{i18next.t("general:Edit")}</Button>
               <Popconfirm
                 title={`Sure to delete submission: ${record.name} ?`}
                 onConfirm={() => this.deleteSubmission(index)}
                 okText="OK"
                 cancelText="Cancel"
               >
-                <Button style={{marginBottom: '10px'}} type="danger">Delete</Button>
+                <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
               </Popconfirm>
             </div>
           )
@@ -202,7 +203,7 @@ class SubmissionListPage extends React.Component {
         <Table columns={columns} dataSource={submissions} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
                title={() => (
                  <div>
-                   Submissions&nbsp;&nbsp;&nbsp;&nbsp;
+                   {i18next.t("general:Submissions")}&nbsp;&nbsp;&nbsp;&nbsp;
                    <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>Add</Button>
                  </div>
                )}
