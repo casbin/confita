@@ -69,3 +69,12 @@ code {
 .green-row {
   background: #d9f7be;
 }
+
+/*https://stackoverflow.com/questions/64961752/how-do-i-change-the-color-of-selected-menu-item-in-ant-design*/
+/*.conferenceMenu > .ant-menu-item-selected {*/
+/*  background-color: rgb(230,247,255) !important;*/
+/*}*/
+
+.conferenceMenu {
+  background-color: rgb(242,242,242) !important;
+}
