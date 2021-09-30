@@ -1,8 +1,5 @@
 import React from "react";
 import {Col, Empty, Menu, Row} from "antd";
-import {AppstoreOutlined, CalendarOutlined, LinkOutlined, MailOutlined, SettingOutlined} from "@ant-design/icons";
-
-const { SubMenu } = Menu;
 
 class Conference extends React.Component {
   constructor(props) {
@@ -25,8 +22,8 @@ class Conference extends React.Component {
 
   renderMenu(treeItems) {
     const mode = "inline";
-    // const theme = "light";
-    const theme = "dark";
+    const theme = "light";
+    // const theme = "dark";
 
     return (
       <Menu
@@ -35,6 +32,8 @@ class Conference extends React.Component {
         defaultOpenKeys={['sub1']}
         mode={mode}
         theme={theme}
+        className={"conferenceMenu"}
+        style={{border: "1px solid rgb(240,240,240)"}}
         onClick={this.handleClick}
       >
         {
