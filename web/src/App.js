@@ -207,25 +207,29 @@ class App extends Component {
         {/*</Link>*/}
       </Menu.Item>
     );
-    res.push(
-      <Menu.Item key="/conferences">
-        <Link to="/conferences">
-          {i18next.t("general:Conferences")}
-        </Link>
-      </Menu.Item>
-    );
+
+    if (this.state.account.isAdmin) {
+      res.push(
+        <Menu.Item key="/conferences">
+          <Link to="/conferences">
+            {i18next.t("general:Conferences")}
+          </Link>
+        </Menu.Item>
+      );
+      res.push(
+        <Menu.Item key="/resources">
+          <a target="_blank" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
+            {i18next.t("general:Resources")}
+          </a>
+        </Menu.Item>
+      );
+    }
+
     res.push(
       <Menu.Item key="/submissions">
         <Link to="/submissions">
           {i18next.t("general:Submissions")}
         </Link>
-      </Menu.Item>
-    );
-    res.push(
-      <Menu.Item key="/resources">
-        <a target="_blank" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
-          {i18next.t("general:Resources")}
-        </a>
       </Menu.Item>
     );
 
