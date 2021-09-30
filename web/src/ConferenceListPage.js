@@ -36,7 +36,6 @@ class ConferenceListPage extends React.Component {
       endDate: moment().format("YYYY-MM-DD"),
       fullName: `Conference ${this.state.conferences.length}`,
       organizer: "Casbin",
-      logo: `${Setting.CdnBaseUrl}/logo/logo_752x368.png`,
       location: "Shanghai, China",
       address: "3663 Zhongshan Road North",
       status: "Public",
@@ -125,21 +124,6 @@ class ConferenceListPage extends React.Component {
         key: 'organizer',
         width: '120px',
         sorter: (a, b) => a.organizer.localeCompare(b.organizer),
-      },
-      {
-        title: 'Logo',
-        dataIndex: 'logo',
-        key: 'logo',
-        width: '100px',
-        render: (text, record, index) => {
-          return (
-            <div>
-              <a target="_blank" href={text}>
-                <img src={text} alt={text} width={150} />
-              </a>
-            </div>
-          )
-        }
       },
       {
         title: 'Location',

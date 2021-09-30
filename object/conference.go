@@ -23,7 +23,6 @@ type Conference struct {
 	EndDate   string `xorm:"varchar(100)" json:"endDate"`
 	FullName  string `xorm:"varchar(100)" json:"fullName"`
 	Organizer string `xorm:"varchar(100)" json:"organizer"`
-	Logo      string `xorm:"varchar(100)" json:"logo"`
 	Location  string `xorm:"varchar(100)" json:"location"`
 	Address   string `xorm:"varchar(100)" json:"address"`
 	Status    string `xorm:"varchar(100)" json:"status"`
