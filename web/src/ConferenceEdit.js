@@ -281,7 +281,7 @@ class ConferenceEdit extends React.Component {
             Content:
           </Col>
           <Col span={22} >
-            <div style={{height: '400px', border: '1px solid rgb(217,217,217)'}} >
+            <div style={{height: '600px', border: '1px solid rgb(217,217,217)'}} >
               <HtmlEditorBraft key={treeItem.key} text={treeItem.content} onUpdateText={(text) => {
                 this.updateTreeItemField('content', text);
               }} />
