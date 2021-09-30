@@ -174,8 +174,8 @@ class ConferenceEditPage extends React.Component {
             <Select virtual={false} style={{width: '100%'}} value={this.state.conference.language} onChange={(value => {this.updateConferenceField('language', value);})}>
               {
                 [
-                  {id: 'Zh', name: 'Zh'},
-                  {id: 'En', name: 'En'},
+                  {id: 'zh', name: 'zh'},
+                  {id: 'en', name: 'en'},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
