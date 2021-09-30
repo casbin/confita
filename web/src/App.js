@@ -57,7 +57,8 @@ class App extends Component {
   }
 
   setLanguage(account) {
-    let language = account?.language;
+    // let language = account?.language;
+    let language = localStorage.getItem("language");
     if (language !== "" && language !== i18next.language) {
       Setting.setLanguage(language);
     }
