@@ -60,6 +60,7 @@ class HtmlEditorBraft extends React.Component {
         <BraftEditor
           controls={controls}
           fontFamilies={fontFamilies}
+          letterSpacings={[0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 18, 20, 30, 40, 50]}
           value={this.state.editorState}
           onChange={this.handleChange}
         />
