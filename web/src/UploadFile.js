@@ -1,6 +1,6 @@
 import React from "react";
 import {Upload, Modal} from 'antd';
-import {DownloadOutlined, PlusOutlined} from '@ant-design/icons';
+import {PlusOutlined} from '@ant-design/icons';
 import * as Setting from "./Setting";
 
 function getBase64(file) {
@@ -132,7 +132,9 @@ class UploadFile extends React.Component {
               if (res.status === 'ok') {
                 // Setting.showMessage("success", `File uploaded successfully`);
 
-                const url = res.msg;
+                let url = res.msg;
+                url = url.substring(0, url.lastIndexOf('?'));
+
                 // const fileSize = res.data;
                 // const objectKey = res.data2;
                 this.updateSubmission(this.props.urlKey, url);

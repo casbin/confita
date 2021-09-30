@@ -1,9 +1,10 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {Button, Col, List, Popconfirm, Row, Table} from 'antd';
+import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
-import {Link} from "react-router-dom";
 import i18next from "i18next";
 
 class SubmissionListPage extends React.Component {
@@ -160,6 +161,18 @@ class SubmissionListPage extends React.Component {
         key: 'wordFileUrl',
         width: '120px',
         sorter: (a, b) => a.wordFileUrl.localeCompare(b.wordFileUrl),
+        render: (text, record, index) => {
+          return (
+            <Button style={{height: 78}} type="dashed" onClick={() => Setting.goToLink(text)}>
+              <div>
+                <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
+              </div>
+              <div>
+                {Setting.getFilenameFromUrl(text)}
+              </div>
+            </Button>
+          )
+        }
       },
       {
         title: i18next.t("submission:PDF file"),
@@ -167,6 +180,18 @@ class SubmissionListPage extends React.Component {
         key: 'pdfFileUrl',
         width: '120px',
         sorter: (a, b) => a.pdfFileUrl.localeCompare(b.pdfFileUrl),
+        render: (text, record, index) => {
+          return (
+            <Button style={{height: 78}} type="dashed" onClick={() => Setting.openLink(text)}>
+              <div>
+                <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
+              </div>
+              <div>
+                {Setting.getFilenameFromUrl(text)}
+              </div>
+            </Button>
+          )
+        }
       },
       {
         title: i18next.t("general:Status"),

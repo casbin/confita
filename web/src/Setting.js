@@ -188,3 +188,8 @@ export function changeMomentLanguage(lng) {
     });
   }
 }
+
+export function getFilenameFromUrl(url) {
+  const filename = url.substring(url.lastIndexOf('/') + 1);
+  return filename;
+}
