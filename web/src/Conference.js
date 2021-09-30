@@ -25,7 +25,8 @@ class Conference extends React.Component {
 
   renderMenu(treeItems) {
     const mode = "inline";
-    const theme = "light";
+    // const theme = "light";
+    const theme = "dark";
 
     return (
       <Menu
