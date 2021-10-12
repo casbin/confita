@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "set PORT=11001 && craco start",
-    "build": "del build.zip 2>nul && set \"GENERATE_SOURCEMAP=false\" && craco build && 360zip.exe -ar build %cd%/build.zip || ECHO.",
+    "build": "del build.zip 2>nul && set \"GENERATE_SOURCEMAP=false\" && set \"SKIP_PREFLIGHT_CHECK=true\" && craco build && 360zip.exe -ar build %cd%/build.zip || ECHO.",
     "test": "craco test",
     "eject": "craco eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
