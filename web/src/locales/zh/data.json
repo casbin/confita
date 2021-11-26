@@ -12,6 +12,7 @@
     "Full name": "全名",
     "Introduction text": "介绍",
     "Language": "语言",
+    "Local image upload is disallowed. Please go to \\\"Resources\\\" to upload images and paste the image URL to the text editor. You can choose \\\"Media\\\" -\u003e left-bottom corner \\\"+Add network resource\\\", then paste the image URL into the box": "系统禁止从本地上传图片等资源。请在上方“我的资源”中上传图片并获得图片URL。再在本文编辑器中，选择“媒体”->左下角“+添加网络资源”后，把图片URL粘贴到输入框内，从而插入图片",
     "Location": "城市",
     "Menu": "菜单",
     "Organizer": "主办方",

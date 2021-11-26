@@ -1,6 +1,7 @@
 import 'braft-editor/dist/index.css'
 import React from "react";
 import BraftEditor from "braft-editor";
+import i18next from "i18next";
 
 const fontFamilies = [
   { name: '宋体', family: 'SimSun' },
@@ -62,6 +63,12 @@ class HtmlEditorBraft extends React.Component {
           fontFamilies={fontFamilies}
           letterSpacings={[0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 18, 20, 30, 40, 50]}
           value={this.state.editorState}
+          media={{
+            validateFn: (file) => {
+              alert(i18next.t("conference:Local image upload is disallowed. Please go to \"Resources\" to upload images and paste the image URL to the text editor. You can choose \"Media\" -> left-bottom corner \"+Add network resource\", then paste the image URL into the box"));
+              return false;
+            }
+          }}
           onChange={this.handleChange}
         />
       </div>
