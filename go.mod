@@ -1,4 +1,4 @@
-module github.com/confita/confita
+module github.com/casbin/confita
 
 go 1.16
 

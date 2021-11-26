@@ -4,11 +4,11 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/plugins/cors"
-	"github.com/confita/confita/object"
-	"github.com/confita/confita/routers"
-	"github.com/confita/confita/util"
+	"github.com/casbin/confita/object"
+	"github.com/casbin/confita/routers"
+	"github.com/casbin/confita/util"
 
-	_ "github.com/confita/confita/routers"
+	_ "github.com/casbin/confita/routers"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package i18n
 import (
 	"fmt"
 
-	"github.com/confita/confita/util"
+	"github.com/casbin/confita/util"
 )
 
 func getI18nFilePath(language string) string {

@@ -1,7 +1,7 @@
 package object
 
 import (
-	"github.com/confita/confita/util"
+	"github.com/casbin/confita/util"
 	"xorm.io/core"
 )
 

@@ -6,7 +6,7 @@ import (
 	"io"
 	"mime/multipart"
 
-	"github.com/confita/confita/service"
+	"github.com/casbin/confita/service"
 )
 
 func getFileBytes(file *multipart.File) []byte {

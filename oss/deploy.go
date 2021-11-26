@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/confita/confita/util"
+	"github.com/casbin/confita/util"
 )
 
 func uploadFolder(folder string) {

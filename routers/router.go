@@ -3,7 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 
-	"github.com/confita/confita/controllers"
+	"github.com/casbin/confita/controllers"
 )
 
 func init() {

@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/confita/confita/util"
+	"github.com/casbin/confita/util"
 )
 
 type I18nData map[string]map[string]string

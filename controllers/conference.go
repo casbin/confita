@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 
-	"github.com/confita/confita/object"
+	"github.com/casbin/confita/object"
 )
 
 func (c *ApiController) GetGlobalConferences() {

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego/context"
-	"github.com/confita/confita/util"
+	"github.com/casbin/confita/util"
 )
 
 func TransparentStatic(ctx *context.Context) {
