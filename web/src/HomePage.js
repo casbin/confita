@@ -17,16 +17,14 @@ import {Carousel, Col, Row} from "antd";
 import Conference from "./Conference";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
-
-const owner = "admin";
-const conferenceName = "conference_0";
+import * as Conf from "./Conf";
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       classes: props,
-      conferenceName: conferenceName,
+      conferenceName: Conf.DefaultConferenceName,
       conference: null,
     };
   }
@@ -36,7 +34,7 @@ class HomePage extends React.Component {
   }
 
   getConference() {
-    ConferenceBackend.getConference(owner, this.state.conferenceName)
+    ConferenceBackend.getConference(Conf.DefaultOwner, this.state.conferenceName)
       .then((conference) => {
         this.setState({
           conference: conference,

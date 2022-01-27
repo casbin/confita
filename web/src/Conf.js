@@ -20,5 +20,8 @@ export const AuthConfig = {
   organizationName: "casbin",
 };
 
+export const DefaultOwner = "admin";
+export const DefaultConferenceName = "conference_0";
+
 export const ForceLanguage = "";
 export const DefaultLanguage = "en";
