@@ -42,9 +42,10 @@ type Conference struct {
 	Status    string `xorm:"varchar(100)" json:"status"`
 	Language  string `xorm:"varchar(100)" json:"language"`
 
-	Carousels []string    `xorm:"mediumtext" json:"carousels"`
-	IntroText string      `xorm:"mediumtext" json:"introText"`
-	TreeItems []*TreeItem `xorm:"mediumtext" json:"treeItems"`
+	Carousels   []string    `xorm:"mediumtext" json:"carousels"`
+	IntroText   string      `xorm:"mediumtext" json:"introText"`
+	DefaultItem string      `xorm:"mediumtext" json:"defaultItem"`
+	TreeItems   []*TreeItem `xorm:"mediumtext" json:"treeItems"`
 }
 
 func GetGlobalConferences() []*Conference {

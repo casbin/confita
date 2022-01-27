@@ -20,7 +20,7 @@ class Conference extends React.Component {
     super(props);
     this.state = {
       classes: props,
-      selectedKey: 0,
+      selectedKey: this.props.conference.defaultItem,
     };
   }
 
@@ -42,7 +42,7 @@ class Conference extends React.Component {
     return (
       <Menu
         // style={{ width: 256 }}
-        defaultSelectedKeys={['0']}
+        selectedKeys={[this.state.selectedKey]}
         defaultOpenKeys={['sub1']}
         mode={mode}
         theme={theme}
@@ -52,12 +52,12 @@ class Conference extends React.Component {
       >
         {
           treeItems.map((treeItem, i) => {
-            if (i === 0) {
-              return null;
-            }
+            // if (i === 0) {
+            //   return null;
+            // }
 
             return (
-              <Menu.Item key={`${i}`}>
+              <Menu.Item key={treeItem.title}>
                 {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
               </Menu.Item>
             )
@@ -103,7 +103,7 @@ class Conference extends React.Component {
       return null;
     }
 
-    return treeItems[this.state.selectedKey];
+    return treeItems.filter(treeItem => (treeItem.title === this.state.selectedKey))[0];
   }
 
   renderPage(treeItem) {

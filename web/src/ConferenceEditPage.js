@@ -183,6 +183,18 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("conference:Default item")}:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.conference.defaultItem} onChange={value => {this.updateConferenceField('defaultItem', value);}}>
+              {
+                this.state.conference.treeItems.map((treeItem, index) => <Option key={treeItem.title}>{`${treeItem.title} | ${treeItem.titleEn}`}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("conference:Language")}:
           </Col>
           <Col span={22} >

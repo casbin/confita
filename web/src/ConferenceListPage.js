@@ -57,7 +57,8 @@ class ConferenceListPage extends React.Component {
       language: "zh",
       carousels: [],
       introText: "Introduction..",
-      treeItems: [{key: "Home", title: "Home", titleEn: "主页", content: "Content", contentEn: "内容", children: []}],
+      defaultItem: "Home",
+      treeItems: [{key: "Home", title: "首页", titleEn: "Home", content: "内容", contentEn: "Content", children: []}],
     }
   }
 
