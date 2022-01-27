@@ -14,6 +14,13 @@
 
 import * as Setting from "../Setting";
 
+export function getAllSubmissions() {
+  return fetch(`${Setting.ServerUrl}/api/get-all-submissions`, {
+    method: "GET",
+    credentials: "include"
+  }).then(res => res.json());
+}
+
 export function getSubmissions(owner) {
   return fetch(`${Setting.ServerUrl}/api/get-submissions?owner=${owner}`, {
     method: "GET",

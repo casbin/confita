@@ -20,6 +20,11 @@ import (
 	"github.com/casbin/confita/object"
 )
 
+func (c *ApiController) GetAllSubmissions() {
+	c.Data["json"] = object.GetAllSubmissions()
+	c.ServeJSON()
+}
+
 func (c *ApiController) GetSubmissions() {
 	owner := c.Input().Get("owner")
 

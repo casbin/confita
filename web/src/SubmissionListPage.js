@@ -31,11 +31,11 @@ class SubmissionListPage extends React.Component {
   }
 
   componentWillMount() {
-    this.getSubmissions();
+    this.getAllSubmissions();
   }
 
-  getSubmissions() {
-    SubmissionBackend.getSubmissions(this.props.account.name)
+  getAllSubmissions() {
+    SubmissionBackend.getAllSubmissions(this.props.account.name)
       .then((res) => {
         this.setState({
           submissions: res,
@@ -91,6 +91,20 @@ class SubmissionListPage extends React.Component {
   renderTable(submissions) {
     const columns = [
       {
+        title: i18next.t("general:Owner"),
+        dataIndex: 'owner',
+        key: 'owner',
+        width: '120px',
+        sorter: (a, b) => a.owner.localeCompare(b.owner),
+        render: (text, record, index) => {
+          return (
+            <a target="_blank" href={Setting.getUserProfileUrl(text)}>
+              {text}
+            </a>
+          )
+        }
+      },
+      {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
@@ -108,7 +122,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Created time"),
         dataIndex: 'createdTime',
         key: 'createdTime',
-        width: '100px',
+        width: '110px',
         sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
