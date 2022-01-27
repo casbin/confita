@@ -51,7 +51,7 @@ class ConferenceEdit extends React.Component {
     super(props);
     this.state = {
       classes: props,
-      treePath: null,
+      treePath: '0-0',
       gData,
       expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
     };
@@ -195,15 +195,15 @@ class ConferenceEdit extends React.Component {
   addTreeItemRow() {
     let treeItems = this.props.conference.treeItems;
 
-    const treeItem = {key: `Title - ${treeItems.length + 1}`, title: `Title - ${treeItems.length + 1}`, content: `Content - ${treeItems.length + 1}`, children: []};
+    const treeItem = {key: `Title - ${treeItems.length + 1}`, title: `Title - ${treeItems.length + 1}`, titleEn: `Title - ${treeItems.length + 1}`, content: `Content - ${treeItems.length + 1}`, contentEn: `Content - ${treeItems.length + 1}`, children: []};
     treeItems = Setting.addRow(treeItems, treeItem);
     this.props.onUpdateTreeItems(treeItems);
   }
 
-  deleteTreeItemRow() {
+  deleteTreeItemRow(i) {
     let treeItems = this.props.conference.treeItems;
 
-    treeItems = Setting.deleteRow(treeItems, treeItems.length - 1);
+    treeItems = Setting.deleteRow(treeItems, i);
     this.props.onUpdateTreeItems(treeItems);
   }
 
@@ -229,14 +229,21 @@ class ConferenceEdit extends React.Component {
 
     // let data = `[{"title":"0-0","key":"0-0","children":[{"title":"0-0-0","key":"0-0-0","children":[{"title":"0-0-0-0","key":"0-0-0-0"},{"title":"0-0-0-1","key":"0-0-0-1"},{"title":"0-0-0-2","key":"0-0-0-2"}]},{"title":"0-0-1","key":"0-0-1","children":[{"title":"0-0-1-0","key":"0-0-1-0"},{"title":"0-0-1-1","key":"0-0-1-1"},{"title":"0-0-1-2","key":"0-0-1-2"}]},{"title":"0-0-2","key":"0-0-2"}]},{"title":"0-1","key":"0-1","children":[{"title":"0-1-0","key":"0-1-0","children":[{"title":"0-1-0-0","key":"0-1-0-0"},{"title":"0-1-0-1","key":"0-1-0-1"},{"title":"0-1-0-2","key":"0-1-0-2"}]},{"title":"0-1-1","key":"0-1-1","children":[{"title":"0-1-1-0","key":"0-1-1-0"},{"title":"0-1-1-1","key":"0-1-1-1"},{"title":"0-1-1-2","key":"0-1-1-2"}]},{"title":"0-1-2","key":"0-1-2"}]},{"title":"0-2","key":"0-2"}]`
     // alert(JSON.stringify(this.state.gData))
+
+    const copiedTreeItems = treeItems.map((treeItem, i) => {
+      let copiedTreeItem = Setting.deepCopy(treeItem);
+      copiedTreeItem.title = `  ${treeItem.title}`;
+      copiedTreeItem.icon = (
+          <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRow(i)} />
+      );
+      return copiedTreeItem;
+    })
+
     return (
       <div>
         <Row style={{marginTop: '10px', marginBottom: '10px'}} >
           <Tooltip placement="topLeft" title="Add">
             <Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow()} />
-          </Tooltip>
-          <Tooltip placement="topLeft" title="Delete">
-            <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRow()} />
           </Tooltip>
         </Row>
         <Tree
@@ -249,10 +256,11 @@ class ConferenceEdit extends React.Component {
           onDrop={this.onDrop}
           // switcherIcon={<DownOutlined  />}
           icon={null}
-          defaultSelectedKeys={[]}
+          showIcon={true}
+          defaultSelectedKeys={treeItems.length > 0 ? [treeItems[0].key] : []}
           onSelect={onSelect}
           // treeData={this.state.gData}
-          treeData={treeItems}
+          treeData={copiedTreeItems}
         />
       </div>
     )
