@@ -18,6 +18,7 @@ export const AuthConfig = {
   clientId: "4204b22726f5ff8c9efe",
   appName: "app-confita",
   organizationName: "casbin",
+  redirectPath: "/callback",
 };
 
 export const DefaultOwner = "admin";
