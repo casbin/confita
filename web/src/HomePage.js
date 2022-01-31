@@ -44,7 +44,7 @@ class HomePage extends React.Component {
 
   renderCarousel(conference) {
     const contentStyle = {
-      height: '250px',
+      // height: '150px',
       color: '#fff',
       lineHeight: '160px',
       textAlign: 'center',
@@ -75,9 +75,11 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        {
-          this.renderCarousel(this.state.conference)
-        }
+        <div style={{marginBottom: '-8px'}}>
+          {
+            this.renderCarousel(this.state.conference)
+          }
+        </div>
         <Conference conference={this.state.conference} language={Setting.getLanguage()} />
       </div>
     )
@@ -87,14 +89,14 @@ class HomePage extends React.Component {
     return (
       <div>
         <Row style={{width: "100%"}}>
-          <Col span={3}>
+          <Col span={!Setting.isMobile() ? 3 : 0}>
           </Col>
-          <Col span={18}>
+          <Col span={!Setting.isMobile() ? 18 : 24}>
             {
               this.renderHome()
             }
           </Col>
-          <Col span={3}>
+          <Col span={!Setting.isMobile() ? 3 : 0}>
           </Col>
         </Row>
       </div>

@@ -45,7 +45,7 @@ class SelectLanguageBox extends React.Component {
           <Link style={{color: "black"}} onClick={() => {
             Setting.changeLanguage("zh");
           }}>
-            简体中文
+            中文
           </Link>
         </Menu.Item>
       </React.Fragment>

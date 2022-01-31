@@ -14,6 +14,7 @@
 
 import React from "react";
 import {Col, Empty, Menu, Row} from "antd";
+import * as Setting from "./Setting";
 
 class Conference extends React.Component {
   constructor(props) {
@@ -35,7 +36,13 @@ class Conference extends React.Component {
   };
 
   renderMenu(treeItems) {
-    const mode = "inline";
+    let mode;
+    if (!Setting.isMobile()) {
+      mode = "inline";
+    } else {
+      mode = "horizontal";
+    }
+
     const theme = "light";
     // const theme = "dark";
 
@@ -128,22 +135,39 @@ class Conference extends React.Component {
   render() {
     const conference = this.props.conference;
 
-    return (
-      <Row style={{marginTop: '10px'}} >
-        <Col span={4} >
-          {
-            this.renderMenu(conference.treeItems)
-          }
-        </Col>
-        <Col span={1} >
-        </Col>
-        <Col span={19} >
-          {
-            this.renderPage(this.getTreeItem(conference.treeItems))
-          }
-        </Col>
-      </Row>
-    )
+    if (!Setting.isMobile()) {
+      return (
+        <Row>
+          <Col span={4} >
+            {
+              this.renderMenu(conference.treeItems)
+            }
+          </Col>
+          <Col span={1} >
+          </Col>
+          <Col span={19} >
+            {
+              this.renderPage(this.getTreeItem(conference.treeItems))
+            }
+          </Col>
+        </Row>
+      )
+    } else {
+      return (
+        <Row>
+          <Col span={24} >
+            {
+              this.renderMenu(conference.treeItems)
+            }
+          </Col>
+          <Col span={24} >
+            {
+              this.renderPage(this.getTreeItem(conference.treeItems))
+            }
+          </Col>
+        </Row>
+      )
+    }
   }
 }
 
