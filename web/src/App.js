@@ -93,11 +93,6 @@ class App extends Component {
   }
 
   signout() {
-    this.setState({
-      expired: false,
-      submitted: false,
-    });
-
     AccountBackend.signout()
       .then((res) => {
         if (res.status === 'ok') {
@@ -106,7 +101,8 @@ class App extends Component {
           });
 
           Setting.showMessage("success", `Successfully signed out, redirected to homepage`);
-          this.props.history.push("/");
+          Setting.goToLink("/");
+          // this.props.history.push("/");
         } else {
           Setting.showMessage("error", `Signout failed: ${res.msg}`);
         }
