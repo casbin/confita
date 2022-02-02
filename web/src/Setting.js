@@ -97,6 +97,10 @@ export function deepCopy(obj) {
   return Object.assign({}, obj);
 }
 
+export function insertRow(array, row, i) {
+  return [...array.slice(0, i), row, ...array.slice(i)];
+}
+
 export function addRow(array, row) {
   return [...array, row];
 }

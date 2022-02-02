@@ -192,11 +192,11 @@ class ConferenceEdit extends React.Component {
     return res;
   }
 
-  addTreeItemRow() {
+  addTreeItemRow(i) {
     let treeItems = this.props.conference.treeItems;
 
     const treeItem = {key: `Title - ${treeItems.length + 1}`, title: `Title - ${treeItems.length + 1}`, titleEn: `Title - ${treeItems.length + 1}`, content: `Content - ${treeItems.length + 1}`, contentEn: `Content - ${treeItems.length + 1}`, children: []};
-    treeItems = Setting.addRow(treeItems, treeItem);
+    treeItems = Setting.insertRow(treeItems, treeItem, i);
     this.props.onUpdateTreeItems(treeItems);
   }
 
@@ -232,9 +232,14 @@ class ConferenceEdit extends React.Component {
 
     const copiedTreeItems = treeItems.map((treeItem, i) => {
       let copiedTreeItem = Setting.deepCopy(treeItem);
-      copiedTreeItem.title = `  ${treeItem.title}`;
-      copiedTreeItem.icon = (
-          <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRow(i)} />
+      copiedTreeItem.title = (
+          <div>
+            {/*<Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow(i)} />*/}
+            <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRow(i)} />
+            {
+              treeItem.title
+            }
+          </div>
       );
       return copiedTreeItem;
     })
@@ -243,7 +248,7 @@ class ConferenceEdit extends React.Component {
       <div>
         <Row style={{marginTop: '10px', marginBottom: '10px'}} >
           <Tooltip placement="topLeft" title="Add">
-            <Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow()} />
+            <Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow(this.props.conference.treeItems.length)} />
           </Tooltip>
         </Row>
         <Tree
