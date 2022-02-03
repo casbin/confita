@@ -184,18 +184,24 @@ class Conference extends React.Component {
       )
     } else {
       return (
-        <Row>
-          <Col span={24} >
-            {
-              this.renderMenu(conference.treeItems)
-            }
-          </Col>
-          <Col span={24} >
-            {
-              this.renderPage(this.getSelectedTreeItem(conference.treeItems))
-            }
-          </Col>
-        </Row>
+        <div>
+          <Row>
+            <Col span={24} >
+              {
+                this.renderMenu(conference.treeItems)
+              }
+            </Col>
+          </Row>
+          <Row>
+            <Col span={1} />
+            <Col span={22} >
+              {
+                this.renderPage(this.getSelectedTreeItem(conference.treeItems))
+              }
+            </Col>
+            <Col span={1} />
+          </Row>
+        </div>
       )
     }
   }
