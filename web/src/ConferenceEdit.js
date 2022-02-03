@@ -44,17 +44,43 @@ class ConferenceEdit extends React.Component {
 
     const dragIndex = parseInt(info.dragNode.pos.slice(2));
     let dropIndex = parseInt(info.node.pos.slice(2));
-    if (dropIndex !== 0 && dropIndex < dragIndex) {
-      dropIndex += 1;
+
+    const dragIndexArray = info.dragNode.pos.slice(2).split("-").map(i => parseInt(i));
+    const isSecondLevel = info.dropPosition === dropIndex;
+    const isSecondLevelOld = dragIndexArray.length === 2;
+
+    // Setting.showMessage("error", `isSecondLevelOld = ${isSecondLevelOld}, isSecondLevel = ${isSecondLevel}, dragIndex = ${dragIndex}, dropIndex = ${dropIndex}`);
+
+    dropIndex = info.dropPosition;
+    if (dropIndex === -1) {
+      dropIndex = 0;
+    } else if (!isSecondLevelOld && dropIndex > dragIndex) {
+      dropIndex -= 1;
     }
+
     // console.log(dragIndex);
     // console.log(dropIndex);
 
     let treeItems = this.props.conference.treeItems;
 
-    const treeItem = treeItems[dragIndex];
-    treeItems = Setting.deleteRow(treeItems, dragIndex);
-    treeItems = Setting.insertRow(treeItems, treeItem, dropIndex);
+    let treeItem = {children: treeItems};
+    dragIndexArray.forEach(i => {
+      treeItem = treeItem.children[i];
+    });
+
+    if (dragIndexArray.length === 1) {
+      treeItems = Setting.deleteRow(treeItems, dragIndex);
+    } else if (dragIndexArray.length === 2) {
+      const parentItem = treeItems[dragIndexArray[0]];
+      parentItem.children = Setting.deleteRow(parentItem.children, dragIndexArray[1]);
+    }
+
+    if (!isSecondLevel) {
+      treeItems = Setting.insertRow(treeItems, treeItem, dropIndex);
+    } else {
+      treeItems[dropIndex].children.push(treeItem);
+    }
+
     this.props.onUpdateTreeItems(treeItems);
   };
 
@@ -65,44 +91,6 @@ class ConferenceEdit extends React.Component {
   updateField(table, index, key, value) {
     table[index][key] = value;
     this.updateTable(table);
-  }
-
-  addTreeNode(tree, i) {
-    let row = {name: "Please select a provider", canSignUp: false, canSignIn: true, canUnlink: true, alertType: "None"};
-    if (tree === undefined) {
-      tree = [];
-    }
-    tree = Setting.addRow(tree, row);
-    this.updateTree(tree);
-  }
-
-  deleteTreeNode(tree, i) {
-    tree = Setting.deleteRow(tree, i);
-    this.updateTree(tree);
-  }
-
-  getTree(nodeData) {
-    const tree = [{key: "111", title: "111", children: []}];
-    const node = (
-      ({
-        title: (
-          <div>
-            {
-              nodeData.name
-            }
-            <Tooltip placement="topLeft" title={"Add"}>
-              <Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeNode(nodeData, 0)} />
-            </Tooltip>
-            <Tooltip placement="topLeft" title={"Delete"}>
-              <Button icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeNode(nodeData, 0)} />
-            </Tooltip>
-          </div>
-        ),
-        key: nodeData.key,
-        children: nodeData.children?.map((child, i) => this.renderTreeNode(child)),
-      })
-    );
-    return tree;
   }
 
   getTreeItem(treeItems) {
@@ -126,10 +114,23 @@ class ConferenceEdit extends React.Component {
     this.props.onUpdateTreeItems(treeItems);
   }
 
-  deleteTreeItemRow(i) {
+  // deleteTreeItemRow(i) {
+  //   let treeItems = this.props.conference.treeItems;
+  //
+  //   treeItems = Setting.deleteRow(treeItems, i);
+  //   this.props.onUpdateTreeItems(treeItems);
+  // }
+
+  deleteTreeItemRowEx(indexArray) {
     let treeItems = this.props.conference.treeItems;
 
-    treeItems = Setting.deleteRow(treeItems, i);
+    if (indexArray.length === 1) {
+      treeItems = Setting.deleteRow(treeItems, indexArray[0]);
+    } else if (indexArray.length === 2) {
+      const parentItem = treeItems[indexArray[0]];
+      parentItem.children = Setting.deleteRow(parentItem.children, indexArray[1]);
+    }
+
     this.props.onUpdateTreeItems(treeItems);
   }
 
@@ -157,13 +158,27 @@ class ConferenceEdit extends React.Component {
       let copiedTreeItem = Setting.deepCopy(treeItem);
       copiedTreeItem.title = (
           <div>
-            {/*<Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow(i)} />*/}
-            <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRow(i)} />
+            <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRowEx([i])} />
             {
               treeItem.title
             }
           </div>
       );
+
+      copiedTreeItem.children = copiedTreeItem.children.map((treeItem2, j) => {
+        let copiedTreeItem2 = Setting.deepCopy(treeItem2);
+        copiedTreeItem2.title = (
+          <div>
+            <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRowEx([i, j])} />
+            {
+              treeItem2.title
+            }
+          </div>
+        );
+
+        return copiedTreeItem2;
+      })
+
       return copiedTreeItem;
     })
 
