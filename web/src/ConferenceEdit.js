@@ -98,10 +98,10 @@ class ConferenceEdit extends React.Component {
       return null;
     }
 
-    let res = treeItems;
+    let res = {children: treeItems};
     const tokens = this.state.treePath.split("-");
     for (let i = 1; i < tokens.length; i ++) {
-      res = res[tokens[i]];
+      res = res.children[tokens[i]];
     }
     return res;
   }
@@ -210,10 +210,10 @@ class ConferenceEdit extends React.Component {
 
   updateTreeItemField(key, value) {
     let treeItems = this.props.conference.treeItems;
-    let treeItem = treeItems;
+    let treeItem = {children: treeItems};
     const tokens = this.state.treePath.split("-");
     for (let i = 1; i < tokens.length; i ++) {
-      treeItem = treeItem[tokens[i]];
+      treeItem = treeItem.children[tokens[i]];
     }
     treeItem[key] = value;
 

@@ -16,6 +16,8 @@ import React from "react";
 import {Col, Empty, Menu, Row} from "antd";
 import * as Setting from "./Setting";
 
+const { SubMenu } = Menu;
+
 class Conference extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class Conference extends React.Component {
   renderMenu(treeItems) {
     let mode;
     if (!Setting.isMobile()) {
-      mode = "inline";
+      mode = "vertical";
     } else {
       mode = "horizontal";
     }
@@ -63,11 +65,27 @@ class Conference extends React.Component {
             //   return null;
             // }
 
-            return (
-              <Menu.Item key={treeItem.title}>
-                {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
-              </Menu.Item>
-            )
+            if (treeItem.children.length === 0) {
+              return (
+                <Menu.Item key={treeItem.title}>
+                  {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
+                </Menu.Item>
+              )
+            } else {
+              return (
+                <SubMenu key={treeItem.title} title={this.props.language !== "en" ? treeItem.title : treeItem.titleEn}>
+                  {
+                    treeItem.children.map((treeItem2, i) => {
+                      return (
+                        <Menu.Item key={treeItem2.title}>
+                          {this.props.language !== "en" ? treeItem2.title : treeItem2.titleEn}
+                        </Menu.Item>
+                      )
+                    })
+                  }
+                </SubMenu>
+              )
+            }
           })
         }
         {/*<Menu.Item key="1" icon={<MailOutlined />}>*/}
@@ -105,12 +123,24 @@ class Conference extends React.Component {
     )
   }
 
-  getTreeItem(treeItems) {
+  getSelectedTreeItem(treeItems) {
     if (this.state.selectedKey === null) {
       return null;
     }
 
-    return treeItems.filter(treeItem => (treeItem.title === this.state.selectedKey))[0];
+    const res = treeItems.map(treeItem => {
+      if (treeItem.title === this.state.selectedKey) {
+        return treeItem;
+      } else {
+        return this.getSelectedTreeItem(treeItem.children);
+      }
+    }).filter(treeItem => treeItem !== null);
+
+    if (res.length > 0) {
+      return res[0];
+    } else {
+      return null;
+    }
   }
 
   renderPage(treeItem) {
@@ -147,7 +177,7 @@ class Conference extends React.Component {
           </Col>
           <Col span={19} >
             {
-              this.renderPage(this.getTreeItem(conference.treeItems))
+              this.renderPage(this.getSelectedTreeItem(conference.treeItems))
             }
           </Col>
         </Row>
@@ -162,7 +192,7 @@ class Conference extends React.Component {
           </Col>
           <Col span={24} >
             {
-              this.renderPage(this.getTreeItem(conference.treeItems))
+              this.renderPage(this.getSelectedTreeItem(conference.treeItems))
             }
           </Col>
         </Row>
