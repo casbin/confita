@@ -17,6 +17,7 @@ import {Button, Col, Empty, Input, Row, Tooltip, Tree} from "antd";
 import {DeleteOutlined, PlusOutlined,} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import HtmlEditorBraft from "./HtmlEditorBraft";
+import i18next from "i18next";
 
 class ConferenceEdit extends React.Component {
   constructor(props) {
@@ -231,7 +232,7 @@ class ConferenceEdit extends React.Component {
       <div>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Title:
+            {i18next.t("conference:Title")}:
           </Col>
           <Col span={22} >
             <Input value={this.props.language !== "en" ? treeItem.title : treeItem.titleEn} onChange={e => {
@@ -242,7 +243,7 @@ class ConferenceEdit extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            Content:
+            {i18next.t("conference:Content")}:
           </Col>
           <Col span={22} >
             <div style={{height: '600px', border: '1px solid rgb(217,217,217)'}} >

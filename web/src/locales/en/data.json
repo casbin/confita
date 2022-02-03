@@ -8,6 +8,7 @@
   "conference": {
     "Address": "Address",
     "Carousels": "Carousels",
+    "Content": "Content",
     "Default item": "Default item",
     "End date": "End date",
     "Full name": "Full name",
@@ -17,7 +18,8 @@
     "Location": "Location",
     "Menu": "Menu",
     "Organizer": "Organizer",
-    "Start date": "Start date"
+    "Start date": "Start date",
+    "Title": "Title"
   },
   "general": {
     "Action": "Action",
@@ -31,6 +33,7 @@
     "Owner": "Owner",
     "Preview": "Preview",
     "Resources": "Resources",
+    "Save": "Save",
     "Status": "Status",
     "Submissions": "Submissions"
   },
@@ -43,5 +46,9 @@
     "Title": "Title",
     "Type": "Type",
     "Word file": "Word file"
+  },
+  "token": {
+    "Edit Conference": "Edit Conference",
+    "Edit Submission": "Edit Submission"
   }
 }

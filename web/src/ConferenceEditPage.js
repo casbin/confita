@@ -67,8 +67,8 @@ class ConferenceEditPage extends React.Component {
     return (
       <Card size="small" title={
         <div>
-          Edit Conference&nbsp;&nbsp;&nbsp;&nbsp;
-          <Button type="primary" onClick={this.submitConferenceEdit.bind(this)}>Save</Button>
+          {i18next.t("token:Edit Conference")}&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button type="primary" onClick={this.submitConferenceEdit.bind(this)}>{i18next.t("general:Save")}</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">
         <Row style={{marginTop: '10px'}} >
@@ -266,7 +266,7 @@ class ConferenceEditPage extends React.Component {
           <Col span={2}>
           </Col>
           <Col span={18}>
-            <Button type="primary" size="large" onClick={this.submitConferenceEdit.bind(this)}>Save</Button>
+            <Button type="primary" size="large" onClick={this.submitConferenceEdit.bind(this)}>{i18next.t("general:Save")}</Button>
           </Col>
         </Row>
       </div>
