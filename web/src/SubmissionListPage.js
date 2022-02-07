@@ -31,11 +31,24 @@ class SubmissionListPage extends React.Component {
   }
 
   componentWillMount() {
-    this.getAllSubmissions();
+    if (Setting.isAdminUser(this.props.account)) {
+      this.getAllSubmissions();
+    } else {
+      this.getSubmissions();
+    }
+  }
+
+  getSubmissions() {
+    SubmissionBackend.getSubmissions(this.props.account.name)
+      .then((res) => {
+        this.setState({
+          submissions: res,
+        });
+      });
   }
 
   getAllSubmissions() {
-    SubmissionBackend.getAllSubmissions(this.props.account.name)
+    SubmissionBackend.getAllSubmissions()
       .then((res) => {
         this.setState({
           submissions: res,
