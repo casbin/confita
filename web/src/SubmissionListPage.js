@@ -203,6 +203,10 @@ class SubmissionListPage extends React.Component {
         width: '120px',
         sorter: (a, b) => a.wordFileUrl.localeCompare(b.wordFileUrl),
         render: (text, record, index) => {
+          if (text === "") {
+            return i18next.t("general:(empty)");
+          }
+
           return (
             <Button style={{height: 78}} type="dashed" onClick={() => Setting.goToLink(text)}>
               <div>
@@ -222,6 +226,10 @@ class SubmissionListPage extends React.Component {
         width: '120px',
         sorter: (a, b) => a.pdfFileUrl.localeCompare(b.pdfFileUrl),
         render: (text, record, index) => {
+          if (text === "") {
+            return i18next.t("general:(empty)");
+          }
+
           return (
             <Button style={{height: 78}} type="dashed" onClick={() => Setting.openLink(text)}>
               <div>
