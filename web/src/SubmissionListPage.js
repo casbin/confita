@@ -31,7 +31,7 @@ class SubmissionListPage extends React.Component {
   }
 
   componentWillMount() {
-    if (Setting.isAdminUser(this.props.account)) {
+    if (Setting.isAdminUser(this.props.account) || Setting.isEditorUser(this.props.account)) {
       this.getAllSubmissions();
     } else {
       this.getSubmissions();

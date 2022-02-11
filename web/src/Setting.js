@@ -93,6 +93,10 @@ export function isAdminUser(account) {
   return account?.isAdmin;
 }
 
+export function isEditorUser(account) {
+  return account?.tag === "Editor";
+}
+
 export function deepCopy(obj) {
   return Object.assign({}, obj);
 }
