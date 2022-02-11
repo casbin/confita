@@ -27,6 +27,7 @@ class SubmissionEditPage extends React.Component {
     super(props);
     this.state = {
       classes: props,
+      userName: props.match.params.userName,
       submissionName: props.match.params.submissionName,
       submission: null,
       conferences: [],
@@ -48,7 +49,7 @@ class SubmissionEditPage extends React.Component {
   }
 
   getSubmission() {
-    SubmissionBackend.getSubmission(this.props.account.name, this.state.submissionName)
+    SubmissionBackend.getSubmission(this.state.userName, this.state.submissionName)
       .then((submission) => {
         this.setState({
           submission: submission,
@@ -212,7 +213,7 @@ class SubmissionEditPage extends React.Component {
           this.setState({
             submissionName: this.state.submission.name,
           });
-          this.props.history.push(`/submissions/${this.state.submission.name}`);
+          this.props.history.push(`/submissions/${this.state.submission.owner}/${this.state.submission.name}`);
         } else {
           Setting.showMessage("error", `failed to save: server side failure`);
           this.updateSubmissionField('name', this.state.submissionName);

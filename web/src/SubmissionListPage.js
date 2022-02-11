@@ -126,7 +126,7 @@ class SubmissionListPage extends React.Component {
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
-            <Link to={`/submissions/${text}`}>
+            <Link to={`/submissions/${record.owner}/${text}`}>
               {text}
             </Link>
           )
@@ -262,7 +262,7 @@ class SubmissionListPage extends React.Component {
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/submissions/${record.name}`)}>{i18next.t("general:Edit")}</Button>
+              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/submissions/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
               <Popconfirm
                 title={`Sure to delete submission: ${record.name} ?`}
                 onConfirm={() => this.deleteSubmission(index)}
