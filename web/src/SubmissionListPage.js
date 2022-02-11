@@ -18,6 +18,7 @@ import {Button, Col, List, Popconfirm, Row, Table} from 'antd';
 import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
+import * as Conf from "./Conf";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
 import i18next from "i18next";
 
@@ -61,9 +62,9 @@ class SubmissionListPage extends React.Component {
       owner: this.props.account.name,
       name: `submission_${this.state.submissions.length}`,
       createdTime: moment().format(),
-      conference: "conference_0",
+      conference: Conf.DefaultConferenceName,
       title: `Submission ${this.state.submissions.length}`,
-      authors: [{name: this.props.account.name, affiliation: this.props.account.affiliation, email: this.props.account.email, isNotified: true, isCorresponding: true}],
+      authors: [{name: this.props.account.displayName, affiliation: this.props.account.affiliation, email: this.props.account.email, isNotified: true, isCorresponding: true}],
       type: "Symposium",
       subType: "Default",
       status: "Draft",
@@ -148,11 +149,15 @@ class SubmissionListPage extends React.Component {
         width: '120px',
         sorter: (a, b) => a.conference.localeCompare(b.conference),
         render: (text, record, index) => {
-          return (
-            <Link to={`/conferences/${text}`}>
-              {text}
-            </Link>
-          )
+          if (Setting.isAdminUser(this.props.account)) {
+            return (
+              <Link to={`/conferences/${text}`}>
+                {text}
+              </Link>
+            )
+          } else {
+            return text;
+          }
         }
       },
       {
