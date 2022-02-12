@@ -108,7 +108,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Owner"),
         dataIndex: 'owner',
         key: 'owner',
-        width: '120px',
+        width: '100px',
         sorter: (a, b) => a.owner.localeCompare(b.owner),
         render: (text, record, index) => {
           return (
@@ -122,7 +122,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '120px',
+        width: '150px',
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
@@ -146,7 +146,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Conference"),
         dataIndex: 'conference',
         key: 'conference',
-        width: '120px',
+        width: '80px',
         sorter: (a, b) => a.conference.localeCompare(b.conference),
         render: (text, record, index) => {
           if (Setting.isAdminUser(this.props.account)) {
@@ -164,7 +164,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Title"),
         dataIndex: 'title',
         key: 'title',
-        width: '120px',
+        width: '170px',
         sorter: (a, b) => a.title.localeCompare(b.title),
       },
       {
@@ -205,7 +205,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Word file"),
         dataIndex: 'wordFileUrl',
         key: 'wordFileUrl',
-        width: '120px',
+        width: '100px',
         sorter: (a, b) => a.wordFileUrl.localeCompare(b.wordFileUrl),
         render: (text, record, index) => {
           if (text === "") {
@@ -228,7 +228,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:PDF file"),
         dataIndex: 'pdfFileUrl',
         key: 'pdfFileUrl',
-        width: '120px',
+        width: '100px',
         sorter: (a, b) => a.pdfFileUrl.localeCompare(b.pdfFileUrl),
         render: (text, record, index) => {
           if (text === "") {
@@ -258,7 +258,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '140px',
+        width: '90px',
         render: (text, record, index) => {
           return (
             <div>

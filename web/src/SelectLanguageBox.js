@@ -34,19 +34,25 @@ class SelectLanguageBox extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Menu.Item key="en" style={{float: 'right', marginRight: '20px'}} icon={<IconFont type="icon-en" />}>
-          <Link style={{color: "black"}} onClick={() => {
-            Setting.changeLanguage("en");
-          }}>
-            English
-          </Link>
+        <Menu.Item key="en" className="rightDropDown" style={{float: 'right', cursor: 'pointer', marginRight: '20px'}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-en" /></React.Fragment>}
+                   onClick={() => {
+                     Setting.changeLanguage("en");
+                   }}
+        >
+          &nbsp;
+          English
+          &nbsp;
+          &nbsp;
         </Menu.Item>
-        <Menu.Item key="zh" style={{float: 'right', marginRight: '20px'}} icon={<IconFont type="icon-zh" />}>
-          <Link style={{color: "black"}} onClick={() => {
-            Setting.changeLanguage("zh");
-          }}>
-            中文
-          </Link>
+        <Menu.Item key="zh" className="rightDropDown" style={{float: 'right', cursor: 'pointer'}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-zh" /></React.Fragment>}
+                   onClick={() => {
+                     Setting.changeLanguage("zh");
+                   }}
+        >
+          &nbsp;
+          中文
+          &nbsp;
+          &nbsp;
         </Menu.Item>
       </React.Fragment>
     );
