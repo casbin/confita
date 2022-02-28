@@ -32,20 +32,28 @@ export function initCasdoorSdk(config) {
   CasdoorSdk = new Sdk(config);
 }
 
+function getUrlWithLanguage(url) {
+  if (url.includes("?")) {
+    return `${url}&language=${getLanguage()}`;
+  } else {
+    return `${url}?language=${getLanguage()}`;
+  }
+}
+
 export function getSignupUrl() {
-  return CasdoorSdk.getSignupUrl();
+  return getUrlWithLanguage(CasdoorSdk.getSignupUrl());
 }
 
 export function getSigninUrl() {
-  return CasdoorSdk.getSigninUrl();
+  return getUrlWithLanguage(CasdoorSdk.getSigninUrl());
 }
 
 export function getUserProfileUrl(userName, account) {
-  return CasdoorSdk.getUserProfileUrl(userName, account);
+  return getUrlWithLanguage(CasdoorSdk.getUserProfileUrl(userName, account));
 }
 
 export function getMyProfileUrl(account) {
-  return CasdoorSdk.getMyProfileUrl(account);
+  return getUrlWithLanguage(CasdoorSdk.getMyProfileUrl(account));
 }
 
 export function signin() {
