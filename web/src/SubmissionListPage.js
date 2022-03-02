@@ -108,7 +108,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Owner"),
         dataIndex: 'owner',
         key: 'owner',
-        width: '100px',
+        width: '70px',
         sorter: (a, b) => a.owner.localeCompare(b.owner),
         render: (text, record, index) => {
           return (
@@ -132,16 +132,16 @@ class SubmissionListPage extends React.Component {
           )
         }
       },
-      {
-        title: i18next.t("general:Created time"),
-        dataIndex: 'createdTime',
-        key: 'createdTime',
-        width: '110px',
-        sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
-        render: (text, record, index) => {
-          return Setting.getFormattedDate(text);
-        }
-      },
+      // {
+      //   title: i18next.t("general:Created time"),
+      //   dataIndex: 'createdTime',
+      //   key: 'createdTime',
+      //   width: '110px',
+      //   sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
+      //   render: (text, record, index) => {
+      //     return Setting.getFormattedDate(text);
+      //   }
+      // },
       {
         title: i18next.t("submission:Conference"),
         dataIndex: 'conference',
@@ -159,6 +159,20 @@ class SubmissionListPage extends React.Component {
             return text;
           }
         }
+      },
+      {
+        title: i18next.t("submission:Type"),
+        dataIndex: 'type',
+        key: 'type',
+        width: '100px',
+        sorter: (a, b) => a.type.localeCompare(b.type),
+      },
+      {
+        title: i18next.t("submission:Sub type"),
+        dataIndex: 'subType',
+        key: 'subType',
+        width: '120px',
+        sorter: (a, b) => a.subType.localeCompare(b.subType),
       },
       {
         title: i18next.t("submission:Title"),
