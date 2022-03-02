@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Col, List, Popconfirm, Row, Table} from 'antd';
+import {Button, Col, List, Popconfirm, Row, Table, Tooltip} from 'antd';
 import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
@@ -208,42 +208,41 @@ class SubmissionListPage extends React.Component {
         width: '100px',
         sorter: (a, b) => a.wordFileUrl.localeCompare(b.wordFileUrl),
         render: (text, record, index) => {
-          if (text === "") {
+          if (record.wordFileUrl === "" && record.pdfFileUrl === "") {
             return i18next.t("general:(empty)");
           }
 
           return (
-            <Button style={{height: 78}} type="dashed" onClick={() => Setting.goToLink(text)}>
-              <div>
-                <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
-              </div>
-              <div>
-                {Setting.getFilenameFromUrl(text)}
-              </div>
-            </Button>
-          )
-        }
-      },
-      {
-        title: i18next.t("submission:PDF file"),
-        dataIndex: 'pdfFileUrl',
-        key: 'pdfFileUrl',
-        width: '100px',
-        sorter: (a, b) => a.pdfFileUrl.localeCompare(b.pdfFileUrl),
-        render: (text, record, index) => {
-          if (text === "") {
-            return i18next.t("general:(empty)");
-          }
-
-          return (
-            <Button style={{height: 78}} type="dashed" onClick={() => Setting.openLink(text)}>
-              <div>
-                <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
-              </div>
-              <div>
-                {Setting.getFilenameFromUrl(text)}
-              </div>
-            </Button>
+            <div>
+              {
+                record.wordFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.wordFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.wordFileUrl)}>
+                      <div>
+                        <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
+                      </div>
+                      <div>
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.wordFileUrl), 20)}
+                      </div>
+                    </Button>
+                  </Tooltip>
+                )
+              }
+              {
+                record.pdfFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.pdfFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.pdfFileUrl)}>
+                      <div>
+                        <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
+                      </div>
+                      <div>
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.pdfFileUrl), 20)}
+                      </div>
+                    </Button>
+                  </Tooltip>
+                )
+              }
+            </div>
           )
         }
       },
