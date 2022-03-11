@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"io"
 	"mime/multipart"
+	"net/url"
 
 	"github.com/casbin/confita/service"
 )
@@ -42,6 +43,7 @@ func (c *ApiController) UploadSubmissionFile() {
 		panic(err)
 	}
 	filename := header.Filename
+	filename = url.QueryEscape(filename)
 
 	fileBytes := getFileBytes(&file)
 
