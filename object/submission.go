@@ -37,8 +37,8 @@ type Submission struct {
 	Authors     []*AuthorItem `xorm:"varchar(10000)" json:"authors"`
 	Type        string        `xorm:"varchar(100)" json:"type"`
 	SubType     string        `xorm:"varchar(100)" json:"subType"`
-	WordFileUrl string        `xorm:"varchar(100)" json:"wordFileUrl"`
-	PdfFileUrl  string        `xorm:"varchar(100)" json:"pdfFileUrl"`
+	WordFileUrl string        `xorm:"varchar(1000)" json:"wordFileUrl"`
+	PdfFileUrl  string        `xorm:"varchar(1000)" json:"pdfFileUrl"`
 	Status      string        `xorm:"varchar(100)" json:"status"`
 }
 
