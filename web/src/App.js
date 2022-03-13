@@ -22,6 +22,7 @@ import * as AccountBackend from "./backend/AccountBackend";
 import AuthCallback from "./AuthCallback";
 import * as Conf from "./Conf";
 import HomePage from "./HomePage";
+import DashboardPage from "./DashboardPage";
 import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
 import SubmissionListPage from "./SubmissionListPage";
@@ -55,6 +56,8 @@ class App extends Component {
     const uri = location.pathname;
     if (uri === '/') {
       this.setState({selectedMenuKey: '/'});
+    } else if (uri.includes('/dashboard')) {
+      this.setState({ selectedMenuKey: '/dashboard' });
     } else if (uri.includes('/conferences')) {
       this.setState({ selectedMenuKey: '/conferences' });
     } else if (uri.includes('/submissions')) {
@@ -218,6 +221,14 @@ class App extends Component {
       </Menu.Item>
     );
 
+    res.push(
+      <Menu.Item key="/dashboard">
+        <Link to="/dashboard">
+          {i18next.t("general:Dashboard")}
+        </Link>
+      </Menu.Item>
+    );
+
     if (this.state.account.isAdmin) {
       res.push(
         <Menu.Item key="/conferences">
@@ -291,6 +302,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/callback" component={AuthCallback}/>
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
+          <Route exact path="/dashboard" render={(props) => this.renderSigninIfNotSignedIn(<DashboardPage account={this.state.account} {...props} />)}/>
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>

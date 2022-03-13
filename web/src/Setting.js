@@ -56,6 +56,10 @@ export function getMyProfileUrl(account) {
   return getUrlWithLanguage(CasdoorSdk.getMyProfileUrl(account));
 }
 
+export function getProductBuyUrl(account) {
+  return this.getMyProfileUrl(account).replace("/account", `/products/${account.homepage}/buy`);
+}
+
 export function signin() {
   return CasdoorSdk.signin(ServerUrl);
 }
