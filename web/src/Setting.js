@@ -60,6 +60,10 @@ export function getProductBuyUrl(account) {
   return this.getMyProfileUrl(account).replace("/account", `/products/${account.homepage}/buy`);
 }
 
+export function getPaymentUrl(account, payment) {
+  return this.getMyProfileUrl(account).replace("/account", `/payments/${payment.name}`);
+}
+
 export function signin() {
   return CasdoorSdk.signin(ServerUrl);
 }

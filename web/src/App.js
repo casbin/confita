@@ -40,6 +40,7 @@ class App extends Component {
       classes: props,
       selectedMenuKey: 0,
       account: undefined,
+      uri: null,
     };
 
     Setting.initServerUrl();
@@ -51,9 +52,20 @@ class App extends Component {
     this.getAccount();
   }
 
+  componentDidUpdate() {
+    // eslint-disable-next-line no-restricted-globals
+    const uri = location.pathname;
+    if (this.state.uri !== uri) {
+      this.updateMenuKey();
+    }
+  }
+
   updateMenuKey() {
     // eslint-disable-next-line no-restricted-globals
     const uri = location.pathname;
+    this.setState({
+      uri: uri,
+    });
     if (uri === '/') {
       this.setState({selectedMenuKey: '/'});
     } else if (uri.includes('/dashboard')) {

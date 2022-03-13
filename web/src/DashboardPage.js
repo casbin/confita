@@ -172,20 +172,17 @@ class DashboardPage extends React.Component {
         renderItem={payment => (
           <List.Item
             actions={[
-              <Link to={`/submissions`}>
+              <a target="_blank" href={Setting.getPaymentUrl(this.props.account, payment)}>
                 {i18next.t("dashboard:View")}
-              </Link>,
-              <Link to={`/submissions/${payment.owner}/${payment.name}`}>
-                {i18next.t("dashboard:Edit")}
-              </Link>
+              </a>,
             ]}
           >
             <List.Item.Meta
               // avatar={<Avatar src={item.picture.large} />}
-              title={<a href="https://ant.design">{payment.title}</a>}
-              // description={payment.authors.map(author => `${author.name} | ${author.affiliation} | ${author.email}`).join(", ")}
+              title={<a href="https://ant.design">{payment.productName}</a>}
+              description={`${payment.detail} | ${payment.tag} | ${payment.productId} | ${payment.name}`}
             />
-            <div>{`${payment.conference} | ${payment.type} | ${payment.subType}`}</div>
+            <div>{`${payment.type} | ${payment.currency} | ${payment.price}`}</div>
           </List.Item>
         )}
       />
