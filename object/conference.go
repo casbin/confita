@@ -42,6 +42,7 @@ type Conference struct {
 	Status    string `xorm:"varchar(100)" json:"status"`
 	Language  string `xorm:"varchar(100)" json:"language"`
 
+	Tags        []string    `xorm:"mediumtext" json:"tags"`
 	Carousels   []string    `xorm:"mediumtext" json:"carousels"`
 	IntroText   string      `xorm:"mediumtext" json:"introText"`
 	DefaultItem string      `xorm:"mediumtext" json:"defaultItem"`

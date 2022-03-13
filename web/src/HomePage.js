@@ -24,7 +24,6 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       classes: props,
-      conferenceName: Conf.DefaultConferenceName,
       conference: null,
     };
   }
@@ -34,7 +33,7 @@ class HomePage extends React.Component {
   }
 
   getConference() {
-    ConferenceBackend.getConference(Conf.DefaultOwner, this.state.conferenceName)
+    ConferenceBackend.getConference(Conf.DefaultOwner, Conf.DefaultConferenceName)
       .then((conference) => {
         this.setState({
           conference: conference,

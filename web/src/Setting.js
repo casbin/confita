@@ -56,12 +56,12 @@ export function getMyProfileUrl(account) {
   return getUrlWithLanguage(CasdoorSdk.getMyProfileUrl(account));
 }
 
-export function getProductBuyUrl(account) {
-  return this.getMyProfileUrl(account).replace("/account", `/products/${account.homepage}/buy`);
+export function getProductBuyUrl(account, productName) {
+  return this.getMyProfileUrl(account).replace("/account", `/products/${productName}/buy`);
 }
 
 export function getPaymentUrl(account, payment) {
-  return this.getMyProfileUrl(account).replace("/account", `/payments/${payment.name}`);
+  return this.getMyProfileUrl(account).replace("/account", `/payments/${payment.name}/result`);
 }
 
 export function signin() {

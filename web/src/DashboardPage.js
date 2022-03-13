@@ -20,6 +20,8 @@ import * as Setting from "./Setting";
 import i18next from "i18next";
 import {Link} from "react-router-dom";
 import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
+import * as ConferenceBackend from "./backend/ConferenceBackend";
+import * as Conf from "./Conf";
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -28,12 +30,14 @@ class DashboardPage extends React.Component {
       classes: props,
       submissions: null,
       payments: null,
+      conference: null,
     };
   }
 
   componentWillMount() {
     this.getSubmissions();
     this.getPayments();
+    this.getConference();
   }
 
   getSubmissions() {
@@ -52,6 +56,41 @@ class DashboardPage extends React.Component {
           payments: res,
         });
       });
+  }
+
+  getConference() {
+    ConferenceBackend.getConference(Conf.DefaultOwner, Conf.DefaultConferenceName)
+      .then((conference) => {
+        this.setState({
+          conference: conference,
+        });
+      });
+  }
+
+  getUserDisplayTag() {
+    let myTag = this.props.account.tag;
+    this.state.conference?.tags?.map((tag, index) => {
+      const tokens = tag.split("|");
+      if (tokens[0] === myTag) {
+        if (Setting.getLanguage() !== "zh") {
+          myTag = tokens[0];
+        } else {
+          myTag = tokens[1];
+        }
+      }
+    })
+    return myTag;
+  }
+
+  getUserProduct() {
+    let myTag = this.props.account.tag;
+    this.state.conference?.tags?.map((tag, index) => {
+      const tokens = tag.split("|");
+      if (tokens[0] === myTag) {
+        myTag = tokens[2];
+      }
+    })
+    return myTag;
   }
 
   renderSubmissionList() {
@@ -158,8 +197,8 @@ class DashboardPage extends React.Component {
           <span style={{fontSize: 16}}>
             {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
           </span>
-          <a href={Setting.getProductBuyUrl(this.props.account)}>
-            <Button type="primary" size={"large"} >{i18next.t("dashboard:Pay Registration Fee")}</Button>
+          <a href={Setting.getProductBuyUrl(this.props.account, this.getUserProduct())}>
+            <Button type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${this.getUserDisplayTag()})`}</Button>
           </a>
         </div>
       )
@@ -172,17 +211,17 @@ class DashboardPage extends React.Component {
         renderItem={payment => (
           <List.Item
             actions={[
-              <a target="_blank" href={Setting.getPaymentUrl(this.props.account, payment)}>
+              <a href={Setting.getPaymentUrl(this.props.account, payment)}>
                 {i18next.t("dashboard:View")}
               </a>,
             ]}
           >
             <List.Item.Meta
               // avatar={<Avatar src={item.picture.large} />}
-              title={<a href="https://ant.design">{payment.productName}</a>}
+              title={<a href={Setting.getPaymentUrl(this.props.account, payment)}>{payment.productName}</a>}
               description={`${payment.detail} | ${payment.tag} | ${payment.productId} | ${payment.name}`}
             />
-            <div>{`${payment.type} | ${payment.currency} | ${payment.price}`}</div>
+            <div>{`${payment.type} | ${payment.currency} | ${payment.price} | ${payment.state}`}</div>
           </List.Item>
         )}
       />
@@ -203,7 +242,8 @@ class DashboardPage extends React.Component {
           </Descriptions.Item>
           <Descriptions.Item label={i18next.t("dashboard:Affiliation")}><span style={{fontSize: 16}}>{account?.affiliation}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("dashboard:Title")}><span style={{fontSize: 16}}>{account?.title}</span></Descriptions.Item>
-          <Descriptions.Item label={i18next.t("dashboard:Tag")}><span style={{fontSize: 16}}>{account?.tag}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("dashboard:Tag")}><span style={{fontSize: 16}}>{this.getUserDisplayTag()}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("general:Conferences")} span={3}><span style={{fontSize: 16}}>{this.state.conference?.fullName}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("general:Submissions")} span={3}>
             {
               this.renderSubmissionList()
