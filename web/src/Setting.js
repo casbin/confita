@@ -57,11 +57,11 @@ export function getMyProfileUrl(account) {
 }
 
 export function getProductBuyUrl(account, productName) {
-  return this.getMyProfileUrl(account).replace("/account", `/products/${productName}/buy`);
+  return getMyProfileUrl(account).replace("/account", `/products/${productName}/buy`);
 }
 
 export function getPaymentUrl(account, payment) {
-  return this.getMyProfileUrl(account).replace("/account", `/payments/${payment.name}/result`);
+  return getMyProfileUrl(account).replace("/account", `/payments/${payment.name}/result`);
 }
 
 export function signin() {
