@@ -68,10 +68,10 @@ class DashboardPage extends React.Component {
   }
 
   getUserDisplayTag() {
-    let myTag = this.props.account.tag;
+    let myTag = "";
     this.state.conference?.tags?.map((tag, index) => {
       const tokens = tag.split("|");
-      if (tokens[0] === myTag) {
+      if (tokens[0] === this.props.account.tag) {
         if (Setting.getLanguage() !== "zh") {
           myTag = tokens[0];
         } else {
@@ -79,14 +79,23 @@ class DashboardPage extends React.Component {
         }
       }
     })
+
+    if (this.props.account.tag === "Editor") {
+      if (Setting.getLanguage() !== "zh") {
+        myTag = "Editor";
+      } else {
+        myTag = "编辑";
+      }
+    }
+
     return myTag;
   }
 
   getUserProduct() {
-    let myTag = this.props.account.tag;
+    let myTag = "";
     this.state.conference?.tags?.map((tag, index) => {
       const tokens = tag.split("|");
-      if (tokens[0] === myTag) {
+      if (tokens[0] === this.props.account.tag) {
         myTag = tokens[2];
       }
     })
@@ -192,13 +201,28 @@ class DashboardPage extends React.Component {
     }
 
     if (this.state.payments.length === 0) {
+      const productName = this.getUserProduct();
+      const displayTag = this.getUserDisplayTag();
+
+      if (productName === "") {
+        const text = i18next.t("dashboard:Your current tag doesn't support payment");
+        return (
+          <div>
+          <span style={{fontSize: 16}}>
+            {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
+          </span>
+            <Button disabled={true} type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${text}: ${displayTag})`}</Button>
+          </div>
+        )
+      }
+
       return (
         <div>
           <span style={{fontSize: 16}}>
             {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
           </span>
-          <a href={Setting.getProductBuyUrl(this.props.account, this.getUserProduct())}>
-            <Button type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${this.getUserDisplayTag()})`}</Button>
+          <a href={Setting.getProductBuyUrl(this.props.account, productName)}>
+            <Button type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${displayTag})`}</Button>
           </a>
         </div>
       )

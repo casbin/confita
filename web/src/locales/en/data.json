@@ -29,7 +29,8 @@
     "Title": "Title",
     "View": "View",
     "Welcome": "Welcome",
-    "You haven't completed the payment, please click the button to pay": "You haven't completed the payment, please click the button to pay"
+    "You haven't completed the payment, please click the button to pay": "You haven't completed the payment, please click the button to pay",
+    "Your current tag doesn't support payment": "Your current tag doesn't support payment"
   },
   "general": {
     "(empty)": "(empty)",

@@ -29,7 +29,8 @@
     "Title": "职位",
     "View": "查看",
     "Welcome": "欢迎",
-    "You haven't completed the payment, please click the button to pay": "您还没有支付注册费，请点击按钮完成支付"
+    "You haven't completed the payment, please click the button to pay": "您还没有支付注册费，请点击按钮完成支付",
+    "Your current tag doesn't support payment": "您当前的标签不支持支付注册费"
   },
   "general": {
     "(empty)": "（空）",
