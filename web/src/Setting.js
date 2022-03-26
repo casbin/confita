@@ -236,3 +236,27 @@ export function getFilenameFromUrl(url) {
   const filename = url.substring(url.lastIndexOf('/') + 1);
   return filename;
 }
+
+function getCurrencySymbol(product) {
+  if (product?.currency === "USD") {
+    return "$";
+  } else if (product?.currency === "CNY") {
+    return "￥";
+  } else {
+    return "(Unknown currency)";
+  }
+}
+
+function getCurrencyText(product) {
+  if (product?.currency === "USD") {
+    return i18next.t("dashboard:USD");
+  } else if (product?.currency === "CNY") {
+    return i18next.t("dashboard:CNY");
+  } else {
+    return "(Unknown currency)";
+  }
+}
+
+export function getPrice(product) {
+  return `${getCurrencySymbol(product)}${product?.price} (${getCurrencyText(product)})`;
+}

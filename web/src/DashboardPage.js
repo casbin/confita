@@ -13,8 +13,9 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Col, Descriptions, List, Row, Tooltip} from 'antd';
+import {Button, Card, Col, Descriptions, List, Row, Tooltip} from 'antd';
 import * as SubmissionBackend from "./backend/SubmissionBackend";
+import * as ProductBackend from "./backend/ProductBackend";
 import * as PaymentBackend from "./backend/PaymentBackend";
 import * as Setting from "./Setting";
 import i18next from "i18next";
@@ -22,6 +23,7 @@ import {Link} from "react-router-dom";
 import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Conf from "./Conf";
+import SingleCard from "./SingleCard";
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class DashboardPage extends React.Component {
     this.state = {
       classes: props,
       submissions: null,
+      products: null,
       payments: null,
       conference: null,
     };
@@ -36,6 +39,7 @@ class DashboardPage extends React.Component {
 
   componentWillMount() {
     this.getSubmissions();
+    this.getProducts();
     this.getPayments();
     this.getConference();
   }
@@ -45,6 +49,15 @@ class DashboardPage extends React.Component {
       .then((res) => {
         this.setState({
           submissions: res,
+        });
+      });
+  }
+
+  getProducts() {
+    ProductBackend.getProducts()
+      .then((res) => {
+        this.setState({
+          products: res,
         });
       });
   }
@@ -195,6 +208,41 @@ class DashboardPage extends React.Component {
     )
   }
 
+  renderCards() {
+    const products = this.state.products;
+    if (products === null) {
+      return null;
+    }
+
+    if (Setting.isMobile()) {
+      return (
+        <Card bodyStyle={{padding: 0}}>
+          {
+            products.map(product => {
+              return (
+                <SingleCard logo={product.image} link={Setting.getProductBuyUrl(this.props.account, product.name)} title={Setting.getPrice(product)} desc={product.displayName} isSingle={products.length === 1} />
+              )
+            })
+          }
+        </Card>
+      )
+    } else {
+      return (
+        <div style={{marginRight:'15px',marginLeft:'15px'}}>
+          <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
+            {
+              products.map(product => {
+                return (
+                  <SingleCard logo={product.image} link={Setting.getProductBuyUrl(this.props.account, product.name)} title={Setting.getPrice(product)} desc={product.displayName} time={product.tag} isSingle={products.length === 1} key={product.name} />
+                )
+              })
+            }
+          </Row>
+        </div>
+      )
+    }
+  }
+
   renderPaymentList() {
     if (this.state.payments === null) {
       return null;
@@ -208,10 +256,13 @@ class DashboardPage extends React.Component {
         const text = i18next.t("dashboard:Your current tag doesn't support payment");
         return (
           <div>
-          <span style={{fontSize: 16}}>
-            {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
-          </span>
-            <Button disabled={true} type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${text}: ${displayTag})`}</Button>
+            <span style={{fontSize: 16}}>
+              {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
+            </span>
+            {
+              this.renderCards()
+            }
+            {/*<Button disabled={true} type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${text}: ${displayTag})`}</Button>*/}
           </div>
         )
       }
@@ -221,9 +272,12 @@ class DashboardPage extends React.Component {
           <span style={{fontSize: 16}}>
             {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
           </span>
-          <a href={Setting.getProductBuyUrl(this.props.account, productName)}>
-            <Button type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${displayTag})`}</Button>
-          </a>
+          {
+            this.renderCards()
+          }
+          {/*<a href={Setting.getProductBuyUrl(this.props.account, productName)}>*/}
+          {/*  <Button type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${displayTag})`}</Button>*/}
+          {/*</a>*/}
         </div>
       )
     }

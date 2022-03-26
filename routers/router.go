@@ -52,5 +52,6 @@ func initAPI() {
 	beego.Router("/api/delete-submission", &controllers.ApiController{}, "POST:DeleteSubmission")
 	beego.Router("/api/upload-submission-file", &controllers.ApiController{}, "POST:UploadSubmissionFile")
 
+	beego.Router("/api/get-products", &controllers.ApiController{}, "GET:GetProducts")
 	beego.Router("/api/get-payments", &controllers.ApiController{}, "GET:GetPayments")
 }
