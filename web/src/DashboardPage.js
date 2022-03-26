@@ -13,7 +13,8 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, Descriptions, List, Row, Tooltip} from 'antd';
+import {Button, Card, Col, Descriptions, List, Modal, Row, Tooltip} from 'antd';
+import {CloseCircleTwoTone} from "@ant-design/icons";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
 import * as ProductBackend from "./backend/ProductBackend";
 import * as PaymentBackend from "./backend/PaymentBackend";
@@ -34,6 +35,8 @@ class DashboardPage extends React.Component {
       products: null,
       payments: null,
       conference: null,
+      isModalVisible: false,
+      currentProduct: null,
     };
   }
 
@@ -80,11 +83,11 @@ class DashboardPage extends React.Component {
       });
   }
 
-  getUserDisplayTag() {
+  getDisplayTag(inputTag) {
     let myTag = "";
     this.state.conference?.tags?.map((tag, index) => {
       const tokens = tag.split("|");
-      if (tokens[0] === this.props.account.tag) {
+      if (tokens[0] === inputTag) {
         if (Setting.getLanguage() !== "zh") {
           myTag = tokens[0];
         } else {
@@ -93,7 +96,7 @@ class DashboardPage extends React.Component {
       }
     })
 
-    if (this.props.account.tag === "Editor") {
+    if (inputTag === "Editor") {
       if (Setting.getLanguage() !== "zh") {
         myTag = "Editor";
       } else {
@@ -201,13 +204,20 @@ class DashboardPage extends React.Component {
     )
   }
 
+  updateProduct(product) {
+    this.setState({
+      isModalVisible: true,
+      currentProduct: product,
+    });
+  }
+
   renderCard(product, isSingle, payments) {
     const url = Setting.getProductBuyUrl(this.props.account, product.name);
     const price = Setting.getPrice(product);
     const paid = payments.length !== 0;
 
     return (
-      <SingleCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} product={product} payments={payments} clickable={!paid} />
+      <SingleCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(product) => { this.updateProduct(product)}} />
     )
   }
 
@@ -245,22 +255,40 @@ class DashboardPage extends React.Component {
     }
   }
 
+  getPaid() {
+    return this.state.payments.length !== 0;
+  }
+
   renderPaymentList() {
     if (this.state.payments === null) {
       return null;
     }
 
-    const displayTag = this.getUserDisplayTag();
-    const paid = this.state.payments.length !== 0;
+    const displayTag = this.getDisplayTag(this.props.account.tag);
+    const paid = this.getPaid();
 
     return (
       <div>
           <div style={{fontSize: 16}}>
             {
-              Setting.getAlert(paid ? "success" : "error", <div>
+              Setting.getAlert("info", <div>
                 {
                   `${i18next.t("dashboard:Your current tag is")}: ${displayTag}. `
                 }
+                {
+                  `${i18next.t("dashboard:If you believe your tag is wrong, please click the button to change it")}: `
+                }
+                <Button type="primary" size={"small"} disabled={this.getPaid()} onClick={() => {
+                  Setting.goToLink(Setting.getMyProfileUrl(this.props.account));
+                }} >
+                  {i18next.t("dashboard:Change My Tag")}
+                </Button>
+              </div>)
+            }
+          </div>
+          <div style={{fontSize: 16, marginTop: 12}}>
+            {
+              Setting.getAlert(paid ? "success" : "error", <div>
                 {
                   !paid ? (
                     `${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}.`
@@ -278,11 +306,60 @@ class DashboardPage extends React.Component {
     )
   }
 
+  renderModal() {
+    const handleChangeMyTag = () => {
+      Setting.goToLink(Setting.getMyProfileUrl(this.props.account));
+    };
+
+    const handleCancel = () => {
+      this.setState({
+        isModalVisible: false,
+      });
+    };
+
+    return (
+      <Modal title={
+        <div>
+          <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
+          {" " + i18next.t("dashboard:There is error when processing the registration payment..")}
+        </div>
+      }
+             visible={this.state.isModalVisible}
+             onOk={handleChangeMyTag}
+             onCancel={handleCancel}
+             okText={i18next.t("dashboard:Change My Tag")}
+             cancelText={i18next.t("dashboard:Cancel")}>
+        <p>
+          {
+            i18next.t("dashboard:Your current tag is") + ": "
+          }
+          {
+            Setting.getTag(this.getDisplayTag(this.props.account.tag))
+          }
+          {
+            ", " + i18next.t("dashboard:but this registration requires the tag to be") + ": "
+          }
+          {
+            Setting.getTag(this.getDisplayTag(this.state.currentProduct?.tag))
+          }
+        </p>
+        <p>
+          {
+            i18next.t("dashboard:If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.")
+          }
+        </p>
+      </Modal>
+    )
+  }
+
   render() {
     const account = this.props.account;
 
     return (
       <div style={{padding: "20px"}}>
+        {
+          this.renderModal()
+        }
         <Descriptions title={`${i18next.t("dashboard:Welcome")}, ${account?.displayName}`} bordered>
           <Descriptions.Item label={i18next.t("general:Name")} span={3}>
             <img src={account?.avatar} alt={account?.avatar} height={90} />
@@ -292,7 +369,7 @@ class DashboardPage extends React.Component {
           </Descriptions.Item>
           <Descriptions.Item label={i18next.t("dashboard:Affiliation")}><span style={{fontSize: 16}}>{account?.affiliation}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("dashboard:Title")}><span style={{fontSize: 16}}>{account?.title}</span></Descriptions.Item>
-          <Descriptions.Item label={i18next.t("dashboard:Tag")}><span style={{fontSize: 16}}>{this.getUserDisplayTag()}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("dashboard:Tag")}><span style={{fontSize: 16}}>{this.getDisplayTag(this.props.account.tag)}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("general:Conferences")} span={3}><span style={{fontSize: 16}}>{this.state.conference?.fullName}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("general:Submissions")} span={3}>
             {

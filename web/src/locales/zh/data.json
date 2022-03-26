@@ -23,14 +23,22 @@
   },
   "dashboard": {
     "Affiliation": "工作单位",
+    "CNY": "人民币",
+    "Cancel": "取消",
+    "Change My Tag": "修改我的标签",
     "Edit": "编辑",
-    "Pay Registration Fee": "支付注册费",
+    "If you believe your tag is wrong, please click the button to change it": "如果您认为该标签有误，请点击右侧按钮来修改",
+    "If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.": "如果您需要修改标签，请点击下方的“修改我的标签”按钮。如果不需要修改，则点击“取消”按钮返回。",
     "Tag": "标签",
+    "There is error when processing the registration payment..": "支付注册费时遇到问题..",
     "Title": "职位",
+    "USD": "美元",
     "View": "查看",
     "Welcome": "欢迎",
+    "You have completed the payment.": "您已经完成支付。",
     "You haven't completed the payment, please click the button to pay": "您还没有支付注册费，请点击按钮完成支付",
-    "Your current tag doesn't support payment": "您当前的标签不支持支付注册费"
+    "Your current tag is": "您当前的标签是",
+    "but this registration requires the tag to be": "但是支付此项注册费所需的标签是"
   },
   "general": {
     "(empty)": "（空）",

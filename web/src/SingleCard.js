@@ -61,19 +61,32 @@ class SingleCard extends React.Component {
     )
   }
 
+  updateProduct() {
+    this.props.onUpdateProduct(this.props.product);
+  }
+
   renderCardMobile(logo, link, title, desc, time, isSingle, clickable) {
     const cursor = clickable ? "pointer" : "auto";
+    const opacity = this.isRightProduct() ? 1.0 : 0.4;
     const gridStyle = {
       width: '100vw',
       textAlign: 'center',
       cursor: cursor,
+      opacity: opacity,
     };
 
     return (
       <Card.Grid style={gridStyle} onClick={() => {
-        if (clickable) {
-          Setting.goToLink(link);
+        if (!clickable) {
+          return;
         }
+
+        if (!this.isRightProduct()) {
+          this.updateProduct();
+          return;
+        }
+
+        Setting.goToLink(link);
       }}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: '20px'}}/>
         <Meta title={title} description={desc} />
@@ -81,19 +94,31 @@ class SingleCard extends React.Component {
     )
   }
 
+  isRightProduct() {
+    return this.props.account.tag === this.props.product.tag;
+  }
+
   renderCard(logo, link, title, desc, time, isSingle, clickable) {
     const cursor = clickable ? "pointer" : "auto";
+    const opacity = this.isRightProduct() ? 1.0 : 0.4;
     return (
-      <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
+      <Col style={{opacity: opacity, paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
           hoverable
           cover={
             <img alt="logo" src={logo} width={"100%"} height={"100%"} />
           }
           onClick={() => {
-            if (clickable) {
-              Setting.goToLink(link);
+            if (!clickable) {
+              return;
             }
+
+            if (!this.isRightProduct()) {
+              this.updateProduct();
+              return;
+            }
+
+            Setting.goToLink(link);
           }}
           style={isSingle ? {width: "320px", cursor: cursor} : {cursor: cursor}}
         >

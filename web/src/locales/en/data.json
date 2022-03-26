@@ -23,14 +23,22 @@
   },
   "dashboard": {
     "Affiliation": "Affiliation",
+    "CNY": "CNY",
+    "Cancel": "Cancel",
+    "Change My Tag": "Change My Tag",
     "Edit": "Edit",
-    "Pay Registration Fee": "Pay Registration Fee",
+    "If you believe your tag is wrong, please click the button to change it": "If you believe your tag is wrong, please click the button to change it",
+    "If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.": "If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.",
     "Tag": "Tag",
+    "There is error when processing the registration payment..": "There is error when processing the registration payment..",
     "Title": "Title",
+    "USD": "USD",
     "View": "View",
     "Welcome": "Welcome",
+    "You have completed the payment.": "You have completed the payment.",
     "You haven't completed the payment, please click the button to pay": "You haven't completed the payment, please click the button to pay",
-    "Your current tag doesn't support payment": "Your current tag doesn't support payment"
+    "Your current tag is": "Your current tag is",
+    "but this registration requires the tag to be": "but this registration requires the tag to be"
   },
   "general": {
     "(empty)": "(empty)",
