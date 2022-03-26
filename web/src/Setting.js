@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {message} from "antd";
+import {Alert, message, Tag} from "antd";
 import {isMobile as isMobileDevice} from "react-device-detect";
 import i18next from "i18next";
 import moment from "moment";
@@ -259,4 +259,22 @@ function getCurrencyText(product) {
 
 export function getPrice(product) {
   return `${getCurrencySymbol(product)}${product?.price} (${getCurrencyText(product)})`;
+}
+
+export function getAlert(type, text) {
+  return (
+    <Alert
+      message={text}
+      type={type}
+      showIcon
+    />
+  )
+}
+
+export function getTag(text) {
+  return (
+    <Tag color={"processing"}>
+      {text}
+    </Tag>
+  )
 }

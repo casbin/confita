@@ -64,9 +64,9 @@ class DashboardPage extends React.Component {
 
   getPayments() {
     PaymentBackend.getPayments(this.props.account.name)
-      .then((res) => {
+      .then((payments) => {
         this.setState({
-          payments: res,
+          payments: payments.filter(payment => payment.state === "Paid"),
         });
       });
   }
@@ -104,17 +104,6 @@ class DashboardPage extends React.Component {
     return myTag;
   }
 
-  getUserProduct() {
-    let myTag = "";
-    this.state.conference?.tags?.map((tag, index) => {
-      const tokens = tag.split("|");
-      if (tokens[0] === this.props.account.tag) {
-        myTag = tokens[2];
-      }
-    })
-    return myTag;
-  }
-
   renderSubmissionList() {
     if (this.state.submissions === null) {
       return null;
@@ -149,7 +138,11 @@ class DashboardPage extends React.Component {
                 <div>{`${submission.conference} | ${submission.type} | ${submission.subType}`}</div>
               </Col>
               <Col span={12} >
-                <div>{`${submission.status}`}</div>
+                <div style={{width: '180px'}}>
+                  {
+                    Setting.getAlert(submission.status === "ReadyForReview" ? "success" : "error", submission.status)
+                  }
+                </div>
               </Col>
             </Row>
             {
@@ -208,20 +201,31 @@ class DashboardPage extends React.Component {
     )
   }
 
+  renderCard(product, isSingle, payments) {
+    const url = Setting.getProductBuyUrl(this.props.account, product.name);
+    const price = Setting.getPrice(product);
+    const paid = payments.length !== 0;
+
+    return (
+      <SingleCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} product={product} payments={payments} clickable={!paid} />
+    )
+  }
+
   renderCards() {
     const products = this.state.products;
     if (products === null) {
       return null;
     }
 
+    const payments = this.state.payments;
+    const isSingle = products.length === 1;
+
     if (Setting.isMobile()) {
       return (
         <Card bodyStyle={{padding: 0}}>
           {
             products.map(product => {
-              return (
-                <SingleCard logo={product.image} link={Setting.getProductBuyUrl(this.props.account, product.name)} title={Setting.getPrice(product)} desc={product.displayName} isSingle={products.length === 1} />
-              )
+              return this.renderCard(product, isSingle, payments);
             })
           }
         </Card>
@@ -232,9 +236,7 @@ class DashboardPage extends React.Component {
           <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
             {
               products.map(product => {
-                return (
-                  <SingleCard logo={product.image} link={Setting.getProductBuyUrl(this.props.account, product.name)} title={Setting.getPrice(product)} desc={product.displayName} time={product.tag} isSingle={products.length === 1} key={product.name} />
-                )
+                return this.renderCard(product, isSingle, payments);
               })
             }
           </Row>
@@ -248,61 +250,31 @@ class DashboardPage extends React.Component {
       return null;
     }
 
-    if (this.state.payments.length === 0) {
-      const productName = this.getUserProduct();
-      const displayTag = this.getUserDisplayTag();
-
-      if (productName === "") {
-        const text = i18next.t("dashboard:Your current tag doesn't support payment");
-        return (
-          <div>
-            <span style={{fontSize: 16}}>
-              {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
-            </span>
-            {
-              this.renderCards()
-            }
-            {/*<Button disabled={true} type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${text}: ${displayTag})`}</Button>*/}
-          </div>
-        )
-      }
-
-      return (
-        <div>
-          <span style={{fontSize: 16}}>
-            {`${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}: `}
-          </span>
-          {
-            this.renderCards()
-          }
-          {/*<a href={Setting.getProductBuyUrl(this.props.account, productName)}>*/}
-          {/*  <Button type="primary" size={"large"} >{`${i18next.t("dashboard:Pay Registration Fee")} (${displayTag})`}</Button>*/}
-          {/*</a>*/}
-        </div>
-      )
-    }
+    const displayTag = this.getUserDisplayTag();
+    const paid = this.state.payments.length !== 0;
 
     return (
-      <List
-        itemLayout="horizontal"
-        dataSource={this.state.payments}
-        renderItem={payment => (
-          <List.Item
-            actions={[
-              <a href={Setting.getPaymentUrl(this.props.account, payment)}>
-                {i18next.t("dashboard:View")}
-              </a>,
-            ]}
-          >
-            <List.Item.Meta
-              // avatar={<Avatar src={item.picture.large} />}
-              title={<a href={Setting.getPaymentUrl(this.props.account, payment)}>{payment.productName}</a>}
-              description={`${payment.detail} | ${payment.tag} | ${payment.productId} | ${payment.name}`}
-            />
-            <div>{`${payment.type} | ${payment.currency} | ${payment.price} | ${payment.state}`}</div>
-          </List.Item>
-        )}
-      />
+      <div>
+          <div style={{fontSize: 16}}>
+            {
+              Setting.getAlert(paid ? "success" : "error", <div>
+                {
+                  `${i18next.t("dashboard:Your current tag is")}: ${displayTag}. `
+                }
+                {
+                  !paid ? (
+                    `${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}.`
+                  ) : (
+                    i18next.t("dashboard:You have completed the payment.")
+                  )
+                }
+              </div>)
+            }
+          </div>
+        {
+          this.renderCards(paid)
+        }
+      </div>
     )
   }
 

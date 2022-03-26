@@ -13,9 +13,10 @@
 // limitations under the License.
 
 import React from "react";
-import {Card, Col} from "antd";
+import {Alert, Card, Col, Space} from "antd";
 import * as Setting from "./Setting";
 import {withRouter} from "react-router-dom";
+import i18next from "i18next";
 
 const { Meta } = Card;
 
@@ -27,25 +28,61 @@ class SingleCard extends React.Component {
     };
   }
 
-  renderCardMobile(logo, link, title, desc, time, isSingle) {
+  renderPayment(product, payment) {
+    if (product.name !== payment.productName) {
+      return null;
+    }
+
+    return (
+      <Alert
+        message={`${payment.state} | ${payment.price} | ${payment.currency}`}
+        showIcon
+        description={<div>
+          {`${i18next.t("general:Name")}: ${payment.name}`}
+          <br/>
+          {`${i18next.t("general:Created time")}: ${Setting.getFormattedDate(payment.createdTime)}`}
+        </div>}
+        type="success"
+        style={{cursor: "pointer"}}
+        onClick={() => {
+          Setting.goToLink(Setting.getPaymentUrl(this.props.account, payment));
+        }}
+        action={
+          <Space direction="vertical">
+            {
+              `${payment.type}`
+            }
+            {/*<Button size="small" danger type="ghost">*/}
+            {/*  Decline*/}
+            {/*</Button>*/}
+          </Space>
+        }
+      />
+    )
+  }
+
+  renderCardMobile(logo, link, title, desc, time, isSingle, clickable) {
+    const cursor = clickable ? "pointer" : "auto";
     const gridStyle = {
       width: '100vw',
       textAlign: 'center',
-      cursor: 'pointer',
+      cursor: cursor,
     };
 
     return (
-      <Card.Grid style={gridStyle} onClick={() => Setting.goToLink(link)}>
+      <Card.Grid style={gridStyle} onClick={() => {
+        if (clickable) {
+          Setting.goToLink(link);
+        }
+      }}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: '20px'}}/>
-        <Meta
-          title={title}
-          description={desc}
-        />
+        <Meta title={title} description={desc} />
       </Card.Grid>
     )
   }
 
-  renderCard(logo, link, title, desc, time, isSingle) {
+  renderCard(logo, link, title, desc, time, isSingle, clickable) {
+    const cursor = clickable ? "pointer" : "auto";
     return (
       <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
@@ -53,13 +90,22 @@ class SingleCard extends React.Component {
           cover={
             <img alt="logo" src={logo} width={"100%"} height={"100%"} />
           }
-          onClick={() => Setting.goToLink(link)}
-          style={isSingle ? {width: "320px"} : null}
+          onClick={() => {
+            if (clickable) {
+              Setting.goToLink(link);
+            }
+          }}
+          style={isSingle ? {width: "320px", cursor: cursor} : {cursor: cursor}}
         >
           <Meta title={title} description={desc} />
           <br/>
           <br/>
-          <Meta title={""} description={Setting.getFormattedDateShort(time)} />
+          {
+            this.props.payments.map(payment => {
+              return this.renderPayment(this.props.product, payment);
+            })
+          }
+          {/*<Meta title={""} description={Setting.getFormattedDateShort(time)} />*/}
         </Card>
       </Col>
     )
@@ -67,9 +113,9 @@ class SingleCard extends React.Component {
 
   render() {
     if (Setting.isMobile()) {
-      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle);
+      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, this.props.clickable);
     } else {
-      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle);
+      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, this.props.clickable);
     }
   }
 }
