@@ -72,9 +72,11 @@ class SingleCard extends React.Component {
     }
 
     if (Conf.TestAffiliation !== "") {
-      if (!this.props.account.affiliation.includes(Conf.TestAffiliation)) {
-        this.updateProduct("test");
-        return;
+      if ((!Setting.isEditorUser(this.props.account) && !Setting.isAdminUser(this.props.account))) {
+        if (!this.props.account.affiliation.includes(Conf.TestAffiliation)) {
+          this.updateProduct("test");
+          return;
+        }
       }
     }
 
