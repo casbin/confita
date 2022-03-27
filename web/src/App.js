@@ -23,6 +23,7 @@ import AuthCallback from "./AuthCallback";
 import * as Conf from "./Conf";
 import HomePage from "./HomePage";
 import DashboardPage from "./DashboardPage";
+import ContactPage from "./ContactPage";
 import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
 import SubmissionListPage from "./SubmissionListPage";
@@ -70,6 +71,8 @@ class App extends Component {
       this.setState({selectedMenuKey: '/'});
     } else if (uri.includes('/dashboard')) {
       this.setState({ selectedMenuKey: '/dashboard' });
+    } else if (uri.includes('/contact')) {
+      this.setState({ selectedMenuKey: '/contact' });
     } else if (uri.includes('/conferences')) {
       this.setState({ selectedMenuKey: '/conferences' });
     } else if (uri.includes('/submissions')) {
@@ -266,6 +269,14 @@ class App extends Component {
       </Menu.Item>
     );
 
+    res.push(
+      <Menu.Item key="/contact">
+        <Link to="/contact">
+          {i18next.t("general:Contact")}
+        </Link>
+      </Menu.Item>
+    );
+
     return res;
   }
 
@@ -315,6 +326,7 @@ class App extends Component {
           <Route exact path="/callback" component={AuthCallback}/>
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
           <Route exact path="/dashboard" render={(props) => this.renderSigninIfNotSignedIn(<DashboardPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)}/>
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>

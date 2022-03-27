@@ -26,3 +26,6 @@ export const DefaultConferenceName = "conference_0";
 
 export const ForceLanguage = "";
 export const DefaultLanguage = "en";
+
+// export const CasnodeEndpoint = "https://forum.casbin.com";
+export const CasnodeEndpoint = "http://localhost:3000";
