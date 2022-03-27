@@ -21,6 +21,9 @@
     "Start date": "Start date",
     "Title": "Title"
   },
+  "contact": {
+    "If you want to change your tag to 'Student' or 'Accompanying Person', please contact the service desk in the below chatbox. Provide the tag you want to change to and also the proof image like your student ID card photo. You can use the keystroke 'Ctrl' + 'V' to paste an image into the reply box.": "If you want to change your tag to 'Student' or 'Accompanying Person', please contact the service desk in the below chatbox. Provide the tag you want to change to and also the proof image like your student ID card photo. You can use the keystroke 'Ctrl' + 'V' to paste an image into the reply box."
+  },
   "dashboard": {
     "Affiliation": "Affiliation",
     "CNY": "CNY",
@@ -56,6 +59,7 @@
     "Registrations": "Registrations",
     "Resources": "Resources",
     "Save": "Save",
+    "Service Desk": "Service Desk",
     "Status": "Status",
     "Submissions": "Submissions"
   },

@@ -17,6 +17,7 @@ import {Col, Row} from "antd";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
+import i18next from "i18next";
 
 class ContactPage extends React.Component {
   constructor(props) {
@@ -46,8 +47,10 @@ class ContactPage extends React.Component {
     }
 
     const nodeId = "verification";
-    const title = encodeURIComponent(document.title);
-    const urlPath = encodeURIComponent(window.location.pathname);
+    // const title = encodeURIComponent(document.title);
+    const title = encodeURIComponent(`Change Tag Request - ${this.props.account.name}`);
+    const author = this.props.account.name;
+    const urlPath = encodeURIComponent(`|change-tag-request|${this.props.account.name}`);
 
     let accessToken;
     if (this.props.account === null) {
@@ -60,11 +63,26 @@ class ContactPage extends React.Component {
     return (
       <iframe
         key={accessToken}
-        style={{
-          width: "100%",
-          height: 500,
-        }}
-        src={`${Conf.CasnodeEndpoint}/embedded-replies?nodeId=${nodeId}&title=${title}&urlPath=${urlPath}&accessToken=${accessToken}`}
+        style={{border: "1px solid rgb(232,232,232)", width: "100%", height: "70vh"}}
+        src={`${Conf.CasnodeEndpoint}/embedded-replies?nodeId=${nodeId}&title=${title}&author=${author}&urlPath=${urlPath}&accessToken=${accessToken}`}
+      />
+    )
+  }
+
+  renderAdmin() {
+    let accessToken;
+    if (this.props.account === null) {
+      // Confita is signed out, also sign out Casnode.
+      accessToken = "signout";
+    } else {
+      accessToken = this.props.account.accessToken;
+    }
+
+    return (
+      <iframe
+        key={accessToken}
+        style={{border: "1px solid rgb(232,232,232)", width: "100%", height: "70vh"}}
+        src={`${Conf.CasnodeEndpoint}?accessToken=${accessToken}`}
       />
     )
   }
@@ -76,8 +94,17 @@ class ContactPage extends React.Component {
           <Col span={!Setting.isMobile() ? 3 : 0}>
           </Col>
           <Col span={!Setting.isMobile() ? 18 : 24}>
+            <br/>
             {
-              this.renderComments()
+              Setting.getAlert("info", i18next.t("contact:If you want to change your tag to 'Student' or 'Accompanying Person', please contact the service desk in the below chat box. Provide the tag you want to change to and also the proof image like your student ID card photo. You can use the keystroke 'Ctrl' + 'V' to paste an image into the reply box."))
+            }
+            <br/>
+            {
+              (Setting.isEditorUser(this.props.account) || Setting.isAdminUser(this.props.account)) ? (
+                this.renderAdmin()
+              ) : (
+                this.renderComments()
+              )
             }
           </Col>
           <Col span={!Setting.isMobile() ? 3 : 0}>

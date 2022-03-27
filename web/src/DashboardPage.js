@@ -264,6 +264,7 @@ class DashboardPage extends React.Component {
       return null;
     }
 
+    const ths = this;
     const displayTag = this.getDisplayTag(this.props.account.tag);
     const paid = this.getPaid();
 
@@ -279,7 +280,7 @@ class DashboardPage extends React.Component {
                   `${i18next.t("dashboard:If you believe your tag is wrong, please click the button to change it")}: `
                 }
                 <Button type="primary" size={"small"} disabled={this.getPaid()} onClick={() => {
-                  Setting.goToLink(Setting.getMyProfileUrl(this.props.account));
+                  Setting.goToContact(ths);
                 }} >
                   {i18next.t("dashboard:Change My Tag")}
                 </Button>
@@ -307,8 +308,9 @@ class DashboardPage extends React.Component {
   }
 
   renderModal() {
+    const ths = this;
     const handleChangeMyTag = () => {
-      Setting.goToLink(Setting.getMyProfileUrl(this.props.account));
+      Setting.goToContact(ths);
     };
 
     const handleCancel = () => {

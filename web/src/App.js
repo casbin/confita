@@ -272,7 +272,7 @@ class App extends Component {
     res.push(
       <Menu.Item key="/contact">
         <Link to="/contact">
-          {i18next.t("general:Contact")}
+          {i18next.t("general:Service Desk")}
         </Link>
       </Menu.Item>
     );
