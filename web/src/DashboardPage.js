@@ -357,6 +357,16 @@ class DashboardPage extends React.Component {
             i18next.t("dashboard:If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.")
           }
         </p>
+        {
+          (Setting.isEditorUser(this.props.account) || Setting.isAdminUser(this.props.account)) ? (
+            <Button type="primary" onClick={() => {
+              Setting.goToLink(Setting.getProductBuyUrl(this.props.account, this.state.currentProduct.name));
+            }}>
+              {i18next.t("dashboard:Still Pay (Editor Only)")}
+            </Button>
+          ) : null
+        }
+
       </Modal>
     )
   }
