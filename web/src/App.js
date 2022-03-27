@@ -310,7 +310,7 @@ class App extends Component {
           <Menu
             // theme="dark"
             mode={"horizontal"}
-            defaultSelectedKeys={[`${this.state.selectedMenuKey}`]}
+            selectedKeys={[`${this.state.selectedMenuKey}`]}
             style={{lineHeight: '64px'}}
           >
             {
