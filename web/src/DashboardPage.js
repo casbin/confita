@@ -36,6 +36,7 @@ class DashboardPage extends React.Component {
       payments: null,
       conference: null,
       isModalVisible: false,
+      isTestModalVisible: false,
       currentProduct: null,
     };
   }
@@ -204,11 +205,17 @@ class DashboardPage extends React.Component {
     )
   }
 
-  updateProduct(product) {
-    this.setState({
-      isModalVisible: true,
-      currentProduct: product,
-    });
+  updateProduct(type, product) {
+    if (type === "product") {
+      this.setState({
+        isModalVisible: true,
+        currentProduct: product,
+      });
+    } else if (type === "test") {
+      this.setState({
+        isTestModalVisible: true,
+      });
+    }
   }
 
   renderCard(product, isSingle, payments) {
@@ -217,7 +224,7 @@ class DashboardPage extends React.Component {
     const paid = payments.length !== 0;
 
     return (
-      <SingleCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(product) => { this.updateProduct(product)}} />
+      <SingleCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(type, product) => { this.updateProduct(type, product)}} />
     )
   }
 
@@ -354,6 +361,38 @@ class DashboardPage extends React.Component {
     )
   }
 
+  renderTestModal() {
+    const handleOk = () => {
+      this.setState({
+        isTestModalVisible: false,
+      });
+    };
+
+    return (
+      <Modal title={
+        <div>
+          <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
+          {" " + i18next.t("dashboard:There is error when processing the registration payment..")}
+        </div>
+      }
+             visible={this.state.isTestModalVisible}
+             okButtonProps={{
+               style: {
+                 display: "none",
+               },
+             }}
+             onCancel={handleOk}
+             cancelText={i18next.t("dashboard:OK")}
+             >
+        <p>
+          {
+            i18next.t("dashboard:The payment functionality is not available yet, please wait for the announcement.")
+          }
+        </p>
+      </Modal>
+    )
+  }
+
   render() {
     const account = this.props.account;
 
@@ -361,6 +400,9 @@ class DashboardPage extends React.Component {
       <div style={{padding: "20px"}}>
         {
           this.renderModal()
+        }
+        {
+          this.renderTestModal()
         }
         <Descriptions title={`${i18next.t("dashboard:Welcome")}, ${account?.displayName}`} bordered>
           <Descriptions.Item label={i18next.t("general:Name")} span={3}>

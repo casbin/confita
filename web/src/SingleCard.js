@@ -17,6 +17,7 @@ import {Alert, Card, Col, Space} from "antd";
 import * as Setting from "./Setting";
 import {withRouter} from "react-router-dom";
 import i18next from "i18next";
+import * as Conf from "./Conf";
 
 const { Meta } = Card;
 
@@ -61,8 +62,28 @@ class SingleCard extends React.Component {
     )
   }
 
-  updateProduct() {
-    this.props.onUpdateProduct(this.props.product);
+  updateProduct(type) {
+    this.props.onUpdateProduct(type, this.props.product);
+  }
+
+  onClickCard(link, clickable) {
+    if (!clickable) {
+      return;
+    }
+
+    if (Conf.TestAffiliation !== "") {
+      if (!this.props.account.affiliation.includes(Conf.TestAffiliation)) {
+        this.updateProduct("test");
+        return;
+      }
+    }
+
+    if (!this.isRightProduct()) {
+      this.updateProduct("product");
+      return;
+    }
+
+    Setting.goToLink(link);
   }
 
   renderCardMobile(logo, link, title, desc, time, isSingle, clickable) {
@@ -77,16 +98,7 @@ class SingleCard extends React.Component {
 
     return (
       <Card.Grid style={gridStyle} onClick={() => {
-        if (!clickable) {
-          return;
-        }
-
-        if (!this.isRightProduct()) {
-          this.updateProduct();
-          return;
-        }
-
-        Setting.goToLink(link);
+        this.onClickCard(link, clickable);
       }}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: '20px'}}/>
         <Meta title={title} description={desc} />
@@ -109,16 +121,7 @@ class SingleCard extends React.Component {
             <img alt="logo" src={logo} width={"100%"} height={"100%"} />
           }
           onClick={() => {
-            if (!clickable) {
-              return;
-            }
-
-            if (!this.isRightProduct()) {
-              this.updateProduct();
-              return;
-            }
-
-            Setting.goToLink(link);
+            this.onClickCard(link, clickable);
           }}
           style={isSingle ? {width: "320px", cursor: cursor} : {cursor: cursor}}
         >
