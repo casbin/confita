@@ -111,6 +111,10 @@ class SingleCard extends React.Component {
   }
 
   isRightProduct() {
+    if (Setting.isEditorUser(this.props.account) || Setting.isAdminUser(this.props.account)) {
+      return true;
+    }
+
     return this.props.account.tag === this.props.product.tag;
   }
 
