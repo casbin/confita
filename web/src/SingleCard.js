@@ -90,12 +90,14 @@ class SingleCard extends React.Component {
 
   renderCardMobile(logo, link, title, desc, time, isSingle, clickable) {
     const cursor = clickable ? "pointer" : "auto";
-    const opacity = this.isRightProduct() ? 1.0 : 0.4;
+    const opacity = this.isRightProduct() ? 1.0 : 0.8;
+    const backgroundColor = this.isRightProduct() ? null : "rgb(255,242,240)";
     const gridStyle = {
       width: '100vw',
       textAlign: 'center',
       cursor: cursor,
       opacity: opacity,
+      backgroundColor: backgroundColor,
     };
 
     return (
@@ -114,7 +116,10 @@ class SingleCard extends React.Component {
 
   renderCard(logo, link, title, desc, time, isSingle, clickable) {
     const cursor = clickable ? "pointer" : "auto";
-    const opacity = this.isRightProduct() ? 1.0 : 0.4;
+    const opacity = this.isRightProduct() ? 1.0 : 0.8;
+    const backgroundColor = this.isRightProduct() ? null : "rgb(255,242,240)";
+    const bodyStyle = this.isRightProduct() ? {} : {backgroundSize: "100% 100%", backgroundImage: "url(https://cdn.casbin.com/static/img/mark2.png)"};
+
     return (
       <Col style={{opacity: opacity, paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
@@ -125,7 +130,8 @@ class SingleCard extends React.Component {
           onClick={() => {
             this.onClickCard(link, clickable);
           }}
-          style={isSingle ? {width: "320px", cursor: cursor} : {cursor: cursor}}
+          bodyStyle={bodyStyle}
+          style={isSingle ? {width: "320px", cursor: cursor, backgroundColor: backgroundColor} : {cursor: cursor, backgroundColor: backgroundColor}}
         >
           <Meta title={title} description={desc} />
           <br/>
