@@ -22,7 +22,7 @@ import * as AccountBackend from "./backend/AccountBackend";
 import AuthCallback from "./AuthCallback";
 import * as Conf from "./Conf";
 import HomePage from "./HomePage";
-import DashboardPage from "./DashboardPage";
+import PaymentPage from "./PaymentPage";
 import ContactPage from "./ContactPage";
 import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
@@ -69,8 +69,8 @@ class App extends Component {
     });
     if (uri === '/') {
       this.setState({selectedMenuKey: '/'});
-    } else if (uri.includes('/dashboard')) {
-      this.setState({ selectedMenuKey: '/dashboard' });
+    } else if (uri.includes('/payments')) {
+      this.setState({ selectedMenuKey: '/payments' });
     } else if (uri.includes('/contact')) {
       this.setState({ selectedMenuKey: '/contact' });
     } else if (uri.includes('/conferences')) {
@@ -237,9 +237,9 @@ class App extends Component {
     );
 
     res.push(
-      <Menu.Item key="/dashboard">
-        <Link to="/dashboard">
-          {i18next.t("general:Dashboard")}
+      <Menu.Item key="/payments">
+        <Link to="/payments">
+          {i18next.t("general:Payments")}
         </Link>
       </Menu.Item>
     );
@@ -325,7 +325,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/callback" component={AuthCallback}/>
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
-          <Route exact path="/dashboard" render={(props) => this.renderSigninIfNotSignedIn(<DashboardPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)}/>
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)}/>
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>

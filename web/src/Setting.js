@@ -253,9 +253,9 @@ function getCurrencySymbol(product) {
 
 function getCurrencyText(product) {
   if (product?.currency === "USD") {
-    return i18next.t("dashboard:USD");
+    return i18next.t("payment:USD");
   } else if (product?.currency === "CNY") {
-    return i18next.t("dashboard:CNY");
+    return i18next.t("payment:CNY");
   } else {
     return "(Unknown currency)";
   }

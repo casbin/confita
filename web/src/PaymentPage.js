@@ -26,7 +26,7 @@ import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Conf from "./Conf";
 import SingleCard from "./SingleCard";
 
-class DashboardPage extends React.Component {
+class PaymentPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -121,10 +121,10 @@ class DashboardPage extends React.Component {
           <List.Item
             actions={[
               <Link to={`/submissions`}>
-                {i18next.t("dashboard:View")}
+                {i18next.t("payment:View")}
               </Link>,
               <Link to={`/submissions/${submission.owner}/${submission.name}`}>
-                {i18next.t("dashboard:Edit")}
+                {i18next.t("payment:Edit")}
               </Link>
             ]}
           >
@@ -281,15 +281,15 @@ class DashboardPage extends React.Component {
             {
               Setting.getAlert("info", <div>
                 {
-                  `${i18next.t("dashboard:Your current tag is")}: ${displayTag}. `
+                  `${i18next.t("payment:Your current tag is")}: ${displayTag}. `
                 }
                 {
-                  `${i18next.t("dashboard:If you believe your tag is wrong, please click the button to change it")}: `
+                  `${i18next.t("payment:If you believe your tag is wrong, please click the button to change it")}: `
                 }
                 <Button type="primary" size={"small"} disabled={this.getPaid()} onClick={() => {
                   Setting.goToContact(ths);
                 }} >
-                  {i18next.t("dashboard:Change My Tag")}
+                  {i18next.t("payment:Change My Tag")}
                 </Button>
               </div>)
             }
@@ -299,9 +299,9 @@ class DashboardPage extends React.Component {
               Setting.getAlert(paid ? "success" : "error", <div>
                 {
                   !paid ? (
-                    `${i18next.t("dashboard:You haven't completed the payment, please click the button to pay")}.`
+                    `${i18next.t("payment:You haven't completed the payment, please click the button to pay")}.`
                   ) : (
-                    i18next.t("dashboard:You have completed the payment.")
+                    i18next.t("payment:You have completed the payment.")
                   )
                 }
               </div>)
@@ -330,23 +330,23 @@ class DashboardPage extends React.Component {
       <Modal title={
         <div>
           <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
-          {" " + i18next.t("dashboard:There is error when processing the registration payment..")}
+          {" " + i18next.t("payment:There is error when processing the registration payment..")}
         </div>
       }
              visible={this.state.isModalVisible}
              onOk={handleChangeMyTag}
              onCancel={handleCancel}
-             okText={i18next.t("dashboard:Change My Tag")}
-             cancelText={i18next.t("dashboard:Cancel")}>
+             okText={i18next.t("payment:Change My Tag")}
+             cancelText={i18next.t("payment:Cancel")}>
         <p>
           {
-            i18next.t("dashboard:Your current tag is") + ": "
+            i18next.t("payment:Your current tag is") + ": "
           }
           {
             Setting.getTag(this.getDisplayTag(this.props.account.tag))
           }
           {
-            ", " + i18next.t("dashboard:but this registration requires the tag to be") + ": "
+            ", " + i18next.t("payment:but this registration requires the tag to be") + ": "
           }
           {
             Setting.getTag(this.getDisplayTag(this.state.currentProduct?.tag))
@@ -354,7 +354,7 @@ class DashboardPage extends React.Component {
         </p>
         <p>
           {
-            i18next.t("dashboard:If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.")
+            i18next.t("payment:If you want to switch to another tag, please click the 'Change My Tag' button as below. If you don't need to change the tag, just click the 'Cancel' button.")
           }
         </p>
         {
@@ -362,7 +362,7 @@ class DashboardPage extends React.Component {
             <Button type="primary" onClick={() => {
               Setting.goToLink(Setting.getProductBuyUrl(this.props.account, this.state.currentProduct.name));
             }}>
-              {i18next.t("dashboard:Still Pay (Editor Only)")}
+              {i18next.t("payment:Still Pay (Editor Only)")}
             </Button>
           ) : null
         }
@@ -382,7 +382,7 @@ class DashboardPage extends React.Component {
       <Modal title={
         <div>
           <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
-          {" " + i18next.t("dashboard:There is error when processing the registration payment..")}
+          {" " + i18next.t("payment:There is error when processing the registration payment..")}
         </div>
       }
              visible={this.state.isTestModalVisible}
@@ -392,11 +392,11 @@ class DashboardPage extends React.Component {
                },
              }}
              onCancel={handleOk}
-             cancelText={i18next.t("dashboard:OK")}
+             cancelText={i18next.t("payment:OK")}
              >
         <p>
           {
-            i18next.t("dashboard:The payment functionality is not available yet, please wait for the announcement.")
+            i18next.t("payment:The payment functionality is not available yet, please wait for the announcement.")
           }
         </p>
       </Modal>
@@ -414,16 +414,16 @@ class DashboardPage extends React.Component {
         {
           this.renderTestModal()
         }
-        <Descriptions title={`${i18next.t("dashboard:Welcome")}, ${account?.displayName}`} bordered>
+        <Descriptions title={`${i18next.t("payment:Welcome")}, ${account?.displayName}`} bordered>
           <Descriptions.Item label={i18next.t("general:Name")} span={3}>
             <img src={account?.avatar} alt={account?.avatar} height={90} />
             <span style={{fontSize: 28, marginLeft: "20px"}}>
               {account?.displayName}
             </span>
           </Descriptions.Item>
-          <Descriptions.Item label={i18next.t("dashboard:Affiliation")}><span style={{fontSize: 16}}>{account?.affiliation}</span></Descriptions.Item>
-          <Descriptions.Item label={i18next.t("dashboard:Title")}><span style={{fontSize: 16}}>{account?.title}</span></Descriptions.Item>
-          <Descriptions.Item label={i18next.t("dashboard:Tag")}><span style={{fontSize: 16}}>{this.getDisplayTag(this.props.account.tag)}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("payment:Affiliation")}><span style={{fontSize: 16}}>{account?.affiliation}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("payment:Title")}><span style={{fontSize: 16}}>{account?.title}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("payment:Tag")}><span style={{fontSize: 16}}>{this.getDisplayTag(this.props.account.tag)}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("general:Conferences")} span={3}><span style={{fontSize: 16}}>{this.state.conference?.fullName}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("general:Submissions")} span={3}>
             {
@@ -441,4 +441,4 @@ class DashboardPage extends React.Component {
   }
 }
 
-export default DashboardPage;
+export default PaymentPage;

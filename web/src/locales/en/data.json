@@ -24,7 +24,27 @@
   "contact": {
     "If you want to change your tag to 'Student' or 'Accompanying Person', please contact the service desk in the below chat box. Provide the tag you want to change to and also the proof image like your student ID card photo. You can use the keystroke 'Ctrl' + 'V' to paste an image into the reply box.": "If you want to change your tag to 'Student' or 'Accompanying Person', please contact the service desk in the below chat box. Provide the tag you want to change to and also the proof image like your student ID card photo. You can use the keystroke 'Ctrl' + 'V' to paste an image into the reply box."
   },
-  "dashboard": {
+  "general": {
+    "(empty)": "(empty)",
+    "Action": "Action",
+    "Add": "Add",
+    "Conferences": "Conferences",
+    "Created time": "Created time",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "Home": "Home",
+    "Name": "Name",
+    "Owner": "Owner",
+    "Payments": "Payments",
+    "Preview": "Preview",
+    "Registrations": "Registrations",
+    "Resources": "Resources",
+    "Save": "Save",
+    "Service Desk": "Service Desk",
+    "Status": "Status",
+    "Submissions": "Submissions"
+  },
+  "payment": {
     "Affiliation": "Affiliation",
     "CNY": "CNY",
     "Cancel": "Cancel",
@@ -45,26 +65,6 @@
     "You haven't completed the payment, please click the button to pay": "You haven't completed the payment, please click the button to pay",
     "Your current tag is": "Your current tag is",
     "but this registration requires the tag to be": "but this registration requires the tag to be"
-  },
-  "general": {
-    "(empty)": "(empty)",
-    "Action": "Action",
-    "Add": "Add",
-    "Conferences": "Conferences",
-    "Created time": "Created time",
-    "Dashboard": "Dashboard",
-    "Delete": "Delete",
-    "Edit": "Edit",
-    "Home": "Home",
-    "Name": "Name",
-    "Owner": "Owner",
-    "Preview": "Preview",
-    "Registrations": "Registrations",
-    "Resources": "Resources",
-    "Save": "Save",
-    "Service Desk": "Service Desk",
-    "Status": "Status",
-    "Submissions": "Submissions"
   },
   "submission": {
     "Authors": "Authors",
