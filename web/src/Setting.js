@@ -265,6 +265,16 @@ export function getPrice(product) {
   return `${getCurrencySymbol(product)}${product?.price} (${getCurrencyText(product)})`;
 }
 
+export function getState(payment) {
+  if (payment?.state === "Paid") {
+    return i18next.t("payment:Paid");
+  } else if (payment?.state === "Created") {
+    return i18next.t("payment:Created");
+  } else {
+    return "(Unknown state)";
+  }
+}
+
 export function getAlert(type, text) {
   return (
     <Alert

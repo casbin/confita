@@ -36,7 +36,7 @@ class SingleCard extends React.Component {
 
     return (
       <Alert
-        message={`${payment.state} | ${payment.price} | ${payment.currency}`}
+        message={`${Setting.getState(payment)} | ${Setting.getPrice(payment)}`}
         showIcon
         description={<div>
           {`${i18next.t("general:Name")}: ${payment.name}`}
