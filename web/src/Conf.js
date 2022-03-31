@@ -25,6 +25,9 @@ export const DefaultOwner = "admin";
 export const DefaultConferenceName = "conference_0";
 export const TestAffiliation = "";
 
+export const paymentInfo = "";
+export const paymentInfoEn = "";
+
 export const ForceLanguage = "";
 export const DefaultLanguage = "en";
 

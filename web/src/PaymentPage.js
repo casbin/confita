@@ -266,6 +266,18 @@ class PaymentPage extends React.Component {
     return this.state.payments.length !== 0;
   }
 
+  renderAlert(paid) {
+    if (Conf.paymentInfo !== "" && Conf.paymentInfoEn !== "") {
+      return Setting.getAlert("info", Setting.getLanguage() !== "zh" ? Conf.paymentInfoEn : Conf.paymentInfo);
+    }
+
+    if (paid) {
+      return Setting.getAlert("success", i18next.t("payment:You have completed the payment."));
+    } else {
+      return Setting.getAlert("error", i18next.t("payment:You haven't completed the payment, please click the button to pay."));
+    }
+  }
+
   renderPaymentList() {
     if (this.state.payments === null) {
       return null;
@@ -279,14 +291,14 @@ class PaymentPage extends React.Component {
       <div>
           <div style={{fontSize: 16}}>
             {
-              Setting.getAlert("info", <div>
+              Setting.getAlert("warning", <div>
                 {
                   `${i18next.t("payment:Your current tag is")}: ${displayTag}. `
                 }
                 {
                   `${i18next.t("payment:If you believe your tag is wrong, please click the button to change it")}: `
                 }
-                <Button type="primary" size={"small"} disabled={this.getPaid()} onClick={() => {
+                <Button type="primary" size={"small"} disabled={paid} onClick={() => {
                   Setting.goToContact(ths);
                 }} >
                   {i18next.t("payment:Change My Tag")}
@@ -296,15 +308,7 @@ class PaymentPage extends React.Component {
           </div>
           <div style={{fontSize: 16, marginTop: 12}}>
             {
-              Setting.getAlert(paid ? "success" : "error", <div>
-                {
-                  !paid ? (
-                    `${i18next.t("payment:You haven't completed the payment, please click the button to pay")}.`
-                  ) : (
-                    i18next.t("payment:You have completed the payment.")
-                  )
-                }
-              </div>)
+              this.renderAlert(paid)
             }
           </div>
         {
