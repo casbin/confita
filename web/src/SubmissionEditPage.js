@@ -78,7 +78,7 @@ class SubmissionEditPage extends React.Component {
     return (
       <Card size="small" title={
         <div>
-          {i18next.t("token:Edit Submission")}&nbsp;&nbsp;&nbsp;&nbsp;
+          {i18next.t("submission:Edit Submission")}&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.submitSubmissionEdit.bind(this)}>{i18next.t("general:Save")}</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">

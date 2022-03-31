@@ -67,7 +67,7 @@ class ConferenceEditPage extends React.Component {
     return (
       <Card size="small" title={
         <div>
-          {i18next.t("token:Edit Conference")}&nbsp;&nbsp;&nbsp;&nbsp;
+          {i18next.t("conference:Edit Conference")}&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.submitConferenceEdit.bind(this)}>{i18next.t("general:Save")}</Button>
         </div>
       } style={{marginLeft: '5px'}} type="inner">

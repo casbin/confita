@@ -10,6 +10,7 @@
     "Carousels": "Carousels",
     "Content": "Content",
     "Default item": "Default item",
+    "Edit Conference": "Edit Conference",
     "End date": "End date",
     "Full name": "Full name",
     "Introduction text": "Introduction text",
@@ -71,14 +72,11 @@
   "submission": {
     "Authors": "Authors",
     "Conference": "Conference",
+    "Edit Submission": "Edit Submission",
     "File upload": "File upload",
     "Sub type": "Sub type",
     "Title": "Title",
     "Type": "Type",
     "Word file": "Word file"
-  },
-  "token": {
-    "Edit Conference": "Edit Conference",
-    "Edit Submission": "Edit Submission"
   }
 }

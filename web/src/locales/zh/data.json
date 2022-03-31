@@ -10,6 +10,7 @@
     "Carousels": "轮播图",
     "Content": "内容",
     "Default item": "初始菜单项",
+    "Edit Conference": "编辑会议",
     "End date": "结束日期",
     "Full name": "全名",
     "Introduction text": "介绍",
@@ -71,14 +72,11 @@
   "submission": {
     "Authors": "作者",
     "Conference": "会议",
+    "Edit Submission": "编辑稿件",
     "File upload": "稿件上传",
     "Sub type": "子类型",
     "Title": "标题",
     "Type": "类型",
     "Word file": "Word文件"
-  },
-  "token": {
-    "Edit Conference": "编辑会议",
-    "Edit Submission": "编辑稿件"
   }
 }
