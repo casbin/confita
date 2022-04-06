@@ -70,13 +70,13 @@
     "but this registration requires the tag to be": "但是支付此项注册费所需的标签是"
   },
   "submission": {
+    "Abstract files": "稿件摘要",
     "Authors": "作者",
     "Conference": "会议",
     "Edit Submission": "编辑稿件",
-    "File upload": "稿件上传",
+    "Full paper files": "稿件全文",
     "Sub type": "子类型",
     "Title": "标题",
-    "Type": "类型",
-    "Word file": "Word文件"
+    "Type": "类型"
   }
 }

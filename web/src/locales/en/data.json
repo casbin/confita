@@ -70,13 +70,13 @@
     "but this registration requires the tag to be": "but this registration requires the tag to be"
   },
   "submission": {
+    "Abstract files": "Abstract files",
     "Authors": "Authors",
     "Conference": "Conference",
     "Edit Submission": "Edit Submission",
-    "File upload": "File upload",
+    "Full paper files": "Full paper files",
     "Sub type": "Sub type",
     "Title": "Title",
-    "Type": "Type",
-    "Word file": "Word file"
+    "Type": "Type"
   }
 }

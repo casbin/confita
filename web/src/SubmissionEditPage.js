@@ -114,26 +114,6 @@ class SubmissionEditPage extends React.Component {
             }} />
           </Col>
         </Row>
-        {/*<Row style={{marginTop: '20px'}} >*/}
-        {/*  <Col style={{marginTop: '5px'}} span={2}>*/}
-        {/*    Word file:*/}
-        {/*  </Col>*/}
-        {/*  <Col span={22} >*/}
-        {/*    <Input prefix={<LinkOutlined/>} value={this.state.submission.wordFileUrl} onChange={e => {*/}
-        {/*      this.updateSubmissionField('wordFileUrl', e.target.value);*/}
-        {/*    }} />*/}
-        {/*  </Col>*/}
-        {/*</Row>*/}
-        {/*<Row style={{marginTop: '20px'}} >*/}
-        {/*  <Col style={{marginTop: '5px'}} span={2}>*/}
-        {/*    PDF file:*/}
-        {/*  </Col>*/}
-        {/*  <Col span={22} >*/}
-        {/*    <Input prefix={<LinkOutlined/>} value={this.state.submission.pdfFileUrl} onChange={e => {*/}
-        {/*      this.updateSubmissionField('pdfFileUrl', e.target.value);*/}
-        {/*    }} />*/}
-        {/*  </Col>*/}
-        {/*</Row>*/}
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("submission:Type")}:
@@ -176,13 +156,24 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("submission:File upload")}:
+            {i18next.t("submission:Abstract files")}:
           </Col>
           <Col style={{marginRight: '10px'}} span={6} >
-            <UploadFile fileUrl={this.state.submission.wordFileUrl} urlKey={"wordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+            <UploadFile fileUrl={this.state.submission.absWordFileUrl} urlKey={"absWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
           </Col>
           <Col span={6} >
-            <UploadFile fileUrl={this.state.submission.pdfFileUrl} urlKey={"pdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+            <UploadFile fileUrl={this.state.submission.absPdfFileUrl} urlKey={"absPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("submission:Full paper files")}:
+          </Col>
+          <Col style={{marginRight: '10px'}} span={6} >
+            <UploadFile fileUrl={this.state.submission.fullWordFileUrl} urlKey={"fullWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+          </Col>
+          <Col span={6} >
+            <UploadFile fileUrl={this.state.submission.fullPdfFileUrl} urlKey={"fullPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >

@@ -68,8 +68,10 @@ class SubmissionListPage extends React.Component {
       type: "Symposium",
       subType: "Default",
       status: "Draft",
-      wordFileUrl: "",
-      pdfFileUrl: "",
+      absWordFileUrl: "",
+      absPdfFileUrl: "",
+      fullWordFileUrl: "",
+      fullPdfFileUrl: "",
     }
   }
 
@@ -122,7 +124,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '150px',
+        width: '120px',
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
@@ -185,7 +187,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Authors"),
         dataIndex: 'authors',
         key: 'authors',
-        width: '300px',
+        width: '100px',
         render: (text, record, index) => {
           const authors = text;
           if (authors.length === 0) {
@@ -216,41 +218,86 @@ class SubmissionListPage extends React.Component {
         },
       },
       {
-        title: i18next.t("submission:Word file"),
-        dataIndex: 'wordFileUrl',
-        key: 'wordFileUrl',
-        width: '100px',
-        sorter: (a, b) => a.wordFileUrl.localeCompare(b.wordFileUrl),
+        title: i18next.t("submission:Abstract files"),
+        dataIndex: 'absWordFileUrl',
+        key: 'absWordFileUrl',
+        width: '120px',
+        sorter: (a, b) => a.absWordFileUrl.localeCompare(b.absWordFileUrl),
         render: (text, record, index) => {
-          if (record.wordFileUrl === "" && record.pdfFileUrl === "") {
+          if (record.absWordFileUrl === "" && record.absPdfFileUrl === "") {
             return i18next.t("general:(empty)");
           }
 
           return (
             <div>
               {
-                record.wordFileUrl === "" ? null : (
-                  <Tooltip title={Setting.getFilenameFromUrl(record.wordFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.wordFileUrl)}>
+                record.absWordFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.absWordFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.absWordFileUrl)}>
                       <div>
                         <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
                       </div>
                       <div>
-                        {Setting.getShortText(Setting.getFilenameFromUrl(record.wordFileUrl), 20)}
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.absWordFileUrl), 10)}
                       </div>
                     </Button>
                   </Tooltip>
                 )
               }
               {
-                record.pdfFileUrl === "" ? null : (
-                  <Tooltip title={Setting.getFilenameFromUrl(record.pdfFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.pdfFileUrl)}>
+                record.absPdfFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.absPdfFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.absPdfFileUrl)}>
                       <div>
                         <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
                       </div>
                       <div>
-                        {Setting.getShortText(Setting.getFilenameFromUrl(record.pdfFileUrl), 20)}
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.absPdfFileUrl), 10)}
+                      </div>
+                    </Button>
+                  </Tooltip>
+                )
+              }
+            </div>
+          )
+        }
+      },
+      {
+        title: i18next.t("submission:Full paper files"),
+        dataIndex: 'fullWordFileUrl',
+        key: 'fullWordFileUrl',
+        width: '120px',
+        sorter: (a, b) => a.fullWordFileUrl.localeCompare(b.fullWordFileUrl),
+        render: (text, record, index) => {
+          if (record.fullWordFileUrl === "" && record.fullPdfFileUrl === "") {
+            return i18next.t("general:(empty)");
+          }
+
+          return (
+            <div>
+              {
+                record.fullWordFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.fullWordFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.fullWordFileUrl)}>
+                      <div>
+                        <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
+                      </div>
+                      <div>
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.fullWordFileUrl), 10)}
+                      </div>
+                    </Button>
+                  </Tooltip>
+                )
+              }
+              {
+                record.fullPdfFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.fullPdfFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.fullPdfFileUrl)}>
+                      <div>
+                        <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
+                      </div>
+                      <div>
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.fullPdfFileUrl), 10)}
                       </div>
                     </Button>
                   </Tooltip>
