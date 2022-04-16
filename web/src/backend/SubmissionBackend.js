@@ -14,8 +14,8 @@
 
 import * as Setting from "../Setting";
 
-export function getAllSubmissions() {
-  return fetch(`${Setting.ServerUrl}/api/get-all-submissions`, {
+export function getGlobalSubmissions() {
+  return fetch(`${Setting.ServerUrl}/api/get-global-submissions`, {
     method: "GET",
     credentials: "include"
   }).then(res => res.json());

@@ -33,7 +33,7 @@ class SubmissionListPage extends React.Component {
 
   componentWillMount() {
     if (Setting.isAdminUser(this.props.account) || Setting.isEditorUser(this.props.account)) {
-      this.getAllSubmissions();
+      this.getGlobalSubmissions();
     } else {
       this.getSubmissions();
     }
@@ -48,8 +48,8 @@ class SubmissionListPage extends React.Component {
       });
   }
 
-  getAllSubmissions() {
-    SubmissionBackend.getAllSubmissions()
+  getGlobalSubmissions() {
+    SubmissionBackend.getGlobalSubmissions()
       .then((res) => {
         this.setState({
           submissions: res,

@@ -44,7 +44,7 @@ type Submission struct {
 	Status          string        `xorm:"varchar(100)" json:"status"`
 }
 
-func GetAllSubmissions() []*Submission {
+func GetGlobalSubmissions() []*Submission {
 	submissions := []*Submission{}
 	err := adapter.engine.Desc("created_time").Find(&submissions, &Submission{})
 	if err != nil {

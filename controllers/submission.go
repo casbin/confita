@@ -20,8 +20,8 @@ import (
 	"github.com/casbin/confita/object"
 )
 
-func (c *ApiController) GetAllSubmissions() {
-	c.Data["json"] = object.GetAllSubmissions()
+func (c *ApiController) GetGlobalSubmissions() {
+	c.Data["json"] = object.GetGlobalSubmissions()
 	c.ServeJSON()
 }
 
