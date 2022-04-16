@@ -469,12 +469,14 @@ class PaymentPage extends React.Component {
           this.renderTestModal()
         }
         <Descriptions title={`${i18next.t("payment:Welcome")}, ${account?.displayName}`} bordered>
-          <Descriptions.Item label={i18next.t("general:Name")} span={3}>
+          <Descriptions.Item label={i18next.t("general:Name")} span={1}>
             <img src={account?.avatar} alt={account?.avatar} height={90} />
             <span style={{fontSize: 28, marginLeft: "20px"}}>
               {account?.displayName}
             </span>
           </Descriptions.Item>
+          <Descriptions.Item label={i18next.t("payment:Username")}><span style={{fontSize: 16}}>{account?.name}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("payment:ID")}><span style={{fontSize: 16}}>{account?.ranking}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("payment:Affiliation")}><span style={{fontSize: 16}}>{account?.affiliation}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("payment:Title")}><span style={{fontSize: 16}}>{account?.title}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("payment:Tag")}><span style={{fontSize: 16}}>{this.getDisplayTag(this.props.account.tag)}</span></Descriptions.Item>
