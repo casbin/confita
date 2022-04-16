@@ -19,6 +19,7 @@ import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import UploadFile from "./UploadFile";
 import i18next from "i18next";
+import AuthorTable from "./AuthorTable";
 
 const { Option } = Select;
 
@@ -155,6 +156,18 @@ class SubmissionEditPage extends React.Component {
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+            {i18next.t("submission:Authors")}:
+          </Col>
+          <Col span={22} >
+            <AuthorTable
+              title={i18next.t("submission:Authors")}
+              table={this.state.submission.authors}
+              onUpdateTable={(value) => { this.updateSubmissionField('authors', value)}}
+            />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '40px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("submission:Abstract files")}:
           </Col>
