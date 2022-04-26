@@ -27,12 +27,12 @@ type Payment struct {
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
 	DisplayName string `xorm:"varchar(100)" json:"displayName"`
 
-	Provider     string `xorm:"varchar(100)" json:"provider"`
-	Type         string `xorm:"varchar(100)" json:"type"`
-	Organization string `xorm:"varchar(100)" json:"organization"`
-	User         string `xorm:"varchar(100)" json:"user"`
-	ProductId    string `xorm:"varchar(100)" json:"productId"`
-	ProductName  string `xorm:"varchar(100)" json:"productName"`
+	Provider           string `xorm:"varchar(100)" json:"provider"`
+	Type               string `xorm:"varchar(100)" json:"type"`
+	Organization       string `xorm:"varchar(100)" json:"organization"`
+	User               string `xorm:"varchar(100)" json:"user"`
+	ProductName        string `xorm:"varchar(100)" json:"productName"`
+	ProductDisplayName string `xorm:"varchar(100)" json:"productDisplayName"`
 
 	Detail   string  `xorm:"varchar(100)" json:"detail"`
 	Tag      string  `xorm:"varchar(100)" json:"tag"`
@@ -42,6 +42,17 @@ type Payment struct {
 	PayUrl    string `xorm:"varchar(2000)" json:"payUrl"`
 	ReturnUrl string `xorm:"varchar(1000)" json:"returnUrl"`
 	State     string `xorm:"varchar(100)" json:"state"`
+	Message   string `xorm:"varchar(1000)" json:"message"`
+
+	PersonName    string `xorm:"varchar(100)" json:"personName"`
+	PersonIdCard  string `xorm:"varchar(100)" json:"personIdCard"`
+	PersonEmail   string `xorm:"varchar(100)" json:"personEmail"`
+	PersonPhone   string `xorm:"varchar(100)" json:"personPhone"`
+	InvoiceType   string `xorm:"varchar(100)" json:"invoiceType"`
+	InvoiceTitle  string `xorm:"varchar(100)" json:"invoiceTitle"`
+	InvoiceTaxId  string `xorm:"varchar(100)" json:"invoiceTaxId"`
+	InvoiceRemark string `xorm:"varchar(100)" json:"invoiceRemark"`
+	InvoiceUrl    string `xorm:"varchar(255)" json:"invoiceUrl"`
 }
 
 func GetPayments(user string) ([]*Payment, error) {

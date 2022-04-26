@@ -64,6 +64,10 @@ export function getPaymentUrl(account, payment) {
   return getMyProfileUrl(account).replace("/account", `/payments/${payment.name}/result`);
 }
 
+export function getPaymentInvoiceUrl(account, payment) {
+  return getMyProfileUrl(account).replace("/account", `/payments/${payment.name}`);
+}
+
 export function signin() {
   return CasdoorSdk.signin(ServerUrl);
 }
@@ -85,6 +89,15 @@ export function openLink(link) {
   // this.props.history.push(link);
   const w = window.open('about:blank');
   w.location.href = link;
+}
+
+export function openLinkSafe(link) {
+  // Javascript window.open issue in safari
+  // https://stackoverflow.com/questions/45569893/javascript-window-open-issue-in-safari
+  let a = document.createElement('a');
+  a.href = link;
+  a.setAttribute('target', '_blank');
+  a.click();
 }
 
 export function goToLink(link) {

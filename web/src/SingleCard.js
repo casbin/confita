@@ -13,7 +13,8 @@
 // limitations under the License.
 
 import React from "react";
-import {Alert, Card, Col, Space} from "antd";
+import {Alert, Button, Card, Col, Space} from "antd";
+import {DownloadOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import {withRouter} from "react-router-dom";
 import i18next from "i18next";
@@ -38,11 +39,26 @@ class SingleCard extends React.Component {
       <Alert
         message={`${Setting.getState(payment)} | ${Setting.getPrice(payment)}`}
         showIcon
-        description={<div>
+        description={
+        <div>
           {`${i18next.t("general:Name")}: ${payment.name}`}
           <br/>
           {`${i18next.t("general:Created time")}: ${Setting.getFormattedDate(payment.createdTime)}`}
-        </div>}
+          <br/>
+          <Button style={{marginTop: '5px'}} type="primary" shape="round" icon={<DownloadOutlined />} onClick={(e) => {
+            e.stopPropagation();
+
+            if (payment.invoiceUrl === "") {
+              Setting.goToLink(Setting.getPaymentInvoiceUrl(this.props.account, payment));
+            } else {
+              Setting.openLinkSafe(payment.invoiceUrl);
+            }
+          }}>
+            {payment.invoiceUrl === "" ? i18next.t("payment:Issue Invoice") :
+              i18next.t("payment:Download Invoice")}
+          </Button>
+        </div>
+      }
         type="success"
         style={{cursor: "pointer"}}
         onClick={() => {
@@ -53,9 +69,6 @@ class SingleCard extends React.Component {
             {
               `${payment.type}`
             }
-            {/*<Button size="small" danger type="ghost">*/}
-            {/*  Decline*/}
-            {/*</Button>*/}
           </Space>
         }
       />
