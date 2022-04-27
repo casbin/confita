@@ -155,6 +155,23 @@ export function swapRow(array, i, j) {
   return [...array.slice(0, i), array[j], ...array.slice(i + 1, j), array[i], ...array.slice(j + 1)];
 }
 
+export function trim(str, ch) {
+  if (str === undefined) {
+    return undefined;
+  }
+
+  let start = 0;
+  let end = str.length;
+
+  while(start < end && str[start] === ch)
+    ++start;
+
+  while(end > start && str[end - 1] === ch)
+    --end;
+
+  return (start > 0 || end < str.length) ? str.substring(start, end) : str;
+}
+
 export function isMobile() {
   // return getIsMobileView();
   return isMobileDevice;
@@ -206,6 +223,21 @@ export function getAvatarColor(s) {
     random = -random;
   }
   return colorList[random % 4];
+}
+
+export function getLanguageText(text) {
+  if (!text.includes("|")) {
+    return text;
+  }
+
+  let res;
+  const tokens = text.split("|");
+  if (getLanguage() !== "zh") {
+    res = trim(tokens[0], "");
+  } else {
+    res = trim(tokens[1], "");
+  }
+  return res;
 }
 
 export function getLanguage() {

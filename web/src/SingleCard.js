@@ -156,7 +156,7 @@ class SingleCard extends React.Component {
           bodyStyle={bodyStyle}
           style={isSingle ? {width: "320px", cursor: cursor, backgroundColor: backgroundColor} : {cursor: cursor, backgroundColor: backgroundColor}}
         >
-          <Meta title={title} description={desc} />
+          <Meta title={<h1>{title}</h1>} description={<h2>{Setting.getLanguageText(desc)}</h2>} />
           <br/>
           <br/>
           {
