@@ -132,13 +132,19 @@ class SingleCard extends React.Component {
   }
 
   renderCard(logo, link, title, desc, time, isSingle, clickable) {
+    if (title.includes("0 ")) {
+      return (
+        <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={7} />
+      )
+    }
+
     const cursor = clickable ? "pointer" : "auto";
     const opacity = this.isRightProduct() ? 1.0 : 0.8;
     const backgroundColor = this.isRightProduct() ? null : "rgb(255,242,240)";
     const bodyStyle = this.isRightProduct() ? {} : {backgroundSize: "100% 100%", backgroundImage: "url(https://cdn.casbin.com/static/img/mark2.png)"};
 
     return (
-      <Col style={{opacity: opacity, paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
+      <Col style={{opacity: opacity, paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={7}>
         <Card
           hoverable
           cover={

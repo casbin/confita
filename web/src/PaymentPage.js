@@ -299,7 +299,7 @@ class PaymentPage extends React.Component {
       )
     } else {
       return (
-        <div style={{marginRight:'15px',marginLeft:'15px'}}>
+        <div style={{marginRight: '15px', marginLeft: '15px'}}>
           <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
             {
               products.map(product => {
