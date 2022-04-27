@@ -440,13 +440,14 @@ class PaymentPage extends React.Component {
         </div>
       }
              visible={this.state.isTestModalVisible}
-             okButtonProps={{
+             cancelButtonProps={{
                style: {
                  display: "none",
                },
              }}
+             onOk={handleOk}
              onCancel={handleOk}
-             cancelText={i18next.t("payment:OK")}
+             okText={i18next.t("payment:OK")}
              >
         <p>
           {
