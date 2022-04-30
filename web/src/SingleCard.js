@@ -102,6 +102,10 @@ class SingleCard extends React.Component {
   }
 
   renderCardMobile(logo, link, title, desc, time, isSingle, clickable) {
+    if (title.includes("-1")) {
+      return null;
+    }
+
     const cursor = clickable ? "pointer" : "auto";
     const opacity = this.isRightProduct() ? 1.0 : 0.8;
     const backgroundColor = this.isRightProduct() ? null : "rgb(255,242,240)";
@@ -132,7 +136,7 @@ class SingleCard extends React.Component {
   }
 
   renderCard(logo, link, title, desc, time, isSingle, clickable) {
-    if (title.includes("0 ")) {
+    if (title.includes("-1")) {
       return (
         <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={7} />
       )
