@@ -58,6 +58,19 @@ class SubmissionEditPage extends React.Component {
       });
   }
 
+  getConference() {
+    const res = this.state.conferences.filter(conference => this.state.submission.conference === conference.name);
+    if (res.length > 0) {
+      return res[0];
+    }
+    return null;
+  }
+
+  isCompetition() {
+    const conference = this.getConference();
+    return conference?.type === "Competition";
+  }
+
   parseSubmissionField(key, value) {
     if (["score"].includes(key)) {
       value = Setting.myParseInt(value);
@@ -76,6 +89,40 @@ class SubmissionEditPage extends React.Component {
   }
 
   renderSubmission() {
+    let typeOptions;
+    if (this.isCompetition()) {
+      typeOptions = [
+        {id: 'Program', name: 'Program'},
+      ];
+    } else {
+      typeOptions = [
+        {id: 'Symposium', name: 'Symposium'},
+        {id: 'Workshop', name: 'Workshop'},
+        {id: 'Oral', name: 'Oral'},
+        {id: 'Poster', name: 'Poster'},
+      ];
+    }
+
+    let subTypeOptions;
+    if (this.isCompetition()) {
+      subTypeOptions = [
+        {id: 'Python', name: 'Python'},
+        {id: 'R', name: 'R'},
+        {id: 'Java', name: 'Java'},
+        {id: 'Julia', name: 'Julia'},
+      ];
+    } else {
+      if (this.state.submission.type !== "Oral") {
+        subTypeOptions = [
+          {id: 'Default', name: 'Default'},
+        ];
+      } else {
+        subTypeOptions = [
+          {id: 'Default', name: 'Default'},
+        ];
+      }
+    }
+
     return (
       <Card size="small" title={
         <div>
@@ -129,12 +176,7 @@ class SubmissionEditPage extends React.Component {
               }
             })}>
               {
-                [
-                  {id: 'Symposium', name: 'Symposium'},
-                  {id: 'Workshop', name: 'Workshop'},
-                  {id: 'Oral', name: 'Oral'},
-                  {id: 'Poster', name: 'Poster'},
-                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+                typeOptions.map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
           </Col>
@@ -146,11 +188,7 @@ class SubmissionEditPage extends React.Component {
           <Col span={22} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.submission.subType} onChange={(value => {this.updateSubmissionField('subType', value);})}>
               {
-                (this.state.submission.type !== "Oral" ? [
-                  {id: 'Default', name: 'Default'},
-                ] : [
-                  {id: 'Default', name: 'Default'},
-                ]).map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+                subTypeOptions.map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
           </Col>
@@ -167,17 +205,21 @@ class SubmissionEditPage extends React.Component {
             />
           </Col>
         </Row>
-        <Row style={{marginTop: '40px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("submission:Abstract files")}:
-          </Col>
-          <Col style={{marginRight: '10px'}} span={6} >
-            <UploadFile fileUrl={this.state.submission.absWordFileUrl} urlKey={"absWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
-          </Col>
-          <Col span={6} >
-            <UploadFile fileUrl={this.state.submission.absPdfFileUrl} urlKey={"absPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
-          </Col>
-        </Row>
+        {
+          this.isCompetition() ? null : (
+            <Row style={{marginTop: '40px'}} >
+              <Col style={{marginTop: '5px'}} span={2}>
+                {i18next.t("submission:Abstract files")}:
+              </Col>
+              <Col style={{marginRight: '10px'}} span={6} >
+                <UploadFile fileUrl={this.state.submission.absWordFileUrl} urlKey={"absWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+              </Col>
+              <Col span={6} >
+                <UploadFile fileUrl={this.state.submission.absPdfFileUrl} urlKey={"absPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+              </Col>
+            </Row>
+          )
+        }
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("submission:Full paper files")}:
