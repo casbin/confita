@@ -22,6 +22,11 @@ import i18next from "i18next";
 import AuthorTable from "./AuthorTable";
 import CsvTable from "./CsvTable";
 
+import {Controlled as CodeMirror} from 'react-codemirror2';
+import "codemirror/lib/codemirror.css";
+require('codemirror/theme/material-darker.css');
+require("codemirror/mode/python/python");
+
 const { Option } = Select;
 
 class SubmissionEditPage extends React.Component {
@@ -208,14 +213,32 @@ class SubmissionEditPage extends React.Component {
         </Row>
         {
           this.isCompetition() ? (
-            <Row style={{marginTop: '20px'}} >
-              <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
-                {i18next.t("submission:Dataset preview")}:
-              </Col>
-              <Col span={22} >
-                <CsvTable conference={this.getConference()} />
-              </Col>
-            </Row>
+            <React.Fragment>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+                  {i18next.t("submission:Dataset preview")}:
+                </Col>
+                <Col span={22} >
+                  <CsvTable conference={this.getConference()} />
+                </Col>
+              </Row>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+                  {i18next.t("submission:Code")}:
+                </Col>
+                <Col span={22} >
+                  <div style={{width: "900px"}} >
+                    <CodeMirror
+                      value={this.state.submission.code}
+                      options={{mode: 'python', theme: "material-darker"}}
+                      onBeforeChange={(editor, data, value) => {
+                        this.updateSubmissionField("code", value);
+                      }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </React.Fragment>
           ) : (
             <Row style={{marginTop: '40px'}} >
               <Col style={{marginTop: '5px'}} span={2}>

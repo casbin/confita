@@ -42,6 +42,8 @@ type Submission struct {
 	FullWordFileUrl string        `xorm:"varchar(1000)" json:"fullWordFileUrl"`
 	FullPdfFileUrl  string        `xorm:"varchar(1000)" json:"fullPdfFileUrl"`
 	Status          string        `xorm:"varchar(100)" json:"status"`
+
+	Code string `xorm:"mediumtext" json:"code"`
 }
 
 func GetGlobalSubmissions() []*Submission {
