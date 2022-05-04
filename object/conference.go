@@ -43,9 +43,11 @@ type Conference struct {
 	CarouselHeight string   `xorm:"varchar(100)" json:"carouselHeight"`
 	Tags           []string `xorm:"mediumtext" json:"tags"`
 
-	Bonus        int    `json:"bonus"`
-	PersonCount  int    `json:"personCount"`
-	DisplayState string `xorm:"varchar(100)" json:"displayState"`
+	DatasetUrl        string `xorm:"varchar(100)" json:"datasetUrl"`
+	DatasetPreviewUrl string `xorm:"varchar(100)" json:"datasetPreviewUrl"`
+	Bonus             int    `json:"bonus"`
+	PersonCount       int    `json:"personCount"`
+	DisplayState      string `xorm:"varchar(100)" json:"displayState"`
 
 	Status      string      `xorm:"varchar(100)" json:"status"`
 	Language    string      `xorm:"varchar(100)" json:"language"`

@@ -14,6 +14,7 @@
 
 import React from "react";
 import {Button, Card, Col, DatePicker, Input, InputNumber, Row, Select} from 'antd';
+import {LinkOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import moment from "moment";
@@ -213,6 +214,26 @@ class ConferenceEditPage extends React.Component {
         {
           this.state.conference.type !== "Competition" ? null : (
             <React.Fragment>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("conference:Dataset URL")}:
+                </Col>
+                <Col span={22} >
+                  <Input prefix={<LinkOutlined/>} value={this.state.conference.datasetUrl} onChange={e => {
+                    this.updateConferenceField('datasetUrl', e.target.value);
+                  }} />
+                </Col>
+              </Row>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("conference:Preview URL")}:
+                </Col>
+                <Col span={22} >
+                  <Input prefix={<LinkOutlined/>} value={this.state.conference.datasetPreviewUrl} onChange={e => {
+                    this.updateConferenceField('datasetPreviewUrl', e.target.value);
+                  }} />
+                </Col>
+              </Row>
               <Row style={{marginTop: '20px'}} >
                 <Col style={{marginTop: '5px'}} span={2}>
                   {i18next.t("conference:Bonus")}:
