@@ -45,6 +45,7 @@ type Conference struct {
 
 	DatasetUrl        string `xorm:"varchar(100)" json:"datasetUrl"`
 	DatasetPreviewUrl string `xorm:"varchar(100)" json:"datasetPreviewUrl"`
+	ResultUrl         string `xorm:"varchar(100)" json:"resultUrl"`
 	Bonus             int    `json:"bonus"`
 	PersonCount       int    `json:"personCount"`
 	DisplayState      string `xorm:"varchar(100)" json:"displayState"`

@@ -318,7 +318,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '90px',
+        width: '120px',
         render: (text, record, index) => {
           return (
             <div>

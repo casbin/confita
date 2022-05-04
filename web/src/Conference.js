@@ -13,12 +13,11 @@
 // limitations under the License.
 
 import React from "react";
-import {Alert, Avatar, Button, Card, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
+import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
-import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
 import i18next from "i18next";
+import {openLinkSafe} from "./Setting";
 
-const { Meta } = Card;
 const { SubMenu } = Menu;
 const { Step } = Steps;
 
@@ -29,9 +28,6 @@ class Conference extends React.Component {
       classes: props,
       selectedKey: this.props.conference.defaultItem,
     };
-  }
-
-  componentWillMount() {
   }
 
   handleClick = info => {
@@ -225,10 +221,10 @@ class Conference extends React.Component {
               <div style={{fontSize: 30, color: "rgb(255,77,79)"}}>
                  ￥{`${conference.bonus}`.replace('000', ',000')}
               </div>
-              <Button style={{marginTop: "20px"}} shape={"round"} type="primary">
+              <Button style={{marginTop: "20px"}} shape={"round"} type="primary" onClick={() => this.props.history.push(`/submissions`)}>
                 {i18next.t("conference:Apple Now")}
               </Button>
-              <Button style={{marginTop: "10px"}} shape={"round"} type="primary" danger>
+              <Button style={{marginTop: "10px"}} shape={"round"} type="primary" danger onClick={() => Setting.openLinkSafe(conference.resultUrl)}>
                 {i18next.t("conference:View Result")}
               </Button>
             </Space>
