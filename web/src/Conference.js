@@ -182,7 +182,7 @@ class Conference extends React.Component {
               {conference.displayName}
             </span>
             {
-              Setting.getTag(conference.displayState, "success")
+              Setting.getTag(conference.displayState, "geekblue")
             }
           </h2>}
           description={<div>
@@ -193,7 +193,7 @@ class Conference extends React.Component {
               {i18next.t("conference:Organizer")}: {conference.organizer}
             </div>
             <br/>
-            {i18next.t("conference:Person count")} <span style={{marginLeft: "10px", fontSize: 20, color: "rgb(222,41,16)"}}>{conference.personCount}</span>
+            {i18next.t("conference:Person count")} <span style={{marginLeft: "10px", fontSize: 20, color: "rgb(255,77,79)"}}>{conference.personCount}</span>
             <span style={{float: "right"}}>
               {
                 Setting.getTags(conference.tags)
@@ -222,7 +222,7 @@ class Conference extends React.Component {
           action={
             <Space direction="vertical" style={{textAlign: "center"}}>
               &nbsp;
-              <div style={{fontSize: 30, color: "rgb(222,41,16)"}}>
+              <div style={{fontSize: 30, color: "rgb(255,77,79)"}}>
                  ￥{`${conference.bonus}`.replace('000', ',000')}
               </div>
               <Button style={{marginTop: "20px"}} shape={"round"} type="primary">
