@@ -48,6 +48,8 @@ class ConferenceListPage extends React.Component {
       name: `conference_${this.state.conferences.length}`,
       createdTime: moment().format(),
       displayName: `New Conference - ${this.state.conferences.length}`,
+      type: "Conference",
+      introduction: "Introduction",
       startDate: moment().format("YYYY-MM-DD"),
       endDate: moment().format("YYYY-MM-DD"),
       organizer: "Organizer",
@@ -56,7 +58,6 @@ class ConferenceListPage extends React.Component {
       status: "Public",
       language: "zh",
       carousels: [],
-      introText: "Introduction..",
       defaultItem: "Home",
       treeItems: [{key: "Home", title: "首页", titleEn: "Home", content: "内容", contentEn: "Content", children: []}],
     }

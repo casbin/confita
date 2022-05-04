@@ -34,18 +34,18 @@ type Conference struct {
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
 	DisplayName string `xorm:"varchar(100)" json:"displayName"`
 
-	Type      string `xorm:"varchar(100)" json:"typ"`
-	StartDate string `xorm:"varchar(100)" json:"startDate"`
-	EndDate   string `xorm:"varchar(100)" json:"endDate"`
-	Organizer string `xorm:"varchar(100)" json:"organizer"`
-	Location  string `xorm:"varchar(100)" json:"location"`
-	Address   string `xorm:"varchar(100)" json:"address"`
-	Status    string `xorm:"varchar(100)" json:"status"`
-	Language  string `xorm:"varchar(100)" json:"language"`
+	Type         string   `xorm:"varchar(100)" json:"type"`
+	Introduction string   `xorm:"mediumtext" json:"introduction"`
+	StartDate    string   `xorm:"varchar(100)" json:"startDate"`
+	EndDate      string   `xorm:"varchar(100)" json:"endDate"`
+	Organizer    string   `xorm:"varchar(100)" json:"organizer"`
+	Carousels    []string `xorm:"mediumtext" json:"carousels"`
+	Tags         []string `xorm:"mediumtext" json:"tags"`
 
-	Tags        []string    `xorm:"mediumtext" json:"tags"`
-	Carousels   []string    `xorm:"mediumtext" json:"carousels"`
-	IntroText   string      `xorm:"mediumtext" json:"introText"`
+	Status      string      `xorm:"varchar(100)" json:"status"`
+	Language    string      `xorm:"varchar(100)" json:"language"`
+	Location    string      `xorm:"varchar(100)" json:"location"`
+	Address     string      `xorm:"varchar(100)" json:"address"`
 	DefaultItem string      `xorm:"mediumtext" json:"defaultItem"`
 	TreeItems   []*TreeItem `xorm:"mediumtext" json:"treeItems"`
 }

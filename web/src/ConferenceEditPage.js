@@ -93,6 +93,31 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("conference:Type")}:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.conference.type} onChange={(value => {this.updateConferenceField('type', value);})}>
+              {
+                [
+                  {id: 'Conference', name: 'Conference'},
+                  {id: 'Competition', name: 'Competition'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("conference:Introduction")}:
+          </Col>
+          <Col span={22} >
+            <Input value={this.state.conference.introduction} onChange={e => {
+              this.updateConferenceField('introduction', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("conference:Start date")}:
           </Col>
           <Col span={5} >
@@ -119,26 +144,32 @@ class ConferenceEditPage extends React.Component {
             }} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("conference:Location")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.conference.location} onChange={e => {
-              this.updateConferenceField('location', e.target.value);
-            }} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("conference:Address")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.conference.address} onChange={e => {
-              this.updateConferenceField('address', e.target.value);
-            }} />
-          </Col>
-        </Row>
+        {
+          this.state.conference.type !== "Conference" ? null : (
+            <React.Fragment>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("conference:Location")}:
+                </Col>
+                <Col span={22} >
+                  <Input value={this.state.conference.location} onChange={e => {
+                    this.updateConferenceField('location', e.target.value);
+                  }} />
+                </Col>
+              </Row>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("conference:Address")}:
+                </Col>
+                <Col span={22} >
+                  <Input value={this.state.conference.address} onChange={e => {
+                    this.updateConferenceField('address', e.target.value);
+                  }} />
+                </Col>
+              </Row>
+            </React.Fragment>
+          )
+        }
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("general:Status")}:
@@ -169,16 +200,6 @@ class ConferenceEditPage extends React.Component {
                 this.state.conference.carousels.map((carousel, index) => <Option key={carousel}>{carousel}</Option>)
               }
             </Select>
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("conference:Introduction text")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.conference.introText} onChange={e => {
-              this.updateConferenceField('introText', e.target.value);
-            }} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
