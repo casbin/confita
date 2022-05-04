@@ -330,10 +330,27 @@ export function getAlert(type, text) {
   )
 }
 
-export function getTag(text) {
+export function getTag(text, color="processing") {
   return (
-    <Tag color={"processing"}>
+    <Tag color={color}>
       {text}
     </Tag>
   )
+}
+
+function getTagColor(s) {
+  return "default";
+}
+
+export function getTags(tags) {
+  let res = [];
+  if (!tags) return res;
+  tags.forEach((tag, i) => {
+    res.push(
+      <Tag color={getTagColor(tag)}>
+        {tag}
+      </Tag>
+    );
+  });
+  return res;
 }

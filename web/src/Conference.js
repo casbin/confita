@@ -13,10 +13,14 @@
 // limitations under the License.
 
 import React from "react";
-import {Col, Empty, Menu, Row} from "antd";
+import {Alert, Avatar, Button, Card, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
+import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
+import i18next from "i18next";
 
+const { Meta } = Card;
 const { SubMenu } = Menu;
+const { Step } = Steps;
 
 class Conference extends React.Component {
   constructor(props) {
@@ -162,30 +166,118 @@ class Conference extends React.Component {
     )
   }
 
+  renderCompetition(conference) {
+    if (conference.type !== "Competition") {
+      return null;
+    }
+
+    return (
+      <div style={{marginTop: "20px", marginBottom: "20px"}}>
+        <Alert
+          banner
+          showIcon={false}
+          message={
+          <h2>
+            <span style={{marginRight: "10px"}}>
+              {conference.displayName}
+            </span>
+            {
+              Setting.getTag(conference.displayState, "success")
+            }
+          </h2>}
+          description={<div>
+            <h3>
+              {conference.introduction}
+            </h3>
+            <div>
+              {i18next.t("conference:Organizer")}: {conference.organizer}
+            </div>
+            <br/>
+            {i18next.t("conference:Person count")} <span style={{marginLeft: "10px", fontSize: 20, color: "rgb(222,41,16)"}}>{conference.personCount}</span>
+            <span style={{float: "right"}}>
+              {
+                Setting.getTags(conference.tags)
+              }
+            </span>
+            <br/>
+            <Steps style={{marginTop: "20px"}} current={1} progressDot={(dot, { status, index }) => {
+              return (
+                <Popover
+                  content={
+                  <span>
+                    step {index} status: {status}
+                  </span>
+                }>
+                  {dot}
+                </Popover>
+              )
+            }}>
+              <Step title="报名" description="04/06-05/11" />
+              <Step title="初赛" description="06/01-07/31" />
+              <Step title="复赛" description="08/01-09/30" />
+              <Step title="决赛" description="09/30" />
+            </Steps>
+          </div>}
+          type="info"
+          action={
+            <Space direction="vertical" style={{textAlign: "center"}}>
+              &nbsp;
+              <div style={{fontSize: 30, color: "rgb(222,41,16)"}}>
+                 ￥{`${conference.bonus}`.replace('000', ',000')}
+              </div>
+              <Button style={{marginTop: "20px"}} shape={"round"} type="primary">
+                {i18next.t("conference:Apple Now")}
+              </Button>
+              <Button style={{marginTop: "10px"}} shape={"round"} type="primary" danger>
+                {i18next.t("conference:View Result")}
+              </Button>
+            </Space>
+          }
+        />
+      </div>
+    )
+  }
+
   render() {
     const conference = this.props.conference;
 
     if (!Setting.isMobile()) {
       return (
-        <Row>
-          <Col span={4} >
-            {
-              this.renderMenu(conference.treeItems)
-            }
-          </Col>
-          <Col span={1} >
-          </Col>
-          <Col span={19} >
-            {
-              this.renderPage(this.getSelectedTreeItem(conference.treeItems))
-            }
-          </Col>
-        </Row>
+        <div>
+          <Row>
+            <Col span={24} >
+              {
+                this.renderCompetition(conference)
+              }
+            </Col>
+          </Row>
+          <Row>
+            <Col span={4} >
+              {
+                this.renderMenu(conference.treeItems)
+              }
+            </Col>
+            <Col span={1} >
+            </Col>
+            <Col span={19} >
+              {
+                this.renderPage(this.getSelectedTreeItem(conference.treeItems))
+              }
+            </Col>
+          </Row>
+        </div>
       )
     } else {
       return (
         <div>
           <Row>
+            <Row>
+              <Col span={24} >
+                {
+                  this.renderCompetition(conference)
+                }
+              </Col>
+            </Row>
             <Col span={24} >
               {
                 this.renderMenu(conference.treeItems)
