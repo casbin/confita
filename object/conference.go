@@ -34,13 +34,14 @@ type Conference struct {
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
 	DisplayName string `xorm:"varchar(100)" json:"displayName"`
 
-	Type         string   `xorm:"varchar(100)" json:"type"`
-	Introduction string   `xorm:"mediumtext" json:"introduction"`
-	StartDate    string   `xorm:"varchar(100)" json:"startDate"`
-	EndDate      string   `xorm:"varchar(100)" json:"endDate"`
-	Organizer    string   `xorm:"varchar(100)" json:"organizer"`
-	Carousels    []string `xorm:"mediumtext" json:"carousels"`
-	Tags         []string `xorm:"mediumtext" json:"tags"`
+	Type           string   `xorm:"varchar(100)" json:"type"`
+	Introduction   string   `xorm:"mediumtext" json:"introduction"`
+	StartDate      string   `xorm:"varchar(100)" json:"startDate"`
+	EndDate        string   `xorm:"varchar(100)" json:"endDate"`
+	Organizer      string   `xorm:"varchar(100)" json:"organizer"`
+	Carousels      []string `xorm:"mediumtext" json:"carousels"`
+	CarouselHeight string   `xorm:"varchar(100)" json:"carouselHeight"`
+	Tags           []string `xorm:"mediumtext" json:"tags"`
 
 	Bonus        int    `json:"bonus"`
 	PersonCount  int    `json:"personCount"`

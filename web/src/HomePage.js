@@ -57,7 +57,7 @@ class HomePage extends React.Component {
             return (
               <div>
                 <h3 style={contentStyle}>
-                  <img alt={`carousel-${i}`} style={{width: '100%', height: '100%'}} src={carousel}/>
+                  <img alt={`carousel-${i}`} style={{width: '100%', height: conference.carouselHeight === "" ? "100%" : conference.carouselHeight}} src={carousel}/>
                 </h3>
               </div>
             )
