@@ -20,6 +20,7 @@ import * as Setting from "./Setting";
 import UploadFile from "./UploadFile";
 import i18next from "i18next";
 import AuthorTable from "./AuthorTable";
+import CsvTable from "./CsvTable";
 
 const { Option } = Select;
 
@@ -206,7 +207,16 @@ class SubmissionEditPage extends React.Component {
           </Col>
         </Row>
         {
-          this.isCompetition() ? null : (
+          this.isCompetition() ? (
+            <Row style={{marginTop: '20px'}} >
+              <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+                {i18next.t("submission:Dataset preview")}:
+              </Col>
+              <Col span={22} >
+                <CsvTable conference={this.getConference()} />
+              </Col>
+            </Row>
+          ) : (
             <Row style={{marginTop: '40px'}} >
               <Col style={{marginTop: '5px'}} span={2}>
                 {i18next.t("submission:Abstract files")}:
