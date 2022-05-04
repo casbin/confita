@@ -83,6 +83,16 @@ class ConferenceEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("general:Display name")}:
+          </Col>
+          <Col span={22} >
+            <Input value={this.state.conference.displayName} onChange={e => {
+              this.updateConferenceField('displayName', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("conference:Start date")}:
           </Col>
           <Col span={5} >
@@ -96,16 +106,6 @@ class ConferenceEditPage extends React.Component {
           <Col span={10} >
             <DatePicker defaultValue={moment(this.state.conference.endDate, "YYYY-MM-DD")} onChange={(time, timeString) => {
               this.updateConferenceField('endDate', timeString);
-            }} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("conference:Full name")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.conference.fullName} onChange={e => {
-              this.updateConferenceField('fullName', e.target.value);
             }} />
           </Col>
         </Row>

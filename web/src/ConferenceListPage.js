@@ -47,10 +47,10 @@ class ConferenceListPage extends React.Component {
       owner: this.props.account.name,
       name: `conference_${this.state.conferences.length}`,
       createdTime: moment().format(),
+      displayName: `New Conference - ${this.state.conferences.length}`,
       startDate: moment().format("YYYY-MM-DD"),
       endDate: moment().format("YYYY-MM-DD"),
-      fullName: `Conference ${this.state.conferences.length}`,
-      organizer: "Casbin",
+      organizer: "Organizer",
       location: "Shanghai, China",
       address: "3663 Zhongshan Road North",
       status: "Public",
@@ -108,6 +108,13 @@ class ConferenceListPage extends React.Component {
         }
       },
       {
+        title: i18next.t("general:Display name"),
+        dataIndex: 'displayName',
+        key: 'displayName',
+        width: '200px',
+        sorter: (a, b) => a.displayName.localeCompare(b.displayName),
+      },
+      {
         title: i18next.t("conference:Start date"),
         dataIndex: 'startDate',
         key: 'startDate',
@@ -126,13 +133,6 @@ class ConferenceListPage extends React.Component {
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
         }
-      },
-      {
-        title: i18next.t("conference:Full name"),
-        dataIndex: 'fullName',
-        key: 'fullName',
-        width: '200px',
-        sorter: (a, b) => a.fullName.localeCompare(b.fullName),
       },
       {
         title: i18next.t("conference:Organizer"),

@@ -481,7 +481,7 @@ class PaymentPage extends React.Component {
           <Descriptions.Item label={i18next.t("payment:Affiliation")}><span style={{fontSize: 16}}>{account?.affiliation}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("payment:Title")}><span style={{fontSize: 16}}>{account?.title}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("payment:Tag")}><span style={{fontSize: 16}}>{this.getDisplayTag(this.props.account.tag)}</span></Descriptions.Item>
-          <Descriptions.Item label={i18next.t("general:Conferences")} span={3}><span style={{fontSize: 16}}>{this.state.conference?.fullName}</span></Descriptions.Item>
+          <Descriptions.Item label={i18next.t("general:Conferences")} span={3}><span style={{fontSize: 16}}>{this.state.conference?.displayName}</span></Descriptions.Item>
           <Descriptions.Item label={i18next.t("general:Submissions")} span={3}>
             {
               this.renderSubmissionList()

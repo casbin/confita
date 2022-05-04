@@ -32,10 +32,11 @@ type Conference struct {
 	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
 	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
+	DisplayName string `xorm:"varchar(100)" json:"displayName"`
 
+	Type      string `xorm:"varchar(100)" json:"typ"`
 	StartDate string `xorm:"varchar(100)" json:"startDate"`
 	EndDate   string `xorm:"varchar(100)" json:"endDate"`
-	FullName  string `xorm:"varchar(100)" json:"fullName"`
 	Organizer string `xorm:"varchar(100)" json:"organizer"`
 	Location  string `xorm:"varchar(100)" json:"location"`
 	Address   string `xorm:"varchar(100)" json:"address"`
