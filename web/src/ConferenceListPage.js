@@ -112,14 +112,14 @@ class ConferenceListPage extends React.Component {
         title: i18next.t("general:Display name"),
         dataIndex: 'displayName',
         key: 'displayName',
-        width: '200px',
+        width: '300px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       {
         title: i18next.t("conference:Start date"),
         dataIndex: 'startDate',
         key: 'startDate',
-        width: '70px',
+        width: '120px',
         sorter: (a, b) => a.startDate.localeCompare(b.startDate),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
@@ -129,7 +129,7 @@ class ConferenceListPage extends React.Component {
         title: i18next.t("conference:End date"),
         dataIndex: 'endDate',
         key: 'endDate',
-        width: '70px',
+        width: '120px',
         sorter: (a, b) => a.endDate.localeCompare(b.endDate),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
@@ -139,21 +139,21 @@ class ConferenceListPage extends React.Component {
         title: i18next.t("conference:Organizer"),
         dataIndex: 'organizer',
         key: 'organizer',
-        width: '120px',
+        // width: '120px',
         sorter: (a, b) => a.organizer.localeCompare(b.organizer),
       },
       {
         title: i18next.t("conference:Location"),
         dataIndex: 'location',
         key: 'location',
-        width: '120px',
+        width: '140px',
         sorter: (a, b) => a.location.localeCompare(b.location),
       },
       {
         title: i18next.t("conference:Address"),
         dataIndex: 'address',
         key: 'address',
-        width: '120px',
+        width: '140px',
         sorter: (a, b) => a.address.localeCompare(b.address),
       },
       {
@@ -167,7 +167,7 @@ class ConferenceListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '120px',
+        width: '170px',
         render: (text, record, index) => {
           return (
             <div>

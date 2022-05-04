@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, DatePicker, Input, Row, Select} from 'antd';
+import {Button, Card, Col, DatePicker, Input, InputNumber, Row, Select} from 'antd';
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import moment from "moment";
@@ -172,21 +172,6 @@ class ConferenceEditPage extends React.Component {
         }
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("general:Status")}:
-          </Col>
-          <Col span={22} >
-            <Select virtual={false} style={{width: '100%'}} value={this.state.conference.status} onChange={(value => {this.updateConferenceField('status', value);})}>
-              {
-                [
-                  {id: 'Public', name: 'Public (Everyone can see it)'},
-                  {id: 'Hidden', name: 'Hidden (Only yourself can see it)'},
-                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
-              }
-            </Select>
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("conference:Carousels")}:
           </Col>
           <Col span={22} >
@@ -198,6 +183,70 @@ class ConferenceEditPage extends React.Component {
             >
               {
                 this.state.conference.carousels.map((carousel, index) => <Option key={carousel}>{carousel}</Option>)
+              }
+            </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("conference:Tags")}:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} mode="tags" style={{width: '100%'}} placeholder="Please input"
+                    value={this.state.conference.tags}
+                    onChange={value => {
+                      this.updateConferenceField('tags', value);
+                    }}
+            />
+          </Col>
+        </Row>
+        {
+          this.state.conference.type !== "Competition" ? null : (
+            <React.Fragment>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("conference:Bonus")}:
+                </Col>
+                <Col span={22} >
+                  <InputNumber min={0} value={this.state.conference.bonus} onChange={value => {
+                    this.updateConferenceField('bonus', value);
+                  }} />
+                </Col>
+              </Row>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("conference:Person count")}:
+                </Col>
+                <Col span={22} >
+                  <InputNumber min={0} value={this.state.conference.personCount} onChange={value => {
+                    this.updateConferenceField('personCount', value);
+                  }} />
+                </Col>
+              </Row>
+              <Row style={{marginTop: '20px'}} >
+                <Col style={{marginTop: '5px'}} span={2}>
+                  {i18next.t("general:Display state")}:
+                </Col>
+                <Col span={22} >
+                  <Input value={this.state.conference.displayState} onChange={e => {
+                    this.updateConferenceField('displayState', e.target.value);
+                  }} />
+                </Col>
+              </Row>
+            </React.Fragment>
+          )
+        }
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("general:Status")}:
+          </Col>
+          <Col span={22} >
+            <Select virtual={false} style={{width: '100%'}} value={this.state.conference.status} onChange={(value => {this.updateConferenceField('status', value);})}>
+              {
+                [
+                  {id: 'Public', name: 'Public (Everyone can see it)'},
+                  {id: 'Hidden', name: 'Hidden (Only yourself can see it)'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
           </Col>

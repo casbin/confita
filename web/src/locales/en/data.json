@@ -7,6 +7,7 @@
   },
   "conference": {
     "Address": "Address",
+    "Bonus": "Bonus",
     "Carousels": "Carousels",
     "Content": "Content",
     "Default item": "Default item",
@@ -18,7 +19,9 @@
     "Location": "Location",
     "Menu": "Menu",
     "Organizer": "Organizer",
+    "Person count": "Person count",
     "Start date": "Start date",
+    "Tags": "Tags",
     "Title": "Title",
     "Type": "Type"
   },
@@ -33,6 +36,7 @@
     "Created time": "Created time",
     "Delete": "Delete",
     "Display name": "Display name",
+    "Display state": "Display state",
     "Edit": "Edit",
     "Email": "Email",
     "Home": "Home",
