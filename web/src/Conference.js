@@ -16,7 +16,6 @@ import React from "react";
 import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
-import {openLinkSafe} from "./Setting";
 
 const { SubMenu } = Menu;
 const { Step } = Steps;

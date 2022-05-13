@@ -15,7 +15,7 @@
 import {Alert, message, Tag} from "antd";
 import {isMobile as isMobileDevice} from "react-device-detect";
 import i18next from "i18next";
-import moment from "moment";
+// import moment from "moment";
 import Sdk from "casdoor-js-sdk";
 
 export let ServerUrl = '';
@@ -259,26 +259,26 @@ export function changeLanguage(language) {
 
 export function changeMomentLanguage(lng) {
   return;
-  if (lng === "zh") {
-    moment.locale("zh", {
-      relativeTime: {
-        future: "%s内",
-        past: "%s前",
-        s: "几秒",
-        ss: "%d秒",
-        m: "1分钟",
-        mm: "%d分钟",
-        h: "1小时",
-        hh: "%d小时",
-        d: "1天",
-        dd: "%d天",
-        M: "1个月",
-        MM: "%d个月",
-        y: "1年",
-        yy: "%d年",
-      },
-    });
-  }
+  // if (lng === "zh") {
+  //   moment.locale("zh", {
+  //     relativeTime: {
+  //       future: "%s内",
+  //       past: "%s前",
+  //       s: "几秒",
+  //       ss: "%d秒",
+  //       m: "1分钟",
+  //       mm: "%d分钟",
+  //       h: "1小时",
+  //       hh: "%d小时",
+  //       d: "1天",
+  //       dd: "%d天",
+  //       M: "1个月",
+  //       MM: "%d个月",
+  //       y: "1年",
+  //       yy: "%d年",
+  //     },
+  //   });
+  // }
 }
 
 export function getFilenameFromUrl(url) {

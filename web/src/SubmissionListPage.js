@@ -114,7 +114,7 @@ class SubmissionListPage extends React.Component {
         sorter: (a, b) => a.owner.localeCompare(b.owner),
         render: (text, record, index) => {
           return (
-            <a target="_blank" href={Setting.getUserProfileUrl(text)}>
+            <a target="_blank" rel="noreferrer" href={Setting.getUserProfileUrl(text)}>
               {text}
             </a>
           )

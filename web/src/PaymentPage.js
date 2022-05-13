@@ -86,7 +86,7 @@ class PaymentPage extends React.Component {
 
   getDisplayTag(inputTag) {
     let myTag = "";
-    this.state.conference?.tags?.map((tag, index) => {
+    this.state.conference?.tags?.forEach((tag, index) => {
       const tokens = tag.split("|");
       if (tokens[0] === inputTag) {
         if (Setting.getLanguage() !== "zh") {

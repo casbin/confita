@@ -254,7 +254,7 @@ class App extends Component {
       );
       res.push(
         <Menu.Item key="/resources">
-          <a target="_blank" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
+          <a target="_blank" rel="noreferrer" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
             {i18next.t("general:Resources")}
           </a>
         </Menu.Item>
@@ -349,7 +349,7 @@ class App extends Component {
           textAlign: 'center',
         }
       }>
-        Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" href="https://casbin.org">Casbin</a>, { Setting.isMobile() ? "Mobile" : "Desktop" } View
+        Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" rel="noreferrer" href="https://casbin.org">Casbin</a>, { Setting.isMobile() ? "Mobile" : "Desktop" } View
       </Footer>
     )
   }

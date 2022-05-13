@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import React from "react";
-import {Link} from "react-router-dom";
 import * as Setting from "./Setting";
 import { Menu} from "antd";
 import { createFromIconfontCN } from '@ant-design/icons';

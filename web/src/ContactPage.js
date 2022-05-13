@@ -63,6 +63,7 @@ class ContactPage extends React.Component {
     return (
       <iframe
         key={accessToken}
+        title={title}
         style={{border: "1px solid rgb(232,232,232)", width: "100%", height: "70vh"}}
         src={`${Conf.CasnodeEndpoint}/embedded-replies?nodeId=${nodeId}&title=${title}&author=${author}&urlPath=${urlPath}&accessToken=${accessToken}`}
       />
@@ -81,6 +82,7 @@ class ContactPage extends React.Component {
     return (
       <iframe
         key={accessToken}
+        title={"Casnode"}
         style={{border: "1px solid rgb(232,232,232)", width: "100%", height: "70vh"}}
         src={`${Conf.CasnodeEndpoint}?accessToken=${accessToken}`}
       />
