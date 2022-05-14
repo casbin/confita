@@ -28,6 +28,8 @@ import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
 import SubmissionListPage from "./SubmissionListPage";
 import SubmissionEditPage from "./SubmissionEditPage";
+import RoomListPage from "./RoomListPage";
+import RoomEditPage from "./RoomEditPage";
 import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
@@ -77,6 +79,8 @@ class App extends Component {
       this.setState({ selectedMenuKey: '/conferences' });
     } else if (uri.includes('/submissions')) {
       this.setState({ selectedMenuKey: '/submissions' });
+    } else if (uri.includes('/rooms')) {
+      this.setState({ selectedMenuKey: '/rooms' });
     } else {
       this.setState({selectedMenuKey: 'null'});
     }
@@ -277,6 +281,16 @@ class App extends Component {
       </Menu.Item>
     );
 
+    if (this.state.account.isAdmin) {
+      res.push(
+        <Menu.Item key="/rooms">
+          <Link to="/rooms">
+            {i18next.t("general:Rooms")}
+          </Link>
+        </Menu.Item>
+      );
+    }
+
     return res;
   }
 
@@ -332,6 +346,8 @@ class App extends Component {
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)}/>
         </Switch>
       </div>
     )

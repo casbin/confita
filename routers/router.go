@@ -52,6 +52,13 @@ func initAPI() {
 	beego.Router("/api/delete-submission", &controllers.ApiController{}, "POST:DeleteSubmission")
 	beego.Router("/api/upload-submission-file", &controllers.ApiController{}, "POST:UploadSubmissionFile")
 
+	beego.Router("/api/get-global-rooms", &controllers.ApiController{}, "GET:GetGlobalRooms")
+	beego.Router("/api/get-rooms", &controllers.ApiController{}, "GET:GetRooms")
+	beego.Router("/api/get-room", &controllers.ApiController{}, "GET:GetRoom")
+	beego.Router("/api/update-room", &controllers.ApiController{}, "POST:UpdateRoom")
+	beego.Router("/api/add-room", &controllers.ApiController{}, "POST:AddRoom")
+	beego.Router("/api/delete-room", &controllers.ApiController{}, "POST:DeleteRoom")
+
 	beego.Router("/api/get-products", &controllers.ApiController{}, "GET:GetProducts")
 	beego.Router("/api/get-payments", &controllers.ApiController{}, "GET:GetPayments")
 }

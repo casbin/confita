@@ -53,6 +53,7 @@
     "Preview": "Preview",
     "Registrations": "Registrations",
     "Resources": "Resources",
+    "Rooms": "Rooms",
     "Save": "Save",
     "Service Desk": "Service Desk",
     "Status": "Status",
@@ -85,6 +86,13 @@
     "You haven't completed the payment, please click the button to pay.": "You haven't completed the payment, please click the button to pay.",
     "Your current tag is": "Your current tag is",
     "but this registration requires the tag to be": "but this registration requires the tag to be"
+  },
+  "room": {
+    "Edit Room": "Edit Room",
+    "Empty timeout": "Empty timeout",
+    "Max count": "Max count",
+    "Server URL": "Server URL",
+    "Turn password": "Turn password"
   },
   "submission": {
     "Abstract files": "Abstract files",

@@ -53,6 +53,7 @@
     "Preview": "预览",
     "Registrations": "我的注册",
     "Resources": "我的资源",
+    "Rooms": "我的会场",
     "Save": "保存",
     "Service Desk": "联系官方",
     "Status": "状态",
@@ -85,6 +86,13 @@
     "You haven't completed the payment, please click the button to pay.": "您还没有支付注册费，请点击按钮完成支付。",
     "Your current tag is": "您当前的标签是",
     "but this registration requires the tag to be": "但是支付此项注册费所需的标签是"
+  },
+  "room": {
+    "Edit Room": "编辑会场",
+    "Empty timeout": "结束超时时间",
+    "Max count": "最大人数",
+    "Server URL": "服务器链接",
+    "Turn password": "入会密码"
   },
   "submission": {
     "Abstract files": "稿件摘要",
