@@ -14,11 +14,9 @@
 
 import React from "react";
 import {DownOutlined, DeleteOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Col, Input, Row, Select, Table, Tooltip} from 'antd';
+import {Button, Col, Input, Row, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 import i18next from "i18next";
-
-const { Option } = Select;
 
 class ParticipantTable extends React.Component {
   constructor(props) {
@@ -87,33 +85,41 @@ class ParticipantTable extends React.Component {
         key: 'name',
         width: '250px',
         render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(table, index, 'name', e.target.value);
-            }} />
-          )
+          return `${record.displayName} (${record.name})`;
         }
       },
       {
-        title: i18next.t("conference:Type"),
-        dataIndex: 'type',
-        key: 'type',
+        title: i18next.t("payment:Affiliation"),
+        dataIndex: 'affiliation',
+        key: 'affiliation',
         width: '250px',
-        render: (text, record, index) => {
-          return (
-            <Select virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
-              this.updateField(table, index, 'type', value);
-            })}>
-              {
-                [
-                  {id: 'Attendee', name: 'Attendee'},
-                  {id: 'Admin', name: 'Admin'},
-                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
-              }
-            </Select>
-          )
-        }
       },
+      {
+        title: i18next.t("payment:Tag"),
+        dataIndex: 'tag',
+        key: 'tag',
+        width: '250px',
+      },
+      // {
+      //   title: i18next.t("conference:Type"),
+      //   dataIndex: 'type',
+      //   key: 'type',
+      //   width: '250px',
+      //   render: (text, record, index) => {
+      //     return (
+      //       <Select virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
+      //         this.updateField(table, index, 'type', value);
+      //       })}>
+      //         {
+      //           [
+      //             {id: 'Attendee', name: 'Attendee'},
+      //             {id: 'Admin', name: 'Admin'},
+      //           ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+      //         }
+      //       </Select>
+      //     )
+      //   }
+      // },
       {
         title: i18next.t("general:Status"),
         dataIndex: 'status',
@@ -160,7 +166,7 @@ class ParticipantTable extends React.Component {
              title={() => (
                <div>
                  {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                 <Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>
+                 {/*<Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>*/}
                </div>
              )}
       />

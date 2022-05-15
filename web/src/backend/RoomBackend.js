@@ -61,3 +61,17 @@ export function deleteRoom(room) {
     body: JSON.stringify(newRoom),
   }).then(res => res.json());
 }
+
+export function joinRoom(owner, name) {
+  return fetch(`${Setting.ServerUrl}/api/join-room?id=${owner}/${encodeURIComponent(name)}`, {
+    method: 'POST',
+    credentials: 'include',
+  }).then(res => res.json());
+}
+
+export function leaveRoom(owner, name) {
+  return fetch(`${Setting.ServerUrl}/api/leave-room?id=${owner}/${encodeURIComponent(name)}`, {
+    method: 'POST',
+    credentials: 'include',
+  }).then(res => res.json());
+}

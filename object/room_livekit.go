@@ -65,6 +65,16 @@ func getLkRoomToken(roomName string, username string) (string, error) {
 	return at.ToJWT()
 }
 
+func removeLkRoomParticipant(roomName string, participantId string) {
+	_, err := lkClient.RemoveParticipant(context.Background(), &livekit.RoomParticipantIdentity{
+		Room:     roomName,
+		Identity: participantId,
+	})
+	if err != nil {
+		panic(err)
+	}
+}
+
 func updateLkRoomParticipant(roomName string, username string, description string) {
 	_, err := lkClient.UpdateParticipant(context.Background(), &livekit.UpdateParticipantRequest{
 		Room:     roomName,

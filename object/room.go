@@ -15,15 +15,22 @@
 package object
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/casbin/confita/util"
+	"github.com/casdoor/casdoor-go-sdk/auth"
 	"xorm.io/core"
 )
 
 type Participant struct {
-	Name   string `xorm:"varchar(100)" json:"name"`
-	Type   string `xorm:"varchar(100)" json:"type"`
-	Status string `xorm:"varchar(100)" json:"status"`
-	Token  string `xorm:"varchar(100)" json:"token"`
+	Name        string `xorm:"varchar(100)" json:"name"`
+	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
+	DisplayName string `xorm:"varchar(100)" json:"displayName"`
+	Affiliation string `xorm:"varchar(100)" json:"affiliation"`
+	Tag         string `xorm:"varchar(100)" json:"tag"`
+	Status      string `xorm:"varchar(100)" json:"status"`
+	Token       string `xorm:"varchar(100)" json:"token"`
 }
 
 type Room struct {
@@ -93,8 +100,6 @@ func UpdateRoom(id string, room *Room) bool {
 		return false
 	}
 
-	room.updateRoomTokens()
-
 	_, err := adapter.engine.ID(core.PK{owner, name}).AllCols().Update(room)
 	if err != nil {
 		panic(err)
@@ -102,6 +107,10 @@ func UpdateRoom(id string, room *Room) bool {
 
 	//return affected != 0
 	return true
+}
+
+func (p *Room) GetId() string {
+	return fmt.Sprintf("%s/%s", p.Owner, p.Name)
 }
 
 func AddRoom(room *Room) bool {
@@ -122,28 +131,78 @@ func DeleteRoom(room *Room) bool {
 	return affected != 0
 }
 
-func (room *Room) updateRoomTokens() {
-	for _, participant := range room.Participants {
-		if participant.Token != "" {
-			continue
-		}
+func getParticipantId(user *auth.User) string {
+	return fmt.Sprintf("%s (%s)", user.DisplayName, user.Name)
+}
 
-		token, err := getLkRoomToken(room.Name, participant.Name)
+func JoinRoom(id string, user *auth.User) bool {
+	owner, name := util.GetOwnerAndNameFromId(id)
+	room := getRoom(owner, name)
+	if room == nil {
+		return false
+	}
+
+	participantMap := room.getRoomParticipantMap()
+	if participant, ok := participantMap[getParticipantId(user)]; ok {
+		removeLkRoomParticipant(room.Name, getParticipantId(user))
+
+		token, err := getLkRoomToken(room.Name, getParticipantId(user))
 		if err != nil {
 			panic(err)
 		}
-
-		updateLkRoomParticipant(room.Name, participant.Name, participant.Name)
-
 		participant.Token = token
+	} else {
+		newParticipant := &Participant{
+			Name:        user.Name,
+			CreatedTime: util.GetCurrentTime(),
+			DisplayName: user.DisplayName,
+			Affiliation: user.Affiliation,
+			Tag:         user.Tag,
+			Status:      "Joined",
+		}
+		token, err := getLkRoomToken(room.Name, getParticipantId(user))
+		if err != nil {
+			panic(err)
+		}
+		newParticipant.Token = token
+
+		room.Participants = append(room.Participants, newParticipant)
 	}
+
+	return UpdateRoom(id, room)
+}
+
+func LeaveRoom(id string, user *auth.User) bool {
+	owner, name := util.GetOwnerAndNameFromId(id)
+	room := getRoom(owner, name)
+	if room == nil {
+		return false
+	}
+
+	removeLkRoomParticipant(room.Name, getParticipantId(user))
+
+	participants := []*Participant{}
+	for _, participant := range room.Participants {
+		if participant.Name != user.Name {
+			participants = append(participants, participant)
+		}
+	}
+	room.Participants = participants
+
+	return UpdateRoom(id, room)
+}
+
+func (room *Room) getRoomParticipantMap() map[string]*Participant {
+	participantMap := map[string]*Participant{}
+	for _, participant := range room.Participants {
+		participantId := fmt.Sprintf("%s (%s)", participant.DisplayName, participant.Name)
+		participantMap[participantId] = participant
+	}
+	return participantMap
 }
 
 func (room *Room) updateRoomParticipants() {
-	participantMap := map[string]*Participant{}
-	for _, participant := range room.Participants {
-		participantMap[participant.Name] = participant
-	}
+	participantMap := room.getRoomParticipantMap()
 
 	participantInfos := getLkRoomParticipants(room.Name)
 	if participantInfos == nil {
@@ -151,16 +210,13 @@ func (room *Room) updateRoomParticipants() {
 	}
 
 	for _, participantInfo := range participantInfos {
-		participant, ok := participantMap[participantInfo.Name]
+		participant, ok := participantMap[participantInfo.Identity]
 		if ok {
-			participant.Status = participantInfo.State.String()
+			participant.Status = strings.Title(strings.ToLower(participantInfo.State.String()))
 		} else {
-			newParticipant := &Participant{
-				Name:   participantInfo.Name,
-				Type:   "Unknown",
-				Status: participantInfo.State.String(),
-			}
-			room.Participants = append(room.Participants, newParticipant)
+			removeLkRoomParticipant(room.Name, participantInfo.Identity)
 		}
 	}
+
+	UpdateRoom(room.GetId(), room)
 }

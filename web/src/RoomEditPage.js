@@ -173,7 +173,7 @@ class RoomEditPage extends React.Component {
             {i18next.t("general:Preview")}:
           </Col>
           <Col span={22} >
-            <Room room={this.state.room} account={this.props.account} />
+            <Room room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >

@@ -47,6 +47,10 @@ class Room extends React.Component {
       });
   }
 
+  onGetRoom() {
+    this.props.onGetRoom();
+  }
+
   getAccountToken(room) {
     const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
     if (participant === undefined) {
@@ -56,13 +60,18 @@ class Room extends React.Component {
     return participant.token;
   }
 
+  getPropsOrStateRoom() {
+    return this.props.room !== undefined ? this.props.room : this.state.room;
+  }
+
   renderRoom() {
-    const room = this.props.room !== undefined ? this.props.room : this.state.room;
+    const room = this.getPropsOrStateRoom();
     if (room === null) {
       return null;
     }
 
-    if (!this.state.isConnected) {
+    const token = this.getAccountToken(room);
+    if (token === "") {
       return (
         <div style={{width: "1307px", height: "740px", backgroundColor: "black", color: "white", fontSize: 40, textAlign: "center"}} >
           <div style={{paddingTop: "300px"}}>
@@ -74,10 +83,21 @@ class Room extends React.Component {
           <div style={{fontSize: 20}}>
             {i18next.t("room:There are already N participants in the meeting room.").replace("N", room.participants.length)}
           </div>
-          <Button type="primary" shape="round" icon={<SendOutlined />} size="large" onClick={() => {
-            this.setState({
-              isConnected: true,
-            });
+          <Button loading={this.state.isConnected && token === ""} type="primary" shape="round" icon={<SendOutlined />} size="large" onClick={() => {
+            RoomBackend.joinRoom(room.owner, room.name)
+              .then((res) => {
+                if (res) {
+                  this.setState({
+                    isConnected: true,
+                  });
+                  this.onGetRoom();
+                } else {
+                  Setting.showMessage("error", `failed to save: server side failure`);
+                }
+              })
+              .catch(error => {
+                Setting.showMessage("error", `failed to save: ${error}`);
+              });
           }}>{i18next.t("room:Join In")}</Button>
         </div>
       )
@@ -88,16 +108,25 @@ class Room extends React.Component {
       room.localParticipant.setMicrophoneEnabled(true);
     };
 
-    const token = this.getAccountToken(room);
-
     return (
       <div className="roomContainer">
         <LiveKitRoom url={room.serverUrl} token={token} onConnected={room => {
           onConnected(room);
-        }} onLeave={room => {
-          this.setState({
-            isConnected: false,
-          });
+        }} onLeave={() => {
+          RoomBackend.leaveRoom(room.owner, room.name)
+            .then((res) => {
+              if (res) {
+                this.setState({
+                  isConnected: false,
+                });
+                this.onGetRoom();
+              } else {
+                Setting.showMessage("error", `failed to save: server side failure`);
+              }
+            })
+            .catch(error => {
+              Setting.showMessage("error", `failed to save: ${error}`);
+            });
         }}/>
       </div>
     )
@@ -110,6 +139,13 @@ class Room extends React.Component {
           <Col span={!Setting.isMobile() ? 3 : 0}>
           </Col>
           <Col span={!Setting.isMobile() ? 18 : 24}>
+            {/*{*/}
+            {/*  JSON.stringify(this.state.isConnected)*/}
+            {/*}*/}
+            {/*<br/>*/}
+            {/*{*/}
+            {/*  JSON.stringify(this.getAccountToken(this.getPropsOrStateRoom()))*/}
+            {/*}*/}
             {
               this.renderRoom()
             }

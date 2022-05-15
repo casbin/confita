@@ -73,3 +73,29 @@ func (c *ApiController) DeleteRoom() {
 	c.Data["json"] = object.DeleteRoom(&room)
 	c.ServeJSON()
 }
+
+func (c *ApiController) JoinRoom() {
+	id := c.Input().Get("id")
+
+	user := c.GetSessionUser()
+	if user == nil {
+		c.Data["json"] = false
+		c.ServeJSON()
+	}
+
+	c.Data["json"] = object.JoinRoom(id, user)
+	c.ServeJSON()
+}
+
+func (c *ApiController) LeaveRoom() {
+	id := c.Input().Get("id")
+
+	user := c.GetSessionUser()
+	if user == nil {
+		c.Data["json"] = false
+		c.ServeJSON()
+	}
+
+	c.Data["json"] = object.LeaveRoom(id, user)
+	c.ServeJSON()
+}
