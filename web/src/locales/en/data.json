@@ -90,16 +90,18 @@
   "room": {
     "Edit Room": "Edit Room",
     "Empty timeout": "Empty timeout",
+    "Ended": "Ended",
     "Join In": "Join In",
     "Max count": "Max count",
     "No.": "No.",
+    "Online count": "Online count",
     "Participants": "Participants",
     "Server URL": "Server URL",
+    "Started": "Started",
     "The current meeting has ended": "The current meeting has ended",
     "The current meeting has started, please join in": "The current meeting has started, please join in",
     "There are already N participants in the meeting room.": "There are already N participants in the meeting room.",
-    "Token": "Token",
-    "Turn password": "Turn password"
+    "Token": "Token"
   },
   "submission": {
     "Abstract files": "Abstract files",

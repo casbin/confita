@@ -41,9 +41,8 @@ type Room struct {
 
 	Conference   string `xorm:"varchar(100)" json:"conference"`
 	ServerUrl    string `xorm:"varchar(100)" json:"serverUrl"`
-	EmptyTimeout string `xorm:"varchar(100)" json:"emptyTimeout"`
-	MaxCount     string `xorm:"varchar(100)" json:"maxCount"`
-	TurnPassword string `xorm:"varchar(100)" json:"turnPassword"`
+	EmptyTimeout int    `json:"emptyTimeout"`
+	MaxCount     int    `json:"maxCount"`
 	Status       string `xorm:"varchar(100)" json:"status"`
 
 	Participants []*Participant `xorm:"mediumtext" json:"participants"`

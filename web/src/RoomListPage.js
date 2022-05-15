@@ -64,11 +64,10 @@ class RoomListPage extends React.Component {
       displayName: `New Room - ${this.state.rooms.length}`,
       conference: Conf.DefaultConferenceName,
       serverUrl: "ws://localhost:7880",
-      emptyTimeout: "20",
-      maxCount: "1000",
-      turnPassword: "",
+      emptyTimeout: 20,
+      maxCount: 1000,
       participants: [],
-      status: "Stopped",
+      status: "Ended",
     }
   }
 
@@ -188,11 +187,14 @@ class RoomListPage extends React.Component {
         sorter: (a, b) => a.maxCount.localeCompare(b.maxCount),
       },
       {
-        title: i18next.t("room:Turn password"),
-        dataIndex: 'turnPassword',
-        key: 'turnPassword',
+        title: i18next.t("room:Online count"),
+        dataIndex: 'onlineCount',
+        key: 'onlineCount',
         width: '100px',
-        sorter: (a, b) => a.turnPassword.localeCompare(b.turnPassword),
+        sorter: (a, b) => a.onlineCount.localeCompare(b.onlineCount),
+        render: (text, record, index) => {
+          return record.participants.length;
+        }
       },
       {
         title: i18next.t("general:Status"),
@@ -200,6 +202,13 @@ class RoomListPage extends React.Component {
         key: 'status',
         width: '80px',
         sorter: (a, b) => a.status.localeCompare(b.status),
+        render: (text, record, index) => {
+          if (text === "Started") {
+            return i18next.t("room:Started");
+          } else {
+            return i18next.t("room:Ended");
+          }
+        }
       },
       {
         title: i18next.t("general:Action"),

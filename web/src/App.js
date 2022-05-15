@@ -248,7 +248,7 @@ class App extends Component {
       </Menu.Item>
     );
 
-    if (this.state.account.isAdmin) {
+    if (Setting.isAdminUser(this.state.account)) {
       res.push(
         <Menu.Item key="/conferences">
           <Link to="/conferences">
@@ -281,7 +281,7 @@ class App extends Component {
       </Menu.Item>
     );
 
-    if (this.state.account.isAdmin) {
+    if (Setting.isAdminUser(this.state.account) || Setting.isEditorUser(this.state.account)) {
       res.push(
         <Menu.Item key="/rooms">
           <Link to="/rooms">

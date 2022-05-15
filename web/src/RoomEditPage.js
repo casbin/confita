@@ -147,16 +147,6 @@ class RoomEditPage extends React.Component {
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Turn password")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.room.turnPassword} onChange={e => {
-              this.updateRoomField('turnPassword', e.target.value);
-            }} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
             {i18next.t("room:Participants")}:
           </Col>
@@ -184,8 +174,8 @@ class RoomEditPage extends React.Component {
             <Select virtual={false} style={{width: '100%'}} value={this.state.room.status} onChange={(value => {this.updateRoomField('status', value);})}>
               {
                 [
-                  {id: 'Started', name: 'Started'},
-                  {id: 'Stopped', name: 'Stopped'},
+                  {id: 'Started', name: i18next.t("room:Started")},
+                  {id: 'Ended', name: i18next.t("room:Ended")},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
