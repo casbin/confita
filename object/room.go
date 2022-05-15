@@ -87,6 +87,8 @@ func UpdateRoom(id string, room *Room) bool {
 		return false
 	}
 
+	room.updateRoomTokens()
+
 	_, err := adapter.engine.ID(core.PK{owner, name}).AllCols().Update(room)
 	if err != nil {
 		panic(err)
@@ -112,4 +114,19 @@ func DeleteRoom(room *Room) bool {
 	}
 
 	return affected != 0
+}
+
+func (room *Room) updateRoomTokens() {
+	for _, participant := range room.Participants {
+		if participant.Token != "" {
+			continue
+		}
+
+		token, err := getLkRoomToken(room.DisplayName, participant.Name)
+		if err != nil {
+			panic(err)
+		}
+
+		participant.Token = token
+	}
 }

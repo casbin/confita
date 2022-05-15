@@ -91,8 +91,11 @@
     "Edit Room": "编辑会场",
     "Empty timeout": "结束超时时间",
     "Max count": "最大人数",
+    "No.": "序号",
+    "Participants": "参会者",
     "Server URL": "服务器链接",
-    "Turn password": "入会密码"
+    "Token": "参会令牌",
+    "Turn password": "参会密码"
   },
   "submission": {
     "Abstract files": "稿件摘要",

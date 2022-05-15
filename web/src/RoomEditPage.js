@@ -158,7 +158,7 @@ class RoomEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
-            {i18next.t("room:Authors")}:
+            {i18next.t("room:Participants")}:
           </Col>
           <Col span={22} >
             <ParticipantTable
@@ -173,7 +173,7 @@ class RoomEditPage extends React.Component {
             {i18next.t("general:Preview")}:
           </Col>
           <Col span={22} >
-            <Room room={this.state.room} />
+            <Room room={this.state.room} account={this.props.account} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >

@@ -44,6 +44,15 @@ class Room extends React.Component {
       });
   }
 
+  getAccountToken(room) {
+    const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
+    if (participant === undefined) {
+      return "";
+    }
+
+    return participant.token;
+  }
+
   renderRoom() {
     const room = this.props.room !== undefined ? this.props.room : this.state.room;
     if (room === null) {
@@ -55,9 +64,11 @@ class Room extends React.Component {
       room.localParticipant.setMicrophoneEnabled(true);
     };
 
+    const token = this.getAccountToken(room);
+
     return (
       <div className="roomContainer">
-        <LiveKitRoom url={room.serverUrl} token={""} onConnected={room => onConnected(room)}/>
+        <LiveKitRoom url={room.serverUrl} token={token} onConnected={room => onConnected(room)}/>
       </div>
     )
   }
