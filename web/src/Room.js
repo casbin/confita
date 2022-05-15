@@ -13,12 +13,14 @@
 // limitations under the License.
 
 import React from "react";
-import {Col, Row} from "antd";
+import {Button, Col, Row} from "antd";
+import { SendOutlined } from '@ant-design/icons';
 import * as RoomBackend from "./backend/RoomBackend";
 import * as Setting from "./Setting";
 import { LiveKitRoom } from 'livekit-react';
 import 'livekit-react/dist/index.css';
 import "react-aspect-ratio/aspect-ratio.css";
+import i18next from "i18next";
 
 class Room extends React.Component {
   constructor(props) {
@@ -28,6 +30,7 @@ class Room extends React.Component {
       userName: props.match?.params.userName,
       roomName: props.match?.params.roomName,
       room: null,
+      isConnected: false,
     };
   }
 
@@ -59,6 +62,27 @@ class Room extends React.Component {
       return null;
     }
 
+    if (!this.state.isConnected) {
+      return (
+        <div style={{width: "1307px", height: "740px", backgroundColor: "black", color: "white", fontSize: 40, textAlign: "center"}} >
+          <div style={{paddingTop: "300px"}}>
+            {
+              room.status === "Started" ? i18next.t("room:The current meeting has started, please join in") :
+                i18next.t("room:The current meeting has ended")
+            }
+          </div>
+          <div style={{fontSize: 20}}>
+            {i18next.t("room:There are already N participants in the meeting room.").replace("N", room.participants.length)}
+          </div>
+          <Button type="primary" shape="round" icon={<SendOutlined />} size="large" onClick={() => {
+            this.setState({
+              isConnected: true,
+            });
+          }}>{i18next.t("room:Join In")}</Button>
+        </div>
+      )
+    }
+
     const onConnected = (room) => {
       room.localParticipant.setCameraEnabled(true);
       room.localParticipant.setMicrophoneEnabled(true);
@@ -68,7 +92,13 @@ class Room extends React.Component {
 
     return (
       <div className="roomContainer">
-        <LiveKitRoom url={room.serverUrl} token={token} onConnected={room => onConnected(room)}/>
+        <LiveKitRoom url={room.serverUrl} token={token} onConnected={room => {
+          onConnected(room);
+        }} onLeave={room => {
+          this.setState({
+            isConnected: false,
+          });
+        }}/>
       </div>
     )
   }

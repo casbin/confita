@@ -78,7 +78,13 @@ func getRoom(owner string, name string) *Room {
 
 func GetRoom(id string) *Room {
 	owner, name := util.GetOwnerAndNameFromId(id)
-	return getRoom(owner, name)
+	room := getRoom(owner, name)
+
+	if room != nil {
+		room.updateRoomParticipants()
+	}
+
+	return room
 }
 
 func UpdateRoom(id string, room *Room) bool {
@@ -122,11 +128,39 @@ func (room *Room) updateRoomTokens() {
 			continue
 		}
 
-		token, err := getLkRoomToken(room.DisplayName, participant.Name)
+		token, err := getLkRoomToken(room.Name, participant.Name)
 		if err != nil {
 			panic(err)
 		}
 
+		updateLkRoomParticipant(room.Name, participant.Name, participant.Name)
+
 		participant.Token = token
+	}
+}
+
+func (room *Room) updateRoomParticipants() {
+	participantMap := map[string]*Participant{}
+	for _, participant := range room.Participants {
+		participantMap[participant.Name] = participant
+	}
+
+	participantInfos := getLkRoomParticipants(room.Name)
+	if participantInfos == nil {
+		return
+	}
+
+	for _, participantInfo := range participantInfos {
+		participant, ok := participantMap[participantInfo.Name]
+		if ok {
+			participant.Status = participantInfo.State.String()
+		} else {
+			newParticipant := &Participant{
+				Name:   participantInfo.Name,
+				Type:   "Unknown",
+				Status: participantInfo.State.String(),
+			}
+			room.Participants = append(room.Participants, newParticipant)
+		}
 	}
 }

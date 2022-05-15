@@ -9,7 +9,7 @@ require (
 	github.com/casdoor/casdoor-go-sdk v0.3.3
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/livekit/protocol v0.13.2
-	github.com/livekit/server-sdk-go v0.9.3
+	github.com/livekit/server-sdk-go v0.9.4-0.20220509191455-dbb855119d3b
 	github.com/pkg/errors v0.9.1
 	github.com/satori/go.uuid v1.2.0 // indirect
 	xorm.io/core v0.7.3

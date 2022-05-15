@@ -90,10 +90,14 @@
   "room": {
     "Edit Room": "编辑会场",
     "Empty timeout": "结束超时时间",
+    "Join In": "加入会议",
     "Max count": "最大人数",
     "No.": "序号",
     "Participants": "参会者",
     "Server URL": "服务器链接",
+    "The current meeting has ended": "当前会议已结束",
+    "The current meeting has started, please join in": "当前会议已开始，请加入",
+    "There are already N participants in the meeting room.": "目前有 N 位参会者",
     "Token": "参会令牌",
     "Turn password": "参会密码"
   },

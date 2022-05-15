@@ -15,9 +15,11 @@
 package object
 
 import (
+	"context"
 	"time"
 
 	"github.com/livekit/protocol/auth"
+	"github.com/livekit/protocol/livekit"
 	lksdk "github.com/livekit/server-sdk-go"
 )
 
@@ -63,6 +65,30 @@ func getLkRoomToken(roomName string, username string) (string, error) {
 	return at.ToJWT()
 }
 
-func aaa() {
+func updateLkRoomParticipant(roomName string, username string, description string) {
+	_, err := lkClient.UpdateParticipant(context.Background(), &livekit.UpdateParticipantRequest{
+		Room:     roomName,
+		Identity: username,
+		Metadata: description,
+		Permission: &livekit.ParticipantPermission{
+			CanPublish:     true,
+			CanPublishData: true,
+			CanSubscribe:   true,
+		},
+	})
+	if err != nil {
+		panic(err)
+	}
+}
 
+func getLkRoomParticipants(roomName string) []*livekit.ParticipantInfo {
+	res, err := lkClient.ListParticipants(context.Background(), &livekit.ListParticipantsRequest{
+		Room: roomName,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	participants := res.GetParticipants()
+	return participants
 }

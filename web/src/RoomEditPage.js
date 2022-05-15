@@ -184,7 +184,7 @@ class RoomEditPage extends React.Component {
             <Select virtual={false} style={{width: '100%'}} value={this.state.room.status} onChange={(value => {this.updateRoomField('status', value);})}>
               {
                 [
-                  {id: 'Ongoing', name: 'Ongoing'},
+                  {id: 'Started', name: 'Started'},
                   {id: 'Stopped', name: 'Stopped'},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
