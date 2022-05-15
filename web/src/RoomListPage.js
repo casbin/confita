@@ -67,6 +67,7 @@ class RoomListPage extends React.Component {
       emptyTimeout: "20",
       maxCount: "1000",
       turnPassword: "",
+      participants: [],
       status: "Stopped",
     }
   }

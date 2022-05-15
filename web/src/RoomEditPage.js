@@ -19,6 +19,8 @@ import {LinkOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import i18next from "i18next";
+import Room from "./Room";
+import ParticipantTable from "./ParticipantTable";
 
 const { Option } = Select;
 
@@ -152,6 +154,26 @@ class RoomEditPage extends React.Component {
             <Input value={this.state.room.turnPassword} onChange={e => {
               this.updateRoomField('turnPassword', e.target.value);
             }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+            {i18next.t("room:Authors")}:
+          </Col>
+          <Col span={22} >
+            <ParticipantTable
+              title={i18next.t("room:Participants")}
+              table={this.state.room.participants}
+              onUpdateTable={(value) => { this.updateRoomField('participants', value)}}
+            />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("general:Preview")}:
+          </Col>
+          <Col span={22} >
+            <Room room={this.state.room} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >

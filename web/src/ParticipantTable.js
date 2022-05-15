@@ -14,11 +14,13 @@
 
 import React from "react";
 import {DownOutlined, DeleteOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Col, Input, Row, Switch, Table, Tooltip} from 'antd';
+import {Button, Col, Input, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 import i18next from "i18next";
 
-class AuthorTable extends React.Component {
+const { Option } = Select;
+
+class ParticipantTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +47,7 @@ class AuthorTable extends React.Component {
   }
 
   addRow(table) {
-    let row = {no: table.length, name: `New Author - ${table.length}`, data: []};
+    let row = {name: `New Participant - ${table.length}`, type: "Attendee"};
     if (table === undefined) {
       table = [];
     }
@@ -71,7 +73,7 @@ class AuthorTable extends React.Component {
   renderTable(table) {
     const columns = [
       {
-        title: i18next.t("general:No."),
+        title: i18next.t("room:No."),
         dataIndex: 'no',
         key: 'no',
         width: '80px',
@@ -93,53 +95,40 @@ class AuthorTable extends React.Component {
         }
       },
       {
-        title: i18next.t("payment:Affiliation"),
-        dataIndex: 'affiliation',
-        key: 'affiliation',
+        title: i18next.t("conference:Type"),
+        dataIndex: 'type',
+        key: 'type',
+        width: '250px',
+        render: (text, record, index) => {
+          return (
+            <Select virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
+              this.updateField(table, index, 'type', value);
+            })}>
+              {
+                [
+                  {id: 'Attendee', name: 'Attendee'},
+                  {id: 'Admin', name: 'Admin'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
+          )
+        }
+      },
+      {
+        title: i18next.t("general:Status"),
+        dataIndex: 'status',
+        key: 'status',
+        width: '250px',
+      },
+      {
+        title: i18next.t("room:Token"),
+        dataIndex: 'token',
+        key: 'token',
         // width: '400px',
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(table, index, 'affiliation', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: i18next.t("general:Email"),
-        dataIndex: 'email',
-        key: 'email',
-        width: '250px',
-        render: (text, record, index) => {
-          return (
-            <Input value={text} onChange={e => {
-              this.updateField(table, index, 'email', e.target.value);
-            }} />
-          )
-        }
-      },
-      {
-        title: i18next.t("submission:Is notified"),
-        dataIndex: 'isNotified',
-        key: 'isNotified',
-        width: '160px',
-        render: (text, record, index) => {
-          return (
-            <Switch checked={text} onChange={checked => {
-              this.updateField(table, index, 'isNotified', checked);
-            }} />
-          )
-        }
-      },
-      {
-        title: i18next.t("submission:Is corresponding"),
-        dataIndex: 'isCorresponding',
-        key: 'isCorresponding',
-        width: '160px',
-        render: (text, record, index) => {
-          return (
-            <Switch checked={text} onChange={checked => {
-              this.updateField(table, index, 'isCorresponding', checked);
+              this.updateField(table, index, 'token', e.target.value);
             }} />
           )
         }
@@ -193,4 +182,4 @@ class AuthorTable extends React.Component {
   }
 }
 
-export default AuthorTable;
+export default ParticipantTable;

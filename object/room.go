@@ -19,6 +19,13 @@ import (
 	"xorm.io/core"
 )
 
+type Participant struct {
+	Name   string `xorm:"varchar(100)" json:"name"`
+	Type   string `xorm:"varchar(100)" json:"type"`
+	Status string `xorm:"varchar(100)" json:"status"`
+	Token  string `xorm:"varchar(100)" json:"token"`
+}
+
 type Room struct {
 	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
 	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
@@ -31,6 +38,8 @@ type Room struct {
 	MaxCount     string `xorm:"varchar(100)" json:"maxCount"`
 	TurnPassword string `xorm:"varchar(100)" json:"turnPassword"`
 	Status       string `xorm:"varchar(100)" json:"status"`
+
+	Participants []*Participant `xorm:"mediumtext" json:"participants"`
 }
 
 func GetGlobalRooms() []*Room {
