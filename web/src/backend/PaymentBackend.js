@@ -14,6 +14,14 @@
 
 import * as Setting from "../Setting";
 
+export function getGlobalPayments() {
+  return fetch(`${Setting.ServerUrl}/api/get-global-payments`, {
+    method: "GET",
+    credentials: "include"
+  }).then(res => res.json());
+}
+
+
 export function getPayments(owner) {
   return fetch(`${Setting.ServerUrl}/api/get-payments?owner=${owner}`, {
     method: "GET",

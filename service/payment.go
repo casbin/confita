@@ -55,6 +55,34 @@ type Payment struct {
 	InvoiceUrl    string `xorm:"varchar(255)" json:"invoiceUrl"`
 }
 
+func GetGlobalPayments() ([]*Payment, error) {
+	organization := beego.AppConfig.String("casdoorOrganization")
+
+	queryMap := map[string]string{}
+
+	url := auth.GetUrl("get-payments", queryMap)
+
+	bytes, err := auth.DoGetBytesRaw(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var payments []*Payment
+	err = json.Unmarshal(bytes, &payments)
+	if err != nil {
+		return nil, err
+	}
+
+	res := []*Payment{}
+	for _, payment := range payments {
+		if payment.Organization == organization {
+			res = append(res, payment)
+		}
+	}
+
+	return res, nil
+}
+
 func GetPayments(user string) ([]*Payment, error) {
 	owner := "admin"
 	organization := beego.AppConfig.String("casdoorOrganization")

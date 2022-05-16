@@ -296,7 +296,7 @@ function getCurrencySymbol(product) {
   }
 }
 
-function getCurrencyText(product) {
+export function getCurrencyText(product) {
   if (product?.currency === "USD") {
     return i18next.t("payment:USD");
   } else if (product?.currency === "CNY") {

@@ -16,6 +16,16 @@ package controllers
 
 import "github.com/casbin/confita/service"
 
+func (c *ApiController) GetGlobalPayments() {
+	payments, err := service.GetGlobalPayments()
+	if err != nil {
+		panic(err)
+	}
+
+	c.Data["json"] = payments
+	c.ServeJSON()
+}
+
 func (c *ApiController) GetPayments() {
 	owner := c.Input().Get("owner")
 

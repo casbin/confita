@@ -28,6 +28,7 @@ import ConferenceListPage from "./ConferenceListPage";
 import ConferenceEditPage from "./ConferenceEditPage";
 import SubmissionListPage from "./SubmissionListPage";
 import SubmissionEditPage from "./SubmissionEditPage";
+import PaymentListPage from "./PaymentListPage";
 import RoomListPage from "./RoomListPage";
 import RoomEditPage from "./RoomEditPage";
 import SigninPage from "./SigninPage";
@@ -79,6 +80,8 @@ class App extends Component {
       this.setState({ selectedMenuKey: '/conferences' });
     } else if (uri.includes('/submissions')) {
       this.setState({ selectedMenuKey: '/submissions' });
+    } else if (uri.includes('/all-pays')) {
+      this.setState({ selectedMenuKey: '/all-pays' });
     } else if (uri.includes('/rooms')) {
       this.setState({ selectedMenuKey: '/rooms' });
     } else {
@@ -283,6 +286,14 @@ class App extends Component {
 
     if (Setting.isAdminUser(this.state.account) || Setting.isEditorUser(this.state.account)) {
       res.push(
+        <Menu.Item key="/all-pays">
+          <Link to="/all-pays">
+            {i18next.t("general:All Payments")}
+          </Link>
+        </Menu.Item>
+      );
+
+      res.push(
         <Menu.Item key="/rooms">
           <Link to="/rooms">
             {i18next.t("general:Rooms")}
@@ -346,6 +357,7 @@ class App extends Component {
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)}/>
         </Switch>
