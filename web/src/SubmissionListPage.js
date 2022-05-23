@@ -104,6 +104,17 @@ class SubmissionListPage extends React.Component {
       });
   }
 
+  isSubmissionCompleted(submission) {
+    if (submission.fullWordFileUrl === "" && submission.fullPdfFileUrl === "") {
+      return false;
+    }
+    return true;
+  }
+
+  getSubmissionEmails(submission) {
+    return submission.authors.map(author => author.email);
+  }
+
   renderTable(submissions) {
     const columns = [
       {
@@ -120,20 +131,20 @@ class SubmissionListPage extends React.Component {
           )
         }
       },
-      {
-        title: i18next.t("general:Name"),
-        dataIndex: 'name',
-        key: 'name',
-        width: '120px',
-        sorter: (a, b) => a.name.localeCompare(b.name),
-        render: (text, record, index) => {
-          return (
-            <Link to={`/submissions/${record.owner}/${text}`}>
-              {text}
-            </Link>
-          )
-        }
-      },
+      // {
+      //   title: i18next.t("general:Name"),
+      //   dataIndex: 'name',
+      //   key: 'name',
+      //   width: '120px',
+      //   sorter: (a, b) => a.name.localeCompare(b.name),
+      //   render: (text, record, index) => {
+      //     return (
+      //       <Link to={`/submissions/${record.owner}/${text}`}>
+      //         {text}
+      //       </Link>
+      //     )
+      //   }
+      // },
       // {
       //   title: i18next.t("general:Created time"),
       //   dataIndex: 'createdTime',
@@ -144,24 +155,24 @@ class SubmissionListPage extends React.Component {
       //     return Setting.getFormattedDate(text);
       //   }
       // },
-      {
-        title: i18next.t("submission:Conference"),
-        dataIndex: 'conference',
-        key: 'conference',
-        width: '80px',
-        sorter: (a, b) => a.conference.localeCompare(b.conference),
-        render: (text, record, index) => {
-          if (Setting.isAdminUser(this.props.account)) {
-            return (
-              <Link to={`/conferences/${text}`}>
-                {text}
-              </Link>
-            )
-          } else {
-            return text;
-          }
-        }
-      },
+      // {
+      //   title: i18next.t("submission:Conference"),
+      //   dataIndex: 'conference',
+      //   key: 'conference',
+      //   width: '80px',
+      //   sorter: (a, b) => a.conference.localeCompare(b.conference),
+      //   render: (text, record, index) => {
+      //     if (Setting.isAdminUser(this.props.account)) {
+      //       return (
+      //         <Link to={`/conferences/${text}`}>
+      //           {text}
+      //         </Link>
+      //       )
+      //     } else {
+      //       return text;
+      //     }
+      //   }
+      // },
       {
         title: i18next.t("submission:Type"),
         dataIndex: 'type',
@@ -182,6 +193,13 @@ class SubmissionListPage extends React.Component {
         key: 'title',
         width: '170px',
         sorter: (a, b) => a.title.localeCompare(b.title),
+        render: (text, record, index) => {
+          return (
+            <Link to={`/submissions/${record.owner}/${record.name}`}>
+              {text}
+            </Link>
+          )
+        }
       },
       {
         title: i18next.t("submission:Authors"),
@@ -315,6 +333,20 @@ class SubmissionListPage extends React.Component {
         sorter: (a, b) => a.status.localeCompare(b.status),
       },
       {
+        title: i18next.t("submission:Completed"),
+        dataIndex: 'completed',
+        key: 'completed',
+        width: '120px',
+        sorter: (a, b) => a.completed.localeCompare(b.completed),
+        render: (text, record, index) => {
+          if (!this.isSubmissionCompleted(record)) {
+            return "Incomplete";
+          }
+
+          return "Completed";
+        }
+      },
+      {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
@@ -339,14 +371,17 @@ class SubmissionListPage extends React.Component {
 
     return (
       <div>
-        <Table columns={columns} dataSource={submissions} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
+        <Table columns={columns} dataSource={submissions} rowKey="name" size="middle" bordered pagination={{pageSize: 1000}}
                title={() => (
                  <div>
                    {i18next.t("general:Submissions")}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>Add</Button>
+                   <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>{i18next.t("general:Add")}</Button>
                  </div>
                )}
                loading={submissions === null}
+               rowClassName={(record, index) => {
+                 return !this.isSubmissionCompleted(record) ? "alert-row" : null;
+               }}
         />
       </div>
     );
