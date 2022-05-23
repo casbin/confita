@@ -21,6 +21,7 @@ import * as Setting from "./Setting";
 import * as Conf from "./Conf";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
 import i18next from "i18next";
+import copy from "copy-to-clipboard";
 
 class SubmissionListPage extends React.Component {
   constructor(props) {
@@ -113,6 +114,18 @@ class SubmissionListPage extends React.Component {
 
   getSubmissionEmails(submission) {
     return submission.authors.map(author => author.email);
+  }
+
+  copyEmails() {
+    let emails = this.state.submissions.filter(submission => this.isSubmissionCompleted(submission)).map(submission => this.getSubmissionEmails(submission)).flat().filter(email => email !== "");
+    emails = emails.filter((item, pos) => {
+      return emails.indexOf(item) === pos;
+    });
+    emails = emails.join("\n");
+
+    copy(emails);
+
+    Setting.showMessage("success", `All author emails are copied to clipboard successfully`);
   }
 
   renderTable(submissions) {
@@ -376,6 +389,8 @@ class SubmissionListPage extends React.Component {
                  <div>
                    {i18next.t("general:Submissions")}&nbsp;&nbsp;&nbsp;&nbsp;
                    <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>{i18next.t("general:Add")}</Button>
+                   &nbsp;&nbsp;&nbsp;&nbsp;
+                   <Button size="small" onClick={() => this.copyEmails()}>{i18next.t("submission:Copy All Emails")}</Button>
                  </div>
                )}
                loading={submissions === null}
