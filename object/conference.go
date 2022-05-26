@@ -51,12 +51,13 @@ type Conference struct {
 	PersonCount       int    `json:"personCount"`
 	DisplayState      string `xorm:"varchar(100)" json:"displayState"`
 
-	Status      string      `xorm:"varchar(100)" json:"status"`
-	Language    string      `xorm:"varchar(100)" json:"language"`
-	Location    string      `xorm:"varchar(100)" json:"location"`
-	Address     string      `xorm:"varchar(100)" json:"address"`
-	DefaultItem string      `xorm:"mediumtext" json:"defaultItem"`
-	TreeItems   []*TreeItem `xorm:"mediumtext" json:"treeItems"`
+	Status           string      `xorm:"varchar(100)" json:"status"`
+	Language         string      `xorm:"varchar(100)" json:"language"`
+	Location         string      `xorm:"varchar(100)" json:"location"`
+	Address          string      `xorm:"varchar(100)" json:"address"`
+	EnableSubmission bool        `json:"enableSubmission"`
+	DefaultItem      string      `xorm:"mediumtext" json:"defaultItem"`
+	TreeItems        []*TreeItem `xorm:"mediumtext" json:"treeItems"`
 }
 
 func GetGlobalConferences() []*Conference {

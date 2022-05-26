@@ -17,15 +17,6 @@ import {Upload, Modal} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import * as Setting from "./Setting";
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
-
 class UploadFile extends React.Component {
   state = {
     previewVisible: false,
@@ -35,20 +26,6 @@ class UploadFile extends React.Component {
   };
 
   handleCancel = () => this.setState({previewVisible: false});
-
-  handlePreview = async file => {
-    alert("222");
-
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-
-    this.setState({
-      previewImage: file.url || file.preview,
-      previewVisible: true,
-      previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
-    });
-  };
 
   isFileAccepted(filename, accept) {
     const tokens = accept.split(",");
@@ -97,6 +74,7 @@ class UploadFile extends React.Component {
     return (
       <React.Fragment>
         <Upload
+          disabled={this.props.disabled}
           name="file"
           accept={accept}
           method="post"
