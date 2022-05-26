@@ -266,6 +266,17 @@ class SubmissionEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("submission:Final paper files")}:
+          </Col>
+          <Col style={{marginRight: '10px'}} span={6} >
+            <UploadFile fileUrl={this.state.submission.finalWordFileUrl} urlKey={"finalWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+          </Col>
+          <Col span={6} >
+            <UploadFile fileUrl={this.state.submission.finalPdfFileUrl} urlKey={"finalPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("general:Status")}:
           </Col>
           <Col span={22} >

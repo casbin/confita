@@ -149,56 +149,56 @@ class PaymentPage extends React.Component {
                 </div>
               </Col>
             </Row>
-            {
-              submission.absWordFileUrl === "" ? (
-                <Tooltip title={Setting.getFilenameFromUrl(submission.absWordFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
-                    <div>
-                      <FileWordOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
-                    </div>
-                    <div>
-                      {i18next.t("general:(empty)")}
-                    </div>
-                  </Button>
-                </Tooltip>
-              ) : (
-                <Tooltip title={Setting.getFilenameFromUrl(submission.absWordFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.absWordFileUrl)}>
-                    <div>
-                      <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
-                    </div>
-                    <div>
-                      {Setting.getShortText(Setting.getFilenameFromUrl(submission.absWordFileUrl), 10)}
-                    </div>
-                  </Button>
-                </Tooltip>
-              )
-            }
-            {
-              submission.absPdfFileUrl === "" ? (
-                <Tooltip title={Setting.getFilenameFromUrl(submission.absPdfFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
-                    <div>
-                      <FilePdfOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
-                    </div>
-                    <div>
-                      {i18next.t("general:(empty)")}
-                    </div>
-                  </Button>
-                </Tooltip>
-              ) : (
-                <Tooltip title={Setting.getFilenameFromUrl(submission.absPdfFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.absPdfFileUrl)}>
-                    <div>
-                      <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
-                    </div>
-                    <div>
-                      {Setting.getShortText(Setting.getFilenameFromUrl(submission.absPdfFileUrl), 10)}
-                    </div>
-                  </Button>
-                </Tooltip>
-              )
-            }
+            {/*{*/}
+            {/*  submission.absWordFileUrl === "" ? (*/}
+            {/*    <Tooltip title={Setting.getFilenameFromUrl(submission.absWordFileUrl)}>*/}
+            {/*      <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >*/}
+            {/*        <div>*/}
+            {/*          <FileWordOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />*/}
+            {/*        </div>*/}
+            {/*        <div>*/}
+            {/*          {i18next.t("general:(empty)")}*/}
+            {/*        </div>*/}
+            {/*      </Button>*/}
+            {/*    </Tooltip>*/}
+            {/*  ) : (*/}
+            {/*    <Tooltip title={Setting.getFilenameFromUrl(submission.absWordFileUrl)}>*/}
+            {/*      <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.absWordFileUrl)}>*/}
+            {/*        <div>*/}
+            {/*          <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />*/}
+            {/*        </div>*/}
+            {/*        <div>*/}
+            {/*          {Setting.getShortText(Setting.getFilenameFromUrl(submission.absWordFileUrl), 10)}*/}
+            {/*        </div>*/}
+            {/*      </Button>*/}
+            {/*    </Tooltip>*/}
+            {/*  )*/}
+            {/*}*/}
+            {/*{*/}
+            {/*  submission.absPdfFileUrl === "" ? (*/}
+            {/*    <Tooltip title={Setting.getFilenameFromUrl(submission.absPdfFileUrl)}>*/}
+            {/*      <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >*/}
+            {/*        <div>*/}
+            {/*          <FilePdfOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />*/}
+            {/*        </div>*/}
+            {/*        <div>*/}
+            {/*          {i18next.t("general:(empty)")}*/}
+            {/*        </div>*/}
+            {/*      </Button>*/}
+            {/*    </Tooltip>*/}
+            {/*  ) : (*/}
+            {/*    <Tooltip title={Setting.getFilenameFromUrl(submission.absPdfFileUrl)}>*/}
+            {/*      <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.absPdfFileUrl)}>*/}
+            {/*        <div>*/}
+            {/*          <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />*/}
+            {/*        </div>*/}
+            {/*        <div>*/}
+            {/*          {Setting.getShortText(Setting.getFilenameFromUrl(submission.absPdfFileUrl), 10)}*/}
+            {/*        </div>*/}
+            {/*      </Button>*/}
+            {/*    </Tooltip>*/}
+            {/*  )*/}
+            {/*}*/}
             {
               submission.fullWordFileUrl === "" ? (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.fullWordFileUrl)}>
@@ -244,6 +244,56 @@ class PaymentPage extends React.Component {
                     </div>
                     <div>
                       {Setting.getShortText(Setting.getFilenameFromUrl(submission.fullPdfFileUrl), 10)}
+                    </div>
+                  </Button>
+                </Tooltip>
+              )
+            }
+            {
+              submission.finalWordFileUrl === "" ? (
+                <Tooltip title={Setting.getFilenameFromUrl(submission.finalWordFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
+                    <div>
+                      <FileWordOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
+                    </div>
+                    <div>
+                      {i18next.t("general:(empty)")}
+                    </div>
+                  </Button>
+                </Tooltip>
+              ) : (
+                <Tooltip title={Setting.getFilenameFromUrl(submission.finalWordFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.finalWordFileUrl)}>
+                    <div>
+                      <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
+                    </div>
+                    <div>
+                      {Setting.getShortText(Setting.getFilenameFromUrl(submission.finalWordFileUrl), 10)}
+                    </div>
+                  </Button>
+                </Tooltip>
+              )
+            }
+            {
+              submission.finalPdfFileUrl === "" ? (
+                <Tooltip title={Setting.getFilenameFromUrl(submission.finalPdfFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
+                    <div>
+                      <FilePdfOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
+                    </div>
+                    <div>
+                      {i18next.t("general:(empty)")}
+                    </div>
+                  </Button>
+                </Tooltip>
+              ) : (
+                <Tooltip title={Setting.getFilenameFromUrl(submission.finalPdfFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.finalPdfFileUrl)}>
+                    <div>
+                      <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
+                    </div>
+                    <div>
+                      {Setting.getShortText(Setting.getFilenameFromUrl(submission.finalPdfFileUrl), 10)}
                     </div>
                   </Button>
                 </Tooltip>

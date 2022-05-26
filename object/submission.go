@@ -32,16 +32,18 @@ type Submission struct {
 	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
 
-	Conference      string        `xorm:"varchar(100)" json:"conference"`
-	Title           string        `xorm:"varchar(100)" json:"title"`
-	Authors         []*AuthorItem `xorm:"varchar(10000)" json:"authors"`
-	Type            string        `xorm:"varchar(100)" json:"type"`
-	SubType         string        `xorm:"varchar(100)" json:"subType"`
-	AbsWordFileUrl  string        `xorm:"varchar(1000)" json:"absWordFileUrl"`
-	AbsPdfFileUrl   string        `xorm:"varchar(1000)" json:"absPdfFileUrl"`
-	FullWordFileUrl string        `xorm:"varchar(1000)" json:"fullWordFileUrl"`
-	FullPdfFileUrl  string        `xorm:"varchar(1000)" json:"fullPdfFileUrl"`
-	Status          string        `xorm:"varchar(100)" json:"status"`
+	Conference       string        `xorm:"varchar(100)" json:"conference"`
+	Title            string        `xorm:"varchar(100)" json:"title"`
+	Authors          []*AuthorItem `xorm:"varchar(10000)" json:"authors"`
+	Type             string        `xorm:"varchar(100)" json:"type"`
+	SubType          string        `xorm:"varchar(100)" json:"subType"`
+	AbsWordFileUrl   string        `xorm:"varchar(1000)" json:"absWordFileUrl"`
+	AbsPdfFileUrl    string        `xorm:"varchar(1000)" json:"absPdfFileUrl"`
+	FullWordFileUrl  string        `xorm:"varchar(1000)" json:"fullWordFileUrl"`
+	FullPdfFileUrl   string        `xorm:"varchar(1000)" json:"fullPdfFileUrl"`
+	FinalWordFileUrl string        `xorm:"varchar(1000)" json:"finalWordFileUrl"`
+	FinalPdfFileUrl  string        `xorm:"varchar(1000)" json:"finalPdfFileUrl"`
+	Status           string        `xorm:"varchar(100)" json:"status"`
 
 	Code string `xorm:"mediumtext" json:"code"`
 }

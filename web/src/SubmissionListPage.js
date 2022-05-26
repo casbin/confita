@@ -339,6 +339,51 @@ class SubmissionListPage extends React.Component {
         }
       },
       {
+        title: i18next.t("submission:Final paper files"),
+        dataIndex: 'finalWordFileUrl',
+        key: 'finalWordFileUrl',
+        width: '130px',
+        sorter: (a, b) => a.finalWordFileUrl.localeCompare(b.finalWordFileUrl),
+        render: (text, record, index) => {
+          if (record.finalWordFileUrl === "" && record.finalPdfFileUrl === "") {
+            return i18next.t("general:(empty)");
+          }
+
+          return (
+            <div>
+              {
+                record.finalWordFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.finalWordFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.finalWordFileUrl)}>
+                      <div>
+                        <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
+                      </div>
+                      <div>
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.finalWordFileUrl), 10)}
+                      </div>
+                    </Button>
+                  </Tooltip>
+                )
+              }
+              {
+                record.finalPdfFileUrl === "" ? null : (
+                  <Tooltip title={Setting.getFilenameFromUrl(record.finalPdfFileUrl)}>
+                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.finalPdfFileUrl)}>
+                      <div>
+                        <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
+                      </div>
+                      <div>
+                        {Setting.getShortText(Setting.getFilenameFromUrl(record.finalPdfFileUrl), 10)}
+                      </div>
+                    </Button>
+                  </Tooltip>
+                )
+              }
+            </div>
+          )
+        }
+      },
+      {
         title: i18next.t("general:Status"),
         dataIndex: 'status',
         key: 'status',
