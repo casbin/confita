@@ -39,13 +39,16 @@ type Room struct {
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
 	DisplayName string `xorm:"varchar(100)" json:"displayName"`
 
-	Conference   string `xorm:"varchar(100)" json:"conference"`
-	ServerUrl    string `xorm:"varchar(100)" json:"serverUrl"`
-	EmptyTimeout int    `json:"emptyTimeout"`
-	MaxCount     int    `json:"maxCount"`
-	Status       string `xorm:"varchar(100)" json:"status"`
+	Conference string `xorm:"varchar(100)" json:"conference"`
+
+	SdkKey        string `xorm:"varchar(100)" json:"sdkKey"`
+	Signature     string `xorm:"varchar(1000)" json:"signature"`
+	MeetingNumber string `xorm:"varchar(100)" json:"meetingNumber"`
+	Passcode      string `xorm:"varchar(100)" json:"passcode"`
+	InviteLink    string `xorm:"varchar(100)" json:"inviteLink"`
 
 	Participants []*Participant `xorm:"mediumtext" json:"participants"`
+	Status       string         `xorm:"varchar(100)" json:"status"`
 }
 
 func GetGlobalRooms() []*Room {

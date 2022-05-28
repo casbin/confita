@@ -17,10 +17,12 @@ import {Button, Col, Row} from "antd";
 import { SendOutlined } from '@ant-design/icons';
 import * as RoomBackend from "./backend/RoomBackend";
 import * as Setting from "./Setting";
-import { LiveKitRoom } from 'livekit-react';
-import 'livekit-react/dist/index.css';
-import "react-aspect-ratio/aspect-ratio.css";
 import i18next from "i18next";
+import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
+
+const client = ZoomMtgEmbedded.createClient();
+
+let hasShown = false;
 
 class Room extends React.Component {
   constructor(props) {
@@ -32,10 +34,104 @@ class Room extends React.Component {
       room: null,
       isConnected: false,
     };
+
+    this.meetingSdkElement = React.createRef();
   }
 
   componentWillMount() {
     this.getRoom();
+  }
+
+  componentDidMount() {
+    client.init({
+      debug: true,
+      zoomAppRoot: this.meetingSdkElement.current,
+      // leaveUrl: "",
+      // isSupportAV: true,
+      language: Setting.getLanguage() !== "zh" ? "en-US" : "zh-CN",
+      customize: {
+        video: {
+          isResizable: true,
+          viewSizes: {
+            default: {
+              width: 1280,
+              height: 720
+            },
+            ribbon: {
+              width: 300,
+              height: 700
+            }
+          }
+        },
+        chat: {
+          popper: {
+            disableDraggable: true,
+            // anchorElement: meetingSDKChatElement,
+            placement: 'top'
+          }
+        },
+        meetingInfo: [
+          'topic',
+          'host',
+          'mn',
+          'pwd',
+          'telPwd',
+          'invite',
+          'participant',
+          'dc',
+          'enctype',
+        ],
+        // toolbar: {
+        //   buttons: [
+        //     {
+        //       text: 'Custom Button',
+        //       className: 'CustomButton',
+        //       onClick: () => {
+        //         console.log('custom button')
+        //       }
+        //     }
+        //   ]
+        // }
+      }
+    }).then((res) => {
+      if (res !== "") {
+        Setting.showMessage("error", res);
+      } else {
+        // this.join();
+      }
+    });
+  }
+
+  getParticipateName() {
+    return `${this.props.account.displayName} (${this.props.account.name})`;
+  }
+
+  getParticipateEmail() {
+    return this.props.account.email;
+  }
+
+  join(room) {
+    client.join({
+      sdkKey: room.sdkKey,
+      signature: room.signature,
+      meetingNumber: room.meetingNumber,
+      password: room.passcode,
+      userName: this.getParticipateName(),
+      userEmail: this.getParticipateEmail(),
+      success: (success) => {
+        alert(success)
+        Setting.showMessage("success", success);
+
+        this.setState({
+          isConnected: true,
+        });
+        // this.onGetRoom();
+      },
+      error: (error) => {
+        alert(error)
+        Setting.showMessage("error", error);
+      }
+    });
   }
 
   getRoom() {
@@ -51,106 +147,55 @@ class Room extends React.Component {
     this.props.onGetRoom();
   }
 
-  getAccountToken(room) {
-    const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
-    if (participant === undefined) {
-      return "";
-    }
-
-    return participant.token;
-  }
-
   getPropsOrStateRoom() {
     return this.props.room !== undefined ? this.props.room : this.state.room;
   }
 
-  renderRoom() {
+  render() {
     const room = this.getPropsOrStateRoom();
     if (room === null) {
       return null;
     }
 
-    const token = this.getAccountToken(room);
-    if (token === "") {
-      return (
-        <div style={{width: "1307px", height: "740px", backgroundColor: "black", color: "white", fontSize: 40, textAlign: "center"}} >
-          <div style={{paddingTop: "300px"}}>
-            {
-              room.status === "Started" ? i18next.t("room:The current meeting has started, please join in") :
-                i18next.t("room:The current meeting has ended")
-            }
-          </div>
-          <div style={{fontSize: 20}}>
-            {i18next.t("room:There are already N participants in the meeting room.").replace("N", room.participants.length)}
-          </div>
-          <Button loading={this.state.isConnected && token === ""} type="primary" shape="round" icon={<SendOutlined />} size="large" onClick={() => {
-            RoomBackend.joinRoom(room.owner, room.name)
-              .then((res) => {
-                if (res) {
-                  this.setState({
-                    isConnected: true,
-                  });
-                  this.onGetRoom();
-                } else {
-                  Setting.showMessage("error", `failed to save: server side failure`);
-                }
-              })
-              .catch(error => {
-                Setting.showMessage("error", `failed to save: ${error}`);
-              });
-          }}>{i18next.t("room:Join In")}</Button>
-        </div>
-      )
+    if (this.meetingSdkElement.current) {
+      const observer = new MutationObserver((mutationList, observer) => {
+        // console.log(mutationList);
+        const elements = document.getElementsByClassName("zmwebsdk-MuiPaper-root");
+        // console.log(`elements.length = ${elements.length}, hasShown = ${hasShown}`);
+        if (elements.length !== 0) {
+          hasShown = true;
+        }
+        if (elements.length === 0 && hasShown === true) {
+          window.location.reload();
+        }
+      });
+      observer.observe(this.meetingSdkElement.current, {attributes: true, childList: true, subtree: true});
     }
 
-    const onConnected = (room) => {
-      room.localParticipant.setCameraEnabled(true);
-      room.localParticipant.setMicrophoneEnabled(true);
-    };
-
-    return (
-      <div className="roomContainer">
-        <LiveKitRoom url={room.serverUrl} token={token} onConnected={room => {
-          onConnected(room);
-        }} onLeave={() => {
-          RoomBackend.leaveRoom(room.owner, room.name)
-            .then((res) => {
-              if (res) {
-                this.setState({
-                  isConnected: false,
-                });
-                this.onGetRoom();
-              } else {
-                Setting.showMessage("error", `failed to save: server side failure`);
-              }
-            })
-            .catch(error => {
-              Setting.showMessage("error", `failed to save: ${error}`);
-            });
-        }}/>
-      </div>
-    )
-  }
-
-  render() {
     return (
       <div>
         <Row style={{width: "100%"}}>
-          <Col span={!Setting.isMobile() ? 3 : 0}>
+          <Col span={!Setting.isMobile() ? 1 : 0}>
           </Col>
-          <Col span={!Setting.isMobile() ? 18 : 24}>
-            {/*{*/}
-            {/*  JSON.stringify(this.state.isConnected)*/}
-            {/*}*/}
-            {/*<br/>*/}
-            {/*{*/}
-            {/*  JSON.stringify(this.getAccountToken(this.getPropsOrStateRoom()))*/}
-            {/*}*/}
-            {
-              this.renderRoom()
-            }
+          <Col span={!Setting.isMobile() ? 22 : 24}>
+            <div style={{width: "1284px", height: "800px", backgroundColor: "rgb(26,26,26)", borderRadius: "10px", color: "white", fontSize: 40, textAlign: "center"}} id="meetingSDKElement" ref={this.meetingSdkElement}>
+              <div style={{width: "100%", textAlign: "center"}}>
+                <div style={{paddingLeft: "auto", paddingTop: "300px", textAlign: "center"}}>
+                  {
+                    room.status === "Started" ? i18next.t("room:The current meeting has started, please join in") :
+                      i18next.t("room:The current meeting has ended")
+                  }
+                  <div style={{fontSize: 20, marginTop: "50px"}}>
+                    {i18next.t("room:There are already N participants in the meeting room.").replace("N", room.participants.length)}
+                  </div>
+                  <Button style={{fontSize: 20, marginTop: "20px", paddingTop: "3px"}} loading={this.state.isConnected} type="primary" shape="round" icon={<SendOutlined />} size="large" onClick={() => {
+                    this.join(room);
+                  }}>{i18next.t("room:Join In")}</Button>
+                </div>
+              </div>
+            </div>
           </Col>
-          <Col span={!Setting.isMobile() ? 3 : 0}>
+          <Col span={!Setting.isMobile() ? 1 : 0}>
           </Col>
         </Row>
       </div>

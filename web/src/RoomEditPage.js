@@ -118,31 +118,51 @@ class RoomEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Server URL")}:
+            {i18next.t("room:SDK key")}:
           </Col>
           <Col span={22} >
-            <Input prefix={<LinkOutlined/>} value={this.state.room.serverUrl} onChange={e => {
-              this.updateRoomField('serverUrl', e.target.value);
+            <Input value={this.state.room.sdkKey} onChange={e => {
+              this.updateRoomField('sdkKey', e.target.value);
             }} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Empty timeout")}:
+            {i18next.t("room:Signature")}:
           </Col>
           <Col span={22} >
-            <Input value={this.state.room.emptyTimeout} onChange={e => {
-              this.updateRoomField('emptyTimeout', e.target.value);
+            <Input value={this.state.room.signature} onChange={e => {
+              this.updateRoomField('signature', e.target.value);
             }} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Max count")}:
+            {i18next.t("room:Meeting number")}:
           </Col>
           <Col span={22} >
-            <Input value={this.state.room.maxCount} onChange={e => {
-              this.updateRoomField('maxCount', e.target.value);
+            <Input value={this.state.room.meetingNumber} onChange={e => {
+              this.updateRoomField('meetingNumber', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Passcode")}:
+          </Col>
+          <Col span={22} >
+            <Input value={this.state.room.passcode} onChange={e => {
+              this.updateRoomField('passcode', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Invite link")}:
+          </Col>
+          <Col span={22} >
+            <Input prefix={<LinkOutlined/>} value={this.state.room.inviteLink} onChange={e => {
+              this.updateRoomField('inviteLink', e.target.value);
             }} />
           </Col>
         </Row>
@@ -160,14 +180,6 @@ class RoomEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("general:Preview")}:
-          </Col>
-          <Col span={22} >
-            <Room room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("general:Status")}:
           </Col>
           <Col span={22} >
@@ -179,6 +191,14 @@ class RoomEditPage extends React.Component {
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("general:Preview")}:
+          </Col>
+          <Col span={22} >
+            <Room room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />
           </Col>
         </Row>
       </Card>

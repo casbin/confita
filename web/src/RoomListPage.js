@@ -63,9 +63,9 @@ class RoomListPage extends React.Component {
       createdTime: moment().format(),
       displayName: `New Room - ${this.state.rooms.length}`,
       conference: Conf.DefaultConferenceName,
-      serverUrl: "ws://localhost:7880",
-      emptyTimeout: 20,
-      maxCount: 1000,
+      meetingNumber: "123456789",
+      passcode: "123456",
+      inviteLink: "https://zoom.us/j/123456789?pwd=123456",
       participants: [],
       status: "Ended",
     }
@@ -102,25 +102,25 @@ class RoomListPage extends React.Component {
 
   renderTable(rooms) {
     const columns = [
-      {
-        title: i18next.t("general:Owner"),
-        dataIndex: 'owner',
-        key: 'owner',
-        width: '70px',
-        sorter: (a, b) => a.owner.localeCompare(b.owner),
-        render: (text, record, index) => {
-          return (
-            <a target="_blank" rel="noreferrer" href={Setting.getUserProfileUrl(text)}>
-              {text}
-            </a>
-          )
-        }
-      },
+      // {
+      //   title: i18next.t("general:Owner"),
+      //   dataIndex: 'owner',
+      //   key: 'owner',
+      //   width: '70px',
+      //   sorter: (a, b) => a.owner.localeCompare(b.owner),
+      //   render: (text, record, index) => {
+      //     return (
+      //       <a target="_blank" rel="noreferrer" href={Setting.getUserProfileUrl(text)}>
+      //         {text}
+      //       </a>
+      //     )
+      //   }
+      // },
       {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '120px',
+        width: '100px',
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
@@ -134,7 +134,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Display name"),
         dataIndex: 'displayName',
         key: 'displayName',
-        width: '300px',
+        width: '400px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       {
@@ -165,32 +165,53 @@ class RoomListPage extends React.Component {
           return Setting.getFormattedDate(text);
         }
       },
+      // {
+      //   title: i18next.t("room:SDK key"),
+      //   dataIndex: 'sdkKey',
+      //   key: 'sdkKey',
+      //   width: '100px',
+      //   sorter: (a, b) => a.sdkKey.localeCompare(b.sdkKey),
+      // },
+      // {
+      //   title: i18next.t("room:Signature"),
+      //   dataIndex: 'signature',
+      //   key: 'signature',
+      //   width: '110px',
+      //   sorter: (a, b) => a.signature.localeCompare(b.signature),
+      // },
       {
-        title: i18next.t("room:Server URL"),
-        dataIndex: 'serverUrl',
-        key: 'serverUrl',
+        title: i18next.t("room:Meeting number"),
+        dataIndex: 'meetingNumber',
+        key: 'meetingNumber',
         width: '100px',
-        sorter: (a, b) => a.serverUrl.localeCompare(b.serverUrl),
+        sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
       },
       {
-        title: i18next.t("room:Empty timeout"),
-        dataIndex: 'emptyTimeout',
-        key: 'emptyTimeout',
-        width: '110px',
-        sorter: (a, b) => a.emptyTimeout.localeCompare(b.emptyTimeout),
+        title: i18next.t("room:Passcode"),
+        dataIndex: 'passcode',
+        key: 'passcode',
+        width: '100px',
+        sorter: (a, b) => a.passcode.localeCompare(b.passcode),
       },
       {
-        title: i18next.t("room:Max count"),
-        dataIndex: 'maxCount',
-        key: 'maxCount',
-        width: '100px',
-        sorter: (a, b) => a.maxCount.localeCompare(b.maxCount),
+        title: i18next.t("room:Invite link"),
+        dataIndex: 'inviteLink',
+        key: 'inviteLink',
+        // width: '100px',
+        sorter: (a, b) => a.inviteLink.localeCompare(b.inviteLink),
+        render: (text, record, index) => {
+          return (
+            <a target="_blank" rel="noreferrer" href={text}>
+              {text}
+            </a>
+          )
+        }
       },
       {
         title: i18next.t("room:Online count"),
         dataIndex: 'onlineCount',
         key: 'onlineCount',
-        width: '100px',
+        width: '110px',
         sorter: (a, b) => a.onlineCount.localeCompare(b.onlineCount),
         render: (text, record, index) => {
           return record.participants.length;
@@ -200,7 +221,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Status"),
         dataIndex: 'status',
         key: 'status',
-        width: '80px',
+        width: '110px',
         sorter: (a, b) => a.status.localeCompare(b.status),
         render: (text, record, index) => {
           if (text === "Started") {
@@ -214,7 +235,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '110px',
+        width: '160px',
         render: (text, record, index) => {
           return (
             <div>
