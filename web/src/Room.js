@@ -186,7 +186,7 @@ class Room extends React.Component {
                       i18next.t("room:The current meeting has ended")
                   }
                   <div style={{fontSize: 20, marginTop: "50px"}}>
-                    {i18next.t("room:There are already N participants in the meeting room.").replace("N", room.participants.length)}
+                    {/*{i18next.t("room:There are already N participants in the meeting room.").replace("N", room.participants.length)}*/}
                   </div>
                   <Button style={{fontSize: 20, marginTop: "20px", paddingTop: "3px"}} loading={this.state.isConnected} type="primary" shape="round" icon={<SendOutlined />} size="large" onClick={() => {
                     this.join(room);

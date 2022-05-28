@@ -207,16 +207,16 @@ class RoomListPage extends React.Component {
           )
         }
       },
-      {
-        title: i18next.t("room:Online count"),
-        dataIndex: 'onlineCount',
-        key: 'onlineCount',
-        width: '110px',
-        sorter: (a, b) => a.onlineCount.localeCompare(b.onlineCount),
-        render: (text, record, index) => {
-          return record.participants.length;
-        }
-      },
+      // {
+      //   title: i18next.t("room:Online count"),
+      //   dataIndex: 'onlineCount',
+      //   key: 'onlineCount',
+      //   width: '110px',
+      //   sorter: (a, b) => a.onlineCount.localeCompare(b.onlineCount),
+      //   render: (text, record, index) => {
+      //     return record.participants.length;
+      //   }
+      // },
       {
         title: i18next.t("general:Status"),
         dataIndex: 'status',
