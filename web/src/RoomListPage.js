@@ -120,7 +120,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '100px',
+        width: '110px',
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
@@ -134,14 +134,14 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Display name"),
         dataIndex: 'displayName',
         key: 'displayName',
-        width: '400px',
+        width: '450px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       {
         title: i18next.t("submission:Conference"),
         dataIndex: 'conference',
         key: 'conference',
-        width: '80px',
+        width: '110px',
         sorter: (a, b) => a.conference.localeCompare(b.conference),
         render: (text, record, index) => {
           if (Setting.isAdminUser(this.props.account)) {
@@ -155,42 +155,28 @@ class RoomListPage extends React.Component {
           }
         }
       },
-      {
-        title: i18next.t("general:Created time"),
-        dataIndex: 'createdTime',
-        key: 'createdTime',
-        width: '110px',
-        sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
-        render: (text, record, index) => {
-          return Setting.getFormattedDate(text);
-        }
-      },
       // {
-      //   title: i18next.t("room:SDK key"),
-      //   dataIndex: 'sdkKey',
-      //   key: 'sdkKey',
-      //   width: '100px',
-      //   sorter: (a, b) => a.sdkKey.localeCompare(b.sdkKey),
-      // },
-      // {
-      //   title: i18next.t("room:Signature"),
-      //   dataIndex: 'signature',
-      //   key: 'signature',
+      //   title: i18next.t("general:Created time"),
+      //   dataIndex: 'createdTime',
+      //   key: 'createdTime',
       //   width: '110px',
-      //   sorter: (a, b) => a.signature.localeCompare(b.signature),
+      //   sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
+      //   render: (text, record, index) => {
+      //     return Setting.getFormattedDate(text);
+      //   }
       // },
       {
         title: i18next.t("room:Meeting number"),
         dataIndex: 'meetingNumber',
         key: 'meetingNumber',
-        width: '100px',
+        width: '170px',
         sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
       },
       {
         title: i18next.t("room:Passcode"),
         dataIndex: 'passcode',
         key: 'passcode',
-        width: '100px',
+        width: '120px',
         sorter: (a, b) => a.passcode.localeCompare(b.passcode),
       },
       {
