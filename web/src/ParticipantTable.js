@@ -19,6 +19,7 @@ import * as Setting from "./Setting";
 import i18next from "i18next";
 import * as UserBackend from "./backend/UserBackend";
 import copy from "copy-to-clipboard";
+import moment from "moment";
 
 const { Option } = Select;
 
@@ -63,7 +64,7 @@ class ParticipantTable extends React.Component {
   }
 
   addRow(table) {
-    let row = {name: `Please select a user - ${table.length}`, displayName: "", affiliation: "", email: "", tag: "", role: "Participant", joinUrl: ""};
+    let row = {name: `Please select a user - ${table.length}`, createdTime: moment().format(), displayName: "", affiliation: "", email: "", tag: "", role: "Participant", joinUrl: ""};
     if (table === undefined) {
       table = [];
     }
@@ -139,6 +140,15 @@ class ParticipantTable extends React.Component {
         dataIndex: 'affiliation',
         key: 'affiliation',
         // width: '250px',
+      },
+      {
+        title: i18next.t("general:Created time"),
+        dataIndex: 'createdTime',
+        key: 'createdTime',
+        width: '150px',
+        render: (text, record, index) => {
+          return Setting.getFormattedDate(text);
+        }
       },
       {
         title: i18next.t("general:Email"),
