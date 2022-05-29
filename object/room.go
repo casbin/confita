@@ -85,6 +85,12 @@ func getRoom(owner string, name string) *Room {
 
 func GetRoom(id string) *Room {
 	owner, name := util.GetOwnerAndNameFromId(id)
+
+	room := getRoom(owner, name)
+	if room != nil && room.MeetingNumber != "" {
+		room.Signature = generateSignature(room.MeetingNumber, "1")
+	}
+
 	return getRoom(owner, name)
 }
 
