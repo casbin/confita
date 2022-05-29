@@ -167,6 +167,16 @@ class RoomEditPage extends React.Component {
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Start URL")}:
+          </Col>
+          <Col span={22} >
+            <Input prefix={<LinkOutlined/>} value={this.state.room.startUrl} onChange={e => {
+              this.updateRoomField('startUrl', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
             {i18next.t("room:Participants")}:
           </Col>
@@ -174,6 +184,7 @@ class RoomEditPage extends React.Component {
             <ParticipantTable
               title={i18next.t("room:Participants")}
               table={this.state.room.participants}
+              room={this.state.room}
               onUpdateTable={(value) => { this.updateRoomField('participants', value)}}
             />
           </Col>

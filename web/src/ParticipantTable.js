@@ -87,6 +87,11 @@ class ParticipantTable extends React.Component {
   }
 
   renderTable(table) {
+    let userMap = [];
+    table.forEach(row => {
+      userMap[row.name] = 1;
+    });
+
     const columns = [
       {
         title: i18next.t("room:No."),
@@ -104,22 +109,25 @@ class ParticipantTable extends React.Component {
         width: '300px',
         render: (text, record, index) => {
           return (
-            <Select virtual={false} showSearch optionFilterProp="label" style={{width: '100%'}} value={text} placeholder="Please select user" onChange={name => {
-              const user = this.state.users.filter(user => user.name === name)[0];
+            <Select virtual={false} showSearch optionFilterProp="label" style={{width: '100%'}} value={`${record.displayName} (${record.name})`} placeholder="Please select user" onChange={name => {
+              const user = this.state.users.filter(user => `${user.displayName} (${user.name})` === name)[0];
               if (user !== undefined) {
                 this.updateField(table, index, 'name', user.name);
                 this.updateField(table, index, 'displayName', user.displayName);
                 this.updateField(table, index, 'email', user.email);
                 this.updateField(table, index, 'affiliation', user.affiliation);
                 this.updateField(table, index, 'tag', user.tag);
+                if (user.name === "admin") {
+                  this.updateField(table, index, 'role', "Host");
+                }
               }
             }}
                     filterOption={(input, option) =>
-                      option.key.indexOf(input) >= 0 || option.displayName.indexOf(input) >= 0
+                      option.key.indexOf(input) >= 0
                     }
             >
               {
-                this.state.users.filter(user => true).map((user, index) => <Option key={user.name} displayName={user.displayName}>{`${user.displayName} (${user.name})`}</Option>)
+                this.state.users.filter(user => (userMap[user.name] === undefined)).map((user, index) => <Option key={`${user.displayName} (${user.name})`}>{`${user.displayName} (${user.name})`}</Option>)
               }
             </Select>
           )
@@ -152,7 +160,7 @@ class ParticipantTable extends React.Component {
         render: (text, record, index) => {
           // https://support.zoom.us/hc/en-us/articles/360040324512-Roles-in-a-meeting
           return (
-            <Select virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
+            <Select disabled={true} virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
               this.updateField(table, index, 'role', value);
             })}>
               {
@@ -172,17 +180,33 @@ class ParticipantTable extends React.Component {
         key: 'joinUrl',
         width: '250px',
         render: (text, record, index) => {
-          return (
-            <div>
-              <a target="_blank" rel="noreferrer" href={text}>
-                <Button disabled={record.joinUrl === ""} style={{marginRight: "5px"}} type="primary" size="small">{i18next.t("room:Join In")}</Button>
-              </a>
-              <Button disabled={record.joinUrl === ""} style={{marginRight: "5px"}} size="small" onClick={() => {
-                copy(text);
-                Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
-              }}>{i18next.t("room:Copy Meeting Link")}</Button>
-            </div>
-          )
+          const startUrl = this.props.room.startUrl;
+
+          if (record.name === "admin") {
+            return (
+              <div>
+                <a target="_blank" rel="noreferrer" href={startUrl}>
+                  <Button disabled={startUrl === ""} style={{marginRight: "5px"}} type="primary" danger size="small">{i18next.t("room:Join In")}</Button>
+                </a>
+                <Button disabled={startUrl === ""} style={{marginRight: "5px"}} danger size="small" onClick={() => {
+                  copy(startUrl);
+                  Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
+                }}>{i18next.t("room:Copy Meeting Link")}</Button>
+              </div>
+            )
+          } else {
+            return (
+              <div>
+                <a target="_blank" rel="noreferrer" href={text}>
+                  <Button disabled={text === ""} style={{marginRight: "5px"}} type="primary" size="small">{i18next.t("room:Join In")}</Button>
+                </a>
+                <Button disabled={text === ""} style={{marginRight: "5px"}} size="small" onClick={() => {
+                  copy(text);
+                  Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
+                }}>{i18next.t("room:Copy Meeting Link")}</Button>
+              </div>
+            )
+          }
         }
       },
       {

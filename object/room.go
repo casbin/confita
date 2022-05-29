@@ -45,6 +45,7 @@ type Room struct {
 	MeetingNumber string `xorm:"varchar(100)" json:"meetingNumber"`
 	Passcode      string `xorm:"varchar(100)" json:"passcode"`
 	InviteLink    string `xorm:"varchar(100)" json:"inviteLink"`
+	StartUrl      string `xorm:"varchar(500)" json:"startUrl"`
 
 	Participants []*Participant `xorm:"mediumtext" json:"participants"`
 	Status       string         `xorm:"varchar(100)" json:"status"`
