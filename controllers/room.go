@@ -21,21 +21,54 @@ import (
 )
 
 func (c *ApiController) GetGlobalRooms() {
-	c.Data["json"] = object.GetGlobalRooms()
+	if c.RequireSignedIn() {
+		return
+	}
+
+	rooms := object.GetGlobalRooms()
+
+	user := c.GetSessionUser()
+	if !user.IsAdmin {
+		rooms = object.GetMaskedRooms(rooms, user.Name)
+	}
+
+	c.Data["json"] = rooms
 	c.ServeJSON()
 }
 
 func (c *ApiController) GetRooms() {
+	if c.RequireSignedIn() {
+		return
+	}
+
 	owner := c.Input().Get("owner")
 
-	c.Data["json"] = object.GetRooms(owner)
+	rooms := object.GetRooms(owner)
+
+	user := c.GetSessionUser()
+	if !user.IsAdmin {
+		rooms = object.GetMaskedRooms(rooms, user.Name)
+	}
+
+	c.Data["json"] = rooms
 	c.ServeJSON()
 }
 
 func (c *ApiController) GetRoom() {
+	if c.RequireSignedIn() {
+		return
+	}
+
 	id := c.Input().Get("id")
 
-	c.Data["json"] = object.GetRoom(id)
+	room := object.GetRoom(id)
+
+	user := c.GetSessionUser()
+	if !user.IsAdmin {
+		room = object.GetMaskedRoom(room, user.Name)
+	}
+
+	c.Data["json"] = room
 	c.ServeJSON()
 }
 

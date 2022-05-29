@@ -72,6 +72,48 @@ func GetRooms(owner string) []*Room {
 	return rooms
 }
 
+func GetMaskedRoom(room *Room, username string) *Room {
+	if room == nil {
+		return nil
+	}
+
+	if room.SdkKey != "" {
+		room.SdkKey = "***"
+	}
+	if room.Signature != "" {
+		room.Signature = "***"
+	}
+	if room.MeetingNumber != "" {
+		room.MeetingNumber = "***"
+	}
+	if room.Passcode != "" {
+		room.Passcode = "***"
+	}
+	if room.InviteLink != "" {
+		room.InviteLink = "***"
+	}
+	if room.StartUrl != "" {
+		room.StartUrl = "***"
+	}
+
+	for _, participant := range room.Participants {
+		if participant.Name != username {
+			if participant.JoinUrl != "" {
+				participant.JoinUrl = "***"
+			}
+		}
+	}
+
+	return room
+}
+
+func GetMaskedRooms(rooms []*Room, username string) []*Room {
+	for _, room := range rooms {
+		room = GetMaskedRoom(room, username)
+	}
+	return rooms
+}
+
 func getRoom(owner string, name string) *Room {
 	room := Room{Owner: owner, Name: name}
 	existed, err := adapter.engine.Get(&room)

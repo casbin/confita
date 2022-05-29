@@ -166,13 +166,6 @@ class RoomListPage extends React.Component {
         key: 'meetingNumber',
         width: '170px',
         sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
-        render: (text, record, index) => {
-          if (text === "" || Setting.isAdminUser(this.props.account)) {
-            return text;
-          } else {
-            return "***";
-          }
-        }
       },
       {
         title: i18next.t("room:Passcode"),
@@ -180,13 +173,6 @@ class RoomListPage extends React.Component {
         key: 'passcode',
         width: '120px',
         sorter: (a, b) => a.passcode.localeCompare(b.passcode),
-        render: (text, record, index) => {
-          if (text === "" || Setting.isAdminUser(this.props.account)) {
-            return text;
-          } else {
-            return "***";
-          }
-        }
       },
       {
         title: i18next.t("general:Status"),
