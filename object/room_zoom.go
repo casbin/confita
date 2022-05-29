@@ -27,6 +27,16 @@ func init() {
 	zoomClient = zoomAPI.NewClient(zoomApiEndpoint, zoomJwtToken)
 }
 
+func getMeetingStartUrl(meetingNumber string) string {
+	meetingId := util.ParseInt(meetingNumber)
+	resp, err := zoomClient.GetMeeting(meetingId)
+	if err != nil {
+		panic(err)
+	}
+
+	return resp.StartUrl
+}
+
 func addMeetingRegistrant(meetingNumber string, name string, displayName string, email string, affiliation string) string {
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error

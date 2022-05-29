@@ -16,6 +16,8 @@ package object
 
 import (
 	"fmt"
+	"strings"
+	"time"
 
 	"github.com/casbin/confita/casdoor"
 	"github.com/casbin/confita/util"
@@ -59,6 +61,10 @@ func GetGlobalRooms() []*Room {
 		panic(err)
 	}
 
+	for _, room := range rooms {
+		room.updateRoomStartUrl()
+	}
+
 	return rooms
 }
 
@@ -67,6 +73,10 @@ func GetRooms(owner string) []*Room {
 	err := adapter.engine.Desc("created_time").Find(&rooms, &Room{Owner: owner})
 	if err != nil {
 		panic(err)
+	}
+
+	for _, room := range rooms {
+		room.updateRoomStartUrl()
 	}
 
 	return rooms
@@ -134,6 +144,8 @@ func GetRoom(id string) *Room {
 	room := getRoom(owner, name)
 	if room != nil && room.MeetingNumber != "" {
 		room.Signature = generateSignature(room.MeetingNumber, "1")
+
+		room.updateRoomStartUrl()
 	}
 
 	return room
@@ -225,4 +237,33 @@ func RegisterRoom(id string, username string) *Room {
 
 	UpdateRoom(room.GetId(), room)
 	return room
+}
+
+func (room *Room) updateRoomStartUrl() {
+	if room.MeetingNumber == "" {
+		return
+	}
+
+	if room.StartUrl == "" {
+		startUrl := getMeetingStartUrl(room.MeetingNumber)
+		room.StartUrl = startUrl
+		UpdateRoom(room.GetId(), room)
+		return
+	}
+
+	tokens := strings.SplitN(room.StartUrl, "?zak=", 2)
+	if len(tokens) < 2 {
+		startUrl := getMeetingStartUrl(room.MeetingNumber)
+		room.StartUrl = startUrl
+		UpdateRoom(room.GetId(), room)
+		return
+	}
+
+	zakToken := tokens[1]
+	zakTokenExpireTime := getZakExpireTime(zakToken)
+	if zakTokenExpireTime.Before(time.Now()) {
+		startUrl := getMeetingStartUrl(room.MeetingNumber)
+		room.StartUrl = startUrl
+		UpdateRoom(room.GetId(), room)
+	}
 }

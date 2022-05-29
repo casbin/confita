@@ -15,6 +15,7 @@
 package object
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/casbin/confita/util"
@@ -29,6 +30,21 @@ type JwtPayload struct {
 	Exp      int64  `json:"exp"`
 	AppKey   string `json:"appKey"`
 	TokenExp int64  `json:"tokenExp"`
+}
+
+type ZakClaims struct {
+	Aud  string `json:"aud"`
+	Uid  string `json:"uid"`
+	Iss  string `json:"iss"`
+	Sk   string `json:"sk"`
+	Sty  int    `json:"sty"`
+	Wcd  string `json:"wcd"`
+	Clt  int    `json:"clt"`
+	Mnum string `json:"mnum"`
+	Exp  int    `json:"exp"`
+	Iat  int    `json:"iat"`
+	Aid  string `json:"aid"`
+	Cid  string `json:"cid"`
 }
 
 func generateJwtPayload(meetingNumber string, role string) string {
@@ -62,4 +78,21 @@ func generateSignature(meetingNumber string, role string) string {
 	}
 
 	return token.String()
+}
+
+func getZakExpireTime(token string) time.Time {
+	tokenBytes := []byte(token)
+	newToken, err := jwt.ParseNoVerify(tokenBytes)
+	if err != nil {
+		panic(err)
+	}
+
+	data := &ZakClaims{}
+	err = json.Unmarshal(newToken.Claims(), data)
+	if err != nil {
+		panic(err)
+	}
+
+	tm := time.Unix(int64(data.Exp), 0)
+	return tm
 }
