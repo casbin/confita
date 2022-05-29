@@ -91,7 +91,7 @@ func GetRoom(id string) *Room {
 		room.Signature = generateSignature(room.MeetingNumber, "1")
 	}
 
-	return getRoom(owner, name)
+	return room
 }
 
 func UpdateRoom(id string, room *Room) bool {
