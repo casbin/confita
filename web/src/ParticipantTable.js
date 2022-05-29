@@ -74,7 +74,7 @@ class ParticipantTable extends React.Component {
         title: i18next.t("room:No."),
         dataIndex: 'no',
         key: 'no',
-        width: '80px',
+        width: '70px',
         render: (text, record, index) => {
           return (index + 1);
         }
@@ -83,7 +83,7 @@ class ParticipantTable extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '250px',
+        width: '200px',
         render: (text, record, index) => {
           return `${record.displayName} (${record.name})`;
         }
@@ -95,46 +95,48 @@ class ParticipantTable extends React.Component {
         width: '250px',
       },
       {
+        title: i18next.t("general:Email"),
+        dataIndex: 'email',
+        key: 'email',
+        width: '250px',
+      },
+      {
         title: i18next.t("payment:Tag"),
         dataIndex: 'tag',
         key: 'tag',
-        width: '250px',
-      },
-      // {
-      //   title: i18next.t("conference:Type"),
-      //   dataIndex: 'type',
-      //   key: 'type',
-      //   width: '250px',
-      //   render: (text, record, index) => {
-      //     return (
-      //       <Select virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
-      //         this.updateField(table, index, 'type', value);
-      //       })}>
-      //         {
-      //           [
-      //             {id: 'Attendee', name: 'Attendee'},
-      //             {id: 'Admin', name: 'Admin'},
-      //           ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
-      //         }
-      //       </Select>
-      //     )
-      //   }
-      // },
-      {
-        title: i18next.t("general:Status"),
-        dataIndex: 'status',
-        key: 'status',
-        width: '250px',
+        width: '150px',
       },
       {
-        title: i18next.t("room:Token"),
-        dataIndex: 'token',
-        key: 'token',
+        title: i18next.t("room:Role"),
+        dataIndex: 'role',
+        key: 'role',
+        width: '150px',
+        render: (text, record, index) => {
+          // https://support.zoom.us/hc/en-us/articles/360040324512-Roles-in-a-meeting
+          return (
+            <Select virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
+              this.updateField(table, index, 'role', value);
+            })}>
+              {
+                [
+                  {id: 'Host', name: 'Host'},
+                  {id: 'Co-host', name: 'Co-host'},
+                  {id: 'Participant', name: 'Participant'},
+                ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
+              }
+            </Select>
+          )
+        }
+      },
+      {
+        title: i18next.t("room:Join URL"),
+        dataIndex: 'joinUrl',
+        key: 'joinUrl',
         // width: '400px',
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(table, index, 'token', e.target.value);
+              this.updateField(table, index, 'joinUrl', e.target.value);
             }} />
           )
         }

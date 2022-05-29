@@ -25,10 +25,11 @@ type Participant struct {
 	Name        string `xorm:"varchar(100)" json:"name"`
 	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
 	DisplayName string `xorm:"varchar(100)" json:"displayName"`
+	Email       string `xorm:"varchar(100)" json:"email"`
 	Affiliation string `xorm:"varchar(100)" json:"affiliation"`
 	Tag         string `xorm:"varchar(100)" json:"tag"`
-	Status      string `xorm:"varchar(100)" json:"status"`
-	Token       string `xorm:"varchar(100)" json:"token"`
+	Role        string `xorm:"varchar(100)" json:"role"`
+	JoinUrl     string `xorm:"varchar(500)" json:"joinUrl"`
 }
 
 type Room struct {
@@ -100,6 +101,8 @@ func UpdateRoom(id string, room *Room) bool {
 		return false
 	}
 
+	room.updateRoomRegistrants()
+
 	_, err := adapter.engine.ID(core.PK{owner, name}).AllCols().Update(room)
 	if err != nil {
 		panic(err)
@@ -129,4 +132,13 @@ func DeleteRoom(room *Room) bool {
 	}
 
 	return affected != 0
+}
+
+func (room *Room) updateRoomRegistrants() {
+	for _, participant := range room.Participants {
+		if participant.JoinUrl == "" {
+			joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation)
+			participant.JoinUrl = joinUrl
+		}
+	}
 }

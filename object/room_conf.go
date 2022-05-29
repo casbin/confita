@@ -16,3 +16,6 @@ package object
 
 var zoomSdkKey = ""
 var zoomSdkSecret = ""
+
+var zoomApiEndpoint = ""
+var zoomJwtToken = ""

@@ -8,6 +8,7 @@ require (
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/casdoor/casdoor-go-sdk v0.3.3
 	github.com/cristalhq/jwt/v4 v4.0.0
+	github.com/donvito/zoom-go v0.0.0-20200531091511-63028f2c4f98
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
