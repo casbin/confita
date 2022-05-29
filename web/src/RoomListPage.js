@@ -137,24 +137,24 @@ class RoomListPage extends React.Component {
         width: '450px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
-      {
-        title: i18next.t("submission:Conference"),
-        dataIndex: 'conference',
-        key: 'conference',
-        width: '110px',
-        sorter: (a, b) => a.conference.localeCompare(b.conference),
-        render: (text, record, index) => {
-          if (Setting.isAdminUser(this.props.account)) {
-            return (
-              <Link to={`/conferences/${text}`}>
-                {text}
-              </Link>
-            )
-          } else {
-            return text;
-          }
-        }
-      },
+      // {
+      //   title: i18next.t("submission:Conference"),
+      //   dataIndex: 'conference',
+      //   key: 'conference',
+      //   width: '110px',
+      //   sorter: (a, b) => a.conference.localeCompare(b.conference),
+      //   render: (text, record, index) => {
+      //     if (Setting.isAdminUser(this.props.account)) {
+      //       return (
+      //         <Link to={`/conferences/${text}`}>
+      //           {text}
+      //         </Link>
+      //       )
+      //     } else {
+      //       return text;
+      //     }
+      //   }
+      // },
       // {
       //   title: i18next.t("general:Created time"),
       //   dataIndex: 'createdTime',
@@ -179,30 +179,6 @@ class RoomListPage extends React.Component {
         width: '120px',
         sorter: (a, b) => a.passcode.localeCompare(b.passcode),
       },
-      {
-        title: i18next.t("room:Invite link"),
-        dataIndex: 'inviteLink',
-        key: 'inviteLink',
-        // width: '100px',
-        sorter: (a, b) => a.inviteLink.localeCompare(b.inviteLink),
-        render: (text, record, index) => {
-          return (
-            <a target="_blank" rel="noreferrer" href={text}>
-              {text}
-            </a>
-          )
-        }
-      },
-      // {
-      //   title: i18next.t("room:Online count"),
-      //   dataIndex: 'onlineCount',
-      //   key: 'onlineCount',
-      //   width: '110px',
-      //   sorter: (a, b) => a.onlineCount.localeCompare(b.onlineCount),
-      //   render: (text, record, index) => {
-      //     return record.participants.length;
-      //   }
-      // },
       {
         title: i18next.t("general:Status"),
         dataIndex: 'status',

@@ -102,7 +102,9 @@ func UpdateRoom(id string, room *Room) bool {
 		return false
 	}
 
-	room.updateRoomRegistrants()
+	if room.MeetingNumber != "" {
+		room.updateRoomRegistrants()
+	}
 
 	_, err := adapter.engine.ID(core.PK{owner, name}).AllCols().Update(room)
 	if err != nil {
