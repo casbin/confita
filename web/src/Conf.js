@@ -33,3 +33,5 @@ export const DefaultLanguage = "en";
 
 // export const CasnodeEndpoint = "https://forum.casbin.com";
 export const CasnodeEndpoint = "http://localhost:3000";
+
+export const QrCodeImageUrl = "";

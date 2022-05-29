@@ -20,6 +20,7 @@ import i18next from "i18next";
 import * as UserBackend from "./backend/UserBackend";
 import copy from "copy-to-clipboard";
 import moment from "moment";
+import QrCode from "./QrCode";
 
 const { Option } = Select;
 
@@ -154,7 +155,7 @@ class ParticipantTable extends React.Component {
         title: i18next.t("general:Email"),
         dataIndex: 'email',
         key: 'email',
-        width: '250px',
+        width: '200px',
       },
       {
         title: i18next.t("payment:Tag"),
@@ -188,7 +189,7 @@ class ParticipantTable extends React.Component {
         title: i18next.t("room:Join In"),
         dataIndex: 'joinUrl',
         key: 'joinUrl',
-        width: '250px',
+        width: '330px',
         render: (text, record, index) => {
           const startUrl = this.props.room.startUrl;
 
@@ -202,6 +203,9 @@ class ParticipantTable extends React.Component {
                   copy(startUrl);
                   Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
                 }}>{i18next.t("room:Copy Meeting Link")}</Button>
+                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                  <Button disabled={text === ""} style={{marginRight: "5px"}} danger size="small">{i18next.t("room:Scan QR Code")}</Button>
+                </Tooltip>
               </div>
             )
           } else {
@@ -214,6 +218,9 @@ class ParticipantTable extends React.Component {
                   copy(text);
                   Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
                 }}>{i18next.t("room:Copy Meeting Link")}</Button>
+                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={text} />}>
+                  <Button disabled={text === ""} style={{marginRight: "5px"}} size="small">{i18next.t("room:Scan QR Code")}</Button>
+                </Tooltip>
               </div>
             )
           }
