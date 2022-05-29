@@ -17,6 +17,7 @@ package object
 import (
 	"fmt"
 
+	"github.com/casbin/confita/casdoor"
 	"github.com/casbin/confita/util"
 	"xorm.io/core"
 )
@@ -144,4 +145,42 @@ func (room *Room) updateRoomRegistrants() {
 			participant.JoinUrl = joinUrl
 		}
 	}
+}
+
+func RegisterRoom(id string, username string) *Room {
+	room := GetRoom(id)
+	if room == nil {
+		return nil
+	}
+
+	for _, participant := range room.Participants {
+		if participant.Name == username {
+			if participant.JoinUrl == "" {
+				joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation)
+				participant.JoinUrl = joinUrl
+
+				UpdateRoom(room.GetId(), room)
+				return room
+			}
+		}
+	}
+
+	user := casdoor.GetUser(username)
+	participant := &Participant{
+		Name:        username,
+		CreatedTime: util.GetCurrentTime(),
+		DisplayName: user.DisplayName,
+		Email:       user.Email,
+		Affiliation: user.Affiliation,
+		Tag:         user.Tag,
+		Role:        "Participant",
+		JoinUrl:     "",
+	}
+
+	joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation)
+	participant.JoinUrl = joinUrl
+	room.Participants = append(room.Participants, participant)
+
+	UpdateRoom(room.GetId(), room)
+	return room
 }

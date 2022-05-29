@@ -58,6 +58,7 @@ func initAPI() {
 	beego.Router("/api/update-room", &controllers.ApiController{}, "POST:UpdateRoom")
 	beego.Router("/api/add-room", &controllers.ApiController{}, "POST:AddRoom")
 	beego.Router("/api/delete-room", &controllers.ApiController{}, "POST:DeleteRoom")
+	beego.Router("/api/register-room", &controllers.ApiController{}, "GET:RegisterRoom")
 
 	beego.Router("/api/get-products", &controllers.ApiController{}, "GET:GetProducts")
 	beego.Router("/api/get-global-payments", &controllers.ApiController{}, "GET:GetGlobalPayments")

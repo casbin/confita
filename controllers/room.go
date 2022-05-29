@@ -73,3 +73,15 @@ func (c *ApiController) DeleteRoom() {
 	c.Data["json"] = object.DeleteRoom(&room)
 	c.ServeJSON()
 }
+
+func (c *ApiController) RegisterRoom() {
+	if c.RequireSignedIn() {
+		return
+	}
+
+	id := c.Input().Get("id")
+	username := c.GetSessionUsername()
+
+	c.Data["json"] = object.RegisterRoom(id, username)
+	c.ServeJSON()
+}

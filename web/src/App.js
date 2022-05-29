@@ -292,15 +292,15 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
-
-      res.push(
-        <Menu.Item key="/rooms">
-          <Link to="/rooms">
-            {i18next.t("general:Rooms")}
-          </Link>
-        </Menu.Item>
-      );
     }
+
+    res.push(
+      <Menu.Item key="/rooms">
+        <Link to="/rooms">
+          {i18next.t("general:Rooms")}
+        </Link>
+      </Menu.Item>
+    );
 
     return res;
   }

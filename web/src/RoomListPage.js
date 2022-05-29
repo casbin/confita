@@ -31,20 +31,7 @@ class RoomListPage extends React.Component {
   }
 
   componentWillMount() {
-    if (Setting.isAdminUser(this.props.account) || Setting.isEditorUser(this.props.account)) {
-      this.getGlobalRooms();
-    } else {
-      this.getRooms();
-    }
-  }
-
-  getRooms() {
-    RoomBackend.getRooms(this.props.account.name)
-      .then((res) => {
-        this.setState({
-          rooms: res,
-        });
-      });
+    this.getGlobalRooms();
   }
 
   getGlobalRooms() {
@@ -97,6 +84,14 @@ class RoomListPage extends React.Component {
       )
       .catch(error => {
         Setting.showMessage("error", `Room failed to delete: ${error}`);
+      });
+  }
+
+  registerRoom(i) {
+    const room = this.state.rooms[i];
+    RoomBackend.registerRoom("admin", room.name)
+      .then((room) => {
+        this.getGlobalRooms();
       });
   }
 
@@ -171,6 +166,13 @@ class RoomListPage extends React.Component {
         key: 'meetingNumber',
         width: '170px',
         sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
+        render: (text, record, index) => {
+          if (text === "" || Setting.isAdminUser(this.props.account)) {
+            return text;
+          } else {
+            return "***";
+          }
+        }
       },
       {
         title: i18next.t("room:Passcode"),
@@ -178,6 +180,13 @@ class RoomListPage extends React.Component {
         key: 'passcode',
         width: '120px',
         sorter: (a, b) => a.passcode.localeCompare(b.passcode),
+        render: (text, record, index) => {
+          if (text === "" || Setting.isAdminUser(this.props.account)) {
+            return text;
+          } else {
+            return "***";
+          }
+        }
       },
       {
         title: i18next.t("general:Status"),
@@ -197,21 +206,47 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '160px',
+        width: '170px',
         render: (text, record, index) => {
-          return (
-            <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
-              <Popconfirm
-                title={`Sure to delete room: ${record.name} ?`}
-                onConfirm={() => this.deleteRoom(index)}
-                okText="OK"
-                cancelText="Cancel"
-              >
-                <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
-              </Popconfirm>
-            </div>
-          )
+          const startUrl = record.startUrl;
+          const participant = record.participants.filter(participant => participant.name === this.props.account.name)[0];
+          const joinUrl = participant === undefined ? "" : participant.joinUrl;
+
+          if (this.props.account.name === "admin") {
+            return (
+              <div>
+                <a target="_blank" rel="noreferrer" href={startUrl}>
+                  <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Join In")}</Button>
+                </a>
+                <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
+                <Popconfirm
+                  title={`Sure to delete room: ${record.name} ?`}
+                  onConfirm={() => this.deleteRoom(index)}
+                  okText="OK"
+                  cancelText="Cancel"
+                >
+                  <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
+                </Popconfirm>
+              </div>
+            )
+          } else {
+            return (
+              <div>
+                <Button disabled={record.meetingNumber === "" || joinUrl !== ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
+                  {
+                    joinUrl === "" ? (
+                      i18next.t("room:Register Meeting")
+                    ) : (
+                      i18next.t("room:Meeting Registered")
+                    )
+                  }
+                </Button>
+                <a target="_blank" rel="noreferrer" href={joinUrl}>
+                  <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+                </a>
+              </div>
+            )
+          }
         }
       },
     ];

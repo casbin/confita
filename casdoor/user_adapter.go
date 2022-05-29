@@ -47,3 +47,27 @@ func GetSortedUsers(sorter string, limit int) []*auth.User {
 
 	return users
 }
+
+func GetUser(name string) *auth.User {
+	owner := CasdoorOrganization
+
+	if adapter == nil {
+		panic("casdoor adapter is nil")
+	}
+
+	if owner == "" || name == "" {
+		return nil
+	}
+
+	user := auth.User{Owner: owner, Name: name}
+	existed, err := adapter.Engine.Get(&user)
+	if err != nil {
+		panic(err)
+	}
+
+	if existed {
+		return &user
+	} else {
+		return nil
+	}
+}

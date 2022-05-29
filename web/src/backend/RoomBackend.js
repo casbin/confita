@@ -61,3 +61,10 @@ export function deleteRoom(room) {
     body: JSON.stringify(newRoom),
   }).then(res => res.json());
 }
+
+export function registerRoom(owner, name) {
+  return fetch(`${Setting.ServerUrl}/api/register-room?id=${owner}/${encodeURIComponent(name)}`, {
+    method: "GET",
+    credentials: "include"
+  }).then(res => res.json());
+}
