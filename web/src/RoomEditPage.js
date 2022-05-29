@@ -166,18 +166,18 @@ class RoomEditPage extends React.Component {
             }} />
           </Col>
         </Row>
-        {/*<Row style={{marginTop: '20px'}} >*/}
-        {/*  <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>*/}
-        {/*    {i18next.t("room:Participants")}:*/}
-        {/*  </Col>*/}
-        {/*  <Col span={22} >*/}
-        {/*    <ParticipantTable*/}
-        {/*      title={i18next.t("room:Participants")}*/}
-        {/*      table={this.state.room.participants}*/}
-        {/*      onUpdateTable={(value) => { this.updateRoomField('participants', value)}}*/}
-        {/*    />*/}
-        {/*  </Col>*/}
-        {/*</Row>*/}
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+            {i18next.t("room:Participants")}:
+          </Col>
+          <Col span={22} >
+            <ParticipantTable
+              title={i18next.t("room:Participants")}
+              table={this.state.room.participants}
+              onUpdateTable={(value) => { this.updateRoomField('participants', value)}}
+            />
+          </Col>
+        </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("general:Status")}:

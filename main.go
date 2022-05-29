@@ -19,6 +19,7 @@ import (
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/astaxie/beego/session/redis"
+	"github.com/casbin/confita/casdoor"
 	"github.com/casbin/confita/conf"
 	"github.com/casbin/confita/object"
 	"github.com/casbin/confita/routers"
@@ -29,6 +30,7 @@ import (
 
 func main() {
 	object.InitAdapter()
+	casdoor.InitCasdoorAdapter()
 	util.InitIpDb()
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{

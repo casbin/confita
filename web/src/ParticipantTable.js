@@ -14,16 +14,34 @@
 
 import React from "react";
 import {DownOutlined, DeleteOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Col, Input, Row, Table, Tooltip} from 'antd';
+import {Button, Col, Row, Select, Table, Tooltip} from 'antd';
 import * as Setting from "./Setting";
 import i18next from "i18next";
+import * as UserBackend from "./backend/UserBackend";
+import copy from "copy-to-clipboard";
+
+const { Option } = Select;
 
 class ParticipantTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       classes: props,
+      users: [],
     };
+  }
+
+  componentWillMount() {
+    this.getUsers();
+  }
+
+  getUsers() {
+    UserBackend.getUsers()
+      .then((res) => {
+        this.setState({
+          users: res,
+        });
+      });
   }
 
   updateTable(table) {
@@ -45,7 +63,7 @@ class ParticipantTable extends React.Component {
   }
 
   addRow(table) {
-    let row = {name: `New Participant - ${table.length}`, type: "Attendee"};
+    let row = {name: `Please select a user - ${table.length}`, displayName: "", affiliation: "", email: "", tag: "", role: "Participant", joinUrl: ""};
     if (table === undefined) {
       table = [];
     }
@@ -83,16 +101,36 @@ class ParticipantTable extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '200px',
+        width: '300px',
         render: (text, record, index) => {
-          return `${record.displayName} (${record.name})`;
+          return (
+            <Select virtual={false} showSearch optionFilterProp="label" style={{width: '100%'}} value={text} placeholder="Please select user" onChange={name => {
+              const user = this.state.users.filter(user => user.name === name)[0];
+              if (user !== undefined) {
+                this.updateField(table, index, 'name', user.name);
+                this.updateField(table, index, 'displayName', user.displayName);
+                this.updateField(table, index, 'email', user.email);
+                this.updateField(table, index, 'affiliation', user.affiliation);
+                this.updateField(table, index, 'tag', user.tag);
+              }
+            }}
+                    filterOption={(input, option) =>
+                      option.key.indexOf(input) >= 0 || option.displayName.indexOf(input) >= 0
+                    }
+            >
+              {
+                this.state.users.filter(user => true).map((user, index) => <Option key={user.name} displayName={user.displayName}>{`${user.displayName} (${user.name})`}</Option>)
+              }
+            </Select>
+          )
+          // return `${record.displayName} (${record.name})`;
         }
       },
       {
         title: i18next.t("payment:Affiliation"),
         dataIndex: 'affiliation',
         key: 'affiliation',
-        width: '250px',
+        // width: '250px',
       },
       {
         title: i18next.t("general:Email"),
@@ -129,15 +167,21 @@ class ParticipantTable extends React.Component {
         }
       },
       {
-        title: i18next.t("room:Join URL"),
+        title: i18next.t("room:Join In"),
         dataIndex: 'joinUrl',
         key: 'joinUrl',
-        // width: '400px',
+        width: '250px',
         render: (text, record, index) => {
           return (
-            <Input value={text} onChange={e => {
-              this.updateField(table, index, 'joinUrl', e.target.value);
-            }} />
+            <div>
+              <a target="_blank" rel="noreferrer" href={text}>
+                <Button disabled={record.joinUrl === ""} style={{marginRight: "5px"}} type="primary" size="small">{i18next.t("room:Join In")}</Button>
+              </a>
+              <Button disabled={record.joinUrl === ""} style={{marginRight: "5px"}} size="small" onClick={() => {
+                copy(text);
+                Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
+              }}>{i18next.t("room:Copy Meeting Link")}</Button>
+            </div>
           )
         }
       },
@@ -168,7 +212,7 @@ class ParticipantTable extends React.Component {
              title={() => (
                <div>
                  {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                 {/*<Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>*/}
+                 <Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>
                </div>
              )}
       />

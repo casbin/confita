@@ -99,6 +99,7 @@
     "but this registration requires the tag to be": "但是支付此项注册费所需的标签是"
   },
   "room": {
+    "Copy Meeting Link": "复制会议链接",
     "Edit Room": "编辑会场",
     "Ended": "已结束",
     "Invite link": "邀请链接",
@@ -108,13 +109,13 @@
     "Online count": "在线人数",
     "Participants": "参会者",
     "Passcode": "密码",
+    "Role": "角色",
     "SDK key": "SDK key",
     "Signature": "Signature",
     "Started": "已开始",
     "The current meeting has ended": "当前会议已结束",
     "The current meeting has started, please join in": "当前会议已开始，请加入",
-    "There are already N participants in the meeting room.": "目前有 N 位参会者",
-    "Token": "参会令牌"
+    "There are already N participants in the meeting room.": "目前有 N 位参会者"
   },
   "submission": {
     "Abstract files": "稿件摘要",

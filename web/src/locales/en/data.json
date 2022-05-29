@@ -99,6 +99,7 @@
     "but this registration requires the tag to be": "but this registration requires the tag to be"
   },
   "room": {
+    "Copy Meeting Link": "Copy Meeting Link",
     "Edit Room": "Edit Room",
     "Ended": "Ended",
     "Invite link": "Invite link",
@@ -108,13 +109,13 @@
     "Online count": "Online count",
     "Participants": "Participants",
     "Passcode": "Passcode",
+    "Role": "Role",
     "SDK key": "SDK key",
     "Signature": "Signature",
     "Started": "Started",
     "The current meeting has ended": "The current meeting has ended",
     "The current meeting has started, please join in": "The current meeting has started, please join in",
-    "There are already N participants in the meeting room.": "There are already N participants in the meeting room.",
-    "Token": "Token"
+    "There are already N participants in the meeting room.": "There are already N participants in the meeting room."
   },
   "submission": {
     "Abstract files": "Abstract files",
