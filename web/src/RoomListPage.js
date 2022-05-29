@@ -205,9 +205,15 @@ class RoomListPage extends React.Component {
                 <a target="_blank" rel="noreferrer" href={startUrl}>
                   <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Join In")}</Button>
                 </a>
-                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
-                  <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
-                </Tooltip>
+                {
+                  (startUrl === "") ? (
+                    <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                  ) : (
+                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                      <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                    </Tooltip>
+                  )
+                }
                 <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
                   title={`Sure to delete room: ${record.name} ?`}
@@ -234,9 +240,15 @@ class RoomListPage extends React.Component {
                 <a target="_blank" rel="noreferrer" href={joinUrl}>
                   <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
                 </a>
-                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                  <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
-                </Tooltip>
+                {
+                  (record.meetingNumber === "" || joinUrl === "") ? (
+                    <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                  ) : (
+                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
+                      <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                    </Tooltip>
+                  )
+                }
               </div>
             )
           }

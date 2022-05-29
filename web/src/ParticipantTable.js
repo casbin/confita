@@ -203,9 +203,15 @@ class ParticipantTable extends React.Component {
                   copy(startUrl);
                   Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
                 }}>{i18next.t("room:Copy Meeting Link")}</Button>
-                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
-                  <Button disabled={text === ""} style={{marginRight: "5px"}} danger size="small">{i18next.t("room:Scan QR Code")}</Button>
-                </Tooltip>
+                {
+                  (text === "") ? (
+                    <Button disabled={text === ""} style={{marginRight: "5px"}} danger size="small">{i18next.t("room:Scan QR Code")}</Button>
+                  ) : (
+                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                      <Button disabled={text === ""} style={{marginRight: "5px"}} danger size="small">{i18next.t("room:Scan QR Code")}</Button>
+                    </Tooltip>
+                  )
+                }
               </div>
             )
           } else {
@@ -218,9 +224,15 @@ class ParticipantTable extends React.Component {
                   copy(text);
                   Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
                 }}>{i18next.t("room:Copy Meeting Link")}</Button>
-                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={text} />}>
-                  <Button disabled={text === ""} style={{marginRight: "5px"}} size="small">{i18next.t("room:Scan QR Code")}</Button>
-                </Tooltip>
+                {
+                  (text === "") ? (
+                    <Button disabled={text === ""} style={{marginRight: "5px"}} size="small">{i18next.t("room:Scan QR Code")}</Button>
+                  ) : (
+                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={text} />}>
+                      <Button disabled={text === ""} style={{marginRight: "5px"}} size="small">{i18next.t("room:Scan QR Code")}</Button>
+                    </Tooltip>
+                  )
+                }
               </div>
             )
           }
