@@ -41,6 +41,8 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error
 
+	email = fmt.Sprintf("%s@example-nowhere.com", name)
+
 	meetingId := util.ParseInt(meetingNumber)
 	resp, err = zoomClient.AddMeetingRegistrant(meetingId,
 		email,
