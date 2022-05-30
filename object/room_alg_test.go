@@ -14,7 +14,10 @@
 
 package object
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestGenerateSignature(t *testing.T) {
 	println(generateSignature("123456789", "1"))
@@ -22,4 +25,10 @@ func TestGenerateSignature(t *testing.T) {
 
 func TestAddMeetingRegistrant(t *testing.T) {
 	println(addMeetingRegistrant("123456789", "alice", "Alice", "alice@example.com", "Example Inc."))
+}
+
+func TestGetZakExpireTime(t *testing.T) {
+	token := ""
+	tm := getZakExpireTime(token)
+	println(tm.Format(time.RFC3339))
 }
