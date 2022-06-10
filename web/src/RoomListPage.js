@@ -199,7 +199,7 @@ class RoomListPage extends React.Component {
           const participant = record.participants.filter(participant => participant.name === this.props.account.name)[0];
           const joinUrl = participant === undefined ? "" : participant.joinUrl;
 
-          if (this.props.account.name === "admin") {
+          if (Setting.isAdminUser(this.props.account)) {
             return (
               <div>
                 <a target="_blank" rel="noreferrer" href={startUrl}>
@@ -262,7 +262,11 @@ class RoomListPage extends React.Component {
                title={() => (
                  <div>
                    {i18next.t("general:Rooms")}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addRoom.bind(this)}>{i18next.t("general:Add")}</Button>
+                   {
+                     !Setting.isAdminUser(this.props.account) ? null : (
+                       <Button type="primary" size="small" onClick={this.addRoom.bind(this)}>{i18next.t("general:Add")}</Button>
+                     )
+                   }
                  </div>
                )}
                loading={rooms === null}

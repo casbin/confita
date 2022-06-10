@@ -240,7 +240,7 @@ func RegisterRoom(id string, username string) *Room {
 }
 
 func (room *Room) updateRoomStartUrl() {
-	if room.MeetingNumber == "" {
+	if room.MeetingNumber == "" || room.MeetingNumber == "123456789" {
 		return
 	}
 
