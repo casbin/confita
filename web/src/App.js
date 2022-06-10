@@ -213,9 +213,9 @@ class App extends Component {
       );
       res.push(
         <Menu.Item key="/" style={{float: 'right'}}>
-          <a href="/">
+          <Link to="/">
             {i18next.t("general:Home")}
-          </a>
+          </Link>
         </Menu.Item>
       );
     } else {
@@ -234,12 +234,9 @@ class App extends Component {
 
     res.push(
       <Menu.Item key="/">
-        <a href="/">
+        <Link to="/">
           {i18next.t("general:Home")}
-        </a>
-        {/*<Link to="/">*/}
-        {/*  Home*/}
-        {/*</Link>*/}
+        </Link>
       </Menu.Item>
     );
 
@@ -330,7 +327,11 @@ class App extends Component {
       <div>
         <Header style={{padding: '0', marginBottom: '3px'}}>
           {
-            Setting.isMobile() ? null : <a className="logo" href={"/"}/>
+            Setting.isMobile() ? null : (
+              <Link to={"/"}>
+                <div className="logo" />
+              </Link>
+            )
           }
           <Menu
             // theme="dark"
@@ -350,9 +351,9 @@ class App extends Component {
         <Switch>
           <Route exact path="/callback" component={AuthCallback}/>
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
+          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)}/>
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
