@@ -14,13 +14,14 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Col, Popconfirm, Row, Table, Tooltip} from 'antd';
+import {Button, Card, Col, Popconfirm, Row, Switch, Table, Tooltip} from 'antd';
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
 import * as RoomBackend from "./backend/RoomBackend";
 import i18next from "i18next";
 import QrCode from "./QrCode";
+import RoomCard from "./RoomCard";
 
 class RoomListPage extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class RoomListPage extends React.Component {
     this.state = {
       classes: props,
       rooms: null,
+      isRoomCalendar: !Setting.isAdminUser(this.props.account) ? true : Setting.getIsRoomCalendar(),
     };
   }
 
@@ -295,7 +297,13 @@ class RoomListPage extends React.Component {
                    {i18next.t("general:Rooms")}&nbsp;&nbsp;&nbsp;&nbsp;
                    {
                      !Setting.isAdminUser(this.props.account) ? null : (
-                       <Button type="primary" size="small" onClick={this.addRoom.bind(this)}>{i18next.t("general:Add")}</Button>
+                       <React.Fragment>
+                         <Button type="primary" size="small" onClick={this.addRoom.bind(this)}>{i18next.t("general:Add")}</Button>
+                         &nbsp;&nbsp;&nbsp;&nbsp;
+                         {
+                           this.renderCalendarModeSwitch()
+                         }
+                       </React.Fragment>
                      )
                    }
                  </div>
@@ -306,6 +314,84 @@ class RoomListPage extends React.Component {
     );
   }
 
+  renderCalendarModeSwitch() {
+    return (
+      <React.Fragment>
+        {i18next.t("room:Calendar mode")}:
+        &nbsp;
+        <Switch checked={this.state.isRoomCalendar} onChange={(checked, e) => {
+          this.setState({
+            isRoomCalendar: checked,
+          });
+          Setting.setIsRoomCalendar(checked);
+        }} />
+      </React.Fragment>
+    )
+  }
+
+  renderCard(room, isSingle) {
+    return (
+      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} account={this.props.account} />
+    )
+  }
+
+  renderCards() {
+    const rooms = this.state.rooms;
+    if (rooms === null) {
+      return null;
+    }
+
+    const isSingle = rooms.length === 1;
+
+    if (Setting.isMobile()) {
+      return (
+        <Card bodyStyle={{padding: 0}}>
+          {
+            rooms.map(room => {
+              return this.renderCard(room, isSingle);
+            })
+          }
+        </Card>
+      )
+    } else {
+      return (
+        <div style={{marginRight: '15px', marginLeft: '15px'}}>
+          <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
+            {
+              rooms.map(room => {
+                return this.renderCard(room, isSingle);
+              })
+            }
+          </Row>
+        </div>
+      )
+    }
+  }
+
+  renderCalendar() {
+    return (
+      <React.Fragment>
+        {
+          !Setting.isAdminUser(this.props.account) ? null : (
+            <React.Fragment>
+              {
+                this.renderCalendarModeSwitch()
+              }
+              <br/>
+            </React.Fragment>
+          )
+        }
+        <Row style={{width: "100%"}}>
+          <Col span={24} style={{display: "flex", justifyContent:  "center"}} >
+            {
+              this.renderCards()
+            }
+          </Col>
+        </Row>
+      </React.Fragment>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -314,7 +400,7 @@ class RoomListPage extends React.Component {
           </Col>
           <Col span={22}>
             {
-              this.renderTable(this.state.rooms)
+              this.state.isRoomCalendar ? this.renderCalendar() : this.renderTable(this.state.rooms)
             }
           </Col>
           <Col span={1}>

@@ -209,9 +209,18 @@ class RoomEditPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Start URL")}:
           </Col>
-          <Col span={22} >
+          <Col span={7} >
             <Input prefix={<LinkOutlined/>} value={this.state.room.startUrl} onChange={e => {
               this.updateRoomField('startUrl', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Image URL")}:
+          </Col>
+          <Col span={12} >
+            <Input prefix={<LinkOutlined/>} value={this.state.room.imageUrl} onChange={e => {
+              this.updateRoomField('imageUrl', e.target.value);
             }} />
           </Col>
         </Row>

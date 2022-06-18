@@ -281,6 +281,19 @@ export function changeMomentLanguage(lng) {
   // }
 }
 
+export function getIsRoomCalendar() {
+  let res = localStorage.getItem("isRoomCalendar");
+  if (res === null) {
+    return false;
+  }
+
+  return res === "true";
+}
+
+export function setIsRoomCalendar(isRoomCalendar) {
+  localStorage.setItem("isRoomCalendar", isRoomCalendar);
+}
+
 export function getFilenameFromUrl(url) {
   const filename = url.substring(url.lastIndexOf('/') + 1);
   return filename;
