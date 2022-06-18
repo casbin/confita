@@ -28,7 +28,7 @@ class QrCode extends React.Component {
     return (
       <QRCodeSVG
         value={this.props.url}
-        size={128}
+        size={256}
         bgColor={"#ffffff"}
         fgColor={"#000000"}
         level={"L"}

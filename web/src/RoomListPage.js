@@ -53,6 +53,12 @@ class RoomListPage extends React.Component {
       createdTime: moment().format(),
       displayName: `New Room - ${this.state.rooms.length}`,
       conference: Conf.DefaultConferenceName,
+      speaker: "Alice",
+      Date: "2022-03-21",
+      startTime: "09:30",
+      endTime: "11:30",
+      location: "City Town",
+      imageUrl: "https://cdn.casbin.com/casdoor/resource/built-in/admin/picture.jpg",
       meetingNumber: "123456789",
       passcode: "123456",
       inviteLink: "https://zoom.us/j/123456789?pwd=123456",
@@ -227,9 +233,9 @@ class RoomListPage extends React.Component {
         dataIndex: 'action',
         key: 'action',
         width: '280px',
-        render: (text, record, index) => {
-          const startUrl = record.startUrl;
-          const participant = record.participants.filter(participant => participant.name === this.props.account.name)[0];
+        render: (text, room, index) => {
+          const startUrl = room.startUrl;
+          const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
           const joinUrl = participant === undefined ? "" : participant.joinUrl;
 
           if (Setting.isAdminUser(this.props.account)) {
@@ -247,9 +253,9 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
-                <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
+                <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
-                  title={`Sure to delete room: ${record.name} ?`}
+                  title={`Sure to delete room: ${room.name} ?`}
                   onConfirm={() => this.deleteRoom(index)}
                   okText="OK"
                   cancelText="Cancel"
@@ -261,7 +267,7 @@ class RoomListPage extends React.Component {
           } else {
             return (
               <div>
-                <Button disabled={record.meetingNumber === "" || joinUrl !== ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
+                <Button disabled={room.meetingNumber === "" || joinUrl !== ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
                   {
                     joinUrl === "" ? (
                       i18next.t("room:Register Meeting")
@@ -271,14 +277,14 @@ class RoomListPage extends React.Component {
                   }
                 </Button>
                 <a target="_blank" rel="noreferrer" href={joinUrl}>
-                  <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
                 </a>
                 {
-                  (record.meetingNumber === "" || joinUrl === "") ? (
-                    <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                  (room.meetingNumber === "" || joinUrl === "") ? (
+                    <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
                     <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                      <Button disabled={record.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                      <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )
                 }
@@ -329,9 +335,9 @@ class RoomListPage extends React.Component {
     )
   }
 
-  renderCard(room, isSingle) {
+  renderCard(index, room, isSingle) {
     return (
-      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} account={this.props.account} />
+      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} onRegisterRoom={(i) => { this.registerRoom(i)}} />
     )
   }
 
@@ -348,7 +354,7 @@ class RoomListPage extends React.Component {
         <Card bodyStyle={{padding: 0}}>
           {
             rooms.map(room => {
-              return this.renderCard(room, isSingle);
+              return this.renderCard(0, room, isSingle);
             })
           }
         </Card>
@@ -358,8 +364,8 @@ class RoomListPage extends React.Component {
         <div style={{marginRight: '15px', marginLeft: '15px'}}>
           <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
             {
-              rooms.map(room => {
-                return this.renderCard(room, isSingle);
+              rooms.map((room, i) => {
+                return this.renderCard(i, room, isSingle);
               })
             }
           </Row>

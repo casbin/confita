@@ -14,8 +14,10 @@
 
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {Card, Col} from "antd";
+import {Button, Card, Col, Popconfirm, Tooltip} from "antd";
 import * as Setting from "./Setting";
+import i18next from "i18next";
+import QrCode from "./QrCode";
 
 const { Meta } = Card;
 
@@ -27,7 +29,67 @@ class RoomCard extends React.Component {
     };
   }
 
-  renderCardMobile(logo, link, title, desc, time, isSingle) {
+  registerRoom(index) {
+    this.props.onRegisterRoom(index);
+  }
+
+  renderButtons(index, room, startUrl, joinUrl) {
+    if (Setting.isAdminUser(this.props.account)) {
+      return (
+        <div>
+          <a target="_blank" rel="noreferrer" href={startUrl}>
+            <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Join In")}</Button>
+          </a>
+          {
+            (startUrl === "") ? (
+              <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+            ) : (
+              <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+              </Tooltip>
+            )
+          }
+          <Button style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
+          <Popconfirm
+            title={`Sure to delete room: ${room.name} ?`}
+            onConfirm={() => this.deleteRoom(index)}
+            okText="OK"
+            cancelText="Cancel"
+          >
+            <Button type="danger">{i18next.t("general:Delete")}</Button>
+          </Popconfirm>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Button disabled={room.meetingNumber === "" || joinUrl !== ""} style={{marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
+            {
+              joinUrl === "" ? (
+                i18next.t("room:Register Meeting")
+              ) : (
+                i18next.t("room:Meeting Registered")
+              )
+            }
+          </Button>
+          <a target="_blank" rel="noreferrer" href={joinUrl}>
+            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+          </a>
+          {
+            (room.meetingNumber === "" || joinUrl === "") ? (
+              <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+            ) : (
+              <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
+                <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+              </Tooltip>
+            )
+          }
+        </div>
+      )
+    }
+  }
+
+  renderCardMobile(logo, link, title, desc, time, isSingle, index, room, isAdmin, startUrl, joinUrl) {
     const gridStyle = {
       width: '100vw',
       textAlign: 'center',
@@ -35,8 +97,8 @@ class RoomCard extends React.Component {
     };
 
     return (
-      <Card.Grid style={gridStyle} onClick={() => Setting.goToLinkSoft(this, link)}>
-        <img src={logo} alt="logo" height={60} style={{marginBottom: '20px'}}/>
+      <Card.Grid style={gridStyle}>
+        <img src={logo} alt="logo" height={60} style={{marginBottom: '20px', padding: '10px'}}/>
         <Meta
           title={title}
           description={desc}
@@ -45,31 +107,42 @@ class RoomCard extends React.Component {
     )
   }
 
-  renderCard(logo, link, title, desc, time, isSingle) {
+  renderCard(logo, link, title, desc, time, isSingle, index, room, isAdmin, startUrl, joinUrl) {
     return (
       <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
           hoverable
           cover={
-            <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down"}} />
+            <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
           }
-          onClick={() => Setting.goToLinkSoft(this, link)}
-          style={isSingle ? {width: "320px"} : {width: "100%"}}
+          style={isSingle ? {width: "320px", cursor: "default"} : {width: "100%", cursor: "default"}}
         >
           <Meta title={title} description={desc} />
           <br/>
-          <br/>
           <Meta title={""} description={time} />
+          <br/>
+          <br/>
+          {
+            this.renderButtons(index, room, startUrl, joinUrl)
+          }
         </Card>
       </Col>
     )
   }
 
   render() {
+    const index = this.props.index;
+    const room = this.props.room;
+    const isAdmin = Setting.isAdminUser(this.props.account);
+
+    const startUrl = room.startUrl;
+    const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
+    const joinUrl = participant === undefined ? "" : participant.joinUrl;
+
     if (Setting.isMobile()) {
-      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle);
+      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room, isAdmin, startUrl, joinUrl);
     } else {
-      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle);
+      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room, isAdmin, startUrl, joinUrl);
     }
   }
 }
