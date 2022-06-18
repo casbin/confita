@@ -22,7 +22,7 @@ import * as Conf from "./Conf";
 
 const { Meta } = Card;
 
-class SingleCard extends React.Component {
+class PaymentCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -183,4 +183,4 @@ class SingleCard extends React.Component {
   }
 }
 
-export default withRouter(SingleCard);
+export default withRouter(PaymentCard);

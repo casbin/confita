@@ -24,7 +24,7 @@ import {Link} from "react-router-dom";
 import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Conf from "./Conf";
-import SingleCard from "./SingleCard";
+import PaymentCard from "./PaymentCard";
 
 class PaymentPage extends React.Component {
   constructor(props) {
@@ -324,7 +324,7 @@ class PaymentPage extends React.Component {
     const paid = payments.length !== 0;
 
     return (
-      <SingleCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(type, product) => { this.updateProduct(type, product)}} />
+      <PaymentCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(type, product) => { this.updateProduct(type, product)}} />
     )
   }
 
