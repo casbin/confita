@@ -99,7 +99,7 @@ class ParticipantTable extends React.Component {
         title: i18next.t("room:No."),
         dataIndex: 'no',
         key: 'no',
-        width: '70px',
+        width: '60px',
         render: (text, record, index) => {
           return (index + 1);
         }
@@ -108,7 +108,7 @@ class ParticipantTable extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '300px',
+        width: '250px',
         render: (text, record, index) => {
           return (
             <Select virtual={false} showSearch optionFilterProp="label" style={{width: '100%'}} value={`${record.displayName} (${record.name})`} placeholder="Please select user" onChange={name => {
@@ -161,13 +161,13 @@ class ParticipantTable extends React.Component {
         title: i18next.t("payment:Tag"),
         dataIndex: 'tag',
         key: 'tag',
-        width: '150px',
+        width: '100px',
       },
       {
         title: i18next.t("room:Role"),
         dataIndex: 'role',
         key: 'role',
-        width: '150px',
+        width: '100px',
         render: (text, record, index) => {
           // https://support.zoom.us/hc/en-us/articles/360040324512-Roles-in-a-meeting
           return (

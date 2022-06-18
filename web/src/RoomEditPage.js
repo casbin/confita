@@ -87,41 +87,38 @@ class RoomEditPage extends React.Component {
       } style={{marginLeft: '5px'}} type="inner">
         <Row style={{marginTop: '10px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("general:Name")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.room.name} onChange={e => {
-              this.updateRoomField('name', e.target.value);
-            }} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("general:Display name")}:
-          </Col>
-          <Col span={22} >
-            <Input value={this.state.room.displayName} onChange={e => {
-              this.updateRoomField('displayName', e.target.value);
-            }} />
-          </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("submission:Conference")}:
           </Col>
-          <Col span={22} >
+          <Col span={2} >
             <Select virtual={false} style={{width: '100%'}} value={this.state.room.conference} onChange={(value => {this.updateRoomField('conference', value);})}>
               {
                 this.state.conferences.map((conference, index) => <Option key={index} value={conference.name}>{conference.name}</Option>)
               }
             </Select>
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("general:Name")}:
+          </Col>
+          <Col span={2} >
+            <Input value={this.state.room.name} onChange={e => {
+              this.updateRoomField('name', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("general:Display name")}:
+          </Col>
+          <Col span={3} >
+            <Input value={this.state.room.displayName} onChange={e => {
+              this.updateRoomField('displayName', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Speaker")}:
           </Col>
-          <Col span={22} >
+          <Col span={6} >
             <Input value={this.state.room.speaker} onChange={e => {
               this.updateRoomField('speaker', e.target.value);
             }} />
@@ -131,17 +128,15 @@ class RoomEditPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Date")}:
           </Col>
-          <Col span={22} >
+          <Col span={3} >
             <DatePicker defaultValue={moment(this.state.room.date, "YYYY-MM-DD")} onChange={(time, timeString) => {
               this.updateRoomField('date', timeString);
             }} />
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Start time")}:
           </Col>
-          <Col span={4} >
+          <Col span={3} >
             <TimePicker value={moment(this.state.room.startTime, "HH:mm")} format={"HH:mm"} onChange={(time, timeString) => {
               this.updateRoomField('startTime', timeString);
             }} />
@@ -154,12 +149,10 @@ class RoomEditPage extends React.Component {
               this.updateRoomField('endTime', timeString);
             }} />
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Location")}:
           </Col>
-          <Col span={22} >
+          <Col span={6} >
             <Input value={this.state.room.location} onChange={e => {
               this.updateRoomField('location', e.target.value);
             }} />
@@ -169,17 +162,16 @@ class RoomEditPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:SDK key")}:
           </Col>
-          <Col span={22} >
+          <Col span={7} >
             <Input value={this.state.room.sdkKey} onChange={e => {
               this.updateRoomField('sdkKey', e.target.value);
             }} />
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
+          <Col span={1} />
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Signature")}:
           </Col>
-          <Col span={22} >
+          <Col span={12} >
             <Input value={this.state.room.signature} onChange={e => {
               this.updateRoomField('signature', e.target.value);
             }} />
@@ -189,27 +181,25 @@ class RoomEditPage extends React.Component {
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Meeting number")}:
           </Col>
-          <Col span={22} >
+          <Col span={2} >
             <Input value={this.state.room.meetingNumber} onChange={e => {
               this.updateRoomField('meetingNumber', e.target.value);
             }} />
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
+          <Col span={1} />
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Passcode")}:
           </Col>
-          <Col span={22} >
+          <Col span={2} >
             <Input value={this.state.room.passcode} onChange={e => {
               this.updateRoomField('passcode', e.target.value);
             }} />
           </Col>
-        </Row>
-        <Row style={{marginTop: '20px'}} >
+          <Col span={1} />
           <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Invite link")}:
           </Col>
-          <Col span={22} >
+          <Col span={12} >
             <Input prefix={<LinkOutlined/>} value={this.state.room.inviteLink} onChange={e => {
               this.updateRoomField('inviteLink', e.target.value);
             }} />
