@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, DatePicker, Input, Row, Select} from 'antd';
+import {Button, Card, Col, DatePicker, Input, Row, Select, TimePicker} from 'antd';
 import * as RoomBackend from "./backend/RoomBackend";
 import {LinkOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
@@ -124,6 +124,24 @@ class RoomEditPage extends React.Component {
           <Col span={22} >
             <DatePicker defaultValue={moment(this.state.room.date, "YYYY-MM-DD")} onChange={(time, timeString) => {
               this.updateRoomField('date', timeString);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Start time")}:
+          </Col>
+          <Col span={4} >
+            <TimePicker value={moment(this.state.room.startTime, "HH:mm")} format={"HH:mm"} onChange={(time, timeString) => {
+              this.updateRoomField('startTime', timeString);
+            }} />
+          </Col>
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:End time")}:
+          </Col>
+          <Col span={4} >
+            <TimePicker value={moment(this.state.room.endTime, "HH:mm")} format={"HH:mm"} onChange={(time, timeString) => {
+              this.updateRoomField('endTime', timeString);
             }} />
           </Col>
         </Row>

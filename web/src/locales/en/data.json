@@ -102,6 +102,7 @@
     "Copy Meeting Link": "Copy Meeting Link",
     "Date": "Date",
     "Edit Room": "Edit Room",
+    "End time": "End time",
     "Ended": "Ended",
     "Invite link": "Invite link",
     "Join In": "Join In",
@@ -116,10 +117,12 @@
     "Scan QR Code": "Scan QR Code",
     "Signature": "Signature",
     "Start URL": "Start URL",
+    "Start time": "Start time",
     "Started": "Started",
     "The current meeting has ended": "The current meeting has ended",
     "The current meeting has started, please join in": "The current meeting has started, please join in",
-    "There are already N participants in the meeting room.": "There are already N participants in the meeting room."
+    "There are already N participants in the meeting room.": "There are already N participants in the meeting room.",
+    "Time": "Time"
   },
   "submission": {
     "Abstract files": "Abstract files",

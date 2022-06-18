@@ -102,6 +102,7 @@
     "Copy Meeting Link": "复制会议链接",
     "Date": "日期",
     "Edit Room": "编辑会场",
+    "End time": "结束时间",
     "Ended": "已结束",
     "Invite link": "邀请链接",
     "Join In": "加入会议",
@@ -116,10 +117,12 @@
     "Scan QR Code": "扫描二维码",
     "Signature": "Signature",
     "Start URL": "发起链接",
+    "Start time": "开始时间",
     "Started": "已开始",
     "The current meeting has ended": "当前会议已结束",
     "The current meeting has started, please join in": "当前会议已开始，请加入",
-    "There are already N participants in the meeting room.": "目前有 N 位参会者"
+    "There are already N participants in the meeting room.": "目前有 N 位参会者",
+    "Time": "时间"
   },
   "submission": {
     "Abstract files": "稿件摘要",

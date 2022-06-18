@@ -165,8 +165,18 @@ class RoomListPage extends React.Component {
         title: i18next.t("room:Date"),
         dataIndex: 'date',
         key: 'date',
-        width: '70px',
+        width: '80px',
         sorter: (a, b) => a.date.localeCompare(b.date),
+      },
+      {
+        title: i18next.t("room:Time"),
+        dataIndex: 'time',
+        key: 'time',
+        width: '90px',
+        sorter: (a, b) => a.time.localeCompare(b.time),
+        render: (text, record, index) => {
+          return `${record.startTime} - ${record.endTime}`;
+        }
       },
       {
         title: i18next.t("room:Meeting number"),
