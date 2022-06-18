@@ -42,6 +42,7 @@ type Room struct {
 	DisplayName string `xorm:"varchar(100)" json:"displayName"`
 
 	Conference string `xorm:"varchar(100)" json:"conference"`
+	Date       string `xorm:"varchar(100)" json:"date"`
 
 	SdkKey        string `xorm:"varchar(100)" json:"sdkKey"`
 	Signature     string `xorm:"varchar(1000)" json:"signature"`
