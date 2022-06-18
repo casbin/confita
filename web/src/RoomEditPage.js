@@ -119,6 +119,16 @@ class RoomEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Speaker")}:
+          </Col>
+          <Col span={22} >
+            <Input value={this.state.room.speaker} onChange={e => {
+              this.updateRoomField('speaker', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
             {i18next.t("room:Date")}:
           </Col>
           <Col span={22} >

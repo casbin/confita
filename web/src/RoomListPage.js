@@ -116,7 +116,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '110px',
+        width: '100px',
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
@@ -130,7 +130,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Display name"),
         dataIndex: 'displayName',
         key: 'displayName',
-        width: '350px',
+        width: '120px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       // {
@@ -161,6 +161,13 @@ class RoomListPage extends React.Component {
       //     return Setting.getFormattedDate(text);
       //   }
       // },
+      {
+        title: i18next.t("room:Speaker"),
+        dataIndex: 'speaker',
+        key: 'speaker',
+        width: '250px',
+        sorter: (a, b) => a.speaker.localeCompare(b.speaker),
+      },
       {
         title: i18next.t("room:Date"),
         dataIndex: 'date',
