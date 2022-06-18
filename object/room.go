@@ -46,6 +46,7 @@ type Room struct {
 	Date       string `xorm:"varchar(100)" json:"date"`
 	StartTime  string `xorm:"varchar(100)" json:"startTime"`
 	EndTime    string `xorm:"varchar(100)" json:"endTime"`
+	Location   string `xorm:"varchar(100)" json:"location"`
 
 	SdkKey        string `xorm:"varchar(100)" json:"sdkKey"`
 	Signature     string `xorm:"varchar(1000)" json:"signature"`

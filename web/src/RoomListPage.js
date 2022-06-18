@@ -116,7 +116,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Name"),
         dataIndex: 'name',
         key: 'name',
-        width: '100px',
+        width: '90px',
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
@@ -130,7 +130,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Display name"),
         dataIndex: 'displayName',
         key: 'displayName',
-        width: '120px',
+        width: '110px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       // {
@@ -186,24 +186,31 @@ class RoomListPage extends React.Component {
         }
       },
       {
+        title: i18next.t("room:Location"),
+        dataIndex: 'location',
+        key: 'location',
+        width: '120px',
+        sorter: (a, b) => a.location.localeCompare(b.location),
+      },
+      {
         title: i18next.t("room:Meeting number"),
         dataIndex: 'meetingNumber',
         key: 'meetingNumber',
-        width: '170px',
+        width: '100px',
         sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
       },
       {
         title: i18next.t("room:Passcode"),
         dataIndex: 'passcode',
         key: 'passcode',
-        width: '120px',
+        width: '80px',
         sorter: (a, b) => a.passcode.localeCompare(b.passcode),
       },
       {
         title: i18next.t("general:Status"),
         dataIndex: 'status',
         key: 'status',
-        width: '110px',
+        width: '90px',
         sorter: (a, b) => a.status.localeCompare(b.status),
         render: (text, record, index) => {
           if (text === "Started") {
