@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import React from "react";
-import {Link} from "react-router-dom";
 import {Button, Col, Row, Table} from 'antd';
 import * as Setting from "./Setting";
 import * as PaymentBackend from "./backend/PaymentBackend";
@@ -80,9 +79,9 @@ class PaymentListPage extends React.Component {
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
-            <Link to={`/payments/${text}`}>
-              {text}
-            </Link>
+              <a target="_blank" rel="noreferrer" href={Setting.getPaymentInvoiceUrl(this.props.account, record)}>
+                {text}
+              </a>
           )
         }
       },
