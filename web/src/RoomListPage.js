@@ -14,7 +14,8 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Card, Col, Popconfirm, Row, Switch, Table, Tooltip} from 'antd';
+import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from 'antd';
+import {CloseCircleTwoTone} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
@@ -22,6 +23,7 @@ import * as RoomBackend from "./backend/RoomBackend";
 import i18next from "i18next";
 import QrCode from "./QrCode";
 import RoomCard from "./RoomCard";
+import * as PaymentBackend from "./backend/PaymentBackend";
 
 class RoomListPage extends React.Component {
   constructor(props) {
@@ -29,12 +31,14 @@ class RoomListPage extends React.Component {
     this.state = {
       classes: props,
       rooms: null,
+      payments: null,
       isRoomCalendar: !Setting.isAdminUser(this.props.account) ? true : Setting.getIsRoomCalendar(),
     };
   }
 
   componentWillMount() {
     this.getGlobalRooms();
+    this.getPayments();
   }
 
   getGlobalRooms() {
@@ -44,6 +48,15 @@ class RoomListPage extends React.Component {
           rooms: res,
         });
       });
+  }
+
+  getPayments() {
+    PaymentBackend.getPayments(this.props.account.name)
+        .then((payments) => {
+          this.setState({
+            payments: payments.filter(payment => payment.state === "Paid"),
+          });
+        });
   }
 
   newRoom() {
@@ -201,7 +214,7 @@ class RoomListPage extends React.Component {
         sorter: (a, b) => a.location.localeCompare(b.location),
       },
       {
-        title: i18next.t("room:Meeting number"),
+        title: i18next.t("room:Meeting No."),
         dataIndex: 'meetingNumber',
         key: 'meetingNumber',
         width: '100px',
@@ -270,9 +283,9 @@ class RoomListPage extends React.Component {
                 <Button disabled={room.meetingNumber === "" || joinUrl !== ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
                   {
                     joinUrl === "" ? (
-                      i18next.t("room:Register Meeting")
+                      i18next.t("room:Register")
                     ) : (
-                      i18next.t("room:Meeting Registered")
+                      i18next.t("room:Registered")
                     )
                   }
                 </Button>
@@ -398,6 +411,49 @@ class RoomListPage extends React.Component {
     )
   }
 
+  renderPaymentModal() {
+    if (this.state.payments === null) {
+      return null;
+    }
+
+    if (Setting.isEditorUser(this.props.account) || Setting.isAdminUser(this.props.account)) {
+      return null;
+    }
+
+    if (this.state.payments.filter(payment => payment.productName.includes("_online_")).length > 0) {
+      return null;
+    }
+
+    const handleOk = () => {
+      this.props.history.push("/payments");
+    };
+
+    return (
+        <Modal
+            title={
+              <div>
+                <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
+                {" " + i18next.t("room:You need to pay first to enter meeting rooms")}
+              </div>
+            }
+            visible={true}
+            cancelButtonProps={{
+              style: {
+                display: "none",
+              },
+            }}
+            onOk={handleOk}
+            onCancel={() => {}}
+            okText={i18next.t("room:Go to Pay")}
+            closable={false}
+        >
+          <div>
+            {i18next.t("room:In the 'Payments' page, please select the 'Online Participation Rate` tier (2nd row) to be able to access the online meeting rooms.")}
+          </div>
+        </Modal>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -411,6 +467,9 @@ class RoomListPage extends React.Component {
           </Col>
           <Col span={1}>
           </Col>
+          {
+            this.renderPaymentModal()
+          }
         </Row>
       </div>
     );

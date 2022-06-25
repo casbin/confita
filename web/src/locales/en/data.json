@@ -99,20 +99,24 @@
     "but this registration requires the tag to be": "but this registration requires the tag to be"
   },
   "room": {
+    "Calendar mode": "Calendar mode",
     "Copy Meeting Link": "Copy Meeting Link",
     "Date": "Date",
     "Edit Room": "Edit Room",
     "End time": "End time",
     "Ended": "Ended",
+    "Go to Pay": "Go to Pay",
+    "Image URL": "Image URL",
+    "In the 'Payments' page, please select the 'Online Participation Rate` tier (2nd row) to be able to access the online meeting rooms.": "In the 'Payments' page, please select the 'Online Participation Rate` tier (2nd row) to be able to access the online meeting rooms.",
     "Invite link": "Invite link",
     "Join In": "Join In",
     "Location": "Location",
-    "Meeting Registered": "Registered",
-    "Meeting number": "Meeting No.",
+    "Registered": "Registered",
+    "Meeting No.": "Meeting No.",
     "No.": "No.",
     "Participants": "Participants",
     "Passcode": "Passcode",
-    "Register Meeting": "Register",
+    "Register": "Register",
     "Role": "Role",
     "SDK key": "SDK key",
     "Scan QR Code": "Scan QR Code",
@@ -124,7 +128,8 @@
     "The current meeting has ended": "The current meeting has ended",
     "The current meeting has started, please join in": "The current meeting has started, please join in",
     "There are already N participants in the meeting room.": "There are already N participants in the meeting room.",
-    "Time": "Time"
+    "Time": "Time",
+    "You need to pay first to enter meeting rooms": "You need to pay first to enter meeting rooms"
   },
   "submission": {
     "Abstract files": "Abstract files",

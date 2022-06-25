@@ -66,9 +66,9 @@ class RoomCard extends React.Component {
           <Button disabled={room.meetingNumber === "" || joinUrl !== ""} style={{marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
             {
               joinUrl === "" ? (
-                i18next.t("room:Register Meeting")
+                i18next.t("room:Register")
               ) : (
-                i18next.t("room:Meeting Registered")
+                i18next.t("room:Registered")
               )
             }
           </Button>

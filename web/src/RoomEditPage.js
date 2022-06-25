@@ -179,7 +179,7 @@ class RoomEditPage extends React.Component {
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Meeting number")}:
+            {i18next.t("room:Meeting No.")}:
           </Col>
           <Col span={2} >
             <Input value={this.state.room.meetingNumber} onChange={e => {
