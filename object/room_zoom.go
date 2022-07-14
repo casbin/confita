@@ -41,7 +41,11 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error
 
-	email = fmt.Sprintf("%s@example-nowhere.com", name)
+	if !util.IsChinese(name) {
+		email = fmt.Sprintf("%s@example-nowhere.com", name)
+	} else {
+		email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId())
+	}
 
 	meetingId := util.ParseInt(meetingNumber)
 	resp, err = zoomClient.AddMeetingRegistrant(meetingId,

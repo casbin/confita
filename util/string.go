@@ -20,6 +20,9 @@ import (
 	"io/ioutil"
 	"strconv"
 	"strings"
+	"unicode"
+
+	"github.com/google/uuid"
 )
 
 func IndexAt(s, sep string, n int) int {
@@ -122,4 +125,19 @@ func WriteBytesToPath(b []byte, path string) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func GenerateId() string {
+	return uuid.NewString()
+}
+
+func IsChinese(str string) bool {
+	var flag bool
+	for _, v := range str {
+		if unicode.Is(unicode.Han, v) {
+			flag = true
+			break
+		}
+	}
+	return flag
 }
