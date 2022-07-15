@@ -18,13 +18,14 @@ import (
 	"fmt"
 
 	"github.com/casbin/confita/util"
-	"github.com/donvito/zoom-go/zoomAPI"
+	"github.com/nomeguy/zoom-go/zoomAPI"
 )
 
 var zoomClient zoomAPI.Client
 
 func init() {
 	zoomClient = zoomAPI.NewClient(zoomApiEndpoint, zoomJwtToken)
+	zoomClient.IsWebinar = true
 }
 
 func getMeetingStartUrl(meetingNumber string) string {
@@ -44,7 +45,7 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	if !util.IsChinese(name) {
 		email = fmt.Sprintf("%s@example-nowhere.com", name)
 	} else {
-		email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId())
+		email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId()[:8])
 	}
 
 	meetingId := util.ParseInt(meetingNumber)
