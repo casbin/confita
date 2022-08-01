@@ -17,6 +17,7 @@ import {isMobile as isMobileDevice} from "react-device-detect";
 import i18next from "i18next";
 // import moment from "moment";
 import Sdk from "casdoor-js-sdk";
+import XLSX from "xlsx";
 
 export let ServerUrl = '';
 export let CasdoorSdk;
@@ -366,4 +367,32 @@ export function getTags(tags) {
     );
   });
   return res;
+}
+
+function s2ab(s) {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i !== s.length; i ++) {
+    view[i] = s.charCodeAt(i) & 0xFF;
+  }
+  return buf;
+}
+
+export function sheet2blob(sheet, sheetName) {
+  const workbook = {
+    SheetNames: [sheetName],
+    Sheets: {},
+  };
+  workbook.Sheets[sheetName] = sheet;
+  return workbook2blob(workbook);
+}
+
+export function workbook2blob(workbook) {
+  const wopts = {
+    bookType: "xlsx",
+    bookSST: false,
+    type: "binary",
+  };
+  const wbout = XLSX.write(workbook, wopts);
+  return new Blob([s2ab(wbout)], {type: "application/octet-stream"});
 }

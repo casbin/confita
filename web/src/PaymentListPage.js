@@ -17,6 +17,9 @@ import {Button, Col, Row, Table} from 'antd';
 import * as Setting from "./Setting";
 import * as PaymentBackend from "./backend/PaymentBackend";
 import i18next from "i18next";
+import XLSX from "xlsx";
+import FileSaver from "file-saver";
+import moment from "moment";
 
 class PaymentListPage extends React.Component {
   constructor(props) {
@@ -38,6 +41,60 @@ class PaymentListPage extends React.Component {
           payments: res,
         });
       });
+  }
+
+  downloadXlsx() {
+    let data = [];
+    this.state.payments.forEach((payment, i) => {
+      if (payment.state !== "Paid") {
+        return;
+      }
+
+      let row = {};
+
+      row["User"] = payment.user;
+      row["Payment ID"] = payment.name;
+      row["Created time"] = Setting.getFormattedDate(payment.createdTime);
+      row["Product"] = payment.productDisplayName.split("|")[1];
+      row["Detail"] = payment.detail;
+      row["Tag"] = payment.tag;
+      row["Price"] = payment.price;
+      row["Currency"] = payment.currency;
+      row["State"] = payment.state;
+      row["Invoice person name"] = payment.personName;
+      row["Invoice person ID card"] = payment.personIdCard;
+      row["Invoice person Email"] = payment.personEmail;
+      row["Invoice type"] = payment.invoiceType;
+      row["Invoice title"] = payment.invoiceTitle;
+      row["Invoice tax ID"] = payment.invoiceTaxId;
+      row["Invoice remark"] = payment.invoiceRemark;
+
+      data.push(row);
+    });
+
+    let sheet = XLSX.utils.json_to_sheet(data);
+    sheet["!cols"] = [
+      { wch: 20 },
+      { wch: 25 },
+      { wch: 20 },
+      { wch: 30 },
+      { wch: 25 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 20 },
+      { wch: 20 },
+      { wch: 20 },
+      { wch: 20 },
+      { wch: 40 },
+      { wch: 20 },
+      { wch: 150 },
+    ];
+
+    const blob = Setting.sheet2blob(sheet, "Default");
+    const fileName = `payments-${Setting.getFormattedDate(moment().format())}.xlsx`;
+    FileSaver.saveAs(blob, fileName);
   }
 
   renderTable(payments) {
@@ -172,6 +229,7 @@ class PaymentListPage extends React.Component {
                title={() => (
                  <div>
                    {i18next.t("general:All Payments")}&nbsp;&nbsp;&nbsp;&nbsp;
+                   <Button type="primary" size="small" onClick={() => this.downloadXlsx()}>{i18next.t("general:Download")} (.xlsx)</Button>
                  </div>
                )}
                loading={payments === null}
