@@ -329,13 +329,17 @@ class PaymentPage extends React.Component {
   }
 
   renderCards() {
-    const products = this.state.products;
+    let products = this.state.products;
     if (products === null) {
       return null;
     }
 
     const payments = this.state.payments;
     const isSingle = products.length === 1;
+
+    if (payments.filter(payment => payment.state === "Paid" && payment.productName.includes("early")).length === 0) {
+      products = products.filter(product => !product.name.includes("early"));
+    }
 
     if (Setting.isMobile()) {
       return (
