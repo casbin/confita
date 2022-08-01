@@ -25,6 +25,7 @@ import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Conf from "./Conf";
 import PaymentCard from "./PaymentCard";
+import Hotkeys from 'react-hot-keys';
 
 class PaymentPage extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class PaymentPage extends React.Component {
       isModalVisible: false,
       isTestModalVisible: false,
       currentProduct: null,
+      isEarlyVisible: false,
     };
   }
 
@@ -337,7 +339,7 @@ class PaymentPage extends React.Component {
     const payments = this.state.payments;
     const isSingle = products.length === 1;
 
-    if (payments.filter(payment => payment.state === "Paid" && payment.productName.includes("early")).length === 0) {
+    if (!this.state.isEarlyVisible && payments.filter(payment => payment.state === "Paid" && payment.productName.includes("early")).length === 0) {
       products = products.filter(product => !product.name.includes("early"));
     }
 
@@ -474,7 +476,6 @@ class PaymentPage extends React.Component {
             </Button>
           ) : null
         }
-
       </Modal>
     )
   }
@@ -512,11 +513,20 @@ class PaymentPage extends React.Component {
     )
   }
 
+  onKeyUp(keyName, e, handle) {}
+
+  onKeyDown(keyName, e, handle) {
+    this.setState({
+      isEarlyVisible: true,
+    });
+  }
+
   render() {
     const account = this.props.account;
 
     return (
       <div style={{padding: "20px"}}>
+        <Hotkeys keyName="ctrl+shift+k" onKeyDown={this.onKeyDown.bind(this)} onKeyUp={this.onKeyUp.bind(this)} />
         {
           this.renderModal()
         }
