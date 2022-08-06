@@ -38,7 +38,7 @@ class RoomCard extends React.Component {
       return (
         <div>
           <a target="_blank" rel="noreferrer" href={startUrl}>
-            <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Join In")}</Button>
+            <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Join In")}</Button>
           </a>
           {
             (startUrl === "") ? (
@@ -73,7 +73,7 @@ class RoomCard extends React.Component {
             }
           </Button>
           <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
           </a>
           {
             (room.meetingNumber === "" || joinUrl === "") ? (

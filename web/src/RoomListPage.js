@@ -245,7 +245,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '280px',
+        width: '320px',
         render: (text, room, index) => {
           const startUrl = room.startUrl;
           const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
