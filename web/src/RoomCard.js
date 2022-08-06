@@ -63,15 +63,13 @@ class RoomCard extends React.Component {
     } else {
       return (
         <div>
-          <Button disabled={room.meetingNumber === "" || joinUrl !== ""} style={{marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
-            {
-              joinUrl === "" ? (
-                i18next.t("room:Register")
-              ) : (
-                i18next.t("room:Registered")
-              )
-            }
-          </Button>
+          {
+            joinUrl !== "" ? null : (
+              <Button disabled={room.meetingNumber === ""} style={{marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
+                {i18next.t("room:Register")}
+              </Button>
+            )
+          }
           <a target="_blank" rel="noreferrer" href={joinUrl}>
             <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
           </a>
