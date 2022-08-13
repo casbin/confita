@@ -134,12 +134,12 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("general:Owner"),
         dataIndex: 'owner',
         key: 'owner',
-        width: '70px',
+        width: '100px',
         sorter: (a, b) => a.owner.localeCompare(b.owner),
         render: (text, record, index) => {
           return (
             <a target="_blank" rel="noreferrer" href={Setting.getUserProfileUrl(text)}>
-              {text}
+              {Setting.getShortText(text, 15)}
             </a>
           )
         }
@@ -158,16 +158,16 @@ class SubmissionListPage extends React.Component {
       //     )
       //   }
       // },
-      // {
-      //   title: i18next.t("general:Created time"),
-      //   dataIndex: 'createdTime',
-      //   key: 'createdTime',
-      //   width: '110px',
-      //   sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
-      //   render: (text, record, index) => {
-      //     return Setting.getFormattedDate(text);
-      //   }
-      // },
+      {
+        title: i18next.t("general:Created time"),
+        dataIndex: 'createdTime',
+        key: 'createdTime',
+        width: '110px',
+        sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
+        render: (text, record, index) => {
+          return Setting.getFormattedDate(text);
+        }
+      },
       // {
       //   title: i18next.t("submission:Conference"),
       //   dataIndex: 'conference',
@@ -204,7 +204,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Title"),
         dataIndex: 'title',
         key: 'title',
-        width: '170px',
+        // width: '170px',
         sorter: (a, b) => a.title.localeCompare(b.title),
         render: (text, record, index) => {
           return (
@@ -252,7 +252,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Abstract files"),
         dataIndex: 'absWordFileUrl',
         key: 'absWordFileUrl',
-        width: '120px',
+        width: '135px',
         sorter: (a, b) => a.absWordFileUrl.localeCompare(b.absWordFileUrl),
         render: (text, record, index) => {
           if (record.absWordFileUrl === "" && record.absPdfFileUrl === "") {
@@ -260,7 +260,7 @@ class SubmissionListPage extends React.Component {
           }
 
           return (
-            <div>
+            <div style={{width: '135px'}}>
               {
                 record.absWordFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.absWordFileUrl)}>
@@ -297,7 +297,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Full paper files"),
         dataIndex: 'fullWordFileUrl',
         key: 'fullWordFileUrl',
-        width: '120px',
+        width: '135px',
         sorter: (a, b) => a.fullWordFileUrl.localeCompare(b.fullWordFileUrl),
         render: (text, record, index) => {
           if (record.fullWordFileUrl === "" && record.fullPdfFileUrl === "") {
@@ -305,7 +305,7 @@ class SubmissionListPage extends React.Component {
           }
 
           return (
-            <div>
+            <div style={{width: '135px'}}>
               {
                 record.fullWordFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.fullWordFileUrl)}>
@@ -342,7 +342,7 @@ class SubmissionListPage extends React.Component {
         title: i18next.t("submission:Final paper files"),
         dataIndex: 'finalWordFileUrl',
         key: 'finalWordFileUrl',
-        width: '130px',
+        width: '135px',
         sorter: (a, b) => a.finalWordFileUrl.localeCompare(b.finalWordFileUrl),
         render: (text, record, index) => {
           if (record.finalWordFileUrl === "" && record.finalPdfFileUrl === "") {
@@ -350,7 +350,7 @@ class SubmissionListPage extends React.Component {
           }
 
           return (
-            <div>
+            <div style={{width: '135px'}}>
               {
                 record.finalWordFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.finalWordFileUrl)}>
@@ -451,14 +451,10 @@ class SubmissionListPage extends React.Component {
     return (
       <div>
         <Row style={{width: "100%"}}>
-          <Col span={1}>
-          </Col>
-          <Col span={22}>
+          <Col span={24}>
             {
               this.renderTable(this.state.submissions)
             }
-          </Col>
-          <Col span={1}>
           </Col>
         </Row>
       </div>
