@@ -48,6 +48,10 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 		email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId()[:8])
 	}
 
+	if displayName == "" {
+		displayName = name
+	}
+
 	meetingId := util.ParseInt(meetingNumber)
 	resp, err = zoomClient.AddMeetingRegistrant(meetingId,
 		email,
