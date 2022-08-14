@@ -15,13 +15,14 @@
 import React from "react";
 import {Button, Card, Col, DatePicker, Input, Row, Select, TimePicker} from 'antd';
 import * as RoomBackend from "./backend/RoomBackend";
-import {LinkOutlined} from "@ant-design/icons";
+import {CopyOutlined, LinkOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import i18next from "i18next";
-import Room from "./Room";
 import ParticipantTable from "./ParticipantTable";
 import moment from "moment";
+import Video from "./Video";
+import copy from "copy-to-clipboard";
 
 const { Option } = Select;
 
@@ -61,7 +62,7 @@ class RoomEditPage extends React.Component {
   }
 
   parseRoomField(key, value) {
-    if (["score"].includes(key)) {
+    if (["videoWidth", "videoHeight"].includes(key)) {
       value = Setting.myParseInt(value);
     }
     return value;
@@ -225,6 +226,92 @@ class RoomEditPage extends React.Component {
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Ingest domain")}:
+          </Col>
+          <Col span={3} >
+            <Input prefix={<LinkOutlined/>} value={this.state.room.ingestDomain} onChange={e => {
+              this.updateRoomField('ingestDomain', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Ingest auth key")}:
+          </Col>
+          <Col span={6} >
+            <Input value={this.state.room.ingestAuthKey} onChange={e => {
+              this.updateRoomField('ingestAuthKey', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Ingest URL")}:
+          </Col>
+          <Col span={22} >
+            <Input.Group compact>
+              <Input style={{width: "900px"}} prefix={<LinkOutlined/>} disabled={true} value={Setting.getIngestUrl(this.state.room)} onChange={e => {}} />
+              <Button icon={<CopyOutlined />} onClick={() => {
+                const ingestUrl = Setting.getIngestUrl(this.state.room);
+                copy(ingestUrl);
+                Setting.showMessage("success", `Ingest URL copied to clipboard successfully: ${ingestUrl}`);
+              }} />
+            </Input.Group>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Streaming domain")}:
+          </Col>
+          <Col span={3} >
+            <Input prefix={<LinkOutlined/>} value={this.state.room.streamingDomain} onChange={e => {
+              this.updateRoomField('streamingDomain', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Streaming auth key")}:
+          </Col>
+          <Col span={6} >
+            <Input value={this.state.room.streamingAuthKey} onChange={e => {
+              this.updateRoomField('streamingAuthKey', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Video width")}:
+          </Col>
+          <Col span={2} >
+            <Input value={this.state.room.videoWidth} onChange={e => {
+              this.updateRoomField('videoWidth', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Video height")}:
+          </Col>
+          <Col span={2} >
+            <Input value={this.state.room.videoHeight} onChange={e => {
+              this.updateRoomField('videoHeight', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Streaming URL")}:
+          </Col>
+          <Col span={22} >
+            <Input.Group compact>
+              <Input style={{width: "900px"}} prefix={<LinkOutlined/>} disabled={true} value={Setting.getStreamingUrl(this.state.room)} onChange={e => {}} />
+              <Button icon={<CopyOutlined />} onClick={() => {
+                const streamingUrl = Setting.getStreamingUrl(this.state.room);
+                copy(streamingUrl);
+                Setting.showMessage("success", `Streaming URL copied to clipboard successfully: ${streamingUrl}`);
+              }} />
+            </Input.Group>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
             {i18next.t("room:Participants")}:
           </Col>
@@ -257,7 +344,8 @@ class RoomEditPage extends React.Component {
             {i18next.t("general:Preview")}:
           </Col>
           <Col span={22} >
-            <Room room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />
+            <Video room={this.state.room} />
+            {/*<Room room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />*/}
           </Col>
         </Row>
       </Card>

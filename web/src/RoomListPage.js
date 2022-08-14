@@ -77,6 +77,12 @@ class RoomListPage extends React.Component {
       inviteLink: "https://zoom.us/j/123456789?pwd=123456",
       participants: [],
       status: "Ended",
+      ingestDomain: "",
+      ingestAuthKey: "",
+      streamingDomain: "",
+      streamingAuthKey: "",
+      videoWidth: 854,
+      videoHeight: 480,
     }
   }
 

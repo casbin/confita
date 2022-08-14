@@ -6,6 +6,7 @@
     "@ant-design/icons": "4.6.2",
     "@craco/craco": "6.1.1",
     "@zoomus/websdk": "^2.4.0",
+    "aliplayer-react": "^0.7.0",
     "antd": "4.15.5",
     "braft-editor": "^2.3.9",
     "casdoor-js-sdk": "^0.0.3",
