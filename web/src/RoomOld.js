@@ -24,7 +24,7 @@ const client = ZoomMtgEmbedded.createClient();
 
 let hasShown = false;
 
-class Room extends React.Component {
+class RoomOld extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -203,4 +203,4 @@ class Room extends React.Component {
   }
 }
 
-export default Room;
+export default RoomOld;

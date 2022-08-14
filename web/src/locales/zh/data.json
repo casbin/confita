@@ -122,7 +122,7 @@
     "Register": "注册会议",
     "Role": "角色",
     "SDK key": "SDK key",
-    "Scan QR Code": "扫描二维码",
+    "Scan QR Code": "手机扫码入会",
     "Signature": "Signature",
     "Speaker": "报告人",
     "Start URL": "发起链接",
@@ -137,6 +137,7 @@
     "Time": "时间",
     "Video height": "直播视频高度",
     "Video width": "直播视频宽度",
+    "Watch Live": "观看直播",
     "You need to pay first to enter meeting rooms": "请先完成支付，再进入在线会议室"
   },
   "submission": {

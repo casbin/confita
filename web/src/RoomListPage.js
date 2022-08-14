@@ -15,7 +15,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from 'antd';
-import {CloseCircleTwoTone} from "@ant-design/icons";
+import {CloseCircleTwoTone, VideoCameraOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
@@ -157,7 +157,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Display name"),
         dataIndex: 'displayName',
         key: 'displayName',
-        width: '110px',
+        width: '120px',
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       // {
@@ -223,7 +223,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("room:Meeting No."),
         dataIndex: 'meetingNumber',
         key: 'meetingNumber',
-        width: '100px',
+        width: '120px',
         sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
       },
       {
@@ -251,7 +251,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '320px',
+        width: '250px',
         render: (text, room, index) => {
           const startUrl = room.startUrl;
           const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
@@ -272,7 +272,8 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
-                <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
+                <Button icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+                <Button style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
                   title={`Sure to delete room: ${room.name} ?`}
                   onConfirm={() => this.deleteRoom(index)}
@@ -305,6 +306,7 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
+                <Button icon={<VideoCameraOutlined />} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
               </div>
             )
           }

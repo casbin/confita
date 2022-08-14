@@ -396,3 +396,11 @@ export function workbook2blob(workbook) {
   const wbout = XLSX.write(workbook, wopts);
   return new Blob([s2ab(wbout)], {type: "application/octet-stream"});
 }
+
+export function getIngestUrl(room) {
+  return `rtmp://${room.ingestDomain}/${room.conference}/${room.name}?auth_key=${room.ingestAuthKey}`;
+}
+
+export function getStreamingUrl(room) {
+  return `https://${room.streamingDomain}/${room.conference}/${room.name}.flv?auth_key=${room.streamingAuthKey}`;
+}

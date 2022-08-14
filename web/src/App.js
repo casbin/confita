@@ -31,6 +31,7 @@ import SubmissionEditPage from "./SubmissionEditPage";
 import PaymentListPage from "./PaymentListPage";
 import RoomListPage from "./RoomListPage";
 import RoomEditPage from "./RoomEditPage";
+import RoomPage from "./RoomPage";
 import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
@@ -361,6 +362,7 @@ class App extends Component {
           <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => this.renderSigninIfNotSignedIn(<RoomPage account={this.state.account} {...props} />)}/>
         </Switch>
       </div>
     )

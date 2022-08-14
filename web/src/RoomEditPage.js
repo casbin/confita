@@ -345,7 +345,7 @@ class RoomEditPage extends React.Component {
           </Col>
           <Col span={22} >
             <Video room={this.state.room} />
-            {/*<Room room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />*/}
+            {/*<RoomOld room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />*/}
           </Col>
         </Row>
       </Card>
