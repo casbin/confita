@@ -14,7 +14,7 @@
 
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {Button, Card, Col, Popconfirm, Tooltip} from "antd";
+import {Button, Card, Col, Popconfirm, Spin, Tooltip} from "antd";
 import {VideoCameraOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import i18next from "i18next";
@@ -28,6 +28,12 @@ class RoomCard extends React.Component {
     this.state = {
       classes: props,
     };
+  }
+
+  componentWillMount() {
+    if (!Setting.isAdminUser(this.props.account) && this.getJoinUrl() === "") {
+      this.registerRoom(this.props.index);
+    }
   }
 
   registerRoom(index) {
@@ -76,13 +82,6 @@ class RoomCard extends React.Component {
     } else {
       return (
         <div>
-          {
-            joinUrl !== "" ? null : (
-              <Button disabled={room.meetingNumber === ""} style={{marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
-                {i18next.t("room:Register")}
-              </Button>
-            )
-          }
           <a target="_blank" rel="noreferrer" href={joinUrl}>
             <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
           </a>
@@ -148,7 +147,7 @@ class RoomCard extends React.Component {
     )
   }
 
-  render() {
+  renderContent() {
     const index = this.props.index;
     const room = this.props.room;
 
@@ -157,6 +156,16 @@ class RoomCard extends React.Component {
     } else {
       return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room);
     }
+  }
+
+  render() {
+    return (
+      <Spin spinning={this.getJoinUrl() === ""} size="large" tip={i18next.t("room:Joining...")} style={{paddingTop: "10%"}} >
+        {
+          this.renderContent()
+        }
+      </Spin>
+    )
   }
 }
 
