@@ -63,6 +63,10 @@ func getLiveStreamMap(room *Room) map[string]int {
 }
 
 func GetRoomWithLive(room *Room) *Room {
+	if room.IngestDomain == "" {
+		return room
+	}
+
 	streamMap := getLiveStreamMap(room)
 
 	_, isLive := streamMap[room.Name]
@@ -80,6 +84,10 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 
 	streamMap := getLiveStreamMap(rooms[0])
 	for _, room := range rooms {
+		if room.IngestDomain == "" {
+			continue
+		}
+
 		_, isLive := streamMap[room.Name]
 		room.IsLive = isLive
 
