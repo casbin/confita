@@ -243,6 +243,24 @@ class RoomEditPage extends React.Component {
               this.updateRoomField('ingestAuthKey', e.target.value);
             }} />
           </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Video width")}:
+          </Col>
+          <Col span={2} >
+            <Input value={this.state.room.videoWidth} onChange={e => {
+              this.updateRoomField('videoWidth', e.target.value);
+            }} />
+          </Col>
+          <Col span={1} />
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Video height")}:
+          </Col>
+          <Col span={2} >
+            <Input value={this.state.room.videoHeight} onChange={e => {
+              this.updateRoomField('videoHeight', e.target.value);
+            }} />
+          </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={2}>
@@ -278,21 +296,12 @@ class RoomEditPage extends React.Component {
             }} />
           </Col>
           <Col span={1} />
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Video width")}:
+          <Col style={{marginTop: '5px'}} span={3}>
+            {i18next.t("room:Mobile streaming auth key")}:
           </Col>
-          <Col span={2} >
-            <Input value={this.state.room.videoWidth} onChange={e => {
-              this.updateRoomField('videoWidth', e.target.value);
-            }} />
-          </Col>
-          <Col span={1} />
-          <Col style={{marginTop: '5px'}} span={2}>
-            {i18next.t("room:Video height")}:
-          </Col>
-          <Col span={2} >
-            <Input value={this.state.room.videoHeight} onChange={e => {
-              this.updateRoomField('videoHeight', e.target.value);
+          <Col span={6} >
+            <Input value={this.state.room.mobileStreamingAuthKey} onChange={e => {
+              this.updateRoomField('mobileStreamingAuthKey', e.target.value);
             }} />
           </Col>
         </Row>

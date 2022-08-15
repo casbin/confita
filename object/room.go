@@ -59,12 +59,13 @@ type Room struct {
 	Participants []*Participant `xorm:"mediumtext" json:"participants"`
 	Status       string         `xorm:"varchar(100)" json:"status"`
 
-	IngestDomain     string `xorm:"varchar(100)" json:"ingestDomain"`
-	IngestAuthKey    string `xorm:"varchar(100)" json:"ingestAuthKey"`
-	StreamingDomain  string `xorm:"varchar(100)" json:"streamingDomain"`
-	StreamingAuthKey string `xorm:"varchar(100)" json:"streamingAuthKey"`
-	VideoWidth       int    `json:"videoWidth"`
-	VideoHeight      int    `json:"videoHeight"`
+	IngestDomain           string `xorm:"varchar(100)" json:"ingestDomain"`
+	IngestAuthKey          string `xorm:"varchar(100)" json:"ingestAuthKey"`
+	StreamingDomain        string `xorm:"varchar(100)" json:"streamingDomain"`
+	StreamingAuthKey       string `xorm:"varchar(100)" json:"streamingAuthKey"`
+	MobileStreamingAuthKey string `xorm:"varchar(100)" json:"mobileStreamingAuthKey"`
+	VideoWidth             int    `json:"videoWidth"`
+	VideoHeight            int    `json:"videoHeight"`
 }
 
 func GetGlobalRooms() []*Room {

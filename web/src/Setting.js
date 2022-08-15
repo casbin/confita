@@ -404,3 +404,7 @@ export function getIngestUrl(room) {
 export function getStreamingUrl(room) {
   return `https://${room.streamingDomain}/${room.conference}/${room.name}.flv?auth_key=${room.streamingAuthKey}`;
 }
+
+export function getMobileStreamingUrl(room) {
+  return `https://${room.streamingDomain}/${room.conference}/${room.name}.m3u8?auth_key=${room.mobileStreamingAuthKey}`;
+}

@@ -46,11 +46,13 @@ class Video extends React.Component {
 
   render() {
     const room = this.props.room;
+    const width = !Setting.isMobile() ? `${room.videoWidth}px` : "100%";
+    const height = `${room.videoHeight}px`;
 
     const config = {
-      source: Setting.getStreamingUrl(room),
-      width: !Setting.isMobile() ? `${room.videoWidth}px` : "100%",
-      height: `${room.videoHeight}px`,
+      source: !Setting.isMobile() ? Setting.getStreamingUrl(room) : Setting.getMobileStreamingUrl(room),
+      width: width,
+      height: height,
       autoplay: true,
       isLive: true,
       rePlay: false,
@@ -62,8 +64,12 @@ class Video extends React.Component {
       useH5Prism: true,
     };
 
+    if (Setting.isMobile()) {
+      delete config.height;
+    }
+
     return (
-      <div style={{width: room.videoWidth, height: room.videoHeight, margin: "auto"}}>
+      <div style={{width: width, height: height, margin: "auto"}}>
         <Player
           config={config}
           onGetInstance={player => {
