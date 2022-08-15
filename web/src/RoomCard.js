@@ -34,7 +34,16 @@ class RoomCard extends React.Component {
     this.props.onRegisterRoom(index);
   }
 
-  renderButtons(index, room, startUrl, joinUrl, isMobile) {
+  getJoinUrl() {
+    const room = this.props.room;
+    const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
+    return participant === undefined ? "" : participant.joinUrl;
+  }
+
+  renderButtons(index, room) {
+    const startUrl = room.startUrl;
+    const joinUrl = this.getJoinUrl();
+
     if (Setting.isAdminUser(this.props.account)) {
       return (
         <div>
@@ -42,7 +51,7 @@ class RoomCard extends React.Component {
             <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Join In")}</Button>
           </a>
           {
-            isMobile ? null : (
+            Setting.isMobile() ? null : (
               (startUrl === "") ? (
                 <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
@@ -78,7 +87,7 @@ class RoomCard extends React.Component {
             <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
           </a>
           {
-            isMobile ? null : (
+            Setting.isMobile() ? null : (
               (room.meetingNumber === "" || joinUrl === "") ? (
                 <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
@@ -94,7 +103,7 @@ class RoomCard extends React.Component {
     }
   }
 
-  renderCardMobile(logo, link, title, desc, time, isSingle, index, room, isAdmin, startUrl, joinUrl) {
+  renderCardMobile(logo, link, title, desc, time, isSingle, index, room) {
     const gridStyle = {
       width: '100vw',
       textAlign: 'center',
@@ -110,13 +119,13 @@ class RoomCard extends React.Component {
         />
         <br/>
         {
-          this.renderButtons(index, room, startUrl, joinUrl, true)
+          this.renderButtons(index, room)
         }
       </Card.Grid>
     )
   }
 
-  renderCard(logo, link, title, desc, time, isSingle, index, room, isAdmin, startUrl, joinUrl) {
+  renderCard(logo, link, title, desc, time, isSingle, index, room) {
     return (
       <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
@@ -132,7 +141,7 @@ class RoomCard extends React.Component {
           <br/>
           <br/>
           {
-            this.renderButtons(index, room, startUrl, joinUrl, false)
+            this.renderButtons(index, room)
           }
         </Card>
       </Col>
@@ -142,16 +151,11 @@ class RoomCard extends React.Component {
   render() {
     const index = this.props.index;
     const room = this.props.room;
-    const isAdmin = Setting.isAdminUser(this.props.account);
-
-    const startUrl = room.startUrl;
-    const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
-    const joinUrl = participant === undefined ? "" : participant.joinUrl;
 
     if (Setting.isMobile()) {
-      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room, isAdmin, startUrl, joinUrl);
+      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room);
     } else {
-      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room, isAdmin, startUrl, joinUrl);
+      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room);
     }
   }
 }
