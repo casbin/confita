@@ -272,7 +272,7 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")} {!room.isLive ? null : `(${room.liveUserCount})`}</Button>
+                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
                 <Button style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
                   title={`Sure to delete room: ${room.name} ?`}
@@ -306,7 +306,7 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")} {!room.isLive ? null : `(${room.liveUserCount})`}</Button>
+                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
               </div>
             )
           }

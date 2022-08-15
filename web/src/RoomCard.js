@@ -67,7 +67,7 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")} {!room.isLive ? null : `(${room.liveUserCount})`}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
           <Button style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
@@ -96,7 +96,7 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")} {!room.isLive ? null : `(${room.liveUserCount})`}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
         </div>
       )
     }
