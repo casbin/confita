@@ -52,7 +52,7 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")} {!room.isLive ? null : `(${room.liveUserCount})`}</Button>
           <Button style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
@@ -88,7 +88,7 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")} {!room.isLive ? null : `(${room.liveUserCount})`}</Button>
         </div>
       )
     }
@@ -124,7 +124,7 @@ class RoomCard extends React.Component {
           cover={
             <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
           }
-          style={isSingle ? {width: "400px", cursor: "default"} : {width: "100%", cursor: "default"}}
+          style={isSingle ? {width: "420px", cursor: "default"} : {width: "100%", cursor: "default"}}
         >
           <Meta title={title} description={desc} />
           <br/>

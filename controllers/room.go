@@ -31,6 +31,7 @@ func (c *ApiController) GetGlobalRooms() {
 	if !user.IsAdmin {
 		rooms = object.GetMaskedRooms(rooms, user.Name)
 	}
+	rooms = object.GetRoomsWithLive(rooms)
 
 	c.Data["json"] = rooms
 	c.ServeJSON()
@@ -49,6 +50,7 @@ func (c *ApiController) GetRooms() {
 	if !user.IsAdmin {
 		rooms = object.GetMaskedRooms(rooms, user.Name)
 	}
+	rooms = object.GetRoomsWithLive(rooms)
 
 	c.Data["json"] = rooms
 	c.ServeJSON()
@@ -67,6 +69,7 @@ func (c *ApiController) GetRoom() {
 	if !user.IsAdmin {
 		room = object.GetMaskedRoom(room, user.Name)
 	}
+	room = object.GetRoomWithLive(room)
 
 	c.Data["json"] = room
 	c.ServeJSON()

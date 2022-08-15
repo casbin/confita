@@ -33,6 +33,10 @@ cloud.google.com/go/storage v1.10.0/go.mod h1:FLPqc6j+Ki4BU591ie1oL6qBQGu2Bl/tZ9
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 gitea.com/xorm/sqlfiddle v0.0.0-20180821085327-62ce714f951a h1:lSA0F4e9A2NcQSqGqTOXqu2aRi/XEQxDCBwM8yJtE6s=
 gitea.com/xorm/sqlfiddle v0.0.0-20180821085327-62ce714f951a/go.mod h1:EXuID2Zs0pAQhH8yz+DNjUbjppKQzKFAn28TMYPB6IU=
+github.com/BPing/aliyun-live-go-sdk v0.2.1-0.20180520144035-713cf9c6342c h1:jIJ651drHCV2rjIEMipIOBNx04c6oOPdcViKeY9+RsY=
+github.com/BPing/aliyun-live-go-sdk v0.2.1-0.20180520144035-713cf9c6342c/go.mod h1:Ivr3SgQvfBB0Rohv30ppGDBCgHKssajh1MK25HfUH0Y=
+github.com/BPing/go-toolkit v0.0.0-20171104074452-da45c0250b01 h1:kxs+lWHKWp9iieh23ONgo5bpGwXThxIM5uLmuLSZ4uU=
+github.com/BPing/go-toolkit v0.0.0-20171104074452-da45c0250b01/go.mod h1:E28CbU5atbp1AGyCOmtxPo3Ssp9lOujgTjqj0+i/DF8=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Knetic/govaluate v3.0.0+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=

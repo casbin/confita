@@ -353,7 +353,11 @@ class RoomEditPage extends React.Component {
             {i18next.t("general:Preview")}:
           </Col>
           <Col span={22} >
-            <Video room={this.state.room} />
+            {
+              !this.state.room.isLive ? null : (
+                <Video room={this.state.room} />
+              )
+            }
             {/*<RoomOld room={this.state.room} account={this.props.account} onGetRoom={() => {this.getRoom()}} />*/}
           </Col>
         </Row>

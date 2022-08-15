@@ -3,6 +3,8 @@ module github.com/casbin/confita
 go 1.16
 
 require (
+	github.com/BPing/aliyun-live-go-sdk v0.2.1-0.20180520144035-713cf9c6342c
+	github.com/BPing/go-toolkit v0.0.0-20171104074452-da45c0250b01 // indirect
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.9+incompatible
 	github.com/astaxie/beego v1.12.3
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
