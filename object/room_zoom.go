@@ -25,9 +25,8 @@ import (
 var zoomClient zoomAPI.Client
 
 func InitRoomClient() {
-	zoomClient = zoomAPI.NewClient(zoomApiEndpoint, zoomJwtToken)
+	zoomClient = zoomAPI.NewClient(zoomApiEndpoint, zoomJwtToken, proxy.ProxyHttpClient)
 	zoomClient.IsWebinar = true
-	zoomClient.SetHttpClient(proxy.ProxyHttpClient)
 }
 
 func getMeetingStartUrl(meetingNumber string) string {
