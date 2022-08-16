@@ -39,6 +39,37 @@ func getMeetingStartUrl(meetingNumber string) string {
 	return resp.StartUrl
 }
 
+func getMeetingRegistrantId(meetingNumber string, email string) string {
+	meetingId := util.ParseInt(meetingNumber)
+
+	resp, err := zoomClient.ListMeetingRegistrants(meetingId, "pending")
+	if err != nil {
+		panic(err)
+	}
+
+	for _, registrant := range resp.Registrants {
+		if email == registrant.Email {
+			return registrant.Id
+		}
+	}
+	return ""
+}
+
+func approveMeetingRegistrant(meetingNumber string, email string) {
+	id := getMeetingRegistrantId(meetingNumber, email)
+	if id == "" {
+		panic(fmt.Errorf("getMeetingRegistrantId() error, meetingNumber = %s, email = %s, id = %s", meetingNumber, email, id))
+	}
+
+	meetingId := util.ParseInt(meetingNumber)
+
+	registrants := []zoomAPI.Registrant{{email, id}}
+	err := zoomClient.UpdateMeetingRegistrantStatus(meetingId, "approve", registrants)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func addMeetingRegistrant(meetingNumber string, name string, displayName string, email string, affiliation string) string {
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error
@@ -75,6 +106,8 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	if err != nil {
 		panic(err)
 	}
+
+	approveMeetingRegistrant(meetingNumber, email)
 
 	return resp.JoinUrl
 }
