@@ -22,6 +22,7 @@ import (
 	"github.com/casbin/confita/casdoor"
 	"github.com/casbin/confita/conf"
 	"github.com/casbin/confita/object"
+	"github.com/casbin/confita/proxy"
 	"github.com/casbin/confita/routers"
 	"github.com/casbin/confita/util"
 
@@ -32,6 +33,8 @@ func main() {
 	object.InitAdapter()
 	casdoor.InitCasdoorAdapter()
 	util.InitIpDb()
+	proxy.InitHttpClient()
+	object.InitRoomClient()
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins:     []string{"*"},

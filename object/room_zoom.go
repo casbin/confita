@@ -17,15 +17,17 @@ package object
 import (
 	"fmt"
 
+	"github.com/casbin/confita/proxy"
 	"github.com/casbin/confita/util"
 	"github.com/nomeguy/zoom-go/zoomAPI"
 )
 
 var zoomClient zoomAPI.Client
 
-func init() {
+func InitRoomClient() {
 	zoomClient = zoomAPI.NewClient(zoomApiEndpoint, zoomJwtToken)
 	zoomClient.IsWebinar = true
+	zoomClient.SetHttpClient(proxy.ProxyHttpClient)
 }
 
 func getMeetingStartUrl(meetingNumber string) string {
