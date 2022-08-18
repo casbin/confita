@@ -132,7 +132,7 @@ class RoomCard extends React.Component {
           cover={
             <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
           }
-          style={isSingle ? {width: "420px", cursor: "default"} : {width: "100%", cursor: "default"}}
+          style={isSingle ? {width: "420px", cursor: "default"} : {width: "20vw", cursor: "default"}}
         >
           <Meta title={title} description={desc} />
           <br/>
@@ -160,7 +160,7 @@ class RoomCard extends React.Component {
 
   render() {
     return (
-      <Spin spinning={this.getJoinUrl() === ""} size="large" tip={i18next.t("room:Joining...")} style={{paddingTop: "10%"}} >
+      <Spin spinning={this.getJoinUrl() === "" && this.props.room.meetingNumber !== "123456789" && this.props.room.startUrl !== ""} size="large" tip={i18next.t("room:Joining...")} style={{paddingTop: "10%"}} >
         {
           this.renderContent()
         }
