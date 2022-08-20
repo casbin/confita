@@ -14,8 +14,8 @@
 
 import React, {Component} from 'react';
 import {Switch, Redirect, Route, withRouter, Link} from 'react-router-dom';
-import {Avatar, BackTop, Dropdown, Layout, Menu} from 'antd';
-import {DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
+import {Avatar, BackTop, Dropdown, Layout, Menu, Modal} from 'antd';
+import {CloseCircleTwoTone, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
 import './App.less';
 import * as Setting from "./Setting";
 import * as AccountBackend from "./backend/AccountBackend";
@@ -45,6 +45,7 @@ class App extends Component {
       classes: props,
       selectedMenuKey: 0,
       account: undefined,
+      isDupSession: false,
       uri: null,
     };
 
@@ -107,6 +108,13 @@ class App extends Component {
   getAccount() {
     AccountBackend.getAccount()
       .then((res) => {
+        if (res.status === "error" && res.msg === "you have signed in from another place, this session has been ended") {
+          this.setState({
+            isDupSession: true,
+          });
+          return;
+        }
+
         let account = res.data;
         if (account !== null) {
           this.setLanguage(account);
@@ -303,6 +311,41 @@ class App extends Component {
     return res;
   }
 
+  renderDupSessionModal() {
+    if (!this.state.isDupSession) {
+      return null;
+    }
+
+    const handleOk = () => {
+      this.signout();
+    };
+
+    return (
+      <Modal
+        title={
+          <div>
+            <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
+            {" " + i18next.t("general:You have signed in from another place...")}
+          </div>
+        }
+        visible={true}
+        cancelButtonProps={{
+          style: {
+            display: "none",
+          },
+        }}
+        onOk={handleOk}
+        onCancel={() => {}}
+        okText={i18next.t("general:Sign Out")}
+        closable={false}
+      >
+        <div>
+          {i18next.t("general:Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.")}
+        </div>
+      </Modal>
+    )
+  }
+
   renderHomeIfSignedIn(component) {
     if (this.state.account !== null && this.state.account !== undefined) {
       return <Redirect to='/' />
@@ -396,6 +439,9 @@ class App extends Component {
         </div>
         {
           this.renderFooter()
+        }
+        {
+          this.renderDupSessionModal()
         }
       </div>
     );

@@ -51,6 +51,7 @@
     "Home": "首页",
     "Name": "名称",
     "No.": "排名",
+    "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.": "该页面仅允许一个会话访问。您已经从另一个位置登录，本会话自动结束。如果您仍想通过本设备登录，请点击下方“退出登录”按钮，并在本设备上重新登录，另一个会话将会被自动结束。",
     "Organization": "组织",
     "Owner": "所有者",
     "Payments": "支付信息",
@@ -60,9 +61,11 @@
     "Rooms": "我的会场",
     "Save": "保存",
     "Service Desk": "联系官方",
+    "Sign Out": "退出登录",
     "Status": "状态",
     "Submissions": "我的稿件",
-    "User": "用户"
+    "User": "用户",
+    "You have signed in from another place...": "您已经从另一个位置登录..."
   },
   "payment": {
     "Affiliation": "工作单位",

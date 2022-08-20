@@ -51,6 +51,7 @@
     "Home": "Home",
     "Name": "Name",
     "No.": "No.",
+    "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.": "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.",
     "Organization": "Organization",
     "Owner": "Owner",
     "Payments": "Payments",
@@ -60,9 +61,11 @@
     "Rooms": "Rooms",
     "Save": "Save",
     "Service Desk": "Service Desk",
+    "Sign Out": "Sign Out",
     "Status": "Status",
     "Submissions": "Submissions",
-    "User": "User"
+    "User": "User",
+    "You have signed in from another place...": "You have signed in from another place..."
   },
   "payment": {
     "Affiliation": "Affiliation",

@@ -59,6 +59,11 @@ func (c *ApiController) Signin() {
 }
 
 func (c *ApiController) Signout() {
+	claims := c.GetSessionClaims()
+	if claims != nil {
+		clearUserDuplicated(claims)
+	}
+
 	c.SetSessionClaims(nil)
 
 	c.ResponseOk()
@@ -70,6 +75,13 @@ func (c *ApiController) GetAccount() {
 	}
 
 	claims := c.GetSessionClaims()
+
+	if isUserDuplicated(claims) {
+		if !claims.IsAdmin {
+			c.ResponseError("you have signed in from another place, this session has been ended")
+			return
+		}
+	}
 
 	c.ResponseOk(claims)
 }
