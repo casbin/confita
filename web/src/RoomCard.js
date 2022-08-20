@@ -83,7 +83,7 @@ class RoomCard extends React.Component {
       return (
         <div>
           <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginLeft: '20px', marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
           </a>
           {
             Setting.isMobile() ? null : (
@@ -96,7 +96,7 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
         </div>
       )
     }
@@ -132,7 +132,7 @@ class RoomCard extends React.Component {
           cover={
             <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
           }
-          style={isSingle ? {width: "420px", cursor: "default"} : {width: "20vw", cursor: "default"}}
+          style={isSingle ? {width: "420px", cursor: "default"} : {width: "25vw", cursor: "default"}}
         >
           <Meta title={title} description={desc} />
           <br/>
