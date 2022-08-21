@@ -372,8 +372,8 @@ class RoomListPage extends React.Component {
       return (
         <Card bodyStyle={{padding: 0}}>
           {
-            rooms.map(room => {
-              return this.renderCard(0, room, isSingle);
+            rooms.map((room, i) => {
+              return this.renderCard(i, room, isSingle);
             })
           }
         </Card>
