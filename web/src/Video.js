@@ -49,12 +49,24 @@ class Video extends React.Component {
     const width = !Setting.isMobile() ? `${room.videoWidth}px` : "100%";
     const height = `${room.videoHeight}px`;
 
+    let isLive;
+    let source;
+    if (room.isLive) {
+      isLive = true;
+      source = !Setting.isMobile() ? Setting.getStreamingUrl(room) : Setting.getMobileStreamingUrl(room);
+    } else if (room.videoUrl !== "") {
+      isLive = false;
+      source = room.videoUrl;
+    } else {
+      return null;
+    }
+
     const config = {
-      source: !Setting.isMobile() ? Setting.getStreamingUrl(room) : Setting.getMobileStreamingUrl(room),
+      source: source,
       width: width,
       height: height,
       autoplay: true,
-      isLive: true,
+      isLive: isLive,
       rePlay: false,
       playsinline: true,
       preload: true,

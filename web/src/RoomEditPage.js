@@ -321,6 +321,16 @@ class RoomEditPage extends React.Component {
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Video URL")}:
+          </Col>
+          <Col span={22} >
+            <Input prefix={<LinkOutlined/>} value={this.state.room.videoUrl} onChange={e => {
+              this.updateRoomField('videoUrl', e.target.value);
+            }} />
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
           <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
             {i18next.t("room:Participants")}:
           </Col>
@@ -343,6 +353,7 @@ class RoomEditPage extends React.Component {
                 [
                   {id: 'Started', name: i18next.t("room:Started")},
                   {id: 'Ended', name: i18next.t("room:Ended")},
+                  {id: 'Hidden', name: i18next.t("room:Hidden")},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>

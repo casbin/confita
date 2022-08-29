@@ -68,6 +68,8 @@ type Room struct {
 	VideoHeight            int    `json:"videoHeight"`
 	IsLive                 bool   `json:"isLive"`
 	LiveUserCount          int    `json:"liveUserCount"`
+
+	VideoUrl string `xorm:"varchar(255)" json:"videoUrl"`
 }
 
 func GetGlobalRooms() []*Room {

@@ -15,7 +15,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from 'antd';
-import {CloseCircleTwoTone, VideoCameraOutlined} from "@ant-design/icons";
+import {CloseCircleTwoTone, PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
@@ -242,8 +242,12 @@ class RoomListPage extends React.Component {
         render: (text, record, index) => {
           if (text === "Started") {
             return i18next.t("room:Started");
-          } else {
+          } else if (text === "Ended") {
             return i18next.t("room:Ended");
+          } else if (text === "Hidden") {
+            return i18next.t("room:Hidden");
+          } else {
+            return text;
           }
         }
       },
@@ -251,7 +255,7 @@ class RoomListPage extends React.Component {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
-        width: '250px',
+        width: '270px',
         render: (text, room, index) => {
           const startUrl = room.startUrl;
           const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
@@ -273,6 +277,7 @@ class RoomListPage extends React.Component {
                   )
                 }
                 <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+                <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
                 <Button style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
                   title={`Sure to delete room: ${room.name} ?`}

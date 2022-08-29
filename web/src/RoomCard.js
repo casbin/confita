@@ -15,7 +15,7 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {Button, Card, Col, Popconfirm, Spin, Tooltip} from "antd";
-import {VideoCameraOutlined} from "@ant-design/icons";
+import {PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import QrCode from "./QrCode";
@@ -68,6 +68,7 @@ class RoomCard extends React.Component {
             )
           }
           <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
           <Button style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
@@ -83,7 +84,7 @@ class RoomCard extends React.Component {
       return (
         <div>
           <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginLeft: '20px', marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginLeft: '25px', marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
           </a>
           {
             Setting.isMobile() ? null : (
@@ -97,6 +98,7 @@ class RoomCard extends React.Component {
             )
           }
           <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: '100px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
         </div>
       )
     }

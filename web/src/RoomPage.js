@@ -17,6 +17,7 @@ import {Col, Row} from "antd";
 import * as RoomBackend from "./backend/RoomBackend";
 import * as Setting from "./Setting";
 import Video from "./Video";
+import i18next from "i18next";
 
 class RoomPage extends React.Component {
   constructor(props) {
@@ -46,12 +47,25 @@ class RoomPage extends React.Component {
     return this.props.room !== undefined ? this.props.room : this.state.room;
   }
 
+  getRoomTitle(room) {
+    let type;
+    if (room.isLive) {
+      type = i18next.t("room:Live");
+    } else if (room.videoUrl !== "") {
+      type = i18next.t("room:Playback");
+    } else {
+      type = i18next.t("room:No Content");
+    }
+
+    return `${room.displayName} (${type})`;
+  }
+
   renderVideo(room) {
     return (
       <div style={{marginTop: "10px", textAlign: "center"}}>
         <div style={{fontSize: 30, marginBottom: "20px"}}>
           {
-            this.state.room.displayName
+            this.getRoomTitle(room)
           }
         </div>
         <Video room={room} />
