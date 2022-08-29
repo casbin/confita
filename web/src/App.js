@@ -265,13 +265,6 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
-      res.push(
-        <Menu.Item key="/resources">
-          <a target="_blank" rel="noreferrer" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
-            {i18next.t("general:Resources")}
-          </a>
-        </Menu.Item>
-      );
     }
 
     res.push(
@@ -281,7 +274,13 @@ class App extends Component {
         </Link>
       </Menu.Item>
     );
-
+    res.push(
+      <Menu.Item key="/videos">
+        <a target="_blank" rel="noreferrer" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/resources")}>
+          {i18next.t("general:Videos")}
+        </a>
+      </Menu.Item>
+    );
     res.push(
       <Menu.Item key="/contact">
         <Link to="/contact">

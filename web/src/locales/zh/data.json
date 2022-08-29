@@ -57,7 +57,6 @@
     "Payments": "支付信息",
     "Preview": "预览",
     "Registrations": "我的注册",
-    "Resources": "我的资源",
     "Rooms": "我的会场",
     "Save": "保存",
     "Service Desk": "联系官方",
@@ -65,6 +64,7 @@
     "Status": "状态",
     "Submissions": "我的稿件",
     "User": "用户",
+    "Videos": "我的视频",
     "You have signed in from another place...": "您已经从另一个位置登录..."
   },
   "payment": {
