@@ -71,8 +71,9 @@ func GetRoomWithLive(room *Room) *Room {
 
 	_, isLive := streamMap[room.Name]
 	room.IsLive = isLive
-
-	room.LiveUserCount = getStreamOnlineCount(room)
+	if isLive {
+		room.LiveUserCount = getStreamOnlineCount(room)
+	}
 
 	return room
 }
@@ -90,8 +91,9 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 
 		_, isLive := streamMap[room.Name]
 		room.IsLive = isLive
-
-		room.LiveUserCount = getStreamOnlineCount(room)
+		if isLive {
+			room.LiveUserCount = getStreamOnlineCount(room)
+		}
 	}
 
 	return rooms
