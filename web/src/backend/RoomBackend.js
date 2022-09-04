@@ -14,8 +14,8 @@
 
 import * as Setting from "../Setting";
 
-export function getGlobalRooms() {
-  return fetch(`${Setting.ServerUrl}/api/get-global-rooms`, {
+export function getGlobalRooms(isPublic) {
+  return fetch(`${Setting.ServerUrl}/api/get-global-rooms?isPublic=${isPublic ? '1' : '0'}`, {
     method: "GET",
     credentials: "include"
   }).then(res => res.json());

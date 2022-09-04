@@ -18,17 +18,28 @@ import (
 	"encoding/json"
 
 	"github.com/casbin/confita/object"
+	"github.com/casdoor/casdoor-go-sdk/auth"
 )
 
 func (c *ApiController) GetGlobalRooms() {
-	if c.RequireSignedIn() {
-		return
+	isPublic := c.Input().Get("isPublic")
+	if isPublic != "1" {
+		if c.RequireSignedIn() {
+			return
+		}
 	}
 
 	rooms := object.GetGlobalRooms()
 
+	if isPublic == "1" {
+		rooms = object.GetPublicRooms(rooms)
+	}
+
 	user := c.GetSessionUser()
-	if !user.IsAdmin {
+	if isPublic == "1" || !user.IsAdmin {
+		if user == nil {
+			user = &auth.User{Name: ""}
+		}
 		rooms = object.GetMaskedRooms(rooms, user.Name)
 	}
 	rooms = object.GetRoomsWithLive(rooms)
@@ -57,15 +68,18 @@ func (c *ApiController) GetRooms() {
 }
 
 func (c *ApiController) GetRoom() {
-	if c.RequireSignedIn() {
-		return
-	}
+	//if c.RequireSignedIn() {
+	//	return
+	//}
 
 	id := c.Input().Get("id")
 
 	room := object.GetRoom(id)
 
 	user := c.GetSessionUser()
+	if user == nil {
+		user = &auth.User{Name: ""}
+	}
 	if !user.IsAdmin {
 		room = object.GetMaskedRoom(room, user.Name)
 	}

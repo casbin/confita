@@ -86,6 +86,8 @@ class App extends Component {
       this.setState({ selectedMenuKey: '/all-pays' });
     } else if (uri.includes('/rooms')) {
       this.setState({ selectedMenuKey: '/rooms' });
+    } else if (uri.includes('/public-rooms')) {
+      this.setState({ selectedMenuKey: '/public-rooms' });
     } else {
       this.setState({selectedMenuKey: 'null'});
     }
@@ -237,10 +239,6 @@ class App extends Component {
   renderMenu() {
     let res = [];
 
-    if (this.state.account === null || this.state.account === undefined) {
-      return [];
-    }
-
     res.push(
       <Menu.Item key="/">
         <Link to="/">
@@ -248,6 +246,18 @@ class App extends Component {
         </Link>
       </Menu.Item>
     );
+
+    if (this.state.account === null || this.state.account === undefined) {
+      res.push(
+        <Menu.Item key="/public-rooms">
+          <Link to="/public-rooms">
+            {i18next.t("general:Public Rooms")}
+          </Link>
+        </Menu.Item>
+      );
+
+      return res;
+    }
 
     res.push(
       <Menu.Item key="/payments">
@@ -303,6 +313,13 @@ class App extends Component {
       <Menu.Item key="/rooms">
         <Link to="/rooms">
           {i18next.t("general:Rooms")}
+        </Link>
+      </Menu.Item>
+    );
+    res.push(
+      <Menu.Item key="/public-rooms">
+        <Link to="/public-rooms">
+          {i18next.t("general:Public Rooms")}
         </Link>
       </Menu.Item>
     );
@@ -402,9 +419,10 @@ class App extends Component {
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage key={"rooms"} account={this.state.account} {...props} />)}/>
           <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => this.renderSigninIfNotSignedIn(<RoomPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />}/>
+          <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />}/>
         </Switch>
       </div>
     )

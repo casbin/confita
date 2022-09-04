@@ -41,6 +41,10 @@ class RoomCard extends React.Component {
   }
 
   getJoinUrl() {
+    if (this.props.account === null) {
+      return "(anonymous)";
+    }
+
     const room = this.props.room;
     const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
     return participant === undefined ? "" : participant.joinUrl;
@@ -84,12 +88,12 @@ class RoomCard extends React.Component {
       return (
         <div>
           <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginLeft: '25px', marginRight: '10px', marginBottom: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+            <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginLeft: '25px', marginRight: '10px', marginBottom: '10px'}} type="primary" >{i18next.t("room:Join In")}</Button>
           </a>
           {
             Setting.isMobile() ? null : (
-              (room.meetingNumber === "" || joinUrl === "") ? (
-                <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+              (room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)") ? (
+                <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
                 <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
                   <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>

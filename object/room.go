@@ -58,6 +58,7 @@ type Room struct {
 
 	Participants []*Participant `xorm:"mediumtext" json:"participants"`
 	Status       string         `xorm:"varchar(100)" json:"status"`
+	IsPublic     bool           `json:"isPublic"`
 
 	IngestDomain           string `xorm:"varchar(100)" json:"ingestDomain"`
 	IngestAuthKey          string `xorm:"varchar(100)" json:"ingestAuthKey"`
@@ -140,6 +141,16 @@ func GetMaskedRooms(rooms []*Room, username string) []*Room {
 		room = GetMaskedRoom(room, username)
 	}
 	return rooms
+}
+
+func GetPublicRooms(rooms []*Room) []*Room {
+	res := []*Room{}
+	for _, room := range rooms {
+		if room.IsPublic {
+			res = append(res, room)
+		}
+	}
+	return res
 }
 
 func getRoom(owner string, name string) *Room {

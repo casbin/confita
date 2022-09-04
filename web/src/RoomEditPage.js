@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, DatePicker, Input, Row, Select, TimePicker} from 'antd';
+import {Button, Card, Col, DatePicker, Input, Row, Select, Switch, TimePicker} from 'antd';
 import * as RoomBackend from "./backend/RoomBackend";
 import {CopyOutlined, LinkOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
@@ -357,6 +357,16 @@ class RoomEditPage extends React.Component {
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
+          </Col>
+        </Row>
+        <Row style={{marginTop: '20px'}} >
+          <Col style={{marginTop: '5px'}} span={2}>
+            {i18next.t("room:Is public")}:
+          </Col>
+          <Col span={1} >
+            <Switch checked={this.state.room.isPublic} onChange={checked => {
+              this.updateRoomField('isPublic', checked);
+            }} />
           </Col>
         </Row>
         <Row style={{marginTop: '20px'}} >

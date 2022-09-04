@@ -38,11 +38,13 @@ class RoomListPage extends React.Component {
 
   componentWillMount() {
     this.getGlobalRooms();
-    this.getPayments();
+    if (!this.props.isPublic) {
+      this.getPayments();
+    }
   }
 
   getGlobalRooms() {
-    RoomBackend.getGlobalRooms()
+    RoomBackend.getGlobalRooms(this.props.isPublic)
       .then((res) => {
         this.setState({
           rooms: res,
@@ -77,6 +79,7 @@ class RoomListPage extends React.Component {
       inviteLink: "https://zoom.us/j/123456789?pwd=123456",
       participants: [],
       status: "Ended",
+      isPublic: false,
       ingestDomain: "",
       ingestAuthKey: "",
       streamingDomain: "",
@@ -252,6 +255,18 @@ class RoomListPage extends React.Component {
         }
       },
       {
+        title: i18next.t("room:Is public"),
+        dataIndex: 'isPublic',
+        key: 'isPublic',
+        width: '90px',
+        sorter: (a, b) => a.isPublic - b.isPublic,
+        render: (text, record, index) => {
+          return (
+            <Switch checked={text} disabled={true} />
+          )
+        }
+      },
+      {
         title: i18next.t("general:Action"),
         dataIndex: 'action',
         key: 'action',
@@ -324,7 +339,10 @@ class RoomListPage extends React.Component {
         <Table columns={columns} dataSource={rooms} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
                title={() => (
                  <div>
-                   {i18next.t("general:Rooms")}&nbsp;&nbsp;&nbsp;&nbsp;
+                   {
+                     this.props.isPublic ? i18next.t("general:Public Rooms") :
+                       i18next.t("general:Rooms")
+                   }&nbsp;&nbsp;&nbsp;&nbsp;
                    {
                      !Setting.isAdminUser(this.props.account) ? null : (
                        <React.Fragment>
@@ -439,6 +457,8 @@ class RoomListPage extends React.Component {
       this.props.history.push("/payments");
     };
 
+    return null;
+
     return (
         <Modal
             title={
@@ -469,14 +489,10 @@ class RoomListPage extends React.Component {
     return (
       <div>
         <Row style={{width: "100%"}}>
-          <Col span={1}>
-          </Col>
-          <Col span={22}>
+          <Col span={24}>
             {
               this.state.isRoomCalendar ? this.renderCalendar() : this.renderTable(this.state.rooms)
             }
-          </Col>
-          <Col span={1}>
           </Col>
           {
             this.renderPaymentModal()
