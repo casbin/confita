@@ -31,7 +31,7 @@ class RoomCard extends React.Component {
   }
 
   componentWillMount() {
-    if (!Setting.isAdminUser(this.props.account) && this.getJoinUrl() === "") {
+    if (!Setting.isAdminUser(this.props.account) && this.getJoinUrl() === "" && this.getJoinUrl() === "(anonymous)") {
       this.registerRoom(this.props.index);
     }
   }
