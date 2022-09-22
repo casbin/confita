@@ -38,7 +38,7 @@ class RoomOld extends React.Component {
     this.meetingSdkElement = React.createRef();
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getRoom();
   }
 

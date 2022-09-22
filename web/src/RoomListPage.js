@@ -36,7 +36,7 @@ class RoomListPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getGlobalRooms();
     if (!this.props.isPublic) {
       this.getPayments();

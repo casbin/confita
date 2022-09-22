@@ -38,7 +38,7 @@ class RoomEditPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getRoom();
     this.getGlobalConferences();
   }

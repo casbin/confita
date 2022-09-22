@@ -33,7 +33,7 @@ class ParticipantTable extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getUsers();
   }
 

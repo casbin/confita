@@ -30,7 +30,7 @@ class RoomPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getRoom();
   }
 

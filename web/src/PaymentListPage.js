@@ -30,7 +30,7 @@ class PaymentListPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getGlobalPayments();
   }
 

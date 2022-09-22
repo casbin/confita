@@ -28,7 +28,7 @@ class HomePage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getConference();
   }
 

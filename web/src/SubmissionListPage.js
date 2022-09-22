@@ -32,7 +32,7 @@ class SubmissionListPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (Setting.isAdminUser(this.props.account) || Setting.isEditorUser(this.props.account)) {
       this.getGlobalSubmissions();
     } else {

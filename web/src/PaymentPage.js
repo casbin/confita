@@ -43,7 +43,7 @@ class PaymentPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getSubmissions();
     this.getProducts();
     this.getPayments();

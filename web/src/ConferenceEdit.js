@@ -29,7 +29,7 @@ class ConferenceEdit extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
   }
 
   onDragEnter = info => {

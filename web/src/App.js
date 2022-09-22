@@ -53,7 +53,7 @@ class App extends Component {
     Setting.initCasdoorSdk(Conf.AuthConfig);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateMenuKey();
     this.getAccount();
   }
@@ -220,13 +220,6 @@ class App extends Component {
           <a href={Setting.getSigninUrl()}>
             {i18next.t("account:Sign In")}
           </a>
-        </Menu.Item>
-      );
-      res.push(
-        <Menu.Item key="/" style={{float: 'right'}}>
-          <Link to="/">
-            {i18next.t("general:Home")}
-          </Link>
         </Menu.Item>
       );
     } else {
