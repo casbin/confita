@@ -27,6 +27,7 @@ export const TestAffiliation = "";
 
 export const paymentInfo = "";
 export const paymentInfoEn = "";
+export const isPaymentRequired = true;
 
 export const ForceLanguage = "";
 export const DefaultLanguage = "en";

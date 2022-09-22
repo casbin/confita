@@ -441,6 +441,10 @@ class RoomListPage extends React.Component {
   }
 
   renderPaymentModal() {
+    if (!Conf.isPaymentRequired) {
+      return null;
+    }
+
     if (this.state.payments === null) {
       return null;
     }
@@ -456,8 +460,6 @@ class RoomListPage extends React.Component {
     const handleOk = () => {
       this.props.history.push("/payments");
     };
-
-    return null;
 
     return (
         <Modal
