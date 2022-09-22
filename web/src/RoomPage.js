@@ -81,7 +81,7 @@ class RoomPage extends React.Component {
 
     const nodeId = `comments-${Conf.DefaultConferenceName}`;
     const title = encodeURIComponent(`Comments - ${this.state.room.displayName}`);
-    const author = (this.props.account === null) ? "Anonymous" : this.props.account.name;
+    const author = (this.props.account === null) ? "admin" : this.props.account.name;
     const urlPath = encodeURIComponent(`|comment|${this.state.room.displayName}`);
 
     let accessToken;
