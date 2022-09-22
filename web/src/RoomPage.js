@@ -18,6 +18,7 @@ import * as RoomBackend from "./backend/RoomBackend";
 import * as Setting from "./Setting";
 import Video from "./Video";
 import i18next from "i18next";
+import * as Conf from "./Conf";
 
 class RoomPage extends React.Component {
   constructor(props) {
@@ -73,6 +74,36 @@ class RoomPage extends React.Component {
     )
   }
 
+  renderComments() {
+    if (this.state.room === null) {
+      return null;
+    }
+
+    const nodeId = `comments-${Conf.DefaultConferenceName}`;
+    const title = encodeURIComponent(`Comments - ${this.state.room.displayName}`);
+    const author = (this.props.account === null) ? "Anonymous" : this.props.account.name;
+    const urlPath = encodeURIComponent(`|comment|${this.state.room.displayName}`);
+
+    let accessToken;
+    if (this.props.account === null) {
+      // Confita is signed out, also sign out Casnode.
+      accessToken = "signout";
+    } else {
+      accessToken = this.props.account.accessToken;
+    }
+
+    const width = !Setting.isMobile() ? `${this.state.room.videoWidth}px` : "100%";
+
+    return (
+      <iframe
+        key={title}
+        title={title}
+        style={{border: "1px solid rgb(232,232,232)", width: width, height: "100vh"}}
+        src={`${Conf.CasnodeEndpoint}/embedded-replies?nodeId=${nodeId}&title=${title}&author=${author}&urlPath=${urlPath}&accessToken=${accessToken}`}
+      />
+    )
+  }
+
   render() {
     const room = this.getPropsOrStateRoom();
     if (room === null) {
@@ -88,6 +119,11 @@ class RoomPage extends React.Component {
             {
               this.renderVideo(room)
             }
+            <div style={{marginTop: "20px", textAlign: "center"}}>
+              {
+                this.renderComments()
+              }
+            </div>
           </Col>
           <Col span={!Setting.isMobile() ? 1 : 0}>
           </Col>

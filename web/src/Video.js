@@ -47,7 +47,7 @@ class Video extends React.Component {
   render() {
     const room = this.props.room;
     const width = !Setting.isMobile() ? `${room.videoWidth}px` : "100%";
-    const height = `${room.videoHeight}px`;
+    const height = !Setting.isMobile() ? `${room.videoHeight}px` : "100%";
 
     let isLive;
     let source;
