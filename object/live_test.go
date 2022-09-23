@@ -23,5 +23,5 @@ func TestGetLive(t *testing.T) {
 	InitConfig()
 
 	room := getRoom("admin", "seminar_1")
-	fmt.Printf("%v, %d\n", getLiveStreamMap(room), getStreamOnlineCount(room))
+	fmt.Printf("%v, %v\n", getLiveStreamOnlineMap(room), getLiveDomainOnlineCount(room))
 }

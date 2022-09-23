@@ -15,49 +15,65 @@
 package object
 
 import (
-	"github.com/BPing/aliyun-live-go-sdk/aliyun"
-	"github.com/BPing/aliyun-live-go-sdk/device/live"
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
+	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials"
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/live"
 )
 
-func getLiveClient(ingestDomain string, appName string) *live.Live {
-	cred := aliyun.NewCredentials(clientId, clientSecret)
-	res := live.NewLive(cred, ingestDomain, appName, nil).SetDebug(false)
+var LiveClient *live.Client
+
+func init() {
+	LiveClient = getLiveClient()
+}
+
+func getLiveClient() *live.Client {
+	config := sdk.NewConfig()
+	credential := credentials.NewAccessKeyCredential(clientId, clientSecret)
+	client, err := live.NewClientWithOptions("cn-beijing", config, credential)
+	if err != nil {
+		panic(err)
+	}
+
+	return client
+}
+
+func getLiveDomainOnlineCount(room *Room) map[string]int {
+	request := live.CreateDescribeLiveDomainOnlineUserNumRequest()
+	request.Scheme = "https"
+
+	request.DomainName = room.IngestDomain
+
+	response, err := LiveClient.DescribeLiveDomainOnlineUserNum(request)
+	if err != nil {
+		panic(err)
+	}
+
+	res := map[string]int{}
+	for _, streamInfo := range response.OnlineUserInfo.LiveStreamOnlineUserNumInfo {
+		res[streamInfo.StreamName] = 0
+		for _, subStreamInfo := range streamInfo.Infos.Info {
+			res[streamInfo.StreamName] += int(subStreamInfo.UserNumber)
+		}
+	}
 	return res
 }
 
-func getStreamOnlineCount(room *Room) int {
-	client := getLiveClient(room.IngestDomain, room.Conference)
+func getLiveStreamOnlineMap(room *Room) map[string]int {
+	request := live.CreateDescribeLiveStreamsOnlineListRequest()
+	request.Scheme = "https"
 
-	resp := make(map[string]interface{})
-	err := client.StreamOnlineUserNum(room.Name, &resp)
+	request.DomainName = room.IngestDomain
+	request.AppName = room.Conference
+	request.StreamName = room.Name
+
+	response, err := LiveClient.DescribeLiveStreamsOnlineList(request)
 	if err != nil {
 		panic(err)
 	}
-
-	totalUserNumber := resp["TotalUserNumber"].(float64)
-	return int(totalUserNumber)
-}
-
-func getLiveStreamMap(room *Room) map[string]int {
-	client := getLiveClient(room.IngestDomain, room.Conference)
-
-	resp := make(map[string]interface{})
-	err := client.StreamsOnlineList(&resp)
-	if err != nil {
-		panic(err)
-	}
-
-	var onlineInfo map[string]interface{}
-	onlineInfo = resp["OnlineInfo"].(map[string]interface{})
-
-	var liveStreamOnlineInfo []interface{}
-	liveStreamOnlineInfo = onlineInfo["LiveStreamOnlineInfo"].([]interface{})
 
 	res := map[string]int{}
-	for _, tmpInfo := range liveStreamOnlineInfo {
-		info := tmpInfo.(map[string]interface{})
-		streamName := info["StreamName"].(string)
-		res[streamName] = 1
+	for _, info := range response.OnlineInfo.LiveStreamOnlineInfo {
+		res[info.StreamName] = 1
 	}
 	return res
 }
@@ -67,12 +83,13 @@ func GetRoomWithLive(room *Room) *Room {
 		return room
 	}
 
-	streamMap := getLiveStreamMap(room)
+	domainOnlineCountMap := getLiveDomainOnlineCount(room)
+	streamOnlineMap := getLiveStreamOnlineMap(room)
 
-	_, isLive := streamMap[room.Name]
+	_, isLive := streamOnlineMap[room.Name]
 	room.IsLive = isLive
 	if isLive {
-		room.LiveUserCount = getStreamOnlineCount(room)
+		room.LiveUserCount = domainOnlineCountMap[room.Name]
 	}
 
 	return room
@@ -83,16 +100,17 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 		return rooms
 	}
 
-	streamMap := getLiveStreamMap(rooms[0])
+	domainOnlineCountMap := getLiveDomainOnlineCount(rooms[0])
+	streamOnlineMap := getLiveStreamOnlineMap(rooms[0])
 	for _, room := range rooms {
 		if room.IngestDomain == "" {
 			continue
 		}
 
-		_, isLive := streamMap[room.Name]
+		_, isLive := streamOnlineMap[room.Name]
 		room.IsLive = isLive
 		if isLive {
-			room.LiveUserCount = getStreamOnlineCount(room)
+			room.LiveUserCount = domainOnlineCountMap[room.Name]
 		}
 	}
 

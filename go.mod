@@ -3,8 +3,7 @@ module github.com/casbin/confita
 go 1.16
 
 require (
-	github.com/BPing/aliyun-live-go-sdk v0.2.1-0.20180520144035-713cf9c6342c
-	github.com/BPing/go-toolkit v0.0.0-20171104074452-da45c0250b01 // indirect
+	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1790
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.9+incompatible
 	github.com/astaxie/beego v1.12.3
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
@@ -26,7 +25,6 @@ require (
 	golang.org/x/tools v0.1.5 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	xorm.io/core v0.7.3
 	xorm.io/xorm v1.1.2
 )
