@@ -52,6 +52,8 @@ class RoomPage extends React.Component {
     let type;
     if (room.isLive) {
       type = i18next.t("room:Live");
+      const viewers = i18next.t("room:viewers");
+      return `${room.displayName} (${type}, ${viewers}: ${room.liveUserCount})`;
     } else if (room.videoUrl !== "") {
       type = i18next.t("room:Playback");
     } else {

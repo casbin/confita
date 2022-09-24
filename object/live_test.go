@@ -17,11 +17,16 @@ package object
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestGetLive(t *testing.T) {
 	InitConfig()
 
-	room := getRoom("admin", "seminar_1")
-	fmt.Printf("%v, %v\n", getLiveStreamOnlineMap(room), getLiveDomainOnlineCount(room))
+	for {
+		room := getRoom("admin", "seminar_1")
+		fmt.Printf("%v, %v\n", getLiveStreamOnlineMap(room), getLiveDomainOnlineCount(room))
+
+		time.Sleep(time.Second)
+	}
 }

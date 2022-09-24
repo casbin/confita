@@ -13,9 +13,9 @@
 // limitations under the License.
 
 import {Alert, message, Tag} from "antd";
+import {EyeOutlined} from "@ant-design/icons";
 import {isMobile as isMobileDevice} from "react-device-detect";
 import i18next from "i18next";
-// import moment from "moment";
 import Sdk from "casdoor-js-sdk";
 import XLSX from "xlsx";
 
@@ -407,4 +407,23 @@ export function getStreamingUrl(room) {
 
 export function getMobileStreamingUrl(room) {
   return `https://${room.streamingDomain}/${room.conference}/${room.name}.m3u8?auth_key=${room.mobileStreamingAuthKey}`;
+}
+
+export function getRoomLiveUserCount(room) {
+  if (!room.isLive) {
+    return "";
+  }
+
+  return (
+    <span>
+      &nbsp;
+      (
+      &nbsp;
+      <EyeOutlined />
+      &nbsp;
+      {room.liveUserCount}
+      &nbsp;
+      )
+    </span>
+  )
 }

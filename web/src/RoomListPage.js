@@ -291,7 +291,10 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+                  {i18next.t("room:Watch Live")}
+                  {Setting.getRoomLiveUserCount(room)}
+                </Button>
                 <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
                 <Button style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
@@ -326,7 +329,10 @@ class RoomListPage extends React.Component {
                     </Tooltip>
                   )
                 }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+                  {i18next.t("room:Watch Live")}
+                  {Setting.getRoomLiveUserCount(room)}
+                </Button>
               </div>
             )
           }

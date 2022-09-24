@@ -63,16 +63,19 @@ class RoomCard extends React.Component {
           {
             Setting.isMobile() ? null : (
               (startUrl === "") ? (
-                <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
                 <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
-                  <Button disabled={startUrl === ""} style={{marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                  <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
                 </Tooltip>
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px', marginBottom: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+            {i18next.t("room:Watch Live")}
+            {Setting.getRoomLiveUserCount(room)}
+          </Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: '10px', marginBottom: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
           <Button style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
@@ -93,15 +96,18 @@ class RoomCard extends React.Component {
           {
             Setting.isMobile() ? null : (
               (room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)") ? (
-                <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: '10px', marginBottom: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
                 <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
                 </Tooltip>
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Live")}</Button>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+            {i18next.t("room:Watch Live")}
+            {Setting.getRoomLiveUserCount(room)}
+          </Button>
           <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: '100px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
         </div>
       )

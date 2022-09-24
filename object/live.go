@@ -15,6 +15,8 @@
 package object
 
 import (
+	"strings"
+
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/live"
@@ -41,7 +43,7 @@ func getLiveDomainOnlineCount(room *Room) map[string]int {
 	request := live.CreateDescribeLiveDomainOnlineUserNumRequest()
 	request.Scheme = "https"
 
-	request.DomainName = room.IngestDomain
+	request.DomainName = room.StreamingDomain
 
 	response, err := LiveClient.DescribeLiveDomainOnlineUserNum(request)
 	if err != nil {
@@ -50,9 +52,12 @@ func getLiveDomainOnlineCount(room *Room) map[string]int {
 
 	res := map[string]int{}
 	for _, streamInfo := range response.OnlineUserInfo.LiveStreamOnlineUserNumInfo {
-		res[streamInfo.StreamName] = 0
+		tokens := strings.Split(streamInfo.StreamName, "/")
+		streamName := tokens[len(tokens)-1]
+
+		res[streamName] = 0
 		for _, subStreamInfo := range streamInfo.Infos.Info {
-			res[streamInfo.StreamName] += int(subStreamInfo.UserNumber)
+			res[streamName] += int(subStreamInfo.UserNumber)
 		}
 	}
 	return res
