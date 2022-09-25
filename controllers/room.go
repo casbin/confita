@@ -36,7 +36,7 @@ func (c *ApiController) GetGlobalRooms() {
 	}
 
 	user := c.GetSessionUser()
-	if isPublic == "1" || !user.IsAdmin {
+	if isPublic == "1" && !user.IsAdmin {
 		if user == nil {
 			user = &auth.User{Name: ""}
 		}
