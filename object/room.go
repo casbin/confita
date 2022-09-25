@@ -69,6 +69,7 @@ type Room struct {
 	VideoHeight            int    `json:"videoHeight"`
 	IsLive                 bool   `json:"isLive"`
 	LiveUserCount          int    `json:"liveUserCount"`
+	ViewerCount            int    `json:"viewerCount"`
 
 	VideoUrl string `xorm:"varchar(255)" json:"videoUrl"`
 }
@@ -191,6 +192,19 @@ func UpdateRoom(id string, room *Room) bool {
 	}
 
 	_, err := adapter.engine.ID(core.PK{owner, name}).AllCols().Update(room)
+	if err != nil {
+		panic(err)
+	}
+
+	//return affected != 0
+	return true
+}
+
+func IncrementRoomViewer(id string) bool {
+	room := Room{}
+	owner, name := util.GetOwnerAndNameFromId(id)
+
+	_, err := adapter.engine.ID(core.PK{owner, name}).Incr("viewer_count").Update(room)
 	if err != nil {
 		panic(err)
 	}

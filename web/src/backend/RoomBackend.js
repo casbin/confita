@@ -44,6 +44,13 @@ export function updateRoom(owner, name, room) {
   }).then(res => res.json());
 }
 
+export function incrementRoomViewer(owner, name) {
+  return fetch(`${Setting.ServerUrl}/api/increment-room-viewer?id=${owner}/${encodeURIComponent(name)}`, {
+    method: 'POST',
+    credentials: 'include',
+  }).then(res => res.json());
+}
+
 export function addRoom(room) {
   let newRoom = Setting.deepCopy(room);
   return fetch(`${Setting.ServerUrl}/api/add-room`, {

@@ -421,7 +421,7 @@ export function getRoomLiveUserCount(room) {
       &nbsp;
       <EyeOutlined />
       &nbsp;
-      {room.liveUserCount}
+      {room.viewerCount}
       &nbsp;
       )
     </span>

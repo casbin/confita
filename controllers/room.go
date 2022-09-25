@@ -102,6 +102,13 @@ func (c *ApiController) UpdateRoom() {
 	c.ServeJSON()
 }
 
+func (c *ApiController) IncrementRoomViewer() {
+	id := c.Input().Get("id")
+
+	c.Data["json"] = object.IncrementRoomViewer(id)
+	c.ServeJSON()
+}
+
 func (c *ApiController) AddRoom() {
 	var room object.Room
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &room)

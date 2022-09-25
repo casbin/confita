@@ -86,6 +86,9 @@ class RoomListPage extends React.Component {
       streamingAuthKey: "",
       videoWidth: 1280,
       videoHeight: 720,
+      isLive: false,
+      liveUserCount: 0,
+      viewerCount: 0,
     }
   }
 

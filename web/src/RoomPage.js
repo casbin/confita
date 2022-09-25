@@ -33,6 +33,7 @@ class RoomPage extends React.Component {
 
   UNSAFE_componentWillMount() {
     this.getRoom();
+    this.incrementRoomViewer();
   }
 
   getRoom() {
@@ -41,6 +42,15 @@ class RoomPage extends React.Component {
         this.setState({
           room: room,
         });
+      });
+  }
+
+  incrementRoomViewer() {
+    RoomBackend.incrementRoomViewer(this.state.userName, this.state.roomName)
+      .then((res) => {
+        if (!res) {
+          Setting.showMessage("error", `Room failed to increment viewer`);
+        }
       });
   }
 
@@ -53,7 +63,7 @@ class RoomPage extends React.Component {
     if (room.isLive) {
       type = i18next.t("room:Live");
       const viewers = i18next.t("room:viewers");
-      return `${room.displayName} (${type}, ${viewers}: ${room.liveUserCount})`;
+      return `${room.displayName} (${type}, ${viewers}: ${room.viewerCount})`;
     } else if (room.videoUrl !== "") {
       type = i18next.t("room:Playback");
     } else {
