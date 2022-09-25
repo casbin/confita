@@ -106,12 +106,12 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 	}
 
 	domainOnlineCountMap := getLiveDomainOnlineCount(rooms[0])
-	streamOnlineMap := getLiveStreamOnlineMap(rooms[0])
 	for _, room := range rooms {
 		if room.IngestDomain == "" {
 			continue
 		}
 
+		streamOnlineMap := getLiveStreamOnlineMap(room)
 		_, isLive := streamOnlineMap[room.Name]
 		room.IsLive = isLive
 		if isLive {
