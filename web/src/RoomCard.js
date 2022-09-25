@@ -104,11 +104,11 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
             {i18next.t("room:Watch Live")}
             {Setting.getRoomLiveUserCount(room)}
           </Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: '100px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
         </div>
       )
     }
