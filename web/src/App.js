@@ -300,6 +300,13 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
+      res.push(
+        <Menu.Item key="/users">
+          <a target="_blank" rel="noreferrer" href={Setting.getMyProfileUrl(this.state.account).replace("/account", "/users")}>
+            {i18next.t("general:Users")}
+          </a>
+        </Menu.Item>
+      );
     }
 
     res.push(
