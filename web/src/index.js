@@ -25,7 +25,7 @@ import './index.css';
 import './font.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import {BrowserRouter} from 'react-router-dom';
 import './i18n';
 
