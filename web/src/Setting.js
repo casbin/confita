@@ -131,6 +131,10 @@ export function isEditorUser(account) {
   return account?.tag === "Editor";
 }
 
+export function isCommitteeUser(account) {
+  return account?.tag === "Committee";
+}
+
 export function deepCopy(obj) {
   return Object.assign({}, obj);
 }
