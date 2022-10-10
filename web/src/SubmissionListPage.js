@@ -61,10 +61,10 @@ class SubmissionListPage extends React.Component {
   newSubmission() {
     return {
       owner: this.props.account.name,
-      name: `submission_${this.state.submissions.length}`,
+      name: `submission_${this.props.account.name}_${this.state.submissions.length}`,
       createdTime: moment().format(),
       conference: Conf.DefaultConferenceName,
-      title: `New Submission - ${this.state.submissions.length}`,
+      title: `New Submission - ${this.props.account.name} - ${this.state.submissions.length}`,
       type: "Symposium",
       subType: "Default",
       authors: [{name: this.props.account.displayName, affiliation: this.props.account.affiliation, email: this.props.account.email, isNotified: true, isCorresponding: true}],
@@ -395,7 +395,7 @@ class SubmissionListPage extends React.Component {
         dataIndex: 'completed',
         key: 'completed',
         width: '120px',
-        sorter: (a, b) => a.completed.localeCompare(b.completed),
+        sorter: (a, b) => this.isSubmissionCompleted(a).toString().localeCompare(this.isSubmissionCompleted(b).toString()),
         render: (text, record, index) => {
           if (!this.isSubmissionCompleted(record)) {
             return "Incomplete";

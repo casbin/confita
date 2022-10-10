@@ -201,6 +201,10 @@ export function getShortName(s) {
 }
 
 export function getShortText(s, maxLength=35) {
+  if (s === undefined || s === null) {
+    return s;
+  }
+
   if (s.length > maxLength) {
     return `${s.slice(0, maxLength)}...`;
   } else {
@@ -300,6 +304,10 @@ export function setIsRoomCalendar(isRoomCalendar) {
 }
 
 export function getFilenameFromUrl(url) {
+  if (url === undefined || url === null) {
+    return url;
+  }
+
   const filename = url.substring(url.lastIndexOf('/') + 1);
   return filename;
 }
