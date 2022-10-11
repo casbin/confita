@@ -35,6 +35,7 @@ import RoomPage from "./RoomPage";
 import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
+import CompetitionListPage from "./CompetitionListPage";
 
 const {Header, Footer} = Layout;
 
@@ -78,6 +79,8 @@ class App extends Component {
       this.setState({ selectedMenuKey: '/payments' });
     } else if (uri.includes('/contact')) {
       this.setState({ selectedMenuKey: '/contact' });
+    } else if (uri.includes('/competitions')) {
+      this.setState({ selectedMenuKey: '/competitions' });
     } else if (uri.includes('/conferences')) {
       this.setState({ selectedMenuKey: '/conferences' });
     } else if (uri.includes('/submissions')) {
@@ -242,6 +245,13 @@ class App extends Component {
 
     if (this.state.account === null || this.state.account === undefined) {
       res.push(
+        <Menu.Item key="/competitions">
+          <Link to="/competitions">
+            {i18next.t("general:Competitions")}
+          </Link>
+        </Menu.Item>
+      );
+      res.push(
         <Menu.Item key="/public-rooms">
           <Link to="/public-rooms">
             {i18next.t("general:Public Rooms")}
@@ -256,6 +266,14 @@ class App extends Component {
       <Menu.Item key="/payments">
         <Link to="/payments">
           {i18next.t("general:Payments")}
+        </Link>
+      </Menu.Item>
+    );
+
+    res.push(
+      <Menu.Item key="/competitions">
+        <Link to="/competitions">
+          {i18next.t("general:Competitions")}
         </Link>
       </Menu.Item>
     );
@@ -414,6 +432,7 @@ class App extends Component {
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
           <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)}/>
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
