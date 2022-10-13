@@ -36,6 +36,8 @@ import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
 import CompetitionListPage from "./CompetitionListPage";
+import CodeListPage from "./CodeListPage";
+import CodeEditPage from "./CodeEditPage";
 
 const {Header, Footer} = Layout;
 
@@ -83,6 +85,8 @@ class App extends Component {
       this.setState({ selectedMenuKey: '/competitions' });
     } else if (uri.includes('/conferences')) {
       this.setState({ selectedMenuKey: '/conferences' });
+    }  else if (uri.includes('/code')) {
+      this.setState({ selectedMenuKey: '/code' });
     } else if (uri.includes('/submissions')) {
       this.setState({ selectedMenuKey: '/submissions' });
     } else if (uri.includes('/all-pays')) {
@@ -286,6 +290,13 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
+      res.push(
+        <Menu.Item key="/code">
+          <Link to="/code">
+            {i18next.t("general:Code")}
+          </Link>
+        </Menu.Item>
+      );
     }
 
     res.push(
@@ -435,6 +446,8 @@ class App extends Component {
           <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />}/>
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/code/:codeName" render={(props) => this.renderSigninIfNotSignedIn(<CodeEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
           <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
           <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)}/>
