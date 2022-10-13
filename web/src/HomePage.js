@@ -55,7 +55,7 @@ class HomePage extends React.Component {
         {
           conference.carousels.map((carousel, i) => {
             return (
-              <div>
+              <div key={i}>
                 <h3 style={contentStyle}>
                   <img alt={`carousel-${i}`} style={{width: '100%', height: conference.carouselHeight === "" ? "100%" : conference.carouselHeight}} src={carousel}/>
                 </h3>
