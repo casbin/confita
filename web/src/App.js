@@ -248,13 +248,16 @@ class App extends Component {
     );
 
     if (this.state.account === null || this.state.account === undefined) {
-      res.push(
-        <Menu.Item key="/competitions">
-          <Link to="/competitions">
-            {i18next.t("general:Competitions")}
-          </Link>
-        </Menu.Item>
-      );
+      if (!Conf.IsConferenceMode) {
+        res.push(
+          <Menu.Item key="/competitions">
+            <Link to="/competitions">
+              {i18next.t("general:Competitions")}
+            </Link>
+          </Menu.Item>
+        );
+      }
+
       res.push(
         <Menu.Item key="/public-rooms">
           <Link to="/public-rooms">
@@ -274,13 +277,15 @@ class App extends Component {
       </Menu.Item>
     );
 
-    res.push(
-      <Menu.Item key="/competitions">
-        <Link to="/competitions">
-          {i18next.t("general:Competitions")}
-        </Link>
-      </Menu.Item>
-    );
+    if (!Conf.IsConferenceMode) {
+      res.push(
+        <Menu.Item key="/competitions">
+          <Link to="/competitions">
+            {i18next.t("general:Competitions")}
+          </Link>
+        </Menu.Item>
+      );
+    }
 
     if (Setting.isAdminUser(this.state.account)) {
       res.push(
@@ -290,13 +295,16 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
-      res.push(
-        <Menu.Item key="/code">
-          <Link to="/code">
-            {i18next.t("general:Code")}
-          </Link>
-        </Menu.Item>
-      );
+
+      if (!Conf.IsConferenceMode) {
+        res.push(
+          <Menu.Item key="/code">
+            <Link to="/code">
+              {i18next.t("general:Code")}
+            </Link>
+          </Menu.Item>
+        );
+      }
     }
 
     res.push(
