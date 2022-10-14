@@ -139,7 +139,7 @@ class CodeListPage extends React.Component {
         <Table columns={columns} dataSource={codes} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
                title={() => (
                  <div>
-                   {i18next.t("general:Codes")}&nbsp;&nbsp;&nbsp;&nbsp;
+                   {i18next.t("general:Code")}&nbsp;&nbsp;&nbsp;&nbsp;
                    <Button type="primary" size="small" onClick={this.addCode.bind(this)}>{i18next.t("general:Add")}</Button>
                  </div>
                )}

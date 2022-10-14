@@ -5,6 +5,13 @@
     "Sign Out": "登出",
     "Sign Up": "注册"
   },
+  "code": {
+    "Edit Code": "编辑代码",
+    "Notebook": "笔记本"
+  },
+  "competition": {
+    "Ongoing": "进行中"
+  },
   "conference": {
     "Address": "地址",
     "Apple Now": "报名参赛",
@@ -40,6 +47,8 @@
     "Action": "操作",
     "Add": "添加",
     "All Payments": "所有支付",
+    "Code": "代码",
+    "Competitions": "比赛",
     "Conferences": "我的会议",
     "Created time": "创建时间",
     "Delete": "删除",
@@ -143,9 +152,6 @@
     "Streaming URL": "播流地址",
     "Streaming auth key": "播流鉴权秘钥",
     "Streaming domain": "播流域名",
-    "The current meeting has ended": "当前会议已结束",
-    "The current meeting has started, please join in": "当前会议已开始，请加入",
-    "There are already N participants in the meeting room.": "目前有 N 位参会者",
     "Time": "时间",
     "Video URL": "视频链接",
     "Video height": "直播视频高度",
@@ -163,6 +169,7 @@
     "Conference": "会议",
     "Copy All Emails": "复制所有邮箱",
     "Dataset preview": "数据集预览",
+    "Download Users": "下载用户数据",
     "Edit Submission": "编辑稿件",
     "Final paper files": "最终修改稿",
     "Full paper files": "稿件全文",
