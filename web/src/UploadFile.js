@@ -119,8 +119,7 @@ class UploadFile extends React.Component {
             console.log(JSON.stringify(info));
             const {status, response: res} = info.file;
             if (status !== "uploading") {
-              // eslint-disable-next-line
-              console.log(info.file, info.fileList);
+              // console.log(info.file, info.fileList);
             }
             if (status === "done") {
               if (res.status === "ok") {
