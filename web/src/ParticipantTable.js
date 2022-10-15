@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import React from "react";
-import {DownOutlined, DeleteOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Col, Row, Select, Table, Tooltip} from 'antd';
+import {DeleteOutlined, DownOutlined, UpOutlined} from "@ant-design/icons";
+import {Button, Col, Row, Select, Table, Tooltip} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import * as UserBackend from "./backend/UserBackend";
@@ -22,7 +22,7 @@ import copy from "copy-to-clipboard";
 import moment from "moment";
 import QrCode from "./QrCode";
 
-const { Option } = Select;
+const {Option} = Select;
 
 class ParticipantTable extends React.Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class ParticipantTable extends React.Component {
   }
 
   addRow(table) {
-    let row = {name: `Please select a user - ${table.length}`, createdTime: moment().format(), displayName: "", affiliation: "", email: "", tag: "", role: "Participant", joinUrl: ""};
+    const row = {name: `Please select a user - ${table.length}`, createdTime: moment().format(), displayName: "", affiliation: "", email: "", tag: "", role: "Participant", joinUrl: ""};
     if (table === undefined) {
       table = [];
     }
@@ -89,7 +89,7 @@ class ParticipantTable extends React.Component {
   }
 
   renderTable(table) {
-    let userMap = [];
+    const userMap = [];
     table.forEach(row => {
       userMap[row.name] = 1;
     });
@@ -97,99 +97,99 @@ class ParticipantTable extends React.Component {
     const columns = [
       {
         title: i18next.t("room:No."),
-        dataIndex: 'no',
-        key: 'no',
-        width: '60px',
+        dataIndex: "no",
+        key: "no",
+        width: "60px",
         render: (text, record, index) => {
           return (index + 1);
-        }
+        },
       },
       {
         title: i18next.t("general:Name"),
-        dataIndex: 'name',
-        key: 'name',
-        width: '250px',
+        dataIndex: "name",
+        key: "name",
+        width: "250px",
         render: (text, record, index) => {
           return (
-            <Select virtual={false} showSearch optionFilterProp="label" style={{width: '100%'}} value={`${record.displayName} (${record.name})`} placeholder="Please select user" onChange={name => {
+            <Select virtual={false} showSearch optionFilterProp="label" style={{width: "100%"}} value={`${record.displayName} (${record.name})`} placeholder="Please select user" onChange={name => {
               const user = this.state.users.filter(user => `${user.displayName} (${user.name})` === name)[0];
               if (user !== undefined) {
-                this.updateField(table, index, 'name', user.name);
-                this.updateField(table, index, 'displayName', user.displayName);
-                this.updateField(table, index, 'email', user.email);
-                this.updateField(table, index, 'affiliation', user.affiliation);
-                this.updateField(table, index, 'tag', user.tag);
+                this.updateField(table, index, "name", user.name);
+                this.updateField(table, index, "displayName", user.displayName);
+                this.updateField(table, index, "email", user.email);
+                this.updateField(table, index, "affiliation", user.affiliation);
+                this.updateField(table, index, "tag", user.tag);
                 if (user.name === "admin") {
-                  this.updateField(table, index, 'role', "Host");
+                  this.updateField(table, index, "role", "Host");
                 }
               }
             }}
-                    filterOption={(input, option) =>
-                      option.key.indexOf(input) >= 0
-                    }
+            filterOption={(input, option) =>
+              option.key.indexOf(input) >= 0
+            }
             >
               {
                 this.state.users.filter(user => (userMap[user.name] === undefined)).map((user, index) => <Option key={`${user.displayName} (${user.name})`}>{`${user.displayName} (${user.name})`}</Option>)
               }
             </Select>
-          )
+          );
           // return `${record.displayName} (${record.name})`;
-        }
+        },
       },
       {
         title: i18next.t("payment:Affiliation"),
-        dataIndex: 'affiliation',
-        key: 'affiliation',
+        dataIndex: "affiliation",
+        key: "affiliation",
         // width: '250px',
       },
       {
         title: i18next.t("general:Created time"),
-        dataIndex: 'createdTime',
-        key: 'createdTime',
-        width: '150px',
+        dataIndex: "createdTime",
+        key: "createdTime",
+        width: "150px",
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
-        }
+        },
       },
       {
         title: i18next.t("general:Email"),
-        dataIndex: 'email',
-        key: 'email',
-        width: '200px',
+        dataIndex: "email",
+        key: "email",
+        width: "200px",
       },
       {
         title: i18next.t("payment:Tag"),
-        dataIndex: 'tag',
-        key: 'tag',
-        width: '100px',
+        dataIndex: "tag",
+        key: "tag",
+        width: "100px",
       },
       {
         title: i18next.t("room:Role"),
-        dataIndex: 'role',
-        key: 'role',
-        width: '100px',
+        dataIndex: "role",
+        key: "role",
+        width: "100px",
         render: (text, record, index) => {
           // https://support.zoom.us/hc/en-us/articles/360040324512-Roles-in-a-meeting
           return (
-            <Select disabled={true} virtual={false} style={{width: '100%'}} value={text} onChange={(value => {
-              this.updateField(table, index, 'role', value);
+            <Select disabled={true} virtual={false} style={{width: "100%"}} value={text} onChange={(value => {
+              this.updateField(table, index, "role", value);
             })}>
               {
                 [
-                  {id: 'Host', name: 'Host'},
-                  {id: 'Co-host', name: 'Co-host'},
-                  {id: 'Participant', name: 'Participant'},
+                  {id: "Host", name: "Host"},
+                  {id: "Co-host", name: "Co-host"},
+                  {id: "Participant", name: "Participant"},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("room:Join In"),
-        dataIndex: 'joinUrl',
-        key: 'joinUrl',
-        width: '330px',
+        dataIndex: "joinUrl",
+        key: "joinUrl",
+        width: "330px",
         render: (text, record, index) => {
           const startUrl = this.props.room.startUrl;
 
@@ -201,7 +201,7 @@ class ParticipantTable extends React.Component {
                 </a>
                 <Button disabled={startUrl === ""} style={{marginRight: "5px"}} danger size="small" onClick={() => {
                   copy(startUrl);
-                  Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
+                  Setting.showMessage("success", "Meeting link copied to clipboard successfully");
                 }}>{i18next.t("room:Copy Meeting Link")}</Button>
                 {
                   (text === "") ? (
@@ -213,7 +213,7 @@ class ParticipantTable extends React.Component {
                   )
                 }
               </div>
-            )
+            );
           } else {
             return (
               <div>
@@ -222,7 +222,7 @@ class ParticipantTable extends React.Component {
                 </a>
                 <Button disabled={text === ""} style={{marginRight: "5px"}} size="small" onClick={() => {
                   copy(text);
-                  Setting.showMessage("success", `Meeting link copied to clipboard successfully`);
+                  Setting.showMessage("success", "Meeting link copied to clipboard successfully");
                 }}>{i18next.t("room:Copy Meeting Link")}</Button>
                 {
                   (text === "") ? (
@@ -234,14 +234,14 @@ class ParticipantTable extends React.Component {
                   )
                 }
               </div>
-            )
+            );
           }
-        }
+        },
       },
       {
         title: i18next.t("general:Action"),
-        key: 'action',
-        width: '100px',
+        key: "action",
+        width: "100px",
         render: (text, record, index) => {
           return (
             <div>
@@ -256,18 +256,18 @@ class ParticipantTable extends React.Component {
               </Tooltip>
             </div>
           );
-        }
+        },
       },
     ];
 
     return (
       <Table rowKey="index" columns={columns} dataSource={table} size="middle" bordered pagination={false}
-             title={() => (
-               <div>
-                 {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                 <Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>
-               </div>
-             )}
+        title={() => (
+          <div>
+            {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>
+          </div>
+        )}
       />
     );
   }
@@ -275,7 +275,7 @@ class ParticipantTable extends React.Component {
   render() {
     return (
       <div>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: "20px"}} >
           <Col span={24}>
             {
               this.renderTable(this.props.table)
@@ -283,7 +283,7 @@ class ParticipantTable extends React.Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 

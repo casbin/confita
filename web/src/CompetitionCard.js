@@ -18,7 +18,7 @@ import {Button, Card, Col} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 
-const { Meta } = Card;
+const {Meta} = Card;
 
 class CompetitionCard extends React.Component {
   constructor(props) {
@@ -31,33 +31,33 @@ class CompetitionCard extends React.Component {
   renderButtons() {
     return (
       <div>
-        <Button style={{marginRight: '10px', marginBottom: '10px'}} type="primary">
+        <Button style={{marginRight: "10px", marginBottom: "10px"}} type="primary">
           {i18next.t("competition:Ongoing")}
         </Button>
       </div>
-    )
+    );
   }
 
   renderCardMobile(competition) {
     const gridStyle = {
-      width: '100vw',
-      textAlign: 'center',
-      cursor: 'pointer',
+      width: "100vw",
+      textAlign: "center",
+      cursor: "pointer",
     };
 
     return (
       <Card.Grid style={gridStyle}>
-        <img src={competition.carousels[0]} alt="logo" height={60} style={{marginBottom: '20px', padding: '10px'}}/>
+        <img src={competition.carousels[0]} alt="logo" height={60} style={{marginBottom: "20px", padding: "10px"}} />
         <Meta
           title={competition.displayName}
           description={competition.introduction}
         />
-        <br/>
+        <br />
         {
           this.renderButtons()
         }
       </Card.Grid>
-    )
+    );
   }
 
   renderCard(competition) {
@@ -71,16 +71,16 @@ class CompetitionCard extends React.Component {
           style={{width: "25vw", cursor: "default"}}
         >
           <Meta title={competition.displayName} description={competition.introduction} />
-          <br/>
+          <br />
           <Meta title={""} description={competition.organizer} />
-          <br/>
-          <br/>
+          <br />
+          <br />
           {
             this.renderButtons()
           }
         </Card>
       </Col>
-    )
+    );
   }
 
   renderContent() {

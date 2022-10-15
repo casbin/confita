@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Col, List, Popconfirm, Row, Table, Tooltip} from 'antd';
+import {Button, Col, List, Popconfirm, Row, Table, Tooltip} from "antd";
 import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
@@ -73,18 +73,18 @@ class SubmissionListPage extends React.Component {
       fullWordFileUrl: "",
       fullPdfFileUrl: "",
       status: "Draft",
-    }
+    };
   }
 
   addSubmission() {
     const newSubmission = this.newSubmission();
     SubmissionBackend.addSubmission(newSubmission)
       .then((res) => {
-          Setting.showMessage("success", `Submission added successfully`);
-          this.setState({
-            submissions: Setting.prependRow(this.state.submissions, newSubmission),
-          });
-        }
+        Setting.showMessage("success", "Submission added successfully");
+        this.setState({
+          submissions: Setting.prependRow(this.state.submissions, newSubmission),
+        });
+      }
       )
       .catch(error => {
         Setting.showMessage("error", `Submission failed to add: ${error}`);
@@ -94,11 +94,11 @@ class SubmissionListPage extends React.Component {
   deleteSubmission(i) {
     SubmissionBackend.deleteSubmission(this.state.submissions[i])
       .then((res) => {
-          Setting.showMessage("success", `Submission deleted successfully`);
-          this.setState({
-            submissions: Setting.deleteRow(this.state.submissions, i),
-          });
-        }
+        Setting.showMessage("success", "Submission deleted successfully");
+        this.setState({
+          submissions: Setting.deleteRow(this.state.submissions, i),
+        });
+      }
       )
       .catch(error => {
         Setting.showMessage("error", `Submission failed to delete: ${error}`);
@@ -125,24 +125,24 @@ class SubmissionListPage extends React.Component {
 
     copy(emails);
 
-    Setting.showMessage("success", `All author emails are copied to clipboard successfully`);
+    Setting.showMessage("success", "All author emails are copied to clipboard successfully");
   }
 
   renderTable(submissions) {
     const columns = [
       {
         title: i18next.t("general:Owner"),
-        dataIndex: 'owner',
-        key: 'owner',
-        width: '100px',
+        dataIndex: "owner",
+        key: "owner",
+        width: "100px",
         sorter: (a, b) => a.owner.localeCompare(b.owner),
         render: (text, record, index) => {
           return (
             <a target="_blank" rel="noreferrer" href={Setting.getUserProfileUrl(text)}>
               {Setting.getShortText(text, 15)}
             </a>
-          )
-        }
+          );
+        },
       },
       // {
       //   title: i18next.t("general:Name"),
@@ -160,13 +160,13 @@ class SubmissionListPage extends React.Component {
       // },
       {
         title: i18next.t("general:Created time"),
-        dataIndex: 'createdTime',
-        key: 'createdTime',
-        width: '110px',
+        dataIndex: "createdTime",
+        key: "createdTime",
+        width: "110px",
         sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
-        }
+        },
       },
       // {
       //   title: i18next.t("submission:Conference"),
@@ -188,22 +188,22 @@ class SubmissionListPage extends React.Component {
       // },
       {
         title: i18next.t("submission:Type"),
-        dataIndex: 'type',
-        key: 'type',
-        width: '100px',
+        dataIndex: "type",
+        key: "type",
+        width: "100px",
         sorter: (a, b) => a.type.localeCompare(b.type),
       },
       {
         title: i18next.t("submission:Sub type"),
-        dataIndex: 'subType',
-        key: 'subType',
-        width: '120px',
+        dataIndex: "subType",
+        key: "subType",
+        width: "120px",
         sorter: (a, b) => a.subType.localeCompare(b.subType),
       },
       {
         title: i18next.t("submission:Title"),
-        dataIndex: 'title',
-        key: 'title',
+        dataIndex: "title",
+        key: "title",
         // width: '170px',
         sorter: (a, b) => a.title.localeCompare(b.title),
         render: (text, record, index) => {
@@ -211,14 +211,14 @@ class SubmissionListPage extends React.Component {
             <Link to={`/submissions/${record.owner}/${record.name}`}>
               {text}
             </Link>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("submission:Authors"),
-        dataIndex: 'authors',
-        key: 'authors',
-        width: '100px',
+        dataIndex: "authors",
+        key: "authors",
+        width: "100px",
         render: (text, record, index) => {
           const authors = text;
           if (authors.length === 0) {
@@ -233,26 +233,26 @@ class SubmissionListPage extends React.Component {
                 return (
                   <List.Item>
                     <div style={{display: "inline"}}>
-                      {/*<Tooltip placement="topLeft" title="Edit">*/}
+                      {/* <Tooltip placement="topLeft" title="Edit">*/}
                       {/*  <Button style={{marginRight: "5px"}} icon={<EditOutlined />} size="small" onClick={() => Setting.goToLinkSoft(this, `/providers/${providerItem.name}`)} />*/}
-                      {/*</Tooltip>*/}
-                      {/*<Link to={`/providers/${providerItem.name}`}>*/}
+                      {/* </Tooltip>*/}
+                      {/* <Link to={`/providers/${providerItem.name}`}>*/}
                       {/*  {providerItem.name}*/}
-                      {/*</Link>*/}
+                      {/* </Link>*/}
                       {`${JSON.stringify(authorItem.name)}, ${JSON.stringify(authorItem.email)}, ${JSON.stringify(authorItem.affiliation)}`}
                     </div>
                   </List.Item>
-                )
+                );
               }}
             />
-          )
+          );
         },
       },
       {
         title: i18next.t("submission:Abstract files"),
-        dataIndex: 'absWordFileUrl',
-        key: 'absWordFileUrl',
-        width: '135px',
+        dataIndex: "absWordFileUrl",
+        key: "absWordFileUrl",
+        width: "135px",
         sorter: (a, b) => a.absWordFileUrl.localeCompare(b.absWordFileUrl),
         render: (text, record, index) => {
           if (record.absWordFileUrl === "" && record.absPdfFileUrl === "") {
@@ -260,11 +260,11 @@ class SubmissionListPage extends React.Component {
           }
 
           return (
-            <div style={{width: '135px'}}>
+            <div style={{width: "135px"}}>
               {
                 record.absWordFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.absWordFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.absWordFileUrl)}>
+                    <Button style={{height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(record.absWordFileUrl)}>
                       <div>
                         <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
                       </div>
@@ -278,7 +278,7 @@ class SubmissionListPage extends React.Component {
               {
                 record.absPdfFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.absPdfFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.absPdfFileUrl)}>
+                    <Button style={{height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.openLink(record.absPdfFileUrl)}>
                       <div>
                         <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
                       </div>
@@ -290,14 +290,14 @@ class SubmissionListPage extends React.Component {
                 )
               }
             </div>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("submission:Full paper files"),
-        dataIndex: 'fullWordFileUrl',
-        key: 'fullWordFileUrl',
-        width: '135px',
+        dataIndex: "fullWordFileUrl",
+        key: "fullWordFileUrl",
+        width: "135px",
         sorter: (a, b) => a.fullWordFileUrl.localeCompare(b.fullWordFileUrl),
         render: (text, record, index) => {
           if (record.fullWordFileUrl === "" && record.fullPdfFileUrl === "") {
@@ -305,11 +305,11 @@ class SubmissionListPage extends React.Component {
           }
 
           return (
-            <div style={{width: '135px'}}>
+            <div style={{width: "135px"}}>
               {
                 record.fullWordFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.fullWordFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.fullWordFileUrl)}>
+                    <Button style={{height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(record.fullWordFileUrl)}>
                       <div>
                         <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
                       </div>
@@ -323,7 +323,7 @@ class SubmissionListPage extends React.Component {
               {
                 record.fullPdfFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.fullPdfFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.fullPdfFileUrl)}>
+                    <Button style={{height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.openLink(record.fullPdfFileUrl)}>
                       <div>
                         <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
                       </div>
@@ -335,14 +335,14 @@ class SubmissionListPage extends React.Component {
                 )
               }
             </div>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("submission:Final paper files"),
-        dataIndex: 'finalWordFileUrl',
-        key: 'finalWordFileUrl',
-        width: '135px',
+        dataIndex: "finalWordFileUrl",
+        key: "finalWordFileUrl",
+        width: "135px",
         sorter: (a, b) => a.finalWordFileUrl.localeCompare(b.finalWordFileUrl),
         render: (text, record, index) => {
           if (record.finalWordFileUrl === "" && record.finalPdfFileUrl === "") {
@@ -350,11 +350,11 @@ class SubmissionListPage extends React.Component {
           }
 
           return (
-            <div style={{width: '135px'}}>
+            <div style={{width: "135px"}}>
               {
                 record.finalWordFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.finalWordFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(record.finalWordFileUrl)}>
+                    <Button style={{height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(record.finalWordFileUrl)}>
                       <div>
                         <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
                       </div>
@@ -368,7 +368,7 @@ class SubmissionListPage extends React.Component {
               {
                 record.finalPdfFileUrl === "" ? null : (
                   <Tooltip title={Setting.getFilenameFromUrl(record.finalPdfFileUrl)}>
-                    <Button style={{height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.openLink(record.finalPdfFileUrl)}>
+                    <Button style={{height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.openLink(record.finalPdfFileUrl)}>
                       <div>
                         <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
                       </div>
@@ -380,21 +380,21 @@ class SubmissionListPage extends React.Component {
                 )
               }
             </div>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Status"),
-        dataIndex: 'status',
-        key: 'status',
-        width: '80px',
+        dataIndex: "status",
+        key: "status",
+        width: "80px",
         sorter: (a, b) => a.status.localeCompare(b.status),
       },
       {
         title: i18next.t("submission:Completed"),
-        dataIndex: 'completed',
-        key: 'completed',
-        width: '120px',
+        dataIndex: "completed",
+        key: "completed",
+        width: "120px",
         sorter: (a, b) => this.isSubmissionCompleted(a).toString().localeCompare(this.isSubmissionCompleted(b).toString()),
         render: (text, record, index) => {
           if (!this.isSubmissionCompleted(record)) {
@@ -402,46 +402,46 @@ class SubmissionListPage extends React.Component {
           }
 
           return "Completed";
-        }
+        },
       },
       {
         title: i18next.t("general:Action"),
-        dataIndex: 'action',
-        key: 'action',
-        width: '120px',
+        dataIndex: "action",
+        key: "action",
+        width: "120px",
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/submissions/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
+              <Button style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/submissions/${record.owner}/${record.name}`)}>{i18next.t("general:Edit")}</Button>
               <Popconfirm
                 title={`Sure to delete submission: ${record.name} ?`}
                 onConfirm={() => this.deleteSubmission(index)}
                 okText="OK"
                 cancelText="Cancel"
               >
-                <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
+                <Button style={{marginBottom: "10px"}} type="danger">{i18next.t("general:Delete")}</Button>
               </Popconfirm>
             </div>
-          )
-        }
+          );
+        },
       },
     ];
 
     return (
       <div>
         <Table columns={columns} dataSource={submissions} rowKey="name" size="middle" bordered pagination={{pageSize: 1000}}
-               title={() => (
-                 <div>
-                   {i18next.t("general:Submissions")}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>{i18next.t("general:Add")}</Button>
+          title={() => (
+            <div>
+              {i18next.t("general:Submissions")}&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>{i18next.t("general:Add")}</Button>
                    &nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button size="small" onClick={() => this.copyEmails()}>{i18next.t("submission:Copy All Emails")}</Button>
-                 </div>
-               )}
-               loading={submissions === null}
-               rowClassName={(record, index) => {
-                 return !this.isSubmissionCompleted(record) ? "alert-row" : null;
-               }}
+              <Button size="small" onClick={() => this.copyEmails()}>{i18next.t("submission:Copy All Emails")}</Button>
+            </div>
+          )}
+          loading={submissions === null}
+          rowClassName={(record, index) => {
+            return !this.isSubmissionCompleted(record) ? "alert-row" : null;
+          }}
         />
       </div>
     );

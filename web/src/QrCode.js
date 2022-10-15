@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {QRCodeSVG} from 'qrcode.react';
+import {QRCodeSVG} from "qrcode.react";
 import * as Conf from "./Conf";
 
 class QrCode extends React.Component {
@@ -42,7 +42,7 @@ class QrCode extends React.Component {
           excavate: true,
         }}
       />
-    )
+    );
   }
 }
 

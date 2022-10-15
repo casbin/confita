@@ -1,5 +1,5 @@
 import React from "react";
-import Player from 'aliplayer-react';
+import Player from "aliplayer-react";
 import * as Setting from "./Setting";
 
 class Video extends React.Component {
@@ -41,7 +41,7 @@ class Video extends React.Component {
   }
 
   initPlayer(player) {
-    player.on('ready', () => {this.handleReady(player)});
+    player.on("ready", () => {this.handleReady(player);});
   }
 
   render() {
@@ -89,7 +89,7 @@ class Video extends React.Component {
           }}
         />
       </div>
-    )
+    );
   }
 }
 

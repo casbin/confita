@@ -20,7 +20,7 @@ import * as Setting from "./Setting";
 import i18next from "i18next";
 import QrCode from "./QrCode";
 
-const { Meta } = Card;
+const {Meta} = Card;
 
 class RoomCard extends React.Component {
   constructor(props) {
@@ -58,25 +58,25 @@ class RoomCard extends React.Component {
       return (
         <div>
           <a target="_blank" rel="noreferrer" href={startUrl}>
-            <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Join In")}</Button>
+            <Button disabled={startUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}} danger>{i18next.t("room:Join In")}</Button>
           </a>
           {
             Setting.isMobile() ? null : (
               (startUrl === "") ? (
-                <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                <Button disabled={startUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
                 <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
-                  <Button disabled={startUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                  <Button disabled={startUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                 </Tooltip>
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: '10px', marginBottom: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
             {i18next.t("room:Watch Live")}
             {Setting.getRoomLiveUserCount(room)}
           </Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: '10px', marginBottom: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
-          <Button style={{marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          <Button style={{marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
             onConfirm={() => this.deleteRoom(index)}
@@ -86,54 +86,54 @@ class RoomCard extends React.Component {
             <Button type="danger">{i18next.t("general:Delete")}</Button>
           </Popconfirm>
         </div>
-      )
+      );
     } else {
       return (
         <div>
           <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginLeft: '25px', marginRight: '10px', marginBottom: '10px'}} type="primary" >{i18next.t("room:Join In")}</Button>
+            <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginLeft: "25px", marginRight: "10px", marginBottom: "10px"}} type="primary" >{i18next.t("room:Join In")}</Button>
           </a>
           {
             Setting.isMobile() ? null : (
               (room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)") ? (
-                <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: '10px', marginBottom: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: "10px", marginBottom: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
               ) : (
                 <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: '10px', marginBottom: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
                 </Tooltip>
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px'}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: "10px"}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
             {i18next.t("room:Watch Live")}
             {Setting.getRoomLiveUserCount(room)}
           </Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
         </div>
-      )
+      );
     }
   }
 
   renderCardMobile(logo, link, title, desc, time, isSingle, index, room) {
     const gridStyle = {
-      width: '100vw',
-      textAlign: 'center',
-      cursor: 'pointer',
+      width: "100vw",
+      textAlign: "center",
+      cursor: "pointer",
     };
 
     return (
       <Card.Grid style={gridStyle}>
-        <img src={logo} alt="logo" height={60} style={{marginBottom: '20px', padding: '10px'}}/>
+        <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "10px"}} />
         <Meta
           title={title}
           description={desc}
         />
-        <br/>
+        <br />
         {
           this.renderButtons(index, room)
         }
       </Card.Grid>
-    )
+    );
   }
 
   renderCard(logo, link, title, desc, time, isSingle, index, room) {
@@ -147,16 +147,16 @@ class RoomCard extends React.Component {
           style={isSingle ? {width: "420px", cursor: "default"} : {width: "25vw", cursor: "default"}}
         >
           <Meta title={title} description={desc} />
-          <br/>
+          <br />
           <Meta title={""} description={time} />
-          <br/>
-          <br/>
+          <br />
+          <br />
           {
             this.renderButtons(index, room)
           }
         </Card>
       </Col>
-    )
+    );
   }
 
   renderContent() {
@@ -177,7 +177,7 @@ class RoomCard extends React.Component {
           this.renderContent()
         }
       </Spin>
-    )
+    );
   }
 }
 
