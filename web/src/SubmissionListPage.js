@@ -52,7 +52,7 @@ class SubmissionListPage extends React.Component {
   getSubmissions() {
     SubmissionBackend.getSubmissions(this.props.account.name)
       .then((submissions) => {
-        let submissionMap = {};
+        const submissionMap = {};
         submissions.forEach((submission, i) => {
           if (submission.finalWordFileUrl !== "" || submission.finalPdfFileUrl !== "") {
             submissionMap[submission.owner] = submission;
@@ -69,7 +69,7 @@ class SubmissionListPage extends React.Component {
   getGlobalSubmissions() {
     SubmissionBackend.getGlobalSubmissions()
       .then((submissions) => {
-        let submissionMap = {};
+        const submissionMap = {};
         submissions.forEach((submission, i) => {
           if (submission.finalWordFileUrl !== "" || submission.finalPdfFileUrl !== "") {
             submissionMap[submission.owner] = submission;
@@ -95,7 +95,7 @@ class SubmissionListPage extends React.Component {
   getGlobalPayments() {
     PaymentBackend.getGlobalPayments()
       .then((payments) => {
-        let paymentMap = {};
+        const paymentMap = {};
         payments.forEach((payment, i) => {
           paymentMap[payment.user] = payment;
         });
@@ -107,9 +107,9 @@ class SubmissionListPage extends React.Component {
   }
 
   downloadXlsx() {
-    let data = [];
+    const data = [];
     this.state.users.forEach((user, i) => {
-      let row = {};
+      const row = {};
 
       row["Username"] = user.name;
       row["Name"] = user.displayName;
@@ -133,18 +133,18 @@ class SubmissionListPage extends React.Component {
       data.push(row);
     });
 
-    let sheet = XLSX.utils.json_to_sheet(data);
+    const sheet = XLSX.utils.json_to_sheet(data);
     sheet["!cols"] = [
-      { wch: 20 },
-      { wch: 20 },
-      { wch: 30 },
-      { wch: 15 },
-      { wch: 15 },
-      { wch: 25 },
-      { wch: 15 },
-      { wch: 15 },
-      { wch: 25 },
-      { wch: 25 },
+      {wch: 20},
+      {wch: 20},
+      {wch: 30},
+      {wch: 15},
+      {wch: 15},
+      {wch: 25},
+      {wch: 15},
+      {wch: 15},
+      {wch: 25},
+      {wch: 25},
     ];
 
     const blob = Setting.sheet2blob(sheet, "Default");
@@ -529,15 +529,15 @@ class SubmissionListPage extends React.Component {
               {i18next.t("general:Submissions")}&nbsp;&nbsp;&nbsp;&nbsp;
               <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>{i18next.t("general:Add")}</Button>
                    &nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button size="small" onClick={() => this.copyEmails()}>{i18next.t("submission:Copy All Emails")}</Button>
+              <Button size="small" onClick={() => this.copyEmails()}>{i18next.t("submission:Copy All Emails")}</Button>
                    &nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" disabled={this.state.users === null || this.state.paymentMap === null || this.state.submissionMap === null} size="small" onClick={() => this.downloadXlsx()}>{i18next.t("submission:Download Users")} (.xlsx)</Button>
-                 </div>
-               )}
-               loading={submissions === null}
-               rowClassName={(record, index) => {
-                 return !this.isSubmissionCompleted(record) ? "alert-row" : null;
-               }}
+              <Button type="primary" disabled={this.state.users === null || this.state.paymentMap === null || this.state.submissionMap === null} size="small" onClick={() => this.downloadXlsx()}>{i18next.t("submission:Download Users")} (.xlsx)</Button>
+            </div>
+          )}
+          loading={submissions === null}
+          rowClassName={(record, index) => {
+            return !this.isSubmissionCompleted(record) ? "alert-row" : null;
+          }}
         />
       </div>
     );

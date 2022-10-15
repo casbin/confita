@@ -19,23 +19,22 @@
 import "react-app-polyfill/ie9";
 import "react-app-polyfill/stable";
 
-import React from 'react';
-import {createRoot} from 'react-dom/client';
-import './index.css';
-import './font.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import {createRoot} from "react-dom/client";
+import "./index.css";
+import "./font.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 // import 'antd/dist/antd.css';
 import {BrowserRouter} from "react-router-dom";
 import "./i18n";
 
-
-const container = document.getElementById('root')
+const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-     <BrowserRouter>
-       <App/>
-     </BrowserRouter>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
 
 // If you want your app to work offline and load faster, you can change
