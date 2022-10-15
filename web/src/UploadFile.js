@@ -115,10 +115,12 @@ class UploadFile extends React.Component {
               return;
             }
 
-            // console.log(JSON.stringify(info));
+            // eslint-disable-next-line
+            console.log(JSON.stringify(info));
             const {status, response: res} = info.file;
             if (status !== "uploading") {
-              // console.log(info.file, info.fileList);
+              // eslint-disable-next-line
+              console.log(info.file, info.fileList);
             }
             if (status === "done") {
               if (res.status === "ok") {
