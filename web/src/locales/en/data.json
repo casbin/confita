@@ -5,6 +5,13 @@
     "Sign Out": "Sign Out",
     "Sign Up": "Sign Up"
   },
+  "code": {
+    "Edit Code": "Edit Code",
+    "Notebook": "Notebook"
+  },
+  "competition": {
+    "Ongoing": "Ongoing"
+  },
   "conference": {
     "Address": "Address",
     "Apple Now": "Apple Now",
@@ -40,6 +47,8 @@
     "Action": "Action",
     "Add": "Add",
     "All Payments": "All Payments",
+    "Code": "Code",
+    "Competitions": "Competitions",
     "Conferences": "Conferences",
     "Created time": "Created time",
     "Delete": "Delete",
@@ -143,9 +152,6 @@
     "Streaming URL": "Streaming URL",
     "Streaming auth key": "Streaming auth key",
     "Streaming domain": "Streaming domain",
-    "The current meeting has ended": "The current meeting has ended",
-    "The current meeting has started, please join in": "The current meeting has started, please join in",
-    "There are already N participants in the meeting room.": "There are already N participants in the meeting room.",
     "Time": "Time",
     "Video URL": "Video URL",
     "Video height": "Video height",
@@ -163,6 +169,7 @@
     "Conference": "Conference",
     "Copy All Emails": "Copy All Emails",
     "Dataset preview": "Dataset preview",
+    "Download Users": "Download Users",
     "Edit Submission": "Edit Submission",
     "Final paper files": "Final paper files",
     "Full paper files": "Full paper files",

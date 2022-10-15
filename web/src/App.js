@@ -36,6 +36,8 @@ import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
 import CompetitionListPage from "./CompetitionListPage";
+import CodeListPage from "./CodeListPage";
+import CodeEditPage from "./CodeEditPage";
 
 const {Header, Footer} = Layout;
 
@@ -73,24 +75,26 @@ class App extends Component {
     this.setState({
       uri: uri,
     });
-    if (uri === "/") {
-      this.setState({selectedMenuKey: "/"});
-    } else if (uri.includes("/payments")) {
-      this.setState({selectedMenuKey: "/payments"});
-    } else if (uri.includes("/contact")) {
-      this.setState({selectedMenuKey: "/contact"});
-    } else if (uri.includes("/competitions")) {
-      this.setState({selectedMenuKey: "/competitions"});
-    } else if (uri.includes("/conferences")) {
-      this.setState({selectedMenuKey: "/conferences"});
-    } else if (uri.includes("/submissions")) {
-      this.setState({selectedMenuKey: "/submissions"});
-    } else if (uri.includes("/all-pays")) {
-      this.setState({selectedMenuKey: "/all-pays"});
-    } else if (uri.includes("/rooms")) {
-      this.setState({selectedMenuKey: "/rooms"});
-    } else if (uri.includes("/public-rooms")) {
-      this.setState({selectedMenuKey: "/public-rooms"});
+    if (uri === '/') {
+      this.setState({selectedMenuKey: '/'});
+    } else if (uri.includes('/payments')) {
+      this.setState({ selectedMenuKey: '/payments' });
+    } else if (uri.includes('/contact')) {
+      this.setState({ selectedMenuKey: '/contact' });
+    } else if (uri.includes('/competitions')) {
+      this.setState({ selectedMenuKey: '/competitions' });
+    } else if (uri.includes('/conferences')) {
+      this.setState({ selectedMenuKey: '/conferences' });
+    }  else if (uri.includes('/code')) {
+      this.setState({ selectedMenuKey: '/code' });
+    } else if (uri.includes('/submissions')) {
+      this.setState({ selectedMenuKey: '/submissions' });
+    } else if (uri.includes('/all-pays')) {
+      this.setState({ selectedMenuKey: '/all-pays' });
+    } else if (uri.includes('/rooms')) {
+      this.setState({ selectedMenuKey: '/rooms' });
+    } else if (uri.includes('/public-rooms')) {
+      this.setState({ selectedMenuKey: '/public-rooms' });
     } else {
       this.setState({selectedMenuKey: "null"});
     }
@@ -244,13 +248,16 @@ class App extends Component {
     );
 
     if (this.state.account === null || this.state.account === undefined) {
-      res.push(
-        <Menu.Item key="/competitions">
-          <Link to="/competitions">
-            {i18next.t("general:Competitions")}
-          </Link>
-        </Menu.Item>
-      );
+      if (!Conf.IsConferenceMode) {
+        res.push(
+          <Menu.Item key="/competitions">
+            <Link to="/competitions">
+              {i18next.t("general:Competitions")}
+            </Link>
+          </Menu.Item>
+        );
+      }
+
       res.push(
         <Menu.Item key="/public-rooms">
           <Link to="/public-rooms">
@@ -270,13 +277,15 @@ class App extends Component {
       </Menu.Item>
     );
 
-    res.push(
-      <Menu.Item key="/competitions">
-        <Link to="/competitions">
-          {i18next.t("general:Competitions")}
-        </Link>
-      </Menu.Item>
-    );
+    if (!Conf.IsConferenceMode) {
+      res.push(
+        <Menu.Item key="/competitions">
+          <Link to="/competitions">
+            {i18next.t("general:Competitions")}
+          </Link>
+        </Menu.Item>
+      );
+    }
 
     if (Setting.isAdminUser(this.state.account)) {
       res.push(
@@ -286,6 +295,16 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
+
+      if (!Conf.IsConferenceMode) {
+        res.push(
+          <Menu.Item key="/code">
+            <Link to="/code">
+              {i18next.t("general:Code")}
+            </Link>
+          </Menu.Item>
+        );
+      }
     }
 
     res.push(
@@ -426,21 +445,23 @@ class App extends Component {
           </Menu>
         </Header>
         <Switch>
-          <Route exact path="/callback" component={AuthCallback} />
-          <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />} />
-          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)} />
-          <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)} />
-          <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)} />
-          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
-          <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
-          <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
-          <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)} />
-          <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)} />
-          <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)} />
-          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage key={"rooms"} account={this.state.account} {...props} />)} />
-          <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)} />
-          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
-          <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />} />
+          <Route exact path="/callback" component={AuthCallback}/>
+          <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
+          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
+          <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />}/>
+          <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/code/:codeName" render={(props) => this.renderSigninIfNotSignedIn(<CodeEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage key={"rooms"} account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)}/>
+          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />}/>
+          <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />}/>
         </Switch>
       </div>
     );

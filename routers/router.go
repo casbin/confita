@@ -44,6 +44,13 @@ func initAPI() {
 	beego.Router("/api/add-conference", &controllers.ApiController{}, "POST:AddConference")
 	beego.Router("/api/delete-conference", &controllers.ApiController{}, "POST:DeleteConference")
 
+	beego.Router("/api/get-global-codes", &controllers.ApiController{}, "GET:GetGlobalCodes")
+	beego.Router("/api/get-codes", &controllers.ApiController{}, "GET:GetCodes")
+	beego.Router("/api/get-code", &controllers.ApiController{}, "GET:GetCode")
+	beego.Router("/api/update-code", &controllers.ApiController{}, "POST:UpdateCode")
+	beego.Router("/api/add-code", &controllers.ApiController{}, "POST:AddCode")
+	beego.Router("/api/delete-code", &controllers.ApiController{}, "POST:DeleteCode")
+
 	beego.Router("/api/get-global-submissions", &controllers.ApiController{}, "GET:GetGlobalSubmissions")
 	beego.Router("/api/get-submissions", &controllers.ApiController{}, "GET:GetSubmissions")
 	beego.Router("/api/get-submission", &controllers.ApiController{}, "GET:GetSubmission")

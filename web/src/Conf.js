@@ -21,6 +21,8 @@ export const AuthConfig = {
   redirectPath: "/callback",
 };
 
+export const IsConferenceMode = true;
+
 export const DefaultOwner = "admin";
 export const DefaultConferenceName = "conference_0";
 export const TestAffiliation = "";
