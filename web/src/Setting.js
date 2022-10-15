@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {Alert, message, Tag} from "antd";
+import {Alert, Tag, message} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {isMobile as isMobileDevice} from "react-device-detect";
 import i18next from "i18next";
 import Sdk from "casdoor-js-sdk";
 import XLSX from "xlsx";
 
-export let ServerUrl = '';
+export let ServerUrl = "";
 export let CasdoorSdk;
 
 export function initServerUrl() {
   const hostname = window.location.hostname;
-  if (hostname === 'localhost') {
+  if (hostname === "localhost") {
     ServerUrl = `http://${hostname}:12000`;
   }
 }
@@ -88,16 +88,16 @@ export function myParseInt(i) {
 
 export function openLink(link) {
   // this.props.history.push(link);
-  const w = window.open('about:blank');
+  const w = window.open("about:blank");
   w.location.href = link;
 }
 
 export function openLinkSafe(link) {
   // Javascript window.open issue in safari
   // https://stackoverflow.com/questions/45569893/javascript-window-open-issue-in-safari
-  let a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = link;
-  a.setAttribute('target', '_blank');
+  a.setAttribute("target", "_blank");
   a.click();
 }
 
@@ -168,11 +168,9 @@ export function trim(str, ch) {
   let start = 0;
   let end = str.length;
 
-  while(start < end && str[start] === ch)
-    ++start;
+  while (start < end && str[start] === ch) {++start;}
 
-  while(end > start && str[end - 1] === ch)
-    --end;
+  while (end > start && str[end - 1] === ch) {--end;}
 
   return (start > 0 || end < str.length) ? str.substring(start, end) : str;
 }
@@ -187,8 +185,8 @@ export function getFormattedDate(date) {
     return null;
   }
 
-  date = date.replace('T', ' ');
-  date = date.replace('+08:00', ' ');
+  date = date.replace("T", " ");
+  date = date.replace("+08:00", " ");
   return date;
 }
 
@@ -197,10 +195,10 @@ export function getFormattedDateShort(date) {
 }
 
 export function getShortName(s) {
-  return s.split('/').slice(-1)[0];
+  return s.split("/").slice(-1)[0];
 }
 
-export function getShortText(s, maxLength=35) {
+export function getShortText(s, maxLength = 35) {
   if (s === undefined || s === null) {
     return s;
   }
@@ -216,7 +214,7 @@ function getRandomInt(s) {
   let hash = 0;
   if (s.length !== 0) {
     for (let i = 0; i < s.length; i++) {
-      let char = s.charCodeAt(i);
+      const char = s.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
@@ -226,7 +224,7 @@ function getRandomInt(s) {
 }
 
 export function getAvatarColor(s) {
-  const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+  const colorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   let random = getRandomInt(s);
   if (random < 0) {
     random = -random;
@@ -291,7 +289,7 @@ export function changeMomentLanguage(lng) {
 }
 
 export function getIsRoomCalendar() {
-  let res = localStorage.getItem("isRoomCalendar");
+  const res = localStorage.getItem("isRoomCalendar");
   if (res === null) {
     return false;
   }
@@ -308,7 +306,7 @@ export function getFilenameFromUrl(url) {
     return url;
   }
 
-  const filename = url.substring(url.lastIndexOf('/') + 1);
+  const filename = url.substring(url.lastIndexOf("/") + 1);
   return filename;
 }
 
@@ -353,15 +351,15 @@ export function getAlert(type, text) {
       type={type}
       showIcon
     />
-  )
+  );
 }
 
-export function getTag(text, color="processing") {
+export function getTag(text, color = "processing") {
   return (
     <Tag color={color}>
       {text}
     </Tag>
-  )
+  );
 }
 
 function getTagColor(s) {
@@ -369,8 +367,8 @@ function getTagColor(s) {
 }
 
 export function getTags(tags) {
-  let res = [];
-  if (!tags) return res;
+  const res = [];
+  if (!tags) {return res;}
   tags.forEach((tag, i) => {
     res.push(
       <Tag color={getTagColor(tag)}>
@@ -384,7 +382,7 @@ export function getTags(tags) {
 function s2ab(s) {
   const buf = new ArrayBuffer(s.length);
   const view = new Uint8Array(buf);
-  for (let i = 0; i !== s.length; i ++) {
+  for (let i = 0; i !== s.length; i++) {
     view[i] = s.charCodeAt(i) & 0xFF;
   }
   return buf;
@@ -437,5 +435,5 @@ export function getRoomLiveUserCount(room) {
       &nbsp;
       )
     </span>
-  )
+  );
 }

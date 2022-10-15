@@ -13,15 +13,15 @@
 // limitations under the License.
 
 import React from "react";
-import {Upload, Modal} from 'antd';
-import {PlusOutlined} from '@ant-design/icons';
+import {Modal, Upload} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 
 class UploadFile extends React.Component {
   state = {
     previewVisible: false,
-    previewImage: '',
-    previewTitle: '',
+    previewImage: "",
+    previewTitle: "",
     fileList: this.getInitFileList(),
   };
 
@@ -29,7 +29,7 @@ class UploadFile extends React.Component {
 
   isFileAccepted(filename, accept) {
     const tokens = accept.split(",");
-    for (let i = 0; i < tokens.length; i ++) {
+    for (let i = 0; i < tokens.length; i++) {
       if (filename.endsWith(tokens[i])) {
         return true;
       }
@@ -61,7 +61,7 @@ class UploadFile extends React.Component {
 
     const uploadButton = (
       <div>
-        <PlusOutlined/>
+        <PlusOutlined />
         <div style={{marginTop: 8}}>
           {
             this.props.label
@@ -115,17 +115,18 @@ class UploadFile extends React.Component {
               return;
             }
 
-            console.log(JSON.stringify(info))
-            const { status, response: res } = info.file;
-            if (status !== 'uploading') {
-              console.log(info.file, info.fileList);
+            // eslint-disable-next-line
+            console.log(JSON.stringify(info));
+            const {status, response: res} = info.file;
+            if (status !== "uploading") {
+              // console.log(info.file, info.fileList);
             }
-            if (status === 'done') {
-              if (res.status === 'ok') {
+            if (status === "done") {
+              if (res.status === "ok") {
                 // Setting.showMessage("success", `File uploaded successfully`);
 
                 let url = res.msg;
-                url = url.substring(0, url.lastIndexOf('?'));
+                url = url.substring(0, url.lastIndexOf("?"));
 
                 // const fileSize = res.data;
                 // const objectKey = res.data2;
@@ -133,8 +134,8 @@ class UploadFile extends React.Component {
               } else {
                 Setting.showMessage("error", `File failed to import: ${res.msg}`);
               }
-            } else if (status === 'error') {
-              Setting.showMessage("error", `File failed to upload`);
+            } else if (status === "error") {
+              Setting.showMessage("error", "File failed to upload");
             }
           }}
         >
@@ -146,7 +147,7 @@ class UploadFile extends React.Component {
           footer={null}
           onCancel={this.handleCancel}
         >
-          <img alt="example" style={{width: '100%'}} src={previewImage}/>
+          <img alt="example" style={{width: "100%"}} src={previewImage} />
         </Modal>
       </React.Fragment>
     );

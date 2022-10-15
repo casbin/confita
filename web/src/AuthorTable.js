@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import React from "react";
-import {DownOutlined, DeleteOutlined, UpOutlined} from '@ant-design/icons';
-import {Button, Col, Input, Row, Switch, Table, Tooltip} from 'antd';
+import {DeleteOutlined, DownOutlined, UpOutlined} from "@ant-design/icons";
+import {Button, Col, Input, Row, Switch, Table, Tooltip} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 
@@ -45,7 +45,7 @@ class AuthorTable extends React.Component {
   }
 
   addRow(table) {
-    let row = {no: table.length, name: `New Author - ${table.length}`, data: []};
+    const row = {no: table.length, name: `New Author - ${table.length}`, data: []};
     if (table === undefined) {
       table = [];
     }
@@ -72,82 +72,82 @@ class AuthorTable extends React.Component {
     const columns = [
       {
         title: i18next.t("general:No."),
-        dataIndex: 'no',
-        key: 'no',
-        width: '80px',
+        dataIndex: "no",
+        key: "no",
+        width: "80px",
         render: (text, record, index) => {
           return (index + 1);
-        }
+        },
       },
       {
         title: i18next.t("general:Name"),
-        dataIndex: 'name',
-        key: 'name',
-        width: '250px',
+        dataIndex: "name",
+        key: "name",
+        width: "250px",
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(table, index, 'name', e.target.value);
+              this.updateField(table, index, "name", e.target.value);
             }} />
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("payment:Affiliation"),
-        dataIndex: 'affiliation',
-        key: 'affiliation',
+        dataIndex: "affiliation",
+        key: "affiliation",
         // width: '400px',
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(table, index, 'affiliation', e.target.value);
+              this.updateField(table, index, "affiliation", e.target.value);
             }} />
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Email"),
-        dataIndex: 'email',
-        key: 'email',
-        width: '250px',
+        dataIndex: "email",
+        key: "email",
+        width: "250px",
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(table, index, 'email', e.target.value);
+              this.updateField(table, index, "email", e.target.value);
             }} />
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("submission:Is notified"),
-        dataIndex: 'isNotified',
-        key: 'isNotified',
-        width: '160px',
+        dataIndex: "isNotified",
+        key: "isNotified",
+        width: "160px",
         render: (text, record, index) => {
           return (
             <Switch checked={text} onChange={checked => {
-              this.updateField(table, index, 'isNotified', checked);
+              this.updateField(table, index, "isNotified", checked);
             }} />
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("submission:Is corresponding"),
-        dataIndex: 'isCorresponding',
-        key: 'isCorresponding',
-        width: '160px',
+        dataIndex: "isCorresponding",
+        key: "isCorresponding",
+        width: "160px",
         render: (text, record, index) => {
           return (
             <Switch checked={text} onChange={checked => {
-              this.updateField(table, index, 'isCorresponding', checked);
+              this.updateField(table, index, "isCorresponding", checked);
             }} />
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Action"),
-        key: 'action',
-        width: '100px',
+        key: "action",
+        width: "100px",
         render: (text, record, index) => {
           return (
             <div>
@@ -162,18 +162,18 @@ class AuthorTable extends React.Component {
               </Tooltip>
             </div>
           );
-        }
+        },
       },
     ];
 
     return (
       <Table rowKey="index" columns={columns} dataSource={table} size="middle" bordered pagination={false}
-             title={() => (
-               <div>
-                 {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
-                 <Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>
-               </div>
-             )}
+        title={() => (
+          <div>
+            {this.props.title}&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button style={{marginRight: "5px"}} type="primary" size="small" onClick={() => this.addRow(table)}>{i18next.t("general:Add")}</Button>
+          </div>
+        )}
       />
     );
   }
@@ -181,7 +181,7 @@ class AuthorTable extends React.Component {
   render() {
     return (
       <div>
-        <Row style={{marginTop: '20px'}} >
+        <Row style={{marginTop: "20px"}} >
           <Col span={24}>
             {
               this.renderTable(this.props.table)
@@ -189,7 +189,7 @@ class AuthorTable extends React.Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 

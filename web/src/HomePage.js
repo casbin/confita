@@ -44,10 +44,10 @@ class HomePage extends React.Component {
   renderCarousel(conference) {
     const contentStyle = {
       // height: '150px',
-      color: '#fff',
-      lineHeight: '160px',
-      textAlign: 'center',
-      background: '#364d79',
+      color: "#fff",
+      lineHeight: "160px",
+      textAlign: "center",
+      background: "#364d79",
     };
 
     return (
@@ -57,14 +57,14 @@ class HomePage extends React.Component {
             return (
               <div key={i}>
                 <h3 style={contentStyle}>
-                  <img alt={`carousel-${i}`} style={{width: '100%', height: conference.carouselHeight === "" ? "100%" : conference.carouselHeight}} src={carousel}/>
+                  <img alt={`carousel-${i}`} style={{width: "100%", height: conference.carouselHeight === "" ? "100%" : conference.carouselHeight}} src={carousel} />
                 </h3>
               </div>
-            )
+            );
           })
         }
       </Carousel>
-    )
+    );
   }
 
   renderHome() {
@@ -74,14 +74,14 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        <div style={{marginBottom: '-8px'}}>
+        <div style={{marginBottom: "-8px"}}>
           {
             this.renderCarousel(this.state.conference)
           }
         </div>
         <Conference conference={this.state.conference} language={Setting.getLanguage()} history={this.props.history} />
       </div>
-    )
+    );
   }
 
   render() {

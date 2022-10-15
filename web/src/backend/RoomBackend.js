@@ -15,56 +15,56 @@
 import * as Setting from "../Setting";
 
 export function getGlobalRooms(isPublic) {
-  return fetch(`${Setting.ServerUrl}/api/get-global-rooms?isPublic=${isPublic ? '1' : '0'}`, {
+  return fetch(`${Setting.ServerUrl}/api/get-global-rooms?isPublic=${isPublic ? "1" : "0"}`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function getRooms(owner) {
   return fetch(`${Setting.ServerUrl}/api/get-rooms?owner=${owner}`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function getRoom(owner, name) {
   return fetch(`${Setting.ServerUrl}/api/get-room?id=${owner}/${encodeURIComponent(name)}`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function updateRoom(owner, name, room) {
-  let newRoom = Setting.deepCopy(room);
+  const newRoom = Setting.deepCopy(room);
   return fetch(`${Setting.ServerUrl}/api/update-room?id=${owner}/${encodeURIComponent(name)}`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: JSON.stringify(newRoom),
   }).then(res => res.json());
 }
 
 export function incrementRoomViewer(owner, name) {
   return fetch(`${Setting.ServerUrl}/api/increment-room-viewer?id=${owner}/${encodeURIComponent(name)}`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function addRoom(room) {
-  let newRoom = Setting.deepCopy(room);
+  const newRoom = Setting.deepCopy(room);
   return fetch(`${Setting.ServerUrl}/api/add-room`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: JSON.stringify(newRoom),
   }).then(res => res.json());
 }
 
 export function deleteRoom(room) {
-  let newRoom = Setting.deepCopy(room);
+  const newRoom = Setting.deepCopy(room);
   return fetch(`${Setting.ServerUrl}/api/delete-room`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: JSON.stringify(newRoom),
   }).then(res => res.json());
 }
@@ -72,6 +72,6 @@ export function deleteRoom(room) {
 export function registerRoom(owner, name) {
   return fetch(`${Setting.ServerUrl}/api/register-room?id=${owner}/${encodeURIComponent(name)}`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, Input, Row, Select} from 'antd';
+import {Button, Card, Col, Input, Row} from "antd";
 import * as CodeBackend from "./backend/CodeBackend";
 import * as Setting from "./Setting";
 import i18next from "i18next";
@@ -51,7 +51,7 @@ class CodeEditPage extends React.Component {
   updateCodeField(key, value) {
     value = this.parseCodeField(key, value);
 
-    let code = this.state.code;
+    const code = this.state.code;
     code[key] = value;
     this.setState({
       code: code,
@@ -65,54 +65,54 @@ class CodeEditPage extends React.Component {
           {i18next.t("code:Edit Code")}&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.submitCodeEdit.bind(this)}>{i18next.t("general:Save")}</Button>
         </div>
-      } style={{marginLeft: '5px'}} type="inner">
-        <Row style={{marginTop: '10px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+      } style={{marginLeft: "5px"}} type="inner">
+        <Row style={{marginTop: "10px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("general:Name")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.code.name} onChange={e => {
-              this.updateCodeField('name', e.target.value);
+              this.updateCodeField("name", e.target.value);
             }} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("general:Display name")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.code.displayName} onChange={e => {
-              this.updateCodeField('displayName', e.target.value);
+              this.updateCodeField("displayName", e.target.value);
             }} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("code:Notebook")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.code.notebook} onChange={e => {
-              this.updateCodeField('notebook', e.target.value);
+              this.updateCodeField("notebook", e.target.value);
             }} />
           </Col>
         </Row>
       </Card>
-    )
+    );
   }
 
   submitCodeEdit() {
-    let code = Setting.deepCopy(this.state.code);
+    const code = Setting.deepCopy(this.state.code);
     CodeBackend.updateCode(this.state.code.owner, this.state.codeName, code)
       .then((res) => {
         if (res) {
-          Setting.showMessage("success", `Successfully saved`);
+          Setting.showMessage("success", "Successfully saved");
           this.setState({
             codeName: this.state.code.name,
           });
           this.props.history.push(`/code/${this.state.code.name}`);
         } else {
-          Setting.showMessage("error", `failed to save: server side failure`);
-          this.updateCodeField('name', this.state.codeName);
+          Setting.showMessage("error", "failed to save: server side failure");
+          this.updateCodeField("name", this.state.codeName);
         }
       })
       .catch(error => {

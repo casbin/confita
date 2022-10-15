@@ -17,8 +17,8 @@ import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd"
 import * as Setting from "./Setting";
 import i18next from "i18next";
 
-const { SubMenu } = Menu;
-const { Step } = Steps;
+const {SubMenu} = Menu;
+const {Step} = Steps;
 
 class Conference extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class Conference extends React.Component {
       <Menu
         // style={{ width: 256 }}
         selectedKeys={[this.state.selectedKey]}
-        defaultOpenKeys={['sub1']}
+        defaultOpenKeys={["sub1"]}
         mode={mode}
         theme={theme}
         className={"conferenceMenu"}
@@ -69,7 +69,7 @@ class Conference extends React.Component {
                 <Menu.Item key={treeItem.title}>
                   {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
                 </Menu.Item>
-              )
+              );
             } else {
               return (
                 <SubMenu key={treeItem.title} title={this.props.language !== "en" ? treeItem.title : treeItem.titleEn}>
@@ -79,47 +79,47 @@ class Conference extends React.Component {
                         <Menu.Item key={treeItem2.title}>
                           {this.props.language !== "en" ? treeItem2.title : treeItem2.titleEn}
                         </Menu.Item>
-                      )
+                      );
                     })
                   }
                 </SubMenu>
-              )
+              );
             }
           })
         }
-        {/*<Menu.Item key="1" icon={<MailOutlined />}>*/}
+        {/* <Menu.Item key="1" icon={<MailOutlined />}>*/}
         {/*  Introduction*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Item key="1" icon={<MailOutlined />}>*/}
+        {/* </Menu.Item>*/}
+        {/* <Menu.Item key="1" icon={<MailOutlined />}>*/}
         {/*  Committees*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Item key="1" icon={<MailOutlined />}>*/}
+        {/* </Menu.Item>*/}
+        {/* <Menu.Item key="1" icon={<MailOutlined />}>*/}
         {/*  Hosting Organizations*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Item key="2" icon={<CalendarOutlined />}>*/}
+        {/* </Menu.Item>*/}
+        {/* <Menu.Item key="2" icon={<CalendarOutlined />}>*/}
         {/*  Navigation Two*/}
-        {/*</Menu.Item>*/}
-        {/*<SubMenu key="sub1" icon={<AppstoreOutlined />} title="Navigation Two">*/}
+        {/* </Menu.Item>*/}
+        {/* <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Navigation Two">*/}
         {/*  <Menu.Item key="3">Option 3</Menu.Item>*/}
         {/*  <Menu.Item key="4">Option 4</Menu.Item>*/}
         {/*  <SubMenu key="sub1-2" title="Submenu">*/}
         {/*    <Menu.Item key="5">Option 5</Menu.Item>*/}
         {/*    <Menu.Item key="6">Option 6</Menu.Item>*/}
         {/*  </SubMenu>*/}
-        {/*</SubMenu>*/}
-        {/*<SubMenu key="sub2" icon={<SettingOutlined />} title="Navigation Three">*/}
+        {/* </SubMenu>*/}
+        {/* <SubMenu key="sub2" icon={<SettingOutlined />} title="Navigation Three">*/}
         {/*  <Menu.Item key="7">Option 7</Menu.Item>*/}
         {/*  <Menu.Item key="8">Option 8</Menu.Item>*/}
         {/*  <Menu.Item key="9">Option 9</Menu.Item>*/}
         {/*  <Menu.Item key="10">Option 10</Menu.Item>*/}
-        {/*</SubMenu>*/}
-        {/*<Menu.Item key="link" icon={<LinkOutlined />}>*/}
+        {/* </SubMenu>*/}
+        {/* <Menu.Item key="link" icon={<LinkOutlined />}>*/}
         {/*  <a href="https://ant.design" target="_blank" rel="noopener noreferrer">*/}
         {/*    Ant Design*/}
         {/*  </a>*/}
-        {/*</Menu.Item>*/}
+        {/* </Menu.Item>*/}
       </Menu>
-    )
+    );
   }
 
   getSelectedTreeItem(treeItems) {
@@ -146,19 +146,19 @@ class Conference extends React.Component {
     if (treeItem === undefined || treeItem === null) {
       return (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      )
+      );
     }
 
     return (
       <div>
-        {/*<div style={{textAlign: "center", fontSize: "x-large"}}>*/}
+        {/* <div style={{textAlign: "center", fontSize: "x-large"}}>*/}
         {/*  {*/}
         {/*    treeItem.title*/}
         {/*  }*/}
-        {/*</div>*/}
-        <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{ __html: this.props.language !== "en" ? treeItem.content : treeItem.contentEn }} />
+        {/* </div>*/}
+        <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{__html: this.props.language !== "en" ? treeItem.content : treeItem.contentEn}} />
       </div>
-    )
+    );
   }
 
   renderCompetition(conference) {
@@ -172,14 +172,14 @@ class Conference extends React.Component {
           banner
           showIcon={false}
           message={
-          <h2>
-            <span style={{marginRight: "10px"}}>
-              {conference.displayName}
-            </span>
-            {
-              Setting.getTag(conference.displayState, "geekblue")
-            }
-          </h2>}
+            <h2>
+              <span style={{marginRight: "10px"}}>
+                {conference.displayName}
+              </span>
+              {
+                Setting.getTag(conference.displayState, "geekblue")
+              }
+            </h2>}
           description={<div>
             <h3>
               {conference.introduction}
@@ -187,25 +187,25 @@ class Conference extends React.Component {
             <div>
               {i18next.t("conference:Organizer")}: {conference.organizer}
             </div>
-            <br/>
+            <br />
             {i18next.t("conference:Person count")} <span style={{marginLeft: "10px", fontSize: 20, color: "rgb(255,77,79)"}}>{conference.personCount}</span>
             <span style={{float: "right"}}>
               {
                 Setting.getTags(conference.tags)
               }
             </span>
-            <br/>
-            <Steps style={{marginTop: "20px"}} current={1} progressDot={(dot, { status, index }) => {
+            <br />
+            <Steps style={{marginTop: "20px"}} current={1} progressDot={(dot, {status, index}) => {
               return (
                 <Popover
                   content={
-                  <span>
+                    <span>
                     step {index} status: {status}
-                  </span>
-                }>
+                    </span>
+                  }>
                   {dot}
                 </Popover>
-              )
+              );
             }}>
               <Step title="报名" description="04/06-05/11" />
               <Step title="初赛" description="06/01-07/31" />
@@ -218,9 +218,9 @@ class Conference extends React.Component {
             <Space direction="vertical" style={{textAlign: "center"}}>
               &nbsp;
               <div style={{fontSize: 30, color: "rgb(255,77,79)"}}>
-                 ￥{`${conference.bonus}`.replace('000', ',000')}
+                 ￥{`${conference.bonus}`.replace("000", ",000")}
               </div>
-              <Button style={{marginTop: "20px"}} shape={"round"} type="primary" onClick={() => this.props.history.push(`/submissions`)}>
+              <Button style={{marginTop: "20px"}} shape={"round"} type="primary" onClick={() => this.props.history.push("/submissions")}>
                 {i18next.t("conference:Apple Now")}
               </Button>
               <Button style={{marginTop: "10px"}} shape={"round"} type="primary" danger onClick={() => Setting.openLinkSafe(conference.resultUrl)}>
@@ -230,7 +230,7 @@ class Conference extends React.Component {
           }
         />
       </div>
-    )
+    );
   }
 
   render() {
@@ -261,7 +261,7 @@ class Conference extends React.Component {
             </Col>
           </Row>
         </div>
-      )
+      );
     } else {
       return (
         <div>
@@ -289,7 +289,7 @@ class Conference extends React.Component {
             <Col span={1} />
           </Row>
         </div>
-      )
+      );
     }
   }
 }

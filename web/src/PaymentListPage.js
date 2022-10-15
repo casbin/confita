@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Col, Row, Table} from 'antd';
+import {Button, Col, Row, Table} from "antd";
 import * as Setting from "./Setting";
 import * as PaymentBackend from "./backend/PaymentBackend";
 import i18next from "i18next";
@@ -44,13 +44,13 @@ class PaymentListPage extends React.Component {
   }
 
   downloadXlsx() {
-    let data = [];
+    const data = [];
     this.state.payments.forEach((payment, i) => {
       if (payment.state !== "Paid") {
         return;
       }
 
-      let row = {};
+      const row = {};
 
       row["User"] = payment.user;
       row["Payment ID"] = payment.name;
@@ -72,24 +72,24 @@ class PaymentListPage extends React.Component {
       data.push(row);
     });
 
-    let sheet = XLSX.utils.json_to_sheet(data);
+    const sheet = XLSX.utils.json_to_sheet(data);
     sheet["!cols"] = [
-      { wch: 20 },
-      { wch: 25 },
-      { wch: 20 },
-      { wch: 30 },
-      { wch: 25 },
-      { wch: 10 },
-      { wch: 10 },
-      { wch: 10 },
-      { wch: 10 },
-      { wch: 20 },
-      { wch: 20 },
-      { wch: 20 },
-      { wch: 20 },
-      { wch: 40 },
-      { wch: 20 },
-      { wch: 150 },
+      {wch: 20},
+      {wch: 25},
+      {wch: 20},
+      {wch: 30},
+      {wch: 25},
+      {wch: 10},
+      {wch: 10},
+      {wch: 10},
+      {wch: 10},
+      {wch: 20},
+      {wch: 20},
+      {wch: 20},
+      {wch: 20},
+      {wch: 40},
+      {wch: 20},
+      {wch: 150},
     ];
 
     const blob = Setting.sheet2blob(sheet, "Default");
@@ -115,124 +115,124 @@ class PaymentListPage extends React.Component {
       // },
       {
         title: i18next.t("general:User"),
-        dataIndex: 'user',
-        key: 'user',
-        width: '120px',
+        dataIndex: "user",
+        key: "user",
+        width: "120px",
         sorter: (a, b) => a.user.localeCompare(b.user),
         render: (text, record, index) => {
           return (
             <a target="_blank" rel="noreferrer" href={Setting.getUserProfileUrl(text)}>
               {text}
             </a>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Name"),
-        dataIndex: 'name',
-        key: 'name',
-        width: '180px',
-        fixed: 'left',
+        dataIndex: "name",
+        key: "name",
+        width: "180px",
+        fixed: "left",
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
-              <a target="_blank" rel="noreferrer" href={Setting.getPaymentInvoiceUrl(this.props.account, record)}>
-                {text}
-              </a>
-          )
-        }
+            <a target="_blank" rel="noreferrer" href={Setting.getPaymentInvoiceUrl(this.props.account, record)}>
+              {text}
+            </a>
+          );
+        },
       },
       {
         title: i18next.t("general:Created time"),
-        dataIndex: 'createdTime',
-        key: 'createdTime',
-        width: '160px',
+        dataIndex: "createdTime",
+        key: "createdTime",
+        width: "160px",
         sorter: (a, b) => a.createdTime.localeCompare(b.createdTime),
         render: (text, record, index) => {
           return Setting.getFormattedDate(text);
-        }
+        },
       },
       {
         title: i18next.t("payment:Product"),
-        dataIndex: 'productDisplayName',
-        key: 'productDisplayName',
+        dataIndex: "productDisplayName",
+        key: "productDisplayName",
         // width: '160px',
         sorter: (a, b) => a.productDisplayName.localeCompare(b.productDisplayName),
         render: (text, record, index) => {
           return Setting.getLanguageText(text);
-        }
+        },
       },
       {
         title: i18next.t("payment:Detail"),
-        dataIndex: 'detail',
-        key: 'detail',
+        dataIndex: "detail",
+        key: "detail",
         // width: '160px',
         sorter: (a, b) => a.detail.localeCompare(b.detail),
       },
       {
         title: i18next.t("payment:Tag"),
-        dataIndex: 'tag',
-        key: 'tag',
-        width: '100px',
+        dataIndex: "tag",
+        key: "tag",
+        width: "100px",
         sorter: (a, b) => a.tag.localeCompare(b.tag),
         render: (text, record, index) => {
           return Setting.getLanguageText(text);
-        }
+        },
       },
       {
         title: i18next.t("payment:Price"),
-        dataIndex: 'price',
-        key: 'price',
-        width: '120px',
+        dataIndex: "price",
+        key: "price",
+        width: "120px",
         sorter: (a, b) => a.price.localeCompare(b.price),
       },
       {
         title: i18next.t("payment:Currency"),
-        dataIndex: 'currency',
-        key: 'currency',
-        width: '120px',
+        dataIndex: "currency",
+        key: "currency",
+        width: "120px",
         sorter: (a, b) => a.currency.localeCompare(b.currency),
         render: (text, record, index) => {
           return Setting.getCurrencyText(record);
-        }
+        },
       },
       {
         title: i18next.t("payment:State"),
-        dataIndex: 'state',
-        key: 'state',
-        width: '120px',
+        dataIndex: "state",
+        key: "state",
+        width: "120px",
         sorter: (a, b) => a.state.localeCompare(b.state),
         render: (text, record, index) => {
           return Setting.getState(record);
-        }
+        },
       },
       {
         title: i18next.t("general:Action"),
-        dataIndex: '',
-        key: 'op',
-        width: '260px',
+        dataIndex: "",
+        key: "op",
+        width: "260px",
         fixed: (Setting.isMobile()) ? "false" : "right",
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} onClick={() => Setting.openLinkSafe(Setting.getPaymentUrl(this.props.account, record))}>{i18next.t("payment:View Result")}</Button>
-              <Button disabled={record.state !== "Paid"} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => Setting.openLinkSafe(Setting.getPaymentInvoiceUrl(this.props.account, record))}>{i18next.t("payment:View Invoice")}</Button>
+              <Button style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} onClick={() => Setting.openLinkSafe(Setting.getPaymentUrl(this.props.account, record))}>{i18next.t("payment:View Result")}</Button>
+              <Button disabled={record.state !== "Paid"} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => Setting.openLinkSafe(Setting.getPaymentInvoiceUrl(this.props.account, record))}>{i18next.t("payment:View Invoice")}</Button>
             </div>
-          )
-        }
+          );
+        },
       },
     ];
 
     return (
       <div>
         <Table columns={columns} dataSource={payments} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
-               title={() => (
-                 <div>
-                   {i18next.t("general:All Payments")}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={() => this.downloadXlsx()}>{i18next.t("general:Download")} (.xlsx)</Button>
-                 </div>
-               )}
-               loading={payments === null}
+          title={() => (
+            <div>
+              {i18next.t("general:All Payments")}&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button type="primary" size="small" onClick={() => this.downloadXlsx()}>{i18next.t("general:Download")} (.xlsx)</Button>
+            </div>
+          )}
+          loading={payments === null}
         />
       </div>
     );

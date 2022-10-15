@@ -20,7 +20,7 @@ import {withRouter} from "react-router-dom";
 import i18next from "i18next";
 import * as Conf from "./Conf";
 
-const { Meta } = Card;
+const {Meta} = Card;
 
 class PaymentCard extends React.Component {
   constructor(props) {
@@ -40,25 +40,25 @@ class PaymentCard extends React.Component {
         message={`${Setting.getState(payment)} | ${Setting.getPrice(payment)}`}
         showIcon
         description={
-        <div>
-          {`${i18next.t("general:Name")}: ${payment.name}`}
-          <br/>
-          {`${i18next.t("general:Created time")}: ${Setting.getFormattedDate(payment.createdTime)}`}
-          <br/>
-          <Button style={{marginTop: '5px'}} type="primary" shape="round" icon={<DownloadOutlined />} onClick={(e) => {
-            e.stopPropagation();
+          <div>
+            {`${i18next.t("general:Name")}: ${payment.name}`}
+            <br />
+            {`${i18next.t("general:Created time")}: ${Setting.getFormattedDate(payment.createdTime)}`}
+            <br />
+            <Button style={{marginTop: "5px"}} type="primary" shape="round" icon={<DownloadOutlined />} onClick={(e) => {
+              e.stopPropagation();
 
-            if (payment.invoiceUrl === "") {
-              Setting.goToLink(Setting.getPaymentInvoiceUrl(this.props.account, payment));
-            } else {
-              Setting.openLinkSafe(payment.invoiceUrl);
-            }
-          }}>
-            {payment.invoiceUrl === "" ? i18next.t("payment:Issue Invoice") :
-              i18next.t("payment:Download Invoice")}
-          </Button>
-        </div>
-      }
+              if (payment.invoiceUrl === "") {
+                Setting.goToLink(Setting.getPaymentInvoiceUrl(this.props.account, payment));
+              } else {
+                Setting.openLinkSafe(payment.invoiceUrl);
+              }
+            }}>
+              {payment.invoiceUrl === "" ? i18next.t("payment:Issue Invoice") :
+                i18next.t("payment:Download Invoice")}
+            </Button>
+          </div>
+        }
         type="success"
         style={{cursor: "pointer"}}
         onClick={() => {
@@ -72,7 +72,7 @@ class PaymentCard extends React.Component {
           </Space>
         }
       />
-    )
+    );
   }
 
   updateProduct(type) {
@@ -110,8 +110,8 @@ class PaymentCard extends React.Component {
     const opacity = this.isRightProduct() ? 1.0 : 0.8;
     const backgroundColor = this.isRightProduct() ? null : "rgb(255,242,240)";
     const gridStyle = {
-      width: '100vw',
-      textAlign: 'center',
+      width: "100vw",
+      textAlign: "center",
       cursor: cursor,
       opacity: opacity,
       backgroundColor: backgroundColor,
@@ -121,10 +121,10 @@ class PaymentCard extends React.Component {
       <Card.Grid style={gridStyle} onClick={() => {
         this.onClickCard(link, clickable);
       }}>
-        <img src={logo} alt="logo" height={60} style={{marginBottom: '20px'}}/>
+        <img src={logo} alt="logo" height={60} style={{marginBottom: "20px"}} />
         <Meta title={title} description={desc} />
       </Card.Grid>
-    )
+    );
   }
 
   isRightProduct() {
@@ -139,7 +139,7 @@ class PaymentCard extends React.Component {
     if (title.includes("-1")) {
       return (
         <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={7} />
-      )
+      );
     }
 
     const cursor = clickable ? "pointer" : "auto";
@@ -161,17 +161,17 @@ class PaymentCard extends React.Component {
           style={isSingle ? {width: "320px", cursor: cursor, backgroundColor: backgroundColor} : {cursor: cursor, backgroundColor: backgroundColor}}
         >
           <Meta title={<h1>{title}</h1>} description={<h2>{Setting.getLanguageText(desc)}</h2>} />
-          <br/>
-          <br/>
+          <br />
+          <br />
           {
             this.props.payments.map(payment => {
               return this.renderPayment(this.props.product, payment);
             })
           }
-          {/*<Meta title={""} description={Setting.getFormattedDateShort(time)} />*/}
+          {/* <Meta title={""} description={Setting.getFormattedDateShort(time)} />*/}
         </Card>
       </Col>
-    )
+    );
   }
 
   render() {
