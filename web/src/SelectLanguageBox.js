@@ -36,7 +36,7 @@ class SelectLanguageBox extends React.Component {
         <Menu.Item key="en" className="rightDropDown" style={{float: 'right', cursor: 'pointer', marginRight: '20px'}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-en" /></React.Fragment>}
                    onClick={() => {
                      Setting.changeLanguage("en");
-                   }}
+          }} onItemHover={() => { }}
         >
           &nbsp;
           English
@@ -46,7 +46,7 @@ class SelectLanguageBox extends React.Component {
         <Menu.Item key="zh" className="rightDropDown" style={{float: 'right', cursor: 'pointer'}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-zh" /></React.Fragment>}
                    onClick={() => {
                      Setting.changeLanguage("zh");
-                   }}
+          }} onItemHover={() => { }}
         >
           &nbsp;
           中文
