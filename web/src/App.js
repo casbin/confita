@@ -438,9 +438,11 @@ class App extends Component {
             {
               this.renderMenu()
             }
-            {
-              this.renderAccount()
-            }
+            <div style={{ float: 'right', margin: '0px', padding: '0px'}}>
+              {
+                this.renderAccount()
+              }
+            </div>
             <SelectLanguageBox />
           </Menu>
         </Header>
