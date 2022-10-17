@@ -434,14 +434,15 @@ class App extends Component {
             // theme="dark"
             mode={"horizontal"}
             selectedKeys={[`${this.state.selectedMenuKey}`]}
-            style={{lineHeight: '64px'}}
-          >
+            style={{lineHeight: '64px'}}>
             {
               this.renderMenu()
             }
-            {
-              this.renderAccount()
-            }
+            <div style={{ float: 'right', margin: '0px', padding: '0px'}}>
+              {
+                this.renderAccount()
+              }
+            </div>
             <SelectLanguageBox />
           </Menu>
         </Header>
