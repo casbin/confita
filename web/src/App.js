@@ -231,6 +231,13 @@ class App extends Component {
       );
     } else {
       res.push(this.renderRightDropdown());
+      return (
+        <div style={{ float: 'right', margin: '0px', padding: '0px'}}>
+          {
+            res
+          }
+        </div>
+        )
     }
 
     return res;
@@ -438,11 +445,9 @@ class App extends Component {
             {
               this.renderMenu()
             }
-            <div style={{ float: 'right', margin: '0px', padding: '0px'}}>
-              {
-                this.renderAccount()
-              }
-            </div>
+            {
+              this.renderAccount()
+            }
             <SelectLanguageBox />
           </Menu>
         </Header>
