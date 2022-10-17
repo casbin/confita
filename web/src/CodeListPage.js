@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Col, Popconfirm, Row, Table} from 'antd';
+import {Button, Col, Popconfirm, Row, Table} from "antd";
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as CodeBackend from "./backend/CodeBackend";
@@ -49,18 +49,18 @@ class CodeListPage extends React.Component {
       createdTime: moment().format(),
       displayName: `New Code - ${this.state.codes.length}`,
       notebook: "code",
-    }
+    };
   }
 
   addCode() {
     const newCode = this.newCode();
     CodeBackend.addCode(newCode)
       .then((res) => {
-          Setting.showMessage("success", `Code added successfully`);
-          this.setState({
-            codes: Setting.prependRow(this.state.codes, newCode),
-          });
-        }
+        Setting.showMessage("success", "Code added successfully");
+        this.setState({
+          codes: Setting.prependRow(this.state.codes, newCode),
+        });
+      }
       )
       .catch(error => {
         Setting.showMessage("error", `Code failed to add: ${error}`);
@@ -70,11 +70,11 @@ class CodeListPage extends React.Component {
   deleteCode(i) {
     CodeBackend.deleteCode(this.state.codes[i])
       .then((res) => {
-          Setting.showMessage("success", `Code deleted successfully`);
-          this.setState({
-            codes: Setting.deleteRow(this.state.codes, i),
-          });
-        }
+        Setting.showMessage("success", "Code deleted successfully");
+        this.setState({
+          codes: Setting.deleteRow(this.state.codes, i),
+        });
+      }
       )
       .catch(error => {
         Setting.showMessage("error", `Code failed to delete: ${error}`);
@@ -85,65 +85,65 @@ class CodeListPage extends React.Component {
     const columns = [
       {
         title: i18next.t("general:Name"),
-        dataIndex: 'name',
-        key: 'name',
-        width: '120px',
+        dataIndex: "name",
+        key: "name",
+        width: "120px",
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
             <Link to={`/codes/${text}`}>
               {text}
             </Link>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Display name"),
-        dataIndex: 'displayName',
-        key: 'displayName',
-        width: '300px',
+        dataIndex: "displayName",
+        key: "displayName",
+        width: "300px",
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       {
         title: i18next.t("code:Notebook"),
-        dataIndex: 'notebook',
-        key: 'notebook',
+        dataIndex: "notebook",
+        key: "notebook",
         // width: '120px',
         sorter: (a, b) => a.notebook.localeCompare(b.notebook),
       },
       {
         title: i18next.t("general:Action"),
-        dataIndex: 'action',
-        key: 'action',
-        width: '170px',
+        dataIndex: "action",
+        key: "action",
+        width: "170px",
         render: (text, record, index) => {
           return (
             <div>
-              <Button style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/code/${record.name}`)}>{i18next.t("general:Edit")}</Button>
+              <Button style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/code/${record.name}`)}>{i18next.t("general:Edit")}</Button>
               <Popconfirm
                 title={`Sure to delete code: ${record.name} ?`}
                 onConfirm={() => this.deleteCode(index)}
                 okText="OK"
                 cancelText="Cancel"
               >
-                <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
+                <Button style={{marginBottom: "10px"}} type="danger">{i18next.t("general:Delete")}</Button>
               </Popconfirm>
             </div>
-          )
-        }
+          );
+        },
       },
     ];
 
     return (
       <div>
         <Table columns={columns} dataSource={codes} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
-               title={() => (
-                 <div>
-                   {i18next.t("general:Code")}&nbsp;&nbsp;&nbsp;&nbsp;
-                   <Button type="primary" size="small" onClick={this.addCode.bind(this)}>{i18next.t("general:Add")}</Button>
-                 </div>
-               )}
-               loading={codes === null}
+          title={() => (
+            <div>
+              {i18next.t("general:Code")}&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button type="primary" size="small" onClick={this.addCode.bind(this)}>{i18next.t("general:Add")}</Button>
+            </div>
+          )}
+          loading={codes === null}
         />
       </div>
     );

@@ -17,47 +17,47 @@ import * as Setting from "../Setting";
 export function getGlobalCodes() {
   return fetch(`${Setting.ServerUrl}/api/get-global-codes`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function getCodes(owner) {
   return fetch(`${Setting.ServerUrl}/api/get-codes?owner=${owner}`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function getCode(owner, name) {
   return fetch(`${Setting.ServerUrl}/api/get-code?id=${owner}/${encodeURIComponent(name)}`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }
 
 export function updateCode(owner, name, code) {
-  let newCode = Setting.deepCopy(code);
+  const newCode = Setting.deepCopy(code);
   return fetch(`${Setting.ServerUrl}/api/update-code?id=${owner}/${encodeURIComponent(name)}`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: JSON.stringify(newCode),
   }).then(res => res.json());
 }
 
 export function addCode(code) {
-  let newCode = Setting.deepCopy(code);
+  const newCode = Setting.deepCopy(code);
   return fetch(`${Setting.ServerUrl}/api/add-code`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: JSON.stringify(newCode),
   }).then(res => res.json());
 }
 
 export function deleteCode(code) {
-  let newCode = Setting.deepCopy(code);
+  const newCode = Setting.deepCopy(code);
   return fetch(`${Setting.ServerUrl}/api/delete-code`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: JSON.stringify(newCode),
   }).then(res => res.json());
 }

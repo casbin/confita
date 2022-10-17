@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React, {Component} from 'react';
-import {Switch, Redirect, Route, withRouter, Link} from 'react-router-dom';
-import {Avatar, BackTop, Dropdown, Layout, Menu, Modal} from 'antd';
-import {CloseCircleTwoTone, DownOutlined, LogoutOutlined, SettingOutlined} from '@ant-design/icons';
-import './App.less';
+import React, {Component} from "react";
+import {Link, Redirect, Route, Switch, withRouter} from "react-router-dom";
+import {Avatar, BackTop, Dropdown, Layout, Menu, Modal} from "antd";
+import {CloseCircleTwoTone, DownOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
+import "./App.less";
 import * as Setting from "./Setting";
 import * as AccountBackend from "./backend/AccountBackend";
 import AuthCallback from "./AuthCallback";
@@ -75,40 +75,40 @@ class App extends Component {
     this.setState({
       uri: uri,
     });
-    if (uri === '/') {
-      this.setState({selectedMenuKey: '/'});
-    } else if (uri.includes('/payments')) {
-      this.setState({ selectedMenuKey: '/payments' });
-    } else if (uri.includes('/contact')) {
-      this.setState({ selectedMenuKey: '/contact' });
-    } else if (uri.includes('/competitions')) {
-      this.setState({ selectedMenuKey: '/competitions' });
-    } else if (uri.includes('/conferences')) {
-      this.setState({ selectedMenuKey: '/conferences' });
-    }  else if (uri.includes('/code')) {
-      this.setState({ selectedMenuKey: '/code' });
-    } else if (uri.includes('/submissions')) {
-      this.setState({ selectedMenuKey: '/submissions' });
-    } else if (uri.includes('/all-pays')) {
-      this.setState({ selectedMenuKey: '/all-pays' });
-    } else if (uri.includes('/rooms')) {
-      this.setState({ selectedMenuKey: '/rooms' });
-    } else if (uri.includes('/public-rooms')) {
-      this.setState({ selectedMenuKey: '/public-rooms' });
+    if (uri === "/") {
+      this.setState({selectedMenuKey: "/"});
+    } else if (uri.includes("/payments")) {
+      this.setState({selectedMenuKey: "/payments"});
+    } else if (uri.includes("/contact")) {
+      this.setState({selectedMenuKey: "/contact"});
+    } else if (uri.includes("/competitions")) {
+      this.setState({selectedMenuKey: "/competitions"});
+    } else if (uri.includes("/conferences")) {
+      this.setState({selectedMenuKey: "/conferences"});
+    } else if (uri.includes("/code")) {
+      this.setState({selectedMenuKey: "/code"});
+    } else if (uri.includes("/submissions")) {
+      this.setState({selectedMenuKey: "/submissions"});
+    } else if (uri.includes("/all-pays")) {
+      this.setState({selectedMenuKey: "/all-pays"});
+    } else if (uri.includes("/rooms")) {
+      this.setState({selectedMenuKey: "/rooms"});
+    } else if (uri.includes("/public-rooms")) {
+      this.setState({selectedMenuKey: "/public-rooms"});
     } else {
-      this.setState({selectedMenuKey: 'null'});
+      this.setState({selectedMenuKey: "null"});
     }
   }
 
   onUpdateAccount(account) {
     this.setState({
-      account: account
+      account: account,
     });
   }
 
   setLanguage(account) {
     // let language = account?.language;
-    let language = localStorage.getItem("language");
+    const language = localStorage.getItem("language");
     if (language !== "" && language !== i18next.language) {
       Setting.setLanguage(language);
     }
@@ -124,7 +124,7 @@ class App extends Component {
           return;
         }
 
-        let account = res.data;
+        const account = res.data;
         if (account !== null) {
           this.setLanguage(account);
         }
@@ -138,12 +138,12 @@ class App extends Component {
   signout() {
     AccountBackend.signout()
       .then((res) => {
-        if (res.status === 'ok') {
+        if (res.status === "ok") {
           this.setState({
-            account: null
+            account: null,
           });
 
-          Setting.showMessage("success", `Successfully signed out, redirected to homepage`);
+          Setting.showMessage("success", "Successfully signed out, redirected to homepage");
           Setting.goToLink("/");
           // this.props.history.push("/");
         } else {
@@ -153,9 +153,9 @@ class App extends Component {
   }
 
   handleRightDropdownClick(e) {
-    if (e.key === '/account') {
+    if (e.key === "/account") {
       Setting.openLink(Setting.getMyProfileUrl(this.state.account));
-    } else if (e.key === '/logout') {
+    } else if (e.key === "/logout") {
       this.signout();
     }
   }
@@ -163,16 +163,16 @@ class App extends Component {
   renderAvatar() {
     if (this.state.account.avatar === "") {
       return (
-        <Avatar style={{ backgroundColor: Setting.getAvatarColor(this.state.account.name), verticalAlign: 'middle' }} size="large">
+        <Avatar style={{backgroundColor: Setting.getAvatarColor(this.state.account.name), verticalAlign: "middle"}} size="large">
           {Setting.getShortName(this.state.account.name)}
         </Avatar>
-      )
+      );
     } else {
       return (
-        <Avatar src={this.state.account.avatar} style={{verticalAlign: 'middle' }} size="large">
+        <Avatar src={this.state.account.avatar} style={{verticalAlign: "middle"}} size="large">
           {Setting.getShortName(this.state.account.name)}
         </Avatar>
-      )
+      );
     }
   }
 
@@ -192,7 +192,7 @@ class App extends Component {
 
     return (
       <Dropdown key="/rightDropDown" overlay={menu} className="rightDropDown">
-        <div className="ant-dropdown-link" style={{float: 'right', cursor: 'pointer'}}>
+        <div className="ant-dropdown-link" style={{float: "right", cursor: "pointer"}}>
           &nbsp;
           &nbsp;
           {
@@ -206,24 +206,24 @@ class App extends Component {
           &nbsp;
         </div>
       </Dropdown>
-    )
+    );
   }
 
   renderAccount() {
-    let res = [];
+    const res = [];
 
     if (this.state.account === undefined) {
       return null;
     } else if (this.state.account === null) {
       res.push(
-        <Menu.Item key="/signup" style={{float: 'right', marginRight: '20px'}}>
+        <Menu.Item key="/signup" style={{float: "right", marginRight: "20px"}}>
           <a href={Setting.getSignupUrl()}>
             {i18next.t("account:Sign Up")}
           </a>
         </Menu.Item>
       );
       res.push(
-        <Menu.Item key="/signin" style={{float: 'right'}}>
+        <Menu.Item key="/signin" style={{float: "right"}}>
           <a href={Setting.getSigninUrl()}>
             {i18next.t("account:Sign In")}
           </a>
@@ -237,7 +237,7 @@ class App extends Component {
   }
 
   renderMenu() {
-    let res = [];
+    const res = [];
 
     res.push(
       <Menu.Item key="/">
@@ -396,12 +396,12 @@ class App extends Component {
           {i18next.t("general:Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.")}
         </div>
       </Modal>
-    )
+    );
   }
 
   renderHomeIfSignedIn(component) {
     if (this.state.account !== null && this.state.account !== undefined) {
-      return <Redirect to='/' />
+      return <Redirect to="/" />;
     } else {
       return component;
     }
@@ -410,11 +410,10 @@ class App extends Component {
   renderSigninIfNotSignedIn(component) {
     if (this.state.account === null) {
       sessionStorage.setItem("from", window.location.pathname);
-      return <Redirect to='/signin' />
+      return <Redirect to="/signin" />;
     } else if (this.state.account === undefined) {
       return null;
-    }
-    else {
+    } else {
       return component;
     }
   }
@@ -422,7 +421,7 @@ class App extends Component {
   renderContent() {
     return (
       <div>
-        <Header style={{padding: '0', marginBottom: '3px'}}>
+        <Header style={{padding: "0", marginBottom: "3px"}}>
           {
             Setting.isMobile() ? null : (
               <Link to={"/"}>
@@ -434,7 +433,8 @@ class App extends Component {
             // theme="dark"
             mode={"horizontal"}
             selectedKeys={[`${this.state.selectedMenuKey}`]}
-            style={{lineHeight: '64px'}}>
+            style={{lineHeight: "64px"}}
+          >
             {
               this.renderMenu()
             }
@@ -447,26 +447,26 @@ class App extends Component {
           </Menu>
         </Header>
         <Switch>
-          <Route exact path="/callback" component={AuthCallback}/>
-          <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />}/>
-          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)}/>
-          <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />}/>
-          <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/code/:codeName" render={(props) => this.renderSigninIfNotSignedIn(<CodeEditPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage key={"rooms"} account={this.state.account} {...props} />)}/>
-          <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)}/>
-          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />}/>
-          <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />}/>
+          <Route exact path="/callback" component={AuthCallback} />
+          <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />} />
+          <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)} />
+          <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)} />
+          <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)} />
+          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
+          <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
+          <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
+          <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)} />
+          <Route exact path="/code/:codeName" render={(props) => this.renderSigninIfNotSignedIn(<CodeEditPage account={this.state.account} {...props} />)} />
+          <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)} />
+          <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)} />
+          <Route exact path="/all-pays" render={(props) => this.renderSigninIfNotSignedIn(<PaymentListPage account={this.state.account} {...props} />)} />
+          <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage key={"rooms"} account={this.state.account} {...props} />)} />
+          <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)} />
+          <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
+          <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />} />
         </Switch>
       </div>
-    )
+    );
   }
 
   renderFooter() {
@@ -476,20 +476,20 @@ class App extends Component {
     return (
       <Footer id="footer" style={
         {
-          borderTop: '1px solid #e8e8e8',
-          backgroundColor: 'white',
-          textAlign: 'center',
+          borderTop: "1px solid #e8e8e8",
+          backgroundColor: "white",
+          textAlign: "center",
         }
       }>
-        Made with <span style={{color: 'rgb(255, 255, 255)'}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" rel="noreferrer" href="https://casbin.org">Casbin</a>, { Setting.isMobile() ? "Mobile" : "Desktop" } View
+        Made with <span style={{color: "rgb(255, 255, 255)"}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" rel="noreferrer" href="https://casbin.org">Casbin</a>, {Setting.isMobile() ? "Mobile" : "Desktop"} View
       </Footer>
-    )
+    );
   }
 
   render() {
     return (
       <div id="parent-area">
-        <BackTop/>
+        <BackTop />
         <div id="content-wrap">
           {
             this.renderContent()

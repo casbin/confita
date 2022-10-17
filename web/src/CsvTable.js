@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import { readString } from 'react-papaparse';
+import {readString} from "react-papaparse";
 import ReactDataSheet from "react-datasheet";
 import "react-datasheet/lib/react-datasheet.css";
 
@@ -44,7 +44,7 @@ class CsvTable extends React.Component {
             }),
           });
           // console.log(results);
-        }
+        },
       });
       return null;
     }

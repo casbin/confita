@@ -17,6 +17,6 @@ import * as Setting from "../Setting";
 export function getUsers() {
   return fetch(`${Setting.ServerUrl}/api/get-users`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }

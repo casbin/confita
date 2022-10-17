@@ -49,7 +49,7 @@ class RoomPage extends React.Component {
     RoomBackend.incrementRoomViewer(this.state.userName, this.state.roomName)
       .then((res) => {
         if (!res) {
-          Setting.showMessage("error", `Room failed to increment viewer`);
+          Setting.showMessage("error", "Room failed to increment viewer");
         }
       });
   }
@@ -83,7 +83,7 @@ class RoomPage extends React.Component {
         </div>
         <Video room={room} />
       </div>
-    )
+    );
   }
 
   renderComments() {
@@ -113,7 +113,7 @@ class RoomPage extends React.Component {
         style={{border: "1px solid rgb(232,232,232)", width: width, height: "100vh"}}
         src={`${Conf.CasnodeEndpoint}/embedded-replies?nodeId=${nodeId}&title=${title}&author=${author}&urlPath=${urlPath}&accessToken=${accessToken}`}
       />
-    )
+    );
   }
 
   render() {

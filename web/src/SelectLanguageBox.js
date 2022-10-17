@@ -14,12 +14,12 @@
 
 import React from "react";
 import * as Setting from "./Setting";
-import { Menu} from "antd";
-import { createFromIconfontCN } from '@ant-design/icons';
-import './App.less';
+import {Menu} from "antd";
+import {createFromIconfontCN} from "@ant-design/icons";
+import "./App.less";
 
 const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2680620_ffij16fkwdg.js',
+  scriptUrl: "//at.alicdn.com/t/font_2680620_ffij16fkwdg.js",
 });
 
 class SelectLanguageBox extends React.Component {
@@ -33,20 +33,22 @@ class SelectLanguageBox extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Menu.Item key="en" className="rightDropDown" style={{float: 'right', cursor: 'pointer', marginRight: '20px'}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-en" /></React.Fragment>}
-                   onClick={() => {
-                     Setting.changeLanguage("en");
-          }} onItemHover={() => { }}
+        <Menu.Item key="en" className="rightDropDown" style={{float: "right", cursor: "pointer", marginRight: "20px"}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-en" /></React.Fragment>}
+          onClick={() => {
+            Setting.changeLanguage("en");
+          }}
+          onItemHover={() => {}}
         >
           &nbsp;
           English
           &nbsp;
           &nbsp;
         </Menu.Item>
-        <Menu.Item key="zh" className="rightDropDown" style={{float: 'right', cursor: 'pointer'}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-zh" /></React.Fragment>}
-                   onClick={() => {
-                     Setting.changeLanguage("zh");
-          }} onItemHover={() => { }}
+        <Menu.Item key="zh" className="rightDropDown" style={{float: "right", cursor: "pointer"}} icon={<React.Fragment>&nbsp;&nbsp;&nbsp;&nbsp;<IconFont type="icon-zh" /></React.Fragment>}
+          onClick={() => {
+            Setting.changeLanguage("zh");
+          }}
+          onItemHover={() => {}}
         >
           &nbsp;
           中文
