@@ -232,12 +232,12 @@ class App extends Component {
     } else {
       res.push(this.renderRightDropdown());
       return (
-        <div style={{ float: 'right', margin: '0px', padding: '0px'}}>
+        <div style={{float: "right", margin: "0px", padding: "0px"}}>
           {
             res
           }
         </div>
-        )
+      );
     }
 
     return res;
