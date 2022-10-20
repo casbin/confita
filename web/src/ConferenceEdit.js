@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Button, Col, Empty, Input, Row, Tooltip, Tree} from "antd";
-import {DeleteOutlined, PlusOutlined,} from "@ant-design/icons";
+import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import HtmlEditorBraft from "./HtmlEditorBraft";
 import i18next from "i18next";
@@ -24,8 +24,8 @@ class ConferenceEdit extends React.Component {
     super(props);
     this.state = {
       classes: props,
-      treePath: '0-0',
-      expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
+      treePath: "0-0",
+      expandedKeys: ["0-0", "0-0-0", "0-0-0-0"],
     };
   }
 
@@ -101,7 +101,7 @@ class ConferenceEdit extends React.Component {
 
     let res = {children: treeItems};
     const tokens = this.state.treePath.split("-");
-    for (let i = 1; i < tokens.length; i ++) {
+    for (let i = 1; i < tokens.length; i++) {
       res = res.children[tokens[i]];
     }
     return res;
@@ -156,18 +156,18 @@ class ConferenceEdit extends React.Component {
     };
 
     const copiedTreeItems = treeItems.map((treeItem, i) => {
-      let copiedTreeItem = Setting.deepCopy(treeItem);
+      const copiedTreeItem = Setting.deepCopy(treeItem);
       copiedTreeItem.title = (
-          <div>
-            <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRowEx([i])} />
-            {
-              treeItem.title
-            }
-          </div>
+        <div>
+          <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRowEx([i])} />
+          {
+            treeItem.title
+          }
+        </div>
       );
 
       copiedTreeItem.children = copiedTreeItem.children.map((treeItem2, j) => {
-        let copiedTreeItem2 = Setting.deepCopy(treeItem2);
+        const copiedTreeItem2 = Setting.deepCopy(treeItem2);
         copiedTreeItem2.title = (
           <div>
             <Button style={{marginRight: "5px"}} icon={<DeleteOutlined />} size="small" onClick={() => this.deleteTreeItemRowEx([i, j])} />
@@ -178,14 +178,14 @@ class ConferenceEdit extends React.Component {
         );
 
         return copiedTreeItem2;
-      })
+      });
 
       return copiedTreeItem;
-    })
+    });
 
     return (
       <div>
-        <Row style={{marginTop: '10px', marginBottom: '10px'}} >
+        <Row style={{marginTop: "10px", marginBottom: "10px"}} >
           <Tooltip placement="topLeft" title="Add">
             <Button style={{marginRight: "5px"}} icon={<PlusOutlined />} size="small" onClick={() => this.addTreeItemRow(this.props.conference.treeItems.length)} />
           </Tooltip>
@@ -206,14 +206,14 @@ class ConferenceEdit extends React.Component {
           treeData={copiedTreeItems}
         />
       </div>
-    )
+    );
   }
 
   updateTreeItemField(key, value) {
-    let treeItems = this.props.conference.treeItems;
+    const treeItems = this.props.conference.treeItems;
     let treeItem = {children: treeItems};
     const tokens = this.state.treePath.split("-");
-    for (let i = 1; i < tokens.length; i ++) {
+    for (let i = 1; i < tokens.length; i++) {
       treeItem = treeItem.children[tokens[i]];
     }
     treeItem[key] = value;
@@ -225,43 +225,43 @@ class ConferenceEdit extends React.Component {
     if (treeItem === undefined || treeItem === null) {
       return (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      )
+      );
     }
 
     return (
       <div>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("conference:Title")}:
           </Col>
           <Col span={22} >
             <Input value={this.props.language !== "en" ? treeItem.title : treeItem.titleEn} onChange={e => {
-              this.updateTreeItemField('key', e.target.value);
-              this.updateTreeItemField(this.props.language !== "en" ? 'title' : 'titleEn', e.target.value);
+              this.updateTreeItemField("key", e.target.value);
+              this.updateTreeItemField(this.props.language !== "en" ? "title" : "titleEn", e.target.value);
             }} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("conference:Content")}:
           </Col>
           <Col span={22} >
-            <div style={{height: '600px', border: '1px solid rgb(217,217,217)'}} >
+            <div style={{height: "600px", border: "1px solid rgb(217,217,217)"}} >
               <HtmlEditorBraft key={`${treeItem.key}-${this.props.language}`} text={this.props.language !== "en" ? treeItem.content : treeItem.contentEn} onUpdateText={(text) => {
-                this.updateTreeItemField(this.props.language !== "en" ? 'content' : 'contentEn', text);
+                this.updateTreeItemField(this.props.language !== "en" ? "content" : "contentEn", text);
               }} />
             </div>
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 
   render() {
     const conference = this.props.conference;
 
     return (
-      <Row style={{marginTop: '10px'}} >
+      <Row style={{marginTop: "10px"}} >
         <Col span={4} >
           {
             this.renderTree(conference.treeItems)
@@ -275,7 +275,7 @@ class ConferenceEdit extends React.Component {
           }
         </Col>
       </Row>
-    )
+    );
   }
 }
 

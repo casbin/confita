@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, Input, Row, Select} from 'antd';
+import {Button, Card, Col, Input, Row, Select} from "antd";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
@@ -22,12 +22,12 @@ import i18next from "i18next";
 import AuthorTable from "./AuthorTable";
 import CsvTable from "./CsvTable";
 
-import {Controlled as CodeMirror} from 'react-codemirror2';
+import {Controlled as CodeMirror} from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
-require('codemirror/theme/material-darker.css');
+require("codemirror/theme/material-darker.css");
 require("codemirror/mode/python/python");
 
-const { Option } = Select;
+const {Option} = Select;
 
 class SubmissionEditPage extends React.Component {
   constructor(props) {
@@ -87,7 +87,7 @@ class SubmissionEditPage extends React.Component {
   updateSubmissionField(key, value) {
     value = this.parseSubmissionField(key, value);
 
-    let submission = this.state.submission;
+    const submission = this.state.submission;
     submission[key] = value;
     this.setState({
       submission: submission,
@@ -100,33 +100,33 @@ class SubmissionEditPage extends React.Component {
     let typeOptions;
     if (this.isCompetition()) {
       typeOptions = [
-        {id: 'Program', name: 'Program'},
+        {id: "Program", name: "Program"},
       ];
     } else {
       typeOptions = [
-        {id: 'Symposium', name: 'Symposium'},
-        {id: 'Workshop', name: 'Workshop'},
-        {id: 'Oral', name: 'Oral'},
-        {id: 'Poster', name: 'Poster'},
+        {id: "Symposium", name: "Symposium"},
+        {id: "Workshop", name: "Workshop"},
+        {id: "Oral", name: "Oral"},
+        {id: "Poster", name: "Poster"},
       ];
     }
 
     let subTypeOptions;
     if (this.isCompetition()) {
       subTypeOptions = [
-        {id: 'Python', name: 'Python'},
-        {id: 'R', name: 'R'},
-        {id: 'Java', name: 'Java'},
-        {id: 'Julia', name: 'Julia'},
+        {id: "Python", name: "Python"},
+        {id: "R", name: "R"},
+        {id: "Java", name: "Java"},
+        {id: "Julia", name: "Julia"},
       ];
     } else {
       if (this.state.submission.type !== "Oral") {
         subTypeOptions = [
-          {id: 'Default', name: 'Default'},
+          {id: "Default", name: "Default"},
         ];
       } else {
         subTypeOptions = [
-          {id: 'Default', name: 'Default'},
+          {id: "Default", name: "Default"},
         ];
       }
     }
@@ -137,50 +137,50 @@ class SubmissionEditPage extends React.Component {
           {i18next.t("submission:Edit Submission")}&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" onClick={this.submitSubmissionEdit.bind(this)}>{i18next.t("general:Save")}</Button>
         </div>
-      } style={{marginLeft: '5px'}} type="inner">
-        <Row style={{marginTop: '10px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+      } style={{marginLeft: "5px"}} type="inner">
+        <Row style={{marginTop: "10px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("general:Name")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.submission.name} onChange={e => {
-              this.updateSubmissionField('name', e.target.value);
+              this.updateSubmissionField("name", e.target.value);
             }} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("submission:Conference")}:
           </Col>
           <Col span={22} >
-            <Select virtual={false} style={{width: '100%'}} value={this.state.submission.conference} onChange={(value => {this.updateSubmissionField('conference', value);})}>
+            <Select virtual={false} style={{width: "100%"}} value={this.state.submission.conference} onChange={(value => {this.updateSubmissionField("conference", value);})}>
               {
                 this.state.conferences.map((conference, index) => <Option key={index} value={conference.name}>{conference.name}</Option>)
               }
             </Select>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("submission:Title")}:
           </Col>
           <Col span={22} >
             <Input value={this.state.submission.title} onChange={e => {
-              this.updateSubmissionField('title', e.target.value);
+              this.updateSubmissionField("title", e.target.value);
             }} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("submission:Type")}:
           </Col>
           <Col span={22} >
-            <Select virtual={false} style={{width: '100%'}} value={this.state.submission.type} onChange={(value => {
-              this.updateSubmissionField('type', value);
+            <Select virtual={false} style={{width: "100%"}} value={this.state.submission.type} onChange={(value => {
+              this.updateSubmissionField("type", value);
               if (this.state.submission.type === "Oral") {
-                this.updateSubmissionField('subType', "Default");
+                this.updateSubmissionField("subType", "Default");
               } else {
-                this.updateSubmissionField('subType', "Default");
+                this.updateSubmissionField("subType", "Default");
               }
             })}>
               {
@@ -189,50 +189,50 @@ class SubmissionEditPage extends React.Component {
             </Select>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("submission:Sub type")}:
           </Col>
           <Col span={22} >
-            <Select virtual={false} style={{width: '100%'}} value={this.state.submission.subType} onChange={(value => {this.updateSubmissionField('subType', value);})}>
+            <Select virtual={false} style={{width: "100%"}} value={this.state.submission.subType} onChange={(value => {this.updateSubmissionField("subType", value);})}>
               {
                 subTypeOptions.map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={(Setting.isMobile()) ? 22 : 2}>
             {i18next.t("submission:Authors")}:
           </Col>
           <Col span={22} >
             <AuthorTable
               title={i18next.t("submission:Authors")}
               table={this.state.submission.authors}
-              onUpdateTable={(value) => { this.updateSubmissionField('authors', value)}}
+              onUpdateTable={(value) => {this.updateSubmissionField("authors", value);}}
             />
           </Col>
         </Row>
         {
           this.isCompetition() ? (
             <React.Fragment>
-              <Row style={{marginTop: '20px'}} >
-                <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+              <Row style={{marginTop: "20px"}} >
+                <Col style={{marginTop: "5px"}} span={(Setting.isMobile()) ? 22 : 2}>
                   {i18next.t("submission:Dataset preview")}:
                 </Col>
                 <Col span={22} >
                   <CsvTable conference={this.getConference()} />
                 </Col>
               </Row>
-              <Row style={{marginTop: '20px'}} >
-                <Col style={{marginTop: '5px'}} span={(Setting.isMobile()) ? 22 : 2}>
+              <Row style={{marginTop: "20px"}} >
+                <Col style={{marginTop: "5px"}} span={(Setting.isMobile()) ? 22 : 2}>
                   {i18next.t("submission:Code")}:
                 </Col>
                 <Col span={22} >
                   <div style={{width: "900px"}} >
                     <CodeMirror
                       value={this.state.submission.code}
-                      options={{mode: 'python', theme: "material-darker"}}
+                      options={{mode: "python", theme: "material-darker"}}
                       onBeforeChange={(editor, data, value) => {
                         this.updateSubmissionField("code", value);
                       }}
@@ -242,73 +242,73 @@ class SubmissionEditPage extends React.Component {
               </Row>
             </React.Fragment>
           ) : (
-            <Row style={{marginTop: '40px'}} >
-              <Col style={{marginTop: '5px'}} span={2}>
+            <Row style={{marginTop: "40px"}} >
+              <Col style={{marginTop: "5px"}} span={2}>
                 {i18next.t("submission:Abstract files")}:
               </Col>
-              <Col style={{marginRight: '10px'}} span={6} >
-                <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.absWordFileUrl} urlKey={"absWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+              <Col style={{marginRight: "10px"}} span={6} >
+                <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.absWordFileUrl} urlKey={"absWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => {return this.updateSubmissionField(key, value);}} />
               </Col>
               <Col span={6} >
-                <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.absPdfFileUrl} urlKey={"absPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+                <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.absPdfFileUrl} urlKey={"absPdfFileUrl"} label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => {return this.updateSubmissionField(key, value);}} />
               </Col>
             </Row>
           )
         }
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("submission:Full paper files")}:
           </Col>
-          <Col style={{marginRight: '10px'}} span={6} >
-            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.fullWordFileUrl} urlKey={"fullWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+          <Col style={{marginRight: "10px"}} span={6} >
+            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.fullWordFileUrl} urlKey={"fullWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => {return this.updateSubmissionField(key, value);}} />
           </Col>
           <Col span={6} >
-            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.fullPdfFileUrl} urlKey={"fullPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.fullPdfFileUrl} urlKey={"fullPdfFileUrl"} label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => {return this.updateSubmissionField(key, value);}} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("submission:Final paper files")}:
           </Col>
-          <Col style={{marginRight: '10px'}} span={6} >
-            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.finalWordFileUrl} urlKey={"finalWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+          <Col style={{marginRight: "10px"}} span={6} >
+            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.finalWordFileUrl} urlKey={"finalWordFileUrl"} label={"Word (.docx)"} accept={".docx"} onUpdateSubmission={(key, value) => {return this.updateSubmissionField(key, value);}} />
           </Col>
           <Col span={6} >
-            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.finalPdfFileUrl} urlKey={"finalPdfFileUrl"}  label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => { return this.updateSubmissionField(key, value)}} />
+            <UploadFile disabled={!conference?.enableSubmission} fileUrl={this.state.submission.finalPdfFileUrl} urlKey={"finalPdfFileUrl"} label={"PDF (.pdf)"} accept={".pdf"} onUpdateSubmission={(key, value) => {return this.updateSubmissionField(key, value);}} />
           </Col>
         </Row>
-        <Row style={{marginTop: '20px'}} >
-          <Col style={{marginTop: '5px'}} span={2}>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={2}>
             {i18next.t("general:Status")}:
           </Col>
           <Col span={22} >
-            <Select virtual={false} style={{width: '100%'}} value={this.state.submission.status} onChange={(value => {this.updateSubmissionField('status', value);})}>
+            <Select virtual={false} style={{width: "100%"}} value={this.state.submission.status} onChange={(value => {this.updateSubmissionField("status", value);})}>
               {
                 [
-                  {id: 'Draft', name: 'Draft (Only yourself can see it, you can still update the draft later)'},
-                  {id: 'ReadyForReview', name: 'Ready for review'},
+                  {id: "Draft", name: "Draft (Only yourself can see it, you can still update the draft later)"},
+                  {id: "ReadyForReview", name: "Ready for review"},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
           </Col>
         </Row>
       </Card>
-    )
+    );
   }
 
   submitSubmissionEdit() {
-    let submission = Setting.deepCopy(this.state.submission);
+    const submission = Setting.deepCopy(this.state.submission);
     SubmissionBackend.updateSubmission(this.state.submission.owner, this.state.submissionName, submission)
       .then((res) => {
         if (res) {
-          Setting.showMessage("success", `Successfully saved`);
+          Setting.showMessage("success", "Successfully saved");
           this.setState({
             submissionName: this.state.submission.name,
           });
           this.props.history.push(`/submissions/${this.state.submission.owner}/${this.state.submission.name}`);
         } else {
-          Setting.showMessage("error", `failed to save: server side failure`);
-          this.updateSubmissionField('name', this.state.submissionName);
+          Setting.showMessage("error", "failed to save: server side failure");
+          this.updateSubmissionField("name", this.state.submissionName);
         }
       })
       .catch(error => {

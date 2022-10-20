@@ -17,6 +17,6 @@ import * as Setting from "../Setting";
 export function getProducts() {
   return fetch(`${Setting.ServerUrl}/api/get-products`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include",
   }).then(res => res.json());
 }

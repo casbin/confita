@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from 'antd';
+import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from "antd";
 import {CloseCircleTwoTone, PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
@@ -54,11 +54,11 @@ class RoomListPage extends React.Component {
 
   getPayments() {
     PaymentBackend.getPayments(this.props.account.name)
-        .then((payments) => {
-          this.setState({
-            payments: payments.filter(payment => payment.state === "Paid"),
-          });
+      .then((payments) => {
+        this.setState({
+          payments: payments.filter(payment => payment.state === "Paid"),
         });
+      });
   }
 
   newRoom() {
@@ -89,18 +89,18 @@ class RoomListPage extends React.Component {
       isLive: false,
       liveUserCount: 0,
       viewerCount: 0,
-    }
+    };
   }
 
   addRoom() {
     const newRoom = this.newRoom();
     RoomBackend.addRoom(newRoom)
       .then((res) => {
-          Setting.showMessage("success", `Room added successfully`);
-          this.setState({
-            rooms: Setting.prependRow(this.state.rooms, newRoom),
-          });
-        }
+        Setting.showMessage("success", "Room added successfully");
+        this.setState({
+          rooms: Setting.prependRow(this.state.rooms, newRoom),
+        });
+      }
       )
       .catch(error => {
         Setting.showMessage("error", `Room failed to add: ${error}`);
@@ -110,11 +110,11 @@ class RoomListPage extends React.Component {
   deleteRoom(i) {
     RoomBackend.deleteRoom(this.state.rooms[i])
       .then((res) => {
-          Setting.showMessage("success", `Room deleted successfully`);
-          this.setState({
-            rooms: Setting.deleteRow(this.state.rooms, i),
-          });
-        }
+        Setting.showMessage("success", "Room deleted successfully");
+        this.setState({
+          rooms: Setting.deleteRow(this.state.rooms, i),
+        });
+      }
       )
       .catch(error => {
         Setting.showMessage("error", `Room failed to delete: ${error}`);
@@ -147,23 +147,23 @@ class RoomListPage extends React.Component {
       // },
       {
         title: i18next.t("general:Name"),
-        dataIndex: 'name',
-        key: 'name',
-        width: '90px',
+        dataIndex: "name",
+        key: "name",
+        width: "90px",
         sorter: (a, b) => a.name.localeCompare(b.name),
         render: (text, record, index) => {
           return (
             <Link to={`/rooms/${record.owner}/${text}`}>
               {text}
             </Link>
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Display name"),
-        dataIndex: 'displayName',
-        key: 'displayName',
-        width: '120px',
+        dataIndex: "displayName",
+        key: "displayName",
+        width: "120px",
         sorter: (a, b) => a.displayName.localeCompare(b.displayName),
       },
       // {
@@ -196,54 +196,54 @@ class RoomListPage extends React.Component {
       // },
       {
         title: i18next.t("room:Speaker"),
-        dataIndex: 'speaker',
-        key: 'speaker',
-        width: '250px',
+        dataIndex: "speaker",
+        key: "speaker",
+        width: "250px",
         sorter: (a, b) => a.speaker.localeCompare(b.speaker),
       },
       {
         title: i18next.t("room:Date"),
-        dataIndex: 'date',
-        key: 'date',
-        width: '80px',
+        dataIndex: "date",
+        key: "date",
+        width: "80px",
         sorter: (a, b) => a.date.localeCompare(b.date),
       },
       {
         title: i18next.t("room:Time"),
-        dataIndex: 'time',
-        key: 'time',
-        width: '90px',
+        dataIndex: "time",
+        key: "time",
+        width: "90px",
         sorter: (a, b) => a.time.localeCompare(b.time),
         render: (text, record, index) => {
           return `${record.startTime} - ${record.endTime}`;
-        }
+        },
       },
       {
         title: i18next.t("room:Location"),
-        dataIndex: 'location',
-        key: 'location',
-        width: '120px',
+        dataIndex: "location",
+        key: "location",
+        width: "120px",
         sorter: (a, b) => a.location.localeCompare(b.location),
       },
       {
         title: i18next.t("room:Meeting No."),
-        dataIndex: 'meetingNumber',
-        key: 'meetingNumber',
-        width: '120px',
+        dataIndex: "meetingNumber",
+        key: "meetingNumber",
+        width: "120px",
         sorter: (a, b) => a.meetingNumber.localeCompare(b.meetingNumber),
       },
       {
         title: i18next.t("room:Passcode"),
-        dataIndex: 'passcode',
-        key: 'passcode',
-        width: '80px',
+        dataIndex: "passcode",
+        key: "passcode",
+        width: "80px",
         sorter: (a, b) => a.passcode.localeCompare(b.passcode),
       },
       {
         title: i18next.t("general:Status"),
-        dataIndex: 'status',
-        key: 'status',
-        width: '90px',
+        dataIndex: "status",
+        key: "status",
+        width: "90px",
         sorter: (a, b) => a.status.localeCompare(b.status),
         render: (text, record, index) => {
           if (text === "Started") {
@@ -255,25 +255,25 @@ class RoomListPage extends React.Component {
           } else {
             return text;
           }
-        }
+        },
       },
       {
         title: i18next.t("room:Is public"),
-        dataIndex: 'isPublic',
-        key: 'isPublic',
-        width: '90px',
+        dataIndex: "isPublic",
+        key: "isPublic",
+        width: "90px",
         sorter: (a, b) => a.isPublic - b.isPublic,
         render: (text, record, index) => {
           return (
             <Switch checked={text} disabled={true} />
-          )
-        }
+          );
+        },
       },
       {
         title: i18next.t("general:Action"),
-        dataIndex: 'action',
-        key: 'action',
-        width: '270px',
+        dataIndex: "action",
+        key: "action",
+        width: "270px",
         render: (text, room, index) => {
           const startUrl = room.startUrl;
           const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
@@ -283,89 +283,89 @@ class RoomListPage extends React.Component {
             return (
               <div>
                 <a target="_blank" rel="noreferrer" href={startUrl}>
-                  <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Join In")}</Button>
+                  <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Join In")}</Button>
                 </a>
                 {
                   (startUrl === "") ? (
-                    <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                    <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
                     <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
-                      <Button disabled={startUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} danger>{i18next.t("room:Scan QR Code")}</Button>
+                      <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )
                 }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
                   {i18next.t("room:Watch Live")}
                   {Setting.getRoomLiveUserCount(room)}
                 </Button>
-                <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
-                <Button style={{marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
+                <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+                <Button style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
                   title={`Sure to delete room: ${room.name} ?`}
                   onConfirm={() => this.deleteRoom(index)}
                   okText="OK"
                   cancelText="Cancel"
                 >
-                  <Button style={{marginBottom: '10px'}} type="danger">{i18next.t("general:Delete")}</Button>
+                  <Button style={{marginBottom: "10px"}} type="danger">{i18next.t("general:Delete")}</Button>
                 </Popconfirm>
               </div>
-            )
+            );
           } else {
             return (
               <div>
                 {
                   joinUrl !== "" ? null : (
-                    <Button disabled={room.meetingNumber === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.registerRoom(index)}>
+                    <Button disabled={room.meetingNumber === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.registerRoom(index)}>
                       {i18next.t("room:Register")}
                     </Button>
                   )
                 }
                 <a target="_blank" rel="noreferrer" href={joinUrl}>
-                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary">{i18next.t("room:Join In")}</Button>
+                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary">{i18next.t("room:Join In")}</Button>
                 </a>
                 {
                   (room.meetingNumber === "" || joinUrl === "") ? (
-                    <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                    <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
                     <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                      <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}}>{i18next.t("room:Scan QR Code")}</Button>
+                      <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )
                 }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: '10px', marginBottom: '10px', marginRight: '10px'}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
                   {i18next.t("room:Watch Live")}
                   {Setting.getRoomLiveUserCount(room)}
                 </Button>
               </div>
-            )
+            );
           }
-        }
+        },
       },
     ];
 
     return (
       <div>
         <Table columns={columns} dataSource={rooms} rowKey="name" size="middle" bordered pagination={{pageSize: 100}}
-               title={() => (
-                 <div>
-                   {
-                     this.props.isPublic ? i18next.t("general:Public Rooms") :
-                       i18next.t("general:Rooms")
-                   }&nbsp;&nbsp;&nbsp;&nbsp;
-                   {
-                     !Setting.isAdminUser(this.props.account) ? null : (
-                       <React.Fragment>
-                         <Button type="primary" size="small" onClick={this.addRoom.bind(this)}>{i18next.t("general:Add")}</Button>
+          title={() => (
+            <div>
+              {
+                this.props.isPublic ? i18next.t("general:Public Rooms") :
+                  i18next.t("general:Rooms")
+              }&nbsp;&nbsp;&nbsp;&nbsp;
+              {
+                !Setting.isAdminUser(this.props.account) ? null : (
+                  <React.Fragment>
+                    <Button type="primary" size="small" onClick={this.addRoom.bind(this)}>{i18next.t("general:Add")}</Button>
                          &nbsp;&nbsp;&nbsp;&nbsp;
-                         {
-                           this.renderCalendarModeSwitch()
-                         }
-                       </React.Fragment>
-                     )
-                   }
-                 </div>
-               )}
-               loading={rooms === null}
+                    {
+                      this.renderCalendarModeSwitch()
+                    }
+                  </React.Fragment>
+                )
+              }
+            </div>
+          )}
+          loading={rooms === null}
         />
       </div>
     );
@@ -383,13 +383,13 @@ class RoomListPage extends React.Component {
           Setting.setIsRoomCalendar(checked);
         }} />
       </React.Fragment>
-    )
+    );
   }
 
   renderCard(index, room, isSingle) {
     return (
-      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} onRegisterRoom={(i) => { this.registerRoom(i)}} />
-    )
+      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} onRegisterRoom={(i) => {this.registerRoom(i);}} />
+    );
   }
 
   renderCards() {
@@ -409,10 +409,10 @@ class RoomListPage extends React.Component {
             })
           }
         </Card>
-      )
+      );
     } else {
       return (
-        <div style={{marginRight: '15px', marginLeft: '15px'}}>
+        <div style={{marginRight: "15px", marginLeft: "15px"}}>
           <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
             {
               rooms.map((room, i) => {
@@ -421,7 +421,7 @@ class RoomListPage extends React.Component {
             }
           </Row>
         </div>
-      )
+      );
     }
   }
 
@@ -434,19 +434,19 @@ class RoomListPage extends React.Component {
               {
                 this.renderCalendarModeSwitch()
               }
-              <br/>
+              <br />
             </React.Fragment>
           )
         }
         <Row style={{width: "100%"}}>
-          <Col span={24} style={{display: "flex", justifyContent:  "center"}} >
+          <Col span={24} style={{display: "flex", justifyContent: "center"}} >
             {
               this.renderCards()
             }
           </Col>
         </Row>
       </React.Fragment>
-    )
+    );
   }
 
   renderPaymentModal() {
@@ -471,29 +471,29 @@ class RoomListPage extends React.Component {
     };
 
     return (
-        <Modal
-            title={
-              <div>
-                <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
-                {" " + i18next.t("room:You need to pay first to enter meeting rooms")}
-              </div>
-            }
-            visible={true}
-            cancelButtonProps={{
-              style: {
-                display: "none",
-              },
-            }}
-            onOk={handleOk}
-            onCancel={() => {}}
-            okText={i18next.t("room:Go to Pay")}
-            closable={false}
-        >
+      <Modal
+        title={
           <div>
-            {i18next.t("room:In the 'Payments' page, please select the 'Online Participation Rate` tier (2nd row) to be able to access the online meeting rooms.")}
+            <CloseCircleTwoTone twoToneColor="rgb(255,77,79)" />
+            {" " + i18next.t("room:You need to pay first to enter meeting rooms")}
           </div>
-        </Modal>
-    )
+        }
+        visible={true}
+        cancelButtonProps={{
+          style: {
+            display: "none",
+          },
+        }}
+        onOk={handleOk}
+        onCancel={() => {}}
+        okText={i18next.t("room:Go to Pay")}
+        closable={false}
+      >
+        <div>
+          {i18next.t("room:In the 'Payments' page, please select the 'Online Participation Rate` tier (2nd row) to be able to access the online meeting rooms.")}
+        </div>
+      </Modal>
+    );
   }
 
   render() {

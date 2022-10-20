@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Card, Col, Row} from 'antd';
+import {Card, Col, Row} from "antd";
 import * as Setting from "./Setting";
 import CompetitionCard from "./CompetitionCard";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
@@ -43,7 +43,7 @@ class CompetitionListPage extends React.Component {
   renderCard(index, competition, isSingle) {
     return (
       <CompetitionCard key={index} competition={competition} />
-    )
+    );
   }
 
   renderCards() {
@@ -63,10 +63,10 @@ class CompetitionListPage extends React.Component {
             })
           }
         </Card>
-      )
+      );
     } else {
       return (
-        <div style={{marginRight: '15px', marginLeft: '15px'}}>
+        <div style={{marginRight: "15px", marginLeft: "15px"}}>
           <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
             {
               competitions.map((competition, i) => {
@@ -75,7 +75,7 @@ class CompetitionListPage extends React.Component {
             }
           </Row>
         </div>
-      )
+      );
     }
   }
 

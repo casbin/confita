@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'braft-editor/dist/index.css'
+import "braft-editor/dist/index.css";
 import React from "react";
 import BraftEditor from "braft-editor";
 import i18next from "i18next";
 
 const fontFamilies = [
-  { name: '宋体', family: 'SimSun' },
-  { name: '黑体', family: 'SimHei' },
-  { name: '微软雅黑', family: 'Microsoft YaHei , Helvetica, sans-serif' },
-  { name: '楷体', family: 'KaiTi' },
-  { name: '仿宋', family: 'FangSong' },
-  { name: 'Arial', family: 'Arial, Helvetica, sans-serif' },
-  { name: 'Times New Roman', family: 'Times-New-Roman' },
-  { name: 'Georgia', family: 'Georgia, serif' },
-  { name: 'Impact', family: 'Impact, serif' },
-  { name: 'Monospace', family: '"Courier New", Courier, monospace' },
-  { name: 'Tahoma', family: "tahoma, arial, 'Hiragino Sans GB', 宋体, sans-serif" },
+  {name: "宋体", family: "SimSun"},
+  {name: "黑体", family: "SimHei"},
+  {name: "微软雅黑", family: "Microsoft YaHei , Helvetica, sans-serif"},
+  {name: "楷体", family: "KaiTi"},
+  {name: "仿宋", family: "FangSong"},
+  {name: "Arial", family: "Arial, Helvetica, sans-serif"},
+  {name: "Times New Roman", family: "Times-New-Roman"},
+  {name: "Georgia", family: "Georgia, serif"},
+  {name: "Impact", family: "Impact, serif"},
+  {name: "Monospace", family: "\"Courier New\", Courier, monospace"},
+  {name: "Tahoma", family: "tahoma, arial, 'Hiragino Sans GB', 宋体, sans-serif"},
 ];
 
 class HtmlEditorBraft extends React.Component {
@@ -38,7 +38,7 @@ class HtmlEditorBraft extends React.Component {
       classes: props,
       // font-family style lost:
       // https://github.com/margox/braft-editor/issues/775
-      editorState: BraftEditor.createEditorState(this.props.text, { fontFamilies: fontFamilies }),
+      editorState: BraftEditor.createEditorState(this.props.text, {fontFamilies: fontFamilies}),
     };
   }
 
@@ -57,17 +57,17 @@ class HtmlEditorBraft extends React.Component {
     }
 
     this.updateText(text);
-  }
+  };
 
   render() {
     const controls = [
-      'undo', 'redo', 'separator',
-      'remove-styles', 'hr', 'separator',
-      'bold', 'italic', 'underline', 'strike-through', 'superscript', 'subscript', 'separator',
-      'headings', 'blockquote', 'code', 'list_ul', 'list_ol', 'separator',
-      'link', 'text-color', 'line-height', 'letter-spacing', 'text-indent', 'separator',
-      'font-size', 'font-family', 'text-align', 'separator',
-      'media', 'emoji', 'clear', 'fullscreen',
+      "undo", "redo", "separator",
+      "remove-styles", "hr", "separator",
+      "bold", "italic", "underline", "strike-through", "superscript", "subscript", "separator",
+      "headings", "blockquote", "code", "list_ul", "list_ol", "separator",
+      "link", "text-color", "line-height", "letter-spacing", "text-indent", "separator",
+      "font-size", "font-family", "text-align", "separator",
+      "media", "emoji", "clear", "fullscreen",
     ];
 
     return (
@@ -81,7 +81,7 @@ class HtmlEditorBraft extends React.Component {
             validateFn: (file) => {
               alert(i18next.t("conference:Local image upload is disallowed. Please go to \"Resources\" to upload images and paste the image URL to the text editor. You can choose \"Media\" -> left-bottom corner \"+Add network resource\", then paste the image URL into the box"));
               return false;
-            }
+            },
           }}
           onChange={this.handleChange}
         />

@@ -67,7 +67,7 @@ class ContactPage extends React.Component {
         style={{border: "1px solid rgb(232,232,232)", width: "100%", height: "70vh"}}
         src={`${Conf.CasnodeEndpoint}/embedded-replies?nodeId=${nodeId}&title=${title}&author=${author}&urlPath=${urlPath}&accessToken=${accessToken}`}
       />
-    )
+    );
   }
 
   renderAdmin() {
@@ -86,7 +86,7 @@ class ContactPage extends React.Component {
         style={{border: "1px solid rgb(232,232,232)", width: "100%", height: "70vh"}}
         src={`${Conf.CasnodeEndpoint}?accessToken=${accessToken}`}
       />
-    )
+    );
   }
 
   render() {
@@ -96,11 +96,11 @@ class ContactPage extends React.Component {
           <Col span={!Setting.isMobile() ? 3 : 0}>
           </Col>
           <Col span={!Setting.isMobile() ? 18 : 24}>
-            <br/>
+            <br />
             {
               Setting.getAlert("info", i18next.t("contact:If you want to change your tag to 'Student' or 'Accompanying Person', please contact the service desk in the below chat box. Provide the tag you want to change to and also the proof image like your student ID card photo. You can use the keystroke 'Ctrl' + 'V' to paste an image into the reply box."))
             }
-            <br/>
+            <br />
             {
               (Setting.isEditorUser(this.props.account) || Setting.isAdminUser(this.props.account)) ? (
                 this.renderAdmin()

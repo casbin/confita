@@ -12,9 +12,12 @@
     "codemirror": "^5.65.3",
     "copy-to-clipboard": "^3.3.1",
     "craco-less": "2.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "eslint-rule-composer": "^0.3.0",
     "file-saver": "2.0.2",
     "i18next": "^19.8.9",
-    "moment": "^2.29.1",
+    "lint": "^0.7.0",
+    "moment": "^2.29.4",
     "qrcode.react": "^3.0.2",
     "react": "^18.2.0",
     "react-codemirror2": "^7.2.1",
@@ -29,11 +32,13 @@
     "xlsx": "0.16.9"
   },
   "scripts": {
+    "lint": "eslint src",
     "start": "set PORT=11001 && craco start",
     "build": "del build.zip 2>nul && set \"GENERATE_SOURCEMAP=false\" && set \"SKIP_PREFLIGHT_CHECK=true\" && craco build && 360zip.exe -ar build %cd%/build.zip || ECHO.",
     "test": "craco test",
     "eject": "craco eject",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "fix": "eslint src/**/*.*  --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +60,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.25.0"
+    "eslint": "^8.25.0",
+    "eslint-plugin-react": "^7.31.10"
   }
 }

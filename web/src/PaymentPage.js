@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from "react";
-import {Button, Card, Col, Descriptions, List, Modal, Row, Tooltip} from 'antd';
+import {Button, Card, Col, Descriptions, List, Modal, Row, Tooltip} from "antd";
 import {CloseCircleTwoTone} from "@ant-design/icons";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
 import * as ProductBackend from "./backend/ProductBackend";
@@ -25,7 +25,7 @@ import {FilePdfOutlined, FileWordOutlined} from "@ant-design/icons";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Conf from "./Conf";
 import PaymentCard from "./PaymentCard";
-import Hotkeys from 'react-hot-keys';
+import Hotkeys from "react-hot-keys";
 
 class PaymentPage extends React.Component {
   constructor(props) {
@@ -97,7 +97,7 @@ class PaymentPage extends React.Component {
           myTag = tokens[1];
         }
       }
-    })
+    });
 
     if (inputTag === "Editor") {
       if (Setting.getLanguage() !== "zh") {
@@ -122,36 +122,36 @@ class PaymentPage extends React.Component {
         renderItem={submission => (
           <List.Item
             actions={[
-              <Link to={`/submissions`}>
+              <Link to={"/submissions"}>
                 {i18next.t("payment:View")}
               </Link>,
               <Link to={`/submissions/${submission.owner}/${submission.name}`}>
                 {i18next.t("payment:Edit")}
-              </Link>
+              </Link>,
             ]}
           >
             <List.Item.Meta
               // avatar={<Avatar src={item.picture.large} />}
               title={
-                <Link to={`/submissions`}>
+                <Link to={"/submissions"}>
                   {submission.title}
                 </Link>
               }
               description={submission.authors.map(author => `${author.name} | ${author.affiliation} | ${author.email}`).join(", ")}
             />
-            <Row style={{width: '40%'}} >
+            <Row style={{width: "40%"}} >
               <Col span={12} >
                 <div>{`${submission.conference} | ${submission.type} | ${submission.subType}`}</div>
               </Col>
               <Col span={12} >
-                <div style={{width: '180px'}}>
+                <div style={{width: "180px"}}>
                   {
                     Setting.getAlert(submission.status === "ReadyForReview" ? "success" : "error", submission.status)
                   }
                 </div>
               </Col>
             </Row>
-            {/*{*/}
+            {/* {*/}
             {/*  submission.absWordFileUrl === "" ? (*/}
             {/*    <Tooltip title={Setting.getFilenameFromUrl(submission.absWordFileUrl)}>*/}
             {/*      <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >*/}
@@ -175,8 +175,8 @@ class PaymentPage extends React.Component {
             {/*      </Button>*/}
             {/*    </Tooltip>*/}
             {/*  )*/}
-            {/*}*/}
-            {/*{*/}
+            {/* }*/}
+            {/* {*/}
             {/*  submission.absPdfFileUrl === "" ? (*/}
             {/*    <Tooltip title={Setting.getFilenameFromUrl(submission.absPdfFileUrl)}>*/}
             {/*      <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >*/}
@@ -200,11 +200,11 @@ class PaymentPage extends React.Component {
             {/*      </Button>*/}
             {/*    </Tooltip>*/}
             {/*  )*/}
-            {/*}*/}
+            {/* }*/}
             {
               submission.fullWordFileUrl === "" ? (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.fullWordFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
+                  <Button style={{width: 160, height: 78, margin: "10px", cursor: "auto"}} type="dashed" >
                     <div>
                       <FileWordOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
                     </div>
@@ -215,7 +215,7 @@ class PaymentPage extends React.Component {
                 </Tooltip>
               ) : (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.fullWordFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.fullWordFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(submission.fullWordFileUrl)}>
                     <div>
                       <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
                     </div>
@@ -229,7 +229,7 @@ class PaymentPage extends React.Component {
             {
               submission.fullPdfFileUrl === "" ? (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.fullPdfFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
+                  <Button style={{width: 160, height: 78, margin: "10px", cursor: "auto"}} type="dashed" >
                     <div>
                       <FilePdfOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
                     </div>
@@ -240,7 +240,7 @@ class PaymentPage extends React.Component {
                 </Tooltip>
               ) : (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.fullPdfFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.fullPdfFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(submission.fullPdfFileUrl)}>
                     <div>
                       <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
                     </div>
@@ -254,7 +254,7 @@ class PaymentPage extends React.Component {
             {
               submission.finalWordFileUrl === "" ? (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.finalWordFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
+                  <Button style={{width: 160, height: 78, margin: "10px", cursor: "auto"}} type="dashed" >
                     <div>
                       <FileWordOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
                     </div>
@@ -265,7 +265,7 @@ class PaymentPage extends React.Component {
                 </Tooltip>
               ) : (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.finalWordFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.finalWordFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(submission.finalWordFileUrl)}>
                     <div>
                       <FileWordOutlined style={{fontSize: 48, color: "rgb(19,77,178)"}} />
                     </div>
@@ -279,7 +279,7 @@ class PaymentPage extends React.Component {
             {
               submission.finalPdfFileUrl === "" ? (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.finalPdfFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px', cursor: 'auto'}} type="dashed" >
+                  <Button style={{width: 160, height: 78, margin: "10px", cursor: "auto"}} type="dashed" >
                     <div>
                       <FilePdfOutlined style={{fontSize: 48, color: "rgb(164,164,164)"}} />
                     </div>
@@ -290,7 +290,7 @@ class PaymentPage extends React.Component {
                 </Tooltip>
               ) : (
                 <Tooltip title={Setting.getFilenameFromUrl(submission.finalPdfFileUrl)}>
-                  <Button style={{width: 160, height: 78, margin: '10px'}} type="dashed" onClick={() => Setting.goToLink(submission.finalPdfFileUrl)}>
+                  <Button style={{width: 160, height: 78, margin: "10px"}} type="dashed" onClick={() => Setting.goToLink(submission.finalPdfFileUrl)}>
                     <div>
                       <FilePdfOutlined style={{fontSize: 48, color: "rgb(194,10,10)"}} />
                     </div>
@@ -304,7 +304,7 @@ class PaymentPage extends React.Component {
           </List.Item>
         )}
       />
-    )
+    );
   }
 
   updateProduct(type, product) {
@@ -326,8 +326,8 @@ class PaymentPage extends React.Component {
     const paid = payments.length !== 0;
 
     return (
-      <PaymentCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(type, product) => { this.updateProduct(type, product)}} />
-    )
+      <PaymentCard logo={product.image} link={url} title={price} desc={product.displayName} time={product.tag} isSingle={isSingle} key={product.name} account={this.props.account} product={product} payments={payments} clickable={!paid} onUpdateProduct={(type, product) => {this.updateProduct(type, product);}} />
+    );
   }
 
   renderCards() {
@@ -352,10 +352,10 @@ class PaymentPage extends React.Component {
             })
           }
         </Card>
-      )
+      );
     } else {
       return (
-        <div style={{marginRight: '15px', marginLeft: '15px'}}>
+        <div style={{marginRight: "15px", marginLeft: "15px"}}>
           <Row style={{marginLeft: "-20px", marginRight: "-20px", marginTop: "20px"}} gutter={24}>
             {
               products.map(product => {
@@ -364,7 +364,7 @@ class PaymentPage extends React.Component {
             }
           </Row>
         </div>
-      )
+      );
     }
   }
 
@@ -395,33 +395,33 @@ class PaymentPage extends React.Component {
 
     return (
       <div>
-          <div style={{fontSize: 16}}>
-            {
-              Setting.getAlert("warning", <div>
-                {
-                  `${i18next.t("payment:Your current tag is")}: ${displayTag}. `
-                }
-                {
-                  `${i18next.t("payment:If you believe your tag is wrong, please click the button to change it")}: `
-                }
-                <Button type="primary" size={"small"} disabled={paid} onClick={() => {
-                  Setting.goToContact(ths);
-                }} >
-                  {i18next.t("payment:Change My Tag")}
-                </Button>
-              </div>)
-            }
-          </div>
-          <div style={{fontSize: 16, marginTop: 12}}>
-            {
-              this.renderAlert(paid)
-            }
-          </div>
+        <div style={{fontSize: 16}}>
+          {
+            Setting.getAlert("warning", <div>
+              {
+                `${i18next.t("payment:Your current tag is")}: ${displayTag}. `
+              }
+              {
+                `${i18next.t("payment:If you believe your tag is wrong, please click the button to change it")}: `
+              }
+              <Button type="primary" size={"small"} disabled={paid} onClick={() => {
+                Setting.goToContact(ths);
+              }} >
+                {i18next.t("payment:Change My Tag")}
+              </Button>
+            </div>)
+          }
+        </div>
+        <div style={{fontSize: 16, marginTop: 12}}>
+          {
+            this.renderAlert(paid)
+          }
+        </div>
         {
           this.renderCards(paid)
         }
       </div>
-    )
+    );
   }
 
   renderModal() {
@@ -443,11 +443,11 @@ class PaymentPage extends React.Component {
           {" " + i18next.t("payment:There is error when processing the registration payment..")}
         </div>
       }
-             visible={this.state.isModalVisible}
-             onOk={handleChangeMyTag}
-             onCancel={handleCancel}
-             okText={i18next.t("payment:Change My Tag")}
-             cancelText={i18next.t("payment:Cancel")}>
+      visible={this.state.isModalVisible}
+      onOk={handleChangeMyTag}
+      onCancel={handleCancel}
+      okText={i18next.t("payment:Change My Tag")}
+      cancelText={i18next.t("payment:Cancel")}>
         <p>
           {
             i18next.t("payment:Your current tag is") + ": "
@@ -477,7 +477,7 @@ class PaymentPage extends React.Component {
           ) : null
         }
       </Modal>
-    )
+    );
   }
 
   renderTestModal() {
@@ -494,23 +494,23 @@ class PaymentPage extends React.Component {
           {" " + i18next.t("payment:There is error when processing the registration payment..")}
         </div>
       }
-             visible={this.state.isTestModalVisible}
-             cancelButtonProps={{
-               style: {
-                 display: "none",
-               },
-             }}
-             onOk={handleOk}
-             onCancel={handleOk}
-             okText={i18next.t("payment:OK")}
-             >
+      visible={this.state.isTestModalVisible}
+      cancelButtonProps={{
+        style: {
+          display: "none",
+        },
+      }}
+      onOk={handleOk}
+      onCancel={handleOk}
+      okText={i18next.t("payment:OK")}
+      >
         <p>
           {
             i18next.t("payment:The payment functionality is not available yet, please wait for the announcement.")
           }
         </p>
       </Modal>
-    )
+    );
   }
 
   onKeyUp(keyName, e, handle) {}
