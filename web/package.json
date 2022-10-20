@@ -53,5 +53,8 @@
       "last 1 safari version",
       "ie 9, ie 10, ie 11"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0"
   }
 }
