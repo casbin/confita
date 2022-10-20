@@ -38,6 +38,7 @@ import SelectLanguageBox from "./SelectLanguageBox";
 import CompetitionListPage from "./CompetitionListPage";
 import CodeListPage from "./CodeListPage";
 import CodeEditPage from "./CodeEditPage";
+import {withTranslation} from "react-i18next";
 
 const {Header, Footer} = Layout;
 
@@ -511,4 +512,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default withRouter(withTranslation()(App));
