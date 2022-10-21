@@ -217,15 +217,15 @@ class App extends Component {
       return null;
     } else if (this.state.account === null) {
       res.push(
-        <Menu.Item key="/signup" style={{float: "right", marginRight: "20px"}}>
-          <a href={Setting.getSignupUrl()}>
+        <Menu.Item key="/signup" style={{float: "right", marginRight: "20px", border: "none"}}>
+          <a href={Setting.getSignupUrl()} className="signup-button">
             {i18next.t("account:Sign Up")}
           </a>
         </Menu.Item>
       );
       res.push(
-        <Menu.Item key="/signin" style={{float: "right"}}>
-          <a href={Setting.getSigninUrl()}>
+        <Menu.Item key="/signin" style={{float: "right", border: "none"}}>
+          <a href={Setting.getSigninUrl()} className="signin-button">
             {i18next.t("account:Sign In")}
           </a>
         </Menu.Item>
