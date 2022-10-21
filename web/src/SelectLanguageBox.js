@@ -37,6 +37,7 @@ class SelectLanguageBox extends React.Component {
           onClick={() => {
             Setting.changeLanguage("en");
           }}
+          onItemHover={() => {}}
         >
           &nbsp;
           English
@@ -47,6 +48,7 @@ class SelectLanguageBox extends React.Component {
           onClick={() => {
             Setting.changeLanguage("zh");
           }}
+          onItemHover={() => {}}
         >
           &nbsp;
           中文

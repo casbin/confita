@@ -122,10 +122,10 @@ class PaymentPage extends React.Component {
         renderItem={submission => (
           <List.Item
             actions={[
-              <Link to={"/submissions"}>
+              <Link to={"/submissions"} key="view">
                 {i18next.t("payment:View")}
               </Link>,
-              <Link to={`/submissions/${submission.owner}/${submission.name}`}>
+              <Link to={`/submissions/${submission.owner}/${submission.name}`} key="edit">
                 {i18next.t("payment:Edit")}
               </Link>,
             ]}

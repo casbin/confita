@@ -38,6 +38,7 @@ import SelectLanguageBox from "./SelectLanguageBox";
 import CompetitionListPage from "./CompetitionListPage";
 import CodeListPage from "./CodeListPage";
 import CodeEditPage from "./CodeEditPage";
+import {withTranslation} from "react-i18next";
 
 const {Header, Footer} = Layout;
 
@@ -231,6 +232,13 @@ class App extends Component {
       );
     } else {
       res.push(this.renderRightDropdown());
+      return (
+        <div style={{float: "right", margin: "0px", padding: "0px"}}>
+          {
+            res
+          }
+        </div>
+      );
     }
 
     return res;
@@ -248,13 +256,16 @@ class App extends Component {
     );
 
     if (this.state.account === null || this.state.account === undefined) {
-      res.push(
-        <Menu.Item key="/competitions">
-          <Link to="/competitions">
-            {i18next.t("general:Competitions")}
-          </Link>
-        </Menu.Item>
-      );
+      if (!Conf.IsConferenceMode) {
+        res.push(
+          <Menu.Item key="/competitions">
+            <Link to="/competitions">
+              {i18next.t("general:Competitions")}
+            </Link>
+          </Menu.Item>
+        );
+      }
+
       res.push(
         <Menu.Item key="/public-rooms">
           <Link to="/public-rooms">
@@ -274,13 +285,15 @@ class App extends Component {
       </Menu.Item>
     );
 
-    res.push(
-      <Menu.Item key="/competitions">
-        <Link to="/competitions">
-          {i18next.t("general:Competitions")}
-        </Link>
-      </Menu.Item>
-    );
+    if (!Conf.IsConferenceMode) {
+      res.push(
+        <Menu.Item key="/competitions">
+          <Link to="/competitions">
+            {i18next.t("general:Competitions")}
+          </Link>
+        </Menu.Item>
+      );
+    }
 
     if (Setting.isAdminUser(this.state.account)) {
       res.push(
@@ -290,13 +303,16 @@ class App extends Component {
           </Link>
         </Menu.Item>
       );
-      res.push(
-        <Menu.Item key="/code">
-          <Link to="/code">
-            {i18next.t("general:Code")}
-          </Link>
-        </Menu.Item>
-      );
+
+      if (!Conf.IsConferenceMode) {
+        res.push(
+          <Menu.Item key="/code">
+            <Link to="/code">
+              {i18next.t("general:Code")}
+            </Link>
+          </Menu.Item>
+        );
+      }
     }
 
     res.push(
@@ -496,4 +512,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default withRouter(withTranslation()(App));

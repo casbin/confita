@@ -17,6 +17,7 @@ import zh from "./locales/zh/data.json";
 import en from "./locales/en/data.json";
 import * as Conf from "./Conf";
 import * as Setting from "./Setting";
+import {initReactI18next} from "react-i18next";
 
 const resources = {
   en: en,
@@ -29,8 +30,7 @@ function initLanguage() {
     if (Conf.ForceLanguage !== "") {
       language = Conf.ForceLanguage;
     } else {
-      let userLanguage;
-      userLanguage = navigator.language;
+      const userLanguage = navigator.language;
       switch (userLanguage) {
       case "zh-CN":
         language = "zh";
@@ -54,7 +54,7 @@ function initLanguage() {
   return language;
 }
 
-i18n.init({
+i18n.use(initReactI18next).init({
   lng: initLanguage(),
 
   resources: resources,

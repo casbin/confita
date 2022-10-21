@@ -1,3 +1,4 @@
+
 // Copyright 2021 The casbin Authors. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +21,12 @@ import moment from "moment";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
 import * as SubmissionBackend from "./backend/SubmissionBackend";
+import * as UserBackend from "./backend/UserBackend";
+import * as PaymentBackend from "./backend/PaymentBackend";
 import i18next from "i18next";
 import copy from "copy-to-clipboard";
+import XLSX from "xlsx";
+import FileSaver from "file-saver";
 
 class SubmissionListPage extends React.Component {
   constructor(props) {
@@ -29,12 +34,17 @@ class SubmissionListPage extends React.Component {
     this.state = {
       classes: props,
       submissions: null,
+      submissionMap: null,
+      paymentMap: null,
+      users: null,
     };
   }
 
   UNSAFE_componentWillMount() {
     if (Setting.isAdminUser(this.props.account) || Setting.isEditorUser(this.props.account)) {
       this.getGlobalSubmissions();
+      this.getUsers();
+      this.getGlobalPayments();
     } else {
       this.getSubmissions();
     }
@@ -42,20 +52,105 @@ class SubmissionListPage extends React.Component {
 
   getSubmissions() {
     SubmissionBackend.getSubmissions(this.props.account.name)
-      .then((res) => {
+      .then((submissions) => {
+        const submissionMap = {};
+        submissions.forEach((submission, i) => {
+          if (submission.finalWordFileUrl !== "" || submission.finalPdfFileUrl !== "") {
+            submissionMap[submission.owner] = submission;
+          }
+        });
+
         this.setState({
-          submissions: res,
+          submissions: submissions,
+          submissionMap: submissionMap,
         });
       });
   }
 
   getGlobalSubmissions() {
     SubmissionBackend.getGlobalSubmissions()
-      .then((res) => {
+      .then((submissions) => {
+        const submissionMap = {};
+        submissions.forEach((submission, i) => {
+          if (submission.finalWordFileUrl !== "" || submission.finalPdfFileUrl !== "") {
+            submissionMap[submission.owner] = submission;
+          }
+        });
+
         this.setState({
-          submissions: res,
+          submissions: submissions,
+          submissionMap: submissionMap,
         });
       });
+  }
+
+  getUsers() {
+    UserBackend.getUsers()
+      .then((res) => {
+        this.setState({
+          users: res,
+        });
+      });
+  }
+
+  getGlobalPayments() {
+    PaymentBackend.getGlobalPayments()
+      .then((payments) => {
+        const paymentMap = {};
+        payments.forEach((payment, i) => {
+          paymentMap[payment.user] = payment;
+        });
+
+        this.setState({
+          paymentMap: paymentMap,
+        });
+      });
+  }
+
+  downloadXlsx() {
+    const data = [];
+    this.state.users.forEach((user, i) => {
+      const row = {};
+
+      row["Username"] = user.name;
+      row["Name"] = user.displayName;
+      row["Email"] = user.email;
+      row["Country/Region"] = user.region;
+      row["Tag"] = user.tag;
+
+      const payment = this.state.paymentMap[user.name];
+      if (payment !== undefined) {
+        row["Registration SKU"] = Setting.getLanguageText(payment.productDisplayName);
+        row["Registration Tag"] = payment.tag;
+        row["Registration Fee"] = payment.price;
+      }
+
+      const submission = this.state.submissionMap[user.name];
+      if (submission !== undefined) {
+        row["Submission"] = Setting.getShortName((submission.finalWordFileUrl !== "") ? submission.finalWordFileUrl : submission.finalPdfFileUrl);
+        row["Authors"] = JSON.stringify(submission.authors);
+      }
+
+      data.push(row);
+    });
+
+    const sheet = XLSX.utils.json_to_sheet(data);
+    sheet["!cols"] = [
+      {wch: 20},
+      {wch: 20},
+      {wch: 30},
+      {wch: 15},
+      {wch: 15},
+      {wch: 25},
+      {wch: 15},
+      {wch: 15},
+      {wch: 25},
+      {wch: 25},
+    ];
+
+    const blob = Setting.sheet2blob(sheet, "Default");
+    const fileName = `users-${Setting.getFormattedDate(moment().format())}.xlsx`;
+    FileSaver.saveAs(blob, fileName);
   }
 
   newSubmission() {
@@ -436,6 +531,8 @@ class SubmissionListPage extends React.Component {
               <Button type="primary" size="small" onClick={this.addSubmission.bind(this)}>{i18next.t("general:Add")}</Button>
                    &nbsp;&nbsp;&nbsp;&nbsp;
               <Button size="small" onClick={() => this.copyEmails()}>{i18next.t("submission:Copy All Emails")}</Button>
+                   &nbsp;&nbsp;&nbsp;&nbsp;
+              <Button type="primary" disabled={this.state.users === null || this.state.paymentMap === null || this.state.submissionMap === null} size="small" onClick={() => this.downloadXlsx()}>{i18next.t("submission:Download Users")} (.xlsx)</Button>
             </div>
           )}
           loading={submissions === null}

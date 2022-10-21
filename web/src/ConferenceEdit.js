@@ -33,7 +33,7 @@ class ConferenceEdit extends React.Component {
   }
 
   onDragEnter = info => {
-    console.log(info);
+    // console.log(info);
     // expandedKeys 需要受控时设置
     // this.setState({
     //   expandedKeys: info.expandedKeys,
