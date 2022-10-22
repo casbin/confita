@@ -34,7 +34,8 @@
     "test": "craco test",
     "eject": "craco eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "fix": "eslint --fix src/*.js src/backend/*.js"
+    "fix": "eslint --fix src/*.js src/backend/*.js",
+    "lint:staged": "lint-staged"
   },
   "eslintConfig": {
     "extends": [
@@ -55,11 +56,23 @@
       "ie 9, ie 10, ie 11"
     ]
   },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "eslint --ignore-path .gitignore --fix"
+      ]
+    },
+    "ignore": []
+  },
+  "pre-commit": "lint:staged",
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
     "eslint": "^8.25.0",
     "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-unused-imports": "^2.0.0"
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "pre-commit": "^1.2.2"
   }
 }
