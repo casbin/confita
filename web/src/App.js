@@ -455,7 +455,7 @@ class App extends Component {
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)} />
           <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)} />
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)} />
-          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
+          <Route path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
           <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)} />
