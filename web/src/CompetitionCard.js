@@ -14,9 +14,10 @@
 
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {Button, Card, Col} from "antd";
+import {Card} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
+import "./CompetitionCard.less";
 
 const {Meta} = Card;
 
@@ -28,58 +29,45 @@ class CompetitionCard extends React.Component {
     };
   }
 
-  renderButtons() {
-    return (
-      <div>
-        <Button style={{marginRight: "10px", marginBottom: "10px"}} type="primary">
-          {i18next.t("competition:Ongoing")}
-        </Button>
-      </div>
-    );
-  }
-
   renderCardMobile(competition) {
-    const gridStyle = {
-      width: "100vw",
-      textAlign: "center",
-      cursor: "pointer",
-    };
 
     return (
-      <Card.Grid style={gridStyle}>
+      <Card className="competition-card-mobile" bodyStyle={{padding: 0}} hoverable>
         <img src={competition.carousels[0]} alt="logo" height={60} style={{marginBottom: "20px", padding: "10px"}} />
         <Meta
           title={competition.displayName}
           description={competition.introduction}
         />
         <br />
-        {
-          this.renderButtons()
-        }
-      </Card.Grid>
+        <div className="card-button-mobile">
+          {i18next.t("competition:Ongoing")}
+        </div>
+      </Card>
     );
   }
 
   renderCard(competition) {
     return (
-      <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
-        <Card
+      <div className="competition-card-container">
+        <Card className="competition-card"
+          cover={<img alt="logo" src={competition.carousels[0]} style={{width: "100%", height: "auto", objectFit: "scale-down", padding: "10px"}} />}
+          bodyStyle={{margin: 0, padding: 0}}
           hoverable
-          cover={
-            <img alt="logo" src={competition.carousels[0]} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
-          }
-          style={{width: "25vw", cursor: "default"}}
         >
-          <Meta title={competition.displayName} description={competition.introduction} />
-          <br />
-          <Meta title={""} description={competition.organizer} />
-          <br />
-          <br />
-          {
-            this.renderButtons()
-          }
+          <div className="card-body">
+            <Meta title={competition.displayName} description={competition.introduction} />
+          </div>
+          <div className="card-bottom">
+            <div>
+              <p>{i18next.t("competition:Organizer")}</p>
+              <p>{competition.organizer}</p>
+            </div>
+            <div>
+              {i18next.t("competition:Ongoing")}
+            </div>
+          </div>
         </Card>
-      </Col>
+      </div>
     );
   }
 
