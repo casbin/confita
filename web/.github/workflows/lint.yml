@@ -1,8 +1,5 @@
-name: Check the source code
-on:
-  pull_request:
-    branches:
-      - main
+name: eslint in pull request
+on: pull_request
 jobs:
   test:
     name: Check the source code
