@@ -11,4 +11,4 @@ jobs:
       - name: Prettier
         run: yarn run format
       - name: Lint
-        run: yarn run lint
+        run: yarn lint
