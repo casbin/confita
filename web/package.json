@@ -13,7 +13,6 @@
     "copy-to-clipboard": "^3.3.1",
     "craco-less": "2.0.0",
     "file-saver": "2.0.2",
-    "hasky": "^3.0.2",
     "i18next": "^19.8.9",
     "moment": "^2.29.1",
     "qrcode.react": "^3.0.2",
