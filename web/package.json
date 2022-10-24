@@ -74,5 +74,15 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "pre-commit": "^1.2.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,css,sass,ts,tsx}": [
+      "yarn fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit":  "lint-staged"
+    }
   }
 }
