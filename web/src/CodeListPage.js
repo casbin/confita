@@ -157,7 +157,7 @@ class CodeListPage extends React.Component {
           </Col>
           <Col span={22}>
             {
-              this.renderTable(this.state.codes)
+               this.renderTable(this.state.codes)
             }
           </Col>
           <Col span={1}>
