@@ -13,6 +13,7 @@
     "copy-to-clipboard": "^3.3.1",
     "craco-less": "2.0.0",
     "file-saver": "2.0.2",
+    "hasky": "^3.0.2",
     "i18next": "^19.8.9",
     "moment": "^2.29.1",
     "qrcode.react": "^3.0.2",
@@ -57,12 +58,9 @@
     ]
   },
   "lint-staged": {
-    "linters": {
-      "*.js": [
-        "eslint --ignore-path .gitignore --fix"
-      ]
-    },
-    "ignore": []
+    "src/**/*.{js,jsx,css,sass,ts,tsx}": [
+      "yarn fix"
+    ]
   },
   "pre-commit": "lint:staged",
   "devDependencies": {
@@ -74,11 +72,6 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "pre-commit": "^1.2.2"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,css,sass,ts,tsx}": [
-      "yarn fix"
-    ]
   },
   "husky": {
     "hooks": {
