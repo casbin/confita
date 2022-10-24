@@ -144,7 +144,7 @@ class RoomCard extends React.Component {
           cover={
             <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
           }
-          style={isSingle ? {width: "420px", cursor: "default"} : {width: "25vw", cursor: "default"}}
+          style={isSingle ? {width: "420px", cursor: "default"} : {width: "22vw", cursor: "default"}}
         >
           <Meta title={title} description={desc} />
           <br />
