@@ -1,14 +1,14 @@
 name: eslint in pull request
 on: pull_request
 jobs:
-  test:
+  eslint:
     name: Check the source code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install packages
-        run: npm ci
+        run: yarn ci
       - name: Prettier
-        run: npm run format
+        run: yarn run format
       - name: Lint
-        run: npm run lint
+        run: yarn run lint
