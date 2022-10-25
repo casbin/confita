@@ -1,12 +1,21 @@
-name: eslint in pull request
-on: pull_request
+name: PR Lint
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
 jobs:
-  eslint:
-    name: Check the source code
+  pr-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install packages
-        run: yarn ci
-      - name: Lint
-        run: yarn lint
+      - uses: morrisoncole/pr-lint-action@v1.7.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          title-regex: "#[eE][xX]-[0-9]+"
+          on-failed-regex-fail-action: false
+          on-failed-regex-create-review: true
+          on-failed-regex-request-changes: false
+          on-failed-regex-comment:
+            "This is just an example. Failed regex: `%regex%`!"
+          on-succeeded-regex-dismiss-review-comment:
+            "This is just an example. Success!"
