@@ -1,18 +1,32 @@
-name: Lint
+name: ESLint
 
-on: pull_request
+on:
+  push:
+    branches: [main] # or [master] if that's name of the main branch
+  pull_request:
+    branches: [main] # or [master] if that's name of the main branch
 
 jobs:
-  eslint:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: mrdivyansh/eslint-action@v1.0.7
-        # GITHUB_TOKEN in forked repositories is read-only
-        # https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
-        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
-          eslint-rc: ./web/.eslintrc.json
-          execute-on-files:
-            - ./web
+          node-version: "16"
+          check-latest: true
+
+      - name: Install dependencies
+        run: yarn install # or npm ci if you use npm and have the package-lock.json file
+
+      - uses: CatChen/eslint-suggestion-action@v2
+        with:
+          request-changes: true # optional
+          fail-check: false # optional
+          github-token: ${{ secrets.GITHUB_TOKEN }} # optional
+          directory: "./web" #optional
+          targets: "./web" #optional
+          eslint-lib-path: "./web/node_modules/eslint/lib/api.js" #optional
+          eslint-bin-path: "./web/node_modules/.bin/eslint" # optional
+
