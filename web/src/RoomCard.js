@@ -19,6 +19,7 @@ import {PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import QrCode from "./QrCode";
+import Slot from "./Slot";
 
 const {Meta} = Card;
 
@@ -154,6 +155,7 @@ class RoomCard extends React.Component {
           {
             this.renderButtons(index, room)
           }
+          <Slot slots={room.slots} />
         </Card>
       </Col>
     );
