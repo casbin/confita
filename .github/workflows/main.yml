@@ -2,9 +2,9 @@ name: ESLint
 
 on:
   push:
-    branches: [main] # or [master] if that's name of the main branch
+    branches: [master] # or [master] if that's name of the main branch
   pull_request:
-    branches: [main] # or [master] if that's name of the main branch
+    branches: [master] # or [master] if that's name of the main branch
 
 jobs:
   build:
