@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/eslint-parser": "^7.19.1",
     "eslint": "7.0.0",
     "eslint-plugin-react": "^7.31.10"
   }
