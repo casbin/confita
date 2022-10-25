@@ -14,5 +14,4 @@ jobs:
         with:
           repo-token: ${{secrets.GITHUB_TOKEN}}
           eslint-rc: ./web/.eslintrc
-          execute-on-files:
-             - ./web
+          execute-on-files: ./web
