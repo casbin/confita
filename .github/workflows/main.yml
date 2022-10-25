@@ -26,6 +26,6 @@ jobs:
           fail-check: false # optional
           github-token: ${{ secrets.GITHUB_TOKEN }} # optional
           directory: "./web" #optional
-          targets: "./web" #optional
-          eslint-lib-path: "./web/node_modules/eslint/lib/api.js" #optional
-          eslint-bin-path: "./web/node_modules/.bin/eslint" # optional
+          targets: "." #optional
+          eslint-lib-path: "./node_modules/eslint/lib/api.js" #optional
+          eslint-bin-path: "./node_modules/.bin/eslint" # optional
