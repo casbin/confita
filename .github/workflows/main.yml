@@ -1,20 +1,18 @@
-on:
-  push:
-  pull_request:
+name: Lint
+
+on: pull_request
 
 jobs:
   eslint:
-    name: eslint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: install node v14
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: mrdivyansh/eslint-action@v1.0.7
+        # GITHUB_TOKEN in forked repositories is read-only
+        # https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
+        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
         with:
-          node-version: 14
-      - name: yarn install
-        run: yarn install
-      - name: eslint
-        uses: icrawl/action-eslint@v1
-        with:
-          custom-glob: apps # only if a different glob is needed, default: src
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+          eslint-rc: ./web/.eslintrc.js
+          execute-on-files:
+            - ./web
