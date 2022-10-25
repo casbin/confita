@@ -1,16 +1,23 @@
-name: reviewdog
-on: [pull_request]
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
 jobs:
   eslint:
-    name: runner / eslint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14'
-      - run: yarn install
-      - uses: reviewdog/action-eslint@v1
+          node-version: 16
+      - run: npm ci # or yarn install
+      - uses: sibiraj-s/action-eslint@v2
         with:
-          reporter: github-check
-          eslint_flags: './web'
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
+          eslint-args: '--ignore-path=.gitignore --quiet'
+          extensions: 'js,jsx,ts,tsx'
+          annotations: true
