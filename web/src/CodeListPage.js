@@ -140,7 +140,7 @@ class CodeListPage extends React.Component {
           title={() => (
             <div>
               {i18next.t("general:Code")}&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button type="primary" size="small" onClick={this.addCode.bind(this)}>{i18next.t("general:Add")}</Button>
+               <Button type="primary" size="small" onClick={this.addCode.bind(this)}>{i18next.t("general:Add")}</Button>
             </div>
           )}
           loading={codes === null}
