@@ -192,8 +192,8 @@ class App extends Component {
     );
 
     return (
-      <Dropdown key="/rightDropDown" overlay={menu} className="rightDropDown">
-        <div className="ant-dropdown-link" style={{float: "right", cursor: "pointer"}}>
+      <Dropdown overlay={menu}>
+        <div className="top-right-button">
           &nbsp;
           &nbsp;
           {
@@ -217,28 +217,21 @@ class App extends Component {
       return null;
     } else if (this.state.account === null) {
       res.push(
-        <Menu.Item key="/signup" style={{float: "right", marginRight: "20px"}}>
-          <a href={Setting.getSignupUrl()}>
-            {i18next.t("account:Sign Up")}
-          </a>
-        </Menu.Item>
-      );
-      res.push(
-        <Menu.Item key="/signin" style={{float: "right"}}>
-          <a href={Setting.getSigninUrl()}>
+        <div key="/signin">
+          <a href={Setting.getSigninUrl()} className="signin-button">
             {i18next.t("account:Sign In")}
           </a>
-        </Menu.Item>
+        </div>
+      );
+      res.push(
+        <div key="/signup" style={{marginRight: "1rem"}}>
+          <a href={Setting.getSignupUrl()} className="signup-button">
+            {i18next.t("account:Sign Up")}
+          </a>
+        </div>
       );
     } else {
       res.push(this.renderRightDropdown());
-      return (
-        <div style={{float: "right", margin: "0px", padding: "0px"}}>
-          {
-            res
-          }
-        </div>
-      );
     }
 
     return res;
@@ -429,7 +422,7 @@ class App extends Component {
   renderContent() {
     return (
       <div>
-        <Header style={{padding: "0", marginBottom: "3px"}}>
+        <Header style={{padding: "0", marginBottom: "3px", display: "flex", flexWrap: "nowrap", backgroundColor: "white", borderBottom: "1px solid #f0f0f0"}}>
           {
             Setting.isMobile() ? null : (
               <Link to={"/"}>
@@ -441,16 +434,20 @@ class App extends Component {
             // theme="dark"
             mode={"horizontal"}
             selectedKeys={[`${this.state.selectedMenuKey}`]}
-            style={{lineHeight: "64px"}}
+            style={{lineHeight: "64px", width: "70%", marginRight: "auto", border: "none"}}
           >
             {
               this.renderMenu()
             }
+          </Menu>
+          <div
+            className="top-right-layout"
+          >
+            <SelectLanguageBox />
             {
               this.renderAccount()
             }
-            <SelectLanguageBox />
-          </Menu>
+          </div>
         </Header>
         <Switch>
           <Route exact path="/callback" component={AuthCallback} />
@@ -458,7 +455,7 @@ class App extends Component {
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)} />
           <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)} />
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)} />
-          <Route exact path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
+          <Route path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
           <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)} />

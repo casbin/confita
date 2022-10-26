@@ -35,6 +35,16 @@ type Participant struct {
 	JoinUrl     string `xorm:"varchar(500)" json:"joinUrl"`
 }
 
+type Slot struct {
+	Type      string `xorm:"varchar(100)" json:"type"`
+	Date      string `xorm:"varchar(100)" json:"date"`
+	StartTime string `xorm:"varchar(100)" json:"startTime"`
+	EndTime   string `xorm:"varchar(100)" json:"endTime"`
+	Title     string `xorm:"varchar(100)" json:"title"`
+	Speaker   string `xorm:"varchar(100)" json:"speaker"`
+	Location  string `xorm:"varchar(100)" json:"location"`
+}
+
 type Room struct {
 	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
 	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
@@ -57,6 +67,7 @@ type Room struct {
 	StartUrl      string `xorm:"varchar(500)" json:"startUrl"`
 
 	Participants []*Participant `xorm:"mediumtext" json:"participants"`
+	Slots        []*Slot        `xorm:"mediumtext" json:"slots"`
 	Status       string         `xorm:"varchar(100)" json:"status"`
 	IsPublic     bool           `json:"isPublic"`
 

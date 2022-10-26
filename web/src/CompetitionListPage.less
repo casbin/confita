@@ -171,3 +171,103 @@
     max-width: 270px;
     height: 30px;
 }
+
+.competition-list-page {
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .top-banner {
+        width: 100%;
+        height: 281px;
+        background: linear-gradient(-45deg, #ee6a0e, #7f5de3, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        p:nth-child(1) {
+            font-size: xx-large;
+        }
+
+        p:nth-child(2) {
+            font-size: medium;
+        }
+    }
+
+    .top-activate {
+        position: fixed;
+        margin-top: 0 !important;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.3);
+    }
+
+    .navigation-bar {
+        margin-top: 0.3rem;
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.3);
+
+        .activate {
+            background-color: #7f5de3 !important;
+            color: white !important;
+        }
+
+        .navigation-button {
+            flex-shrink: 0;
+            text-decoration: none;
+            background-color: white;
+            color: black;
+            height: 4rem;
+            padding: 1rem 2rem 1rem 2rem;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                .activate()
+            }
+        }
+
+    }
+
+    .competition-card-list {
+        max-width: 1500px;
+        margin-top: 5rem;
+        padding-left: 10rem;
+        padding-right: 10rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(auto-fill, 1fr);
+        grid-column-gap: 5rem;
+        grid-row-gap: 1rem;
+        justify-items: center;
+        align-items: center;
+    }
+}
+
