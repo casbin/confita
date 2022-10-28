@@ -5,15 +5,19 @@
     "eslint": "^8.26.0",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.1"
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3"
   },
   "scripts": {
     "pretest": "yarn run eslint"
   },
-   "husky": {
-   "hooks": {
-      "pre-commit": "yarn run pretest"
-}
-},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "yarn run eslint"
+  },
   "devDependencies": {}
 }
