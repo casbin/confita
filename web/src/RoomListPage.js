@@ -462,7 +462,7 @@ class RoomListPage extends React.Component {
       return null;
     }
 
-    if (this.state.payments.filter(payment => payment.productName.includes("_online_")).length > 0) {
+    if (this.state.payments.filter(payment => payment.productName.includes("_online_") || payment.productName.includes("_early_")).length > 0) {
       return null;
     }
 
