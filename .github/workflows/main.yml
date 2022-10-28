@@ -1,31 +1,64 @@
-name: ESLint
+name: Build
 
 on:
   push:
-    branches: [master] # or [master] if that's name of the main branch
   pull_request:
-    branches: [master] # or [master] if that's name of the main branch
 
 jobs:
-  build:
+  go-tests:
+    name: Running Go tests
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: casdoor
+          MYSQL_ROOT_PASSWORD: 123456
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16.5'
+      - name: Tests
+        run: |
+          go test -v $(go list ./...) -tags skipCi
+        working-directory: ./
 
+  frontend:
+    name: Front-end
+    runs-on: ubuntu-latest
+    needs: [ go-tests ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      # cache
+      - uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: ./web
+      - run: yarn install && CI=false yarn run build
+        working-directory: ./web
+
+  linter:
+    name: Go-Linter
+    runs-on: ubuntu-latest
+    needs: [ go-tests ]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-go@v3
         with:
-          node-version: "16"
-          check-latest: true
+          go-version: '^1.16.5'
 
-      - name: Install dependencies
-        run: yarn install # or npm ci if you use npm and have the package-lock.json file
+      # gen a dummy config file
+      - run: touch dummy.yml
 
-      - uses: CatChen/eslint-suggestion-action@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
         with:
-          request-changes: true # optional
-          fail-check: false # optional
-          github-token: ${{ secrets.GITHUB_TOKEN }} # optional
-          directory: "./web" #optional
-          targets: "." #optional
-          eslint-lib-path: "./node_modules/eslint/lib/api.js" #optional
-          eslint-bin-path: "./node_modules/.bin/eslint" # optional
+          version: latest
+          args: --disable-all -c dummy.yml -E=gofumpt --max-same-issues=0 --timeout 5m --modules-download-mode=mod
+

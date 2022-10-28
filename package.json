@@ -2,8 +2,18 @@
   "dependencies": {
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
-    "eslint": "7.0.0",
+    "eslint": "^8.26.0",
+    "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "eslint-plugin-react": "^7.31.10"
-  }
+    "husky": "^8.0.1"
+  },
+  "scripts": {
+    "pretest": "yarn run eslint"
+  },
+   "husky": {
+   "hooks": {
+      "pre-commit": "yarn run pretest"
+}
+},
+  "devDependencies": {}
 }
