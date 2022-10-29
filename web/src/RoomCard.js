@@ -14,8 +14,8 @@
 
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {Button, Card, Col, Popconfirm, Spin, Tooltip} from "antd";
-import {PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Popconfirm, Spin, Tag, Tooltip} from "antd";
+import {ClockCircleOutlined, PlayCircleOutlined, SyncOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import QrCode from "./QrCode";
@@ -28,6 +28,7 @@ class RoomCard extends React.Component {
     super(props);
     this.state = {
       classes: props,
+      nowTime: new Date(),
     };
   }
 
@@ -35,6 +36,21 @@ class RoomCard extends React.Component {
     if (!Setting.isAdminUser(this.props.account) && this.props.room.meetingNumber !== "" && this.getJoinUrl() === "") {
       this.registerRoom(this.props.index);
     }
+
+    this.setTimer();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  setTimer() {
+    const handler = () => {
+      this.setState({
+        nowTime: new Date(),
+      });
+    };
+    this.interval = setInterval(handler, 1000);
   }
 
   registerRoom(index) {
@@ -115,7 +131,25 @@ class RoomCard extends React.Component {
     }
   }
 
-  renderCardMobile(logo, link, title, desc, time, isSingle, index, room) {
+  renderSlotState(slotState) {
+    if (slotState === "LIVE") {
+      return (
+        <Tag icon={<SyncOutlined spin />} color="error">
+          {slotState}
+        </Tag>
+      );
+    } else if (slotState === "NEXT") {
+      return (
+        <Tag icon={<ClockCircleOutlined />} color="default">
+          {slotState}
+        </Tag>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderCardMobile(logo, link, title, desc, time, slotState, isSingle, index, room) {
     const gridStyle = {
       width: "100vw",
       textAlign: "center",
@@ -125,7 +159,12 @@ class RoomCard extends React.Component {
     return (
       <Card.Grid style={gridStyle}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "0px"}} />
-        <Meta title={Setting.getLanguageText(title)} description={<span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>{desc}</span>} />
+        <Meta title={Setting.getLanguageText(title)} description={
+          <span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>
+            {this.renderSlotState(slotState)}
+            {desc}
+          </span>
+        } />
         <br />
         <Meta title={""} description={time} />
         <br />
@@ -136,7 +175,7 @@ class RoomCard extends React.Component {
     );
   }
 
-  renderCard(logo, link, title, desc, time, isSingle, index, room) {
+  renderCard(logo, link, title, desc, time, slotState, isSingle, index, room) {
     return (
       <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
@@ -146,7 +185,12 @@ class RoomCard extends React.Component {
           }
           style={isSingle ? {width: "420px", cursor: "default"} : {width: "22vw", cursor: "default"}}
         >
-          <Meta title={Setting.getLanguageText(title)} description={<span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>{desc}</span>} />
+          <Meta title={Setting.getLanguageText(title)} description={
+            <span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>
+              {this.renderSlotState(slotState)}
+              {desc}
+            </span>
+          } />
           <br />
           <Meta title={""} description={time} />
           <br />
@@ -160,21 +204,53 @@ class RoomCard extends React.Component {
     );
   }
 
+  getSlotTimeDiff(slot, key) {
+    // 2022-05-15T23:04:00+08:00
+    const slotTime = `${slot.date}T${slot[key]}:00+08:00`;
+    return new Date(Date.parse(slotTime)) - this.state.nowTime;
+  }
+
+  getSlotStatus(slot) {
+    const startDiff = this.getSlotTimeDiff(slot, "startTime");
+    const endDiff = this.getSlotTimeDiff(slot, "endTime");
+    return JSON.stringify([startDiff, endDiff]);
+  }
+
+  getTargetSlot(room) {
+    for (let i = 0; i < room.slots.length; i++) {
+      const slot = room.slots[i];
+      const startDiff = this.getSlotTimeDiff(slot, "startTime");
+      const endDiff = this.getSlotTimeDiff(slot, "endTime");
+      if (startDiff > 0) {
+        return [slot, "NEXT"];
+      } else {
+        if (endDiff > 0) {
+          return [slot, "LIVE"];
+        }
+      }
+    }
+    return [null, ""];
+  }
+
   renderContent() {
     const index = this.props.index;
     const room = this.props.room;
 
+    const arr = this.getTargetSlot(room);
+    const slot = arr[0];
+    const slotState = arr[1];
+
     let desc = this.props.desc;
     let time = this.props.time;
-    if (room.slots.length !== 0) {
-      desc = room.slots[0].title;
-      time = room.slots[0].speaker;
+    if (slot !== null) {
+      desc = slot.title;
+      time = slot.speaker;
     }
 
     if (Setting.isMobile()) {
-      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, desc, time, this.props.isSingle, index, room);
+      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, desc, time, slotState, this.props.isSingle, index, room);
     } else {
-      return this.renderCard(this.props.logo, this.props.link, this.props.title, desc, time, this.props.isSingle, index, room);
+      return this.renderCard(this.props.logo, this.props.link, this.props.title, desc, time, slotState, this.props.isSingle, index, room);
     }
   }
 
