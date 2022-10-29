@@ -32,7 +32,7 @@ class RoomCard extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    if (!Setting.isAdminUser(this.props.account) && this.getJoinUrl() === "") {
+    if (!Setting.isAdminUser(this.props.account) && this.props.room.meetingNumber !== "" && this.getJoinUrl() === "") {
       this.registerRoom(this.props.index);
     }
   }
@@ -125,10 +125,9 @@ class RoomCard extends React.Component {
     return (
       <Card.Grid style={gridStyle}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "10px"}} />
-        <Meta
-          title={Setting.getLanguageText(title)}
-          description={desc}
-        />
+        <Meta title={Setting.getLanguageText(title)} description={desc} />
+        <br />
+        <Meta title={""} description={time} />
         <br />
         {
           this.renderButtons(index, room)
