@@ -126,7 +126,7 @@ class RoomCard extends React.Component {
       <Card.Grid style={gridStyle}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "10px"}} />
         <Meta
-          title={title}
+          title={Setting.getLanguageText(title)}
           description={desc}
         />
         <br />
@@ -147,7 +147,7 @@ class RoomCard extends React.Component {
           }
           style={isSingle ? {width: "420px", cursor: "default"} : {width: "22vw", cursor: "default"}}
         >
-          <Meta title={title} description={desc} />
+          <Meta title={Setting.getLanguageText(title)} description={desc} />
           <br />
           <Meta title={""} description={time} />
           <br />
