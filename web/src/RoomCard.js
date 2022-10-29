@@ -124,8 +124,8 @@ class RoomCard extends React.Component {
 
     return (
       <Card.Grid style={gridStyle}>
-        <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "10px"}} />
-        <Meta title={Setting.getLanguageText(title)} description={desc} />
+        <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "0px"}} />
+        <Meta title={Setting.getLanguageText(title)} description={<span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>{desc}</span>} />
         <br />
         <Meta title={""} description={time} />
         <br />
@@ -142,11 +142,11 @@ class RoomCard extends React.Component {
         <Card
           hoverable
           cover={
-            <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "10px"}} />
+            <img alt="logo" src={logo} style={{width: "100%", height: "210px", objectFit: "scale-down", padding: "20px"}} />
           }
           style={isSingle ? {width: "420px", cursor: "default"} : {width: "22vw", cursor: "default"}}
         >
-          <Meta title={Setting.getLanguageText(title)} description={desc} />
+          <Meta title={Setting.getLanguageText(title)} description={<span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>{desc}</span>} />
           <br />
           <Meta title={""} description={time} />
           <br />
@@ -164,10 +164,17 @@ class RoomCard extends React.Component {
     const index = this.props.index;
     const room = this.props.room;
 
+    let desc = this.props.desc;
+    let time = this.props.time;
+    if (room.slots.length !== 0) {
+      desc = room.slots[0].title;
+      time = room.slots[0].speaker;
+    }
+
     if (Setting.isMobile()) {
-      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room);
+      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, desc, time, this.props.isSingle, index, room);
     } else {
-      return this.renderCard(this.props.logo, this.props.link, this.props.title, this.props.desc, this.props.time, this.props.isSingle, index, room);
+      return this.renderCard(this.props.logo, this.props.link, this.props.title, desc, time, this.props.isSingle, index, room);
     }
   }
 

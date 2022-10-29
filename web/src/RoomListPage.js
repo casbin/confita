@@ -78,6 +78,7 @@ class RoomListPage extends React.Component {
       passcode: "123456",
       inviteLink: "https://zoom.us/j/123456789?pwd=123456",
       participants: [],
+      slots: [],
       status: "Ended",
       isPublic: false,
       ingestDomain: "",
