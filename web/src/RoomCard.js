@@ -57,7 +57,7 @@ class RoomCard extends React.Component {
 
     if (Setting.isAdminUser(this.props.account)) {
       return (
-        <div>
+        <div style={{textAlign: "center"}}>
           <a target="_blank" rel="noreferrer" href={startUrl}>
             <Button disabled={startUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}} danger>{i18next.t("room:Join In")}</Button>
           </a>
@@ -90,9 +90,9 @@ class RoomCard extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div style={{textAlign: "center"}}>
           <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginLeft: "25px", marginRight: "10px", marginBottom: "10px"}} type="primary" >{i18next.t("room:Join In")}</Button>
+            <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" >{i18next.t("room:Join In")}</Button>
           </a>
           {
             Setting.isMobile() ? null : (
@@ -105,11 +105,11 @@ class RoomCard extends React.Component {
               )
             )
           }
-          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginBottom: "10px"}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
+          <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
             {i18next.t("room:Watch Live")}
             {Setting.getRoomLiveUserCount(room)}
           </Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginLeft: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
         </div>
       );
     }
