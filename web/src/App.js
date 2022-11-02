@@ -260,6 +260,14 @@ class App extends Component {
       }
 
       res.push(
+        <Menu.Item key="/code">
+          <Link to="/code">
+            {i18next.t("general:Code")}
+          </Link>
+        </Menu.Item>
+      );
+
+      res.push(
         <Menu.Item key="/public-rooms">
           <Link to="/public-rooms">
             {i18next.t("general:Public Rooms")}
@@ -458,7 +466,7 @@ class App extends Component {
           <Route path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
-          <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)} />
+          <Route exact path="/code" render={(props) => <CodeListPage account={this.state.account} {...props} />} />
           <Route exact path="/code/:codeName" render={(props) => this.renderSigninIfNotSignedIn(<CodeEditPage account={this.state.account} {...props} />)} />
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)} />
           <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)} />
