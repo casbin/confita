@@ -10,7 +10,8 @@
     "Notebook": "Notebook"
   },
   "competition": {
-    "Ongoing": "Ongoing"
+    "Ongoing": "Ongoing",
+    "Organizer": "Organizer"
   },
   "conference": {
     "Address": "Address",
@@ -156,6 +157,7 @@
     "Video URL": "Video URL",
     "Video height": "Video height",
     "Video width": "Video width",
+    "View Agenda": "View Agenda",
     "Watch Live": "Watch Live",
     "Watch Playback": "Watch Playback",
     "You need to pay first to enter meeting rooms": "You need to pay first to enter meeting rooms",

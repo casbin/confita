@@ -10,7 +10,8 @@
     "Notebook": "笔记本"
   },
   "competition": {
-    "Ongoing": "进行中"
+    "Ongoing": "进行中",
+    "Organizer": "主办方"
   },
   "conference": {
     "Address": "地址",
@@ -156,6 +157,7 @@
     "Video URL": "视频链接",
     "Video height": "直播视频高度",
     "Video width": "直播视频宽度",
+    "View Agenda": "查看日程",
     "Watch Live": "观看直播",
     "Watch Playback": "观看回放",
     "You need to pay first to enter meeting rooms": "请先完成支付，再进入在线会议室",

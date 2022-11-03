@@ -14,14 +14,15 @@
 
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {Button, Card, Col, Popconfirm, Spin, Tag, Tooltip} from "antd";
-import {ClockCircleOutlined, PlayCircleOutlined, SyncOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Collapse, Popconfirm, Spin, Tag, Tooltip} from "antd";
+import {CalendarOutlined, ClockCircleOutlined, PlayCircleOutlined, SyncOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import QrCode from "./QrCode";
 import Slot from "./Slot";
 
 const {Meta} = Card;
+const {Panel} = Collapse;
 
 class RoomCard extends React.Component {
   constructor(props) {
@@ -177,6 +178,19 @@ class RoomCard extends React.Component {
         {
           this.renderButtons(index, room)
         }
+        <div>
+          <Collapse defaultActiveKey={[]}>
+            <Panel header={<div>
+              &nbsp;
+              &nbsp;
+              <CalendarOutlined />
+              &nbsp;
+              {i18next.t("room:View Agenda")}
+            </div>} key="agenda">
+              <Slot slots={room.slots} />
+            </Panel>
+          </Collapse>
+        </div>
       </Card.Grid>
     );
   }
