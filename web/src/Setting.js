@@ -437,3 +437,24 @@ export function getRoomLiveUserCount(room) {
     </span>
   );
 }
+
+export class CodeTag {
+  label = "";
+  /**
+   * @type {(code:any) => boolean}
+   */
+  filter = code => true;
+}
+
+/**
+ * 
+ * @returns {Record<string, (string | CodeTag)[]>}
+ */
+export const getCodeTags = () => ({
+  general: [{label: "All notebooks", filter: () => true}, "Recently Viewed", "Beginner", "NLP", "Random Forest"],
+  language: ["Python", "R"],
+  maintained: ["Scheduled notebook"],
+  accelerator: ["GPU", "TPU"],
+  types: ["Dataset", "Competition notebook"],
+  outputs: ["Visualizations", "Data"],
+});
