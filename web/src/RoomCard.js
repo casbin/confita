@@ -107,18 +107,24 @@ class RoomCard extends React.Component {
     } else {
       return (
         <div style={{textAlign: "center"}}>
-          <a target="_blank" rel="noreferrer" href={joinUrl}>
-            <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" >{i18next.t("room:Join In")}</Button>
-          </a>
           {
-            Setting.isMobile() ? null : (
-              (room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)") ? (
-                <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: "10px", marginBottom: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
-              ) : (
-                <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
-                </Tooltip>
-              )
+            this.props.account === null ? null : (
+              <React.Fragment>
+                <a target="_blank" rel="noreferrer" href={joinUrl}>
+                  <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" >{i18next.t("room:Join In")}</Button>
+                </a>
+                {
+                  Setting.isMobile() ? null : (
+                    (room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)") ? (
+                      <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)"} style={{marginRight: "10px", marginBottom: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
+                    ) : (
+                      <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
+                        <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginRight: "10px", marginBottom: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
+                      </Tooltip>
+                    )
+                  )
+                }
+              </React.Fragment>
             )
           }
           <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" danger onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
@@ -208,12 +214,6 @@ class RoomCard extends React.Component {
     // 2022-05-15T23:04:00+08:00
     const slotTime = `${slot.date}T${slot[key]}:00+08:00`;
     return new Date(Date.parse(slotTime)) - this.state.nowTime;
-  }
-
-  getSlotStatus(slot) {
-    const startDiff = this.getSlotTimeDiff(slot, "startTime");
-    const endDiff = this.getSlotTimeDiff(slot, "endTime");
-    return JSON.stringify([startDiff, endDiff]);
   }
 
   getTargetSlot(room) {
