@@ -321,3 +321,14 @@ func (room *Room) updateRoomStartUrl() {
 		UpdateRoom(room.GetId(), room)
 	}
 }
+
+func UpdateRoomStatus(meetingNumber string, status string) {
+	room := Room{Owner: "admin", MeetingNumber: meetingNumber}
+	_, err := adapter.engine.Get(&room)
+	if err != nil {
+		panic(err)
+	}
+
+	room.Status = status
+	UpdateRoom(room.GetId(), &room)
+}
