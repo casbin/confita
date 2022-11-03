@@ -277,14 +277,17 @@ class RoomListPage extends React.Component {
         width: "270px",
         render: (text, room, index) => {
           const startUrl = room.startUrl;
-          const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
-          const joinUrl = participant === undefined ? "" : participant.joinUrl;
 
           if (Setting.isAdminUser(this.props.account)) {
             return (
               <div>
                 <a target="_blank" rel="noreferrer" href={startUrl}>
-                  <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Join In")}</Button>
+                  <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>
+                    {
+                      room.status === "Started" ? i18next.t("room:Join In") :
+                        i18next.t("room:Start Meeting")
+                    }
+                  </Button>
                 </a>
                 {
                   (startUrl === "") ? (
@@ -312,33 +315,7 @@ class RoomListPage extends React.Component {
               </div>
             );
           } else {
-            return (
-              <div>
-                {
-                  joinUrl !== "" ? null : (
-                    <Button disabled={room.meetingNumber === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.registerRoom(index)}>
-                      {i18next.t("room:Register")}
-                    </Button>
-                  )
-                }
-                <a target="_blank" rel="noreferrer" href={joinUrl}>
-                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary">{i18next.t("room:Join In")}</Button>
-                </a>
-                {
-                  (room.meetingNumber === "" || joinUrl === "") ? (
-                    <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
-                  ) : (
-                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                      <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
-                    </Tooltip>
-                  )
-                }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
-                  {i18next.t("room:Watch Live")}
-                  {Setting.getRoomLiveUserCount(room)}
-                </Button>
-              </div>
-            );
+            return null;
           }
         },
       },
