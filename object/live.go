@@ -40,6 +40,10 @@ func getLiveClient() *live.Client {
 }
 
 func getLiveDomainOnlineCount(room *Room) map[string]int {
+	if room.StreamingDomain == "" {
+		return nil
+	}
+
 	request := live.CreateDescribeLiveDomainOnlineUserNumRequest()
 	request.Scheme = "https"
 
@@ -64,6 +68,10 @@ func getLiveDomainOnlineCount(room *Room) map[string]int {
 }
 
 func getLiveStreamOnlineMap(room *Room) map[string]int {
+	if room.IngestDomain == "" {
+		return nil
+	}
+
 	request := live.CreateDescribeLiveStreamsOnlineListRequest()
 	request.Scheme = "https"
 
@@ -94,7 +102,9 @@ func GetRoomWithLive(room *Room) *Room {
 	_, isLive := streamOnlineMap[room.Name]
 	room.IsLive = isLive
 	if isLive {
-		room.LiveUserCount = domainOnlineCountMap[room.Name]
+		if domainOnlineCountMap != nil {
+			room.LiveUserCount = domainOnlineCountMap[room.Name]
+		}
 	}
 
 	return room
@@ -105,7 +115,15 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 		return rooms
 	}
 
-	domainOnlineCountMap := getLiveDomainOnlineCount(rooms[0])
+	var roomWithDomain *Room = nil
+	for _, room := range rooms {
+		if room.StreamingDomain != "" {
+			roomWithDomain = room
+			break
+		}
+	}
+	domainOnlineCountMap := getLiveDomainOnlineCount(roomWithDomain)
+
 	for _, room := range rooms {
 		if room.IngestDomain == "" {
 			continue
@@ -115,7 +133,9 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 		_, isLive := streamOnlineMap[room.Name]
 		room.IsLive = isLive
 		if isLive {
-			room.LiveUserCount = domainOnlineCountMap[room.Name]
+			if domainOnlineCountMap != nil {
+				room.LiveUserCount = domainOnlineCountMap[room.Name]
+			}
 		}
 	}
 
