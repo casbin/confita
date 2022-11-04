@@ -38,3 +38,5 @@ export const DefaultLanguage = "en";
 export const CasnodeEndpoint = "http://localhost:3000";
 
 export const QrCodeImageUrl = "";
+
+export const ContactInfo = [];
