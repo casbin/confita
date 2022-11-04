@@ -14,6 +14,26 @@
 
 import * as Setting from "../Setting";
 
+/**
+ * @brief type for code instance (a notebook)
+ */
+export class Code {
+  owner = "";
+  name = "";
+  createdTime = "";
+  displayName = "";
+  notebook = "";
+  /**
+   * @type {string[] | null}
+   */
+  tags = [];
+  imgUrl = "";
+}
+
+/**
+ * 
+ * @returns {Promise<Code[]>}
+ */
 export function getGlobalCodes() {
   return fetch(`${Setting.ServerUrl}/api/get-global-codes`, {
     method: "GET",
@@ -21,6 +41,10 @@ export function getGlobalCodes() {
   }).then(res => res.json());
 }
 
+/**
+ * @param {string} owner
+ * @returns {Promise<Code[]>}
+ */
 export function getCodes(owner) {
   return fetch(`${Setting.ServerUrl}/api/get-codes?owner=${owner}`, {
     method: "GET",
@@ -28,6 +52,11 @@ export function getCodes(owner) {
   }).then(res => res.json());
 }
 
+/**
+ * @param {string} owner
+ * @param {string} name
+ * @returns {Promise<Code>}
+ */
 export function getCode(owner, name) {
   return fetch(`${Setting.ServerUrl}/api/get-code?id=${owner}/${encodeURIComponent(name)}`, {
     method: "GET",
@@ -35,6 +64,13 @@ export function getCode(owner, name) {
   }).then(res => res.json());
 }
 
+/**
+ * 
+ * @param {Code['owner']} owner 
+ * @param {Code['name']} name 
+ * @param {Code} code 
+ * @returns 
+ */
 export function updateCode(owner, name, code) {
   const newCode = Setting.deepCopy(code);
   return fetch(`${Setting.ServerUrl}/api/update-code?id=${owner}/${encodeURIComponent(name)}`, {
@@ -44,6 +80,10 @@ export function updateCode(owner, name, code) {
   }).then(res => res.json());
 }
 
+/**
+ * 
+ * @param {Code} code 
+ */
 export function addCode(code) {
   const newCode = Setting.deepCopy(code);
   return fetch(`${Setting.ServerUrl}/api/add-code`, {
@@ -53,6 +93,10 @@ export function addCode(code) {
   }).then(res => res.json());
 }
 
+/**
+ * 
+ * @param {Code} code 
+ */
 export function deleteCode(code) {
   const newCode = Setting.deepCopy(code);
   return fetch(`${Setting.ServerUrl}/api/delete-code`, {
