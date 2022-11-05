@@ -24,15 +24,12 @@ import (
 	"github.com/casbin/confita/object"
 	"github.com/casbin/confita/proxy"
 	"github.com/casbin/confita/routers"
-	"github.com/casbin/confita/util"
-
 	_ "github.com/casbin/confita/routers"
 )
 
 func main() {
 	object.InitAdapter()
 	casdoor.InitCasdoorAdapter()
-	util.InitIpDb()
 	proxy.InitHttpClient()
 	object.InitRoomClient()
 
