@@ -436,7 +436,7 @@ class RoomListPage extends React.Component {
       return null;
     }
 
-    if (Setting.isEditorUser(this.props.account) || Setting.isCommitteeUser(this.props.account) || Setting.isAdminUser(this.props.account)) {
+    if (Setting.isEditorUser(this.props.account) || Setting.isCommitteeUser(this.props.account) || Setting.isBranchUser(this.props.account) || Setting.isAdminUser(this.props.account)) {
       return null;
     }
 

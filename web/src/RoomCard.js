@@ -161,7 +161,7 @@ class RoomCard extends React.Component {
     }
   }
 
-  renderCardMobile(logo, link, title, desc, time, slotState, isSingle, index, room) {
+  renderCardMobile(logo, link, title, desc, time, slotState, isSingle, index, room, showButtons) {
     const gridStyle = {
       width: "100vw",
       textAlign: "center",
@@ -181,7 +181,7 @@ class RoomCard extends React.Component {
         <Meta title={""} description={time} />
         <br />
         {
-          this.renderButtons(index, room)
+          !showButtons ? null : this.renderButtons(index, room)
         }
         <div>
           <Collapse defaultActiveKey={[]}>
@@ -200,7 +200,7 @@ class RoomCard extends React.Component {
     );
   }
 
-  renderCard(logo, link, title, desc, time, slotState, isSingle, index, room) {
+  renderCard(logo, link, title, desc, time, slotState, isSingle, index, room, showButtons) {
     return (
       <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
@@ -221,7 +221,7 @@ class RoomCard extends React.Component {
           <br />
           <br />
           {
-            this.renderButtons(index, room)
+            !showButtons ? null : this.renderButtons(index, room)
           }
           <Slot slots={room.slots} />
         </Card>
@@ -266,10 +266,15 @@ class RoomCard extends React.Component {
       time = slot.speaker;
     }
 
+    let showButtons = true;
+    if (Setting.isBranchUser(this.props.account)) {
+      showButtons = slot?.type === "Plenary";
+    }
+
     if (Setting.isMobile()) {
-      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, desc, time, slotState, this.props.isSingle, index, room);
+      return this.renderCardMobile(this.props.logo, this.props.link, this.props.title, desc, time, slotState, this.props.isSingle, index, room, showButtons);
     } else {
-      return this.renderCard(this.props.logo, this.props.link, this.props.title, desc, time, slotState, this.props.isSingle, index, room);
+      return this.renderCard(this.props.logo, this.props.link, this.props.title, desc, time, slotState, this.props.isSingle, index, room, showButtons);
     }
   }
 

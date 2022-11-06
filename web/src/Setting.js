@@ -135,6 +135,10 @@ export function isCommitteeUser(account) {
   return account?.tag === "Committee";
 }
 
+export function isBranchUser(account) {
+  return account?.tag === "Branch";
+}
+
 export function deepCopy(obj) {
   return Object.assign({}, obj);
 }
@@ -447,7 +451,7 @@ export class CodeTag {
 }
 
 /**
- * 
+ *
  * @returns {Record<string, (string | CodeTag)[]>}
  */
 export const getCodeTags = () => ({
