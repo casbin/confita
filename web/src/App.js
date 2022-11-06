@@ -472,7 +472,7 @@ class App extends Component {
         <div key="/support" style={{marginRight: "1rem"}}>
 
           <a href={Setting.getSignupUrl()} className="signup-button">
-            {i18next.t("room:Technical Support")}
+            {i18next.t("room:Support")}
           </a>
         </div>
       </Popover>
