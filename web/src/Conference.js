@@ -36,8 +36,7 @@ class Conference extends React.Component {
         startDate: "2022-10-10",
         endDate: "2022-10-31",
         organizer: "Casbin大赛组委会",
-        carousels: ["https://storage.googleapis.com/kaggle-competitions/kaggle/15696/logos/header.png?t=2019-10-04-16-16-53",
-          "https://cdn.casbin.org/img/casdoor-logo_1185x256.png"],
+        carousels: ["https://storage.googleapis.com/kaggle-competitions/kaggle/15696/logos/header.png?t=2019-10-04-16-16-53"],
         carouselHeight: "200",
         tags: [],
         datasetUrl: "",
@@ -115,7 +114,7 @@ class Conference extends React.Component {
         mode={mode}
         theme={theme}
         className={"conferenceMenu"}
-        style={{border: "1px solid rgb(240,240,240)"}}
+        style={{border: "0px solid", backgroundColor: "white"}}
         onClick={this.handleClick}
       >
         {
@@ -123,7 +122,6 @@ class Conference extends React.Component {
             // if (i === 0) {
             //   return null;
             // }
-
             if (treeItem.children.length === 0) {
               return (
                 <Menu.Item key={treeItem.title}>
@@ -284,7 +282,7 @@ class Conference extends React.Component {
           mode={mode}
           theme={theme}
           className={"conferenceMenu"}
-          style={{border: "1px solid rgb(240,240,240)"}}
+          style={{border: "1px solid rgb(240,240,240)", backgroundColor: "white"}}
           onClick={this.handleClick}
         >
           {
@@ -385,7 +383,7 @@ class Conference extends React.Component {
               }
             </Col>
           </Row>
-          <Row>
+          <Row style={{border: "1px solid", borderRadius: "5px solid"}}>
             <Col span={4} >
               {
                 this.renderMenu(conference.treeItems)
