@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from "antd";
+import {Button, Card, Col, Modal, Popconfirm, Row, Spin, Switch, Table, Tooltip} from "antd";
 import {CloseCircleTwoTone, PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
@@ -370,10 +370,11 @@ class RoomListPage extends React.Component {
     );
   }
 
-  renderCards() {
-    const rooms = this.state.rooms;
+  renderCards(rooms) {
     if (rooms === null) {
-      return null;
+      return (
+        <Spin spinning={true} size="large" tip={i18next.t("general:Loading...")} style={{paddingTop: "10%"}} />
+      );
     }
 
     const isSingle = rooms.length === 1;
@@ -403,7 +404,7 @@ class RoomListPage extends React.Component {
     }
   }
 
-  renderCalendar() {
+  renderCalendar(rooms) {
     return (
       <React.Fragment>
         {
@@ -419,7 +420,7 @@ class RoomListPage extends React.Component {
         <Row style={{width: "100%"}}>
           <Col span={24} style={{display: "flex", justifyContent: "center"}} >
             {
-              this.renderCards()
+              this.renderCards(rooms)
             }
           </Col>
         </Row>
@@ -480,7 +481,7 @@ class RoomListPage extends React.Component {
         <Row style={{width: "100%"}}>
           <Col span={24}>
             {
-              this.state.isRoomCalendar ? this.renderCalendar() : this.renderTable(this.state.rooms)
+              this.state.isRoomCalendar ? this.renderCalendar(this.state.rooms) : this.renderTable(this.state.rooms)
             }
           </Col>
           {

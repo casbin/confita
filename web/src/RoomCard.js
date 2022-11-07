@@ -169,9 +169,9 @@ class RoomCard extends React.Component {
     };
 
     return (
-      <Card.Grid style={gridStyle}>
+      <Card.Grid key={room.name} style={gridStyle}>
         <img src={logo} alt="logo" height={60} style={{marginBottom: "20px", padding: "0px"}} />
-        <Meta title={Setting.getLanguageText(title)} description={
+        <Meta title={<h3>{Setting.getLanguageText(title)}</h3>} description={
           <span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>
             {this.renderSlotState(slotState)}
             {desc}
@@ -202,7 +202,7 @@ class RoomCard extends React.Component {
 
   renderCard(logo, link, title, desc, time, slotState, isSingle, index, room, showButtons) {
     return (
-      <Col style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
+      <Col key={room.name} style={{paddingLeft: "20px", paddingRight: "20px", paddingBottom: "20px", marginBottom: "20px"}} span={6}>
         <Card
           hoverable
           cover={
@@ -210,7 +210,7 @@ class RoomCard extends React.Component {
           }
           style={isSingle ? {width: "420px", cursor: "default"} : {width: "22vw", cursor: "default"}}
         >
-          <Meta title={Setting.getLanguageText(title)} description={
+          <Meta title={<h3>{Setting.getLanguageText(title)}</h3>} description={
             <span style={{fontWeight: "bold", color: "rgb(90,90,90)"}}>
               {this.renderSlotState(slotState)}
               {desc}
@@ -280,7 +280,7 @@ class RoomCard extends React.Component {
 
   render() {
     return (
-      <Spin spinning={this.getJoinUrl() === "" && this.props.room.meetingNumber !== "123456789" && this.props.room.startUrl !== ""} size="large" tip={i18next.t("room:Joining...")} style={{paddingTop: "10%"}} >
+      <Spin key={this.props.room.name} spinning={this.getJoinUrl() === "" && this.props.room.meetingNumber !== "123456789" && this.props.room.startUrl !== ""} size="large" tip={i18next.t("room:Registering...")} style={{paddingTop: "10%"}} >
         {
           this.renderContent()
         }

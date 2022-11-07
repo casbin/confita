@@ -7,6 +7,8 @@
   },
   "code": {
     "Edit Code": "Edit Code",
+    "Explore and run machine learning code with Confita Notebooks.": "Explore and run machine learning code with Confita Notebooks.",
+    "New Notebook": "New Notebook",
     "Notebook": "Notebook"
   },
   "competition": {
@@ -59,6 +61,7 @@
     "Edit": "Edit",
     "Email": "Email",
     "Home": "Home",
+    "Loading...": "Loading...",
     "Name": "Name",
     "No.": "No.",
     "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.": "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.",
@@ -77,7 +80,8 @@
     "User": "User",
     "Users": "Users",
     "Videos": "Videos",
-    "You have signed in from another place...": "You have signed in from another place..."
+    "You have signed in from another place...": "You have signed in from another place...",
+    "Your Code": "Your Code"
   },
   "payment": {
     "Affiliation": "Affiliation",
@@ -131,7 +135,6 @@
     "Invite link": "Invite link",
     "Is public": "Is public",
     "Join In": "Join In",
-    "Joining...": "Joining...",
     "Live": "Live",
     "Location": "Location",
     "Meeting ID": "Meeting ID",
@@ -142,6 +145,7 @@
     "Participants": "Participants",
     "Passcode": "Passcode",
     "Playback": "Playback",
+    "Registering...": "Registering...",
     "Role": "Role",
     "SDK key": "SDK key",
     "Scan QR Code": "Scan QR Code",

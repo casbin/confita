@@ -7,6 +7,8 @@
   },
   "code": {
     "Edit Code": "编辑代码",
+    "Explore and run machine learning code with Confita Notebooks.": "Explore and run machine learning code with Confita Notebooks.",
+    "New Notebook": "New Notebook",
     "Notebook": "笔记本"
   },
   "competition": {
@@ -59,6 +61,7 @@
     "Edit": "编辑",
     "Email": "电子邮箱",
     "Home": "首页",
+    "Loading...": "正在加载...",
     "Name": "名称",
     "No.": "排名",
     "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.": "该页面仅允许一个会话访问。您已经从另一个位置登录，本会话自动结束。如果您仍想通过本设备登录，请点击下方“退出登录”按钮，并在本设备上重新登录，另一个会话将会被自动结束。",
@@ -77,7 +80,8 @@
     "User": "用户",
     "Users": "我的用户",
     "Videos": "我的视频",
-    "You have signed in from another place...": "您已经从另一个位置登录..."
+    "You have signed in from another place...": "您已经从另一个位置登录...",
+    "Your Code": "Your Code"
   },
   "payment": {
     "Affiliation": "工作单位",
@@ -131,7 +135,6 @@
     "Invite link": "邀请链接",
     "Is public": "是否公开",
     "Join In": "加入会议",
-    "Joining...": "正在准备加入会议...",
     "Live": "直播",
     "Location": "地点",
     "Meeting ID": "会议号",
@@ -142,6 +145,7 @@
     "Participants": "参会者",
     "Passcode": "密码",
     "Playback": "回放",
+    "Registering...": "正在注册会议...",
     "Role": "角色",
     "SDK key": "SDK key",
     "Scan QR Code": "手机扫码入会",

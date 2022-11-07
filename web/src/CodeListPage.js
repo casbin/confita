@@ -23,10 +23,10 @@ import {Pagination, Popover} from "antd";
 import {mapStringToTag} from "./Utils";
 
 /**
- * 
- * @param {CodeBackend.Code} code 
+ *
+ * @param {CodeBackend.Code} code
  * @param {CodeListPage} page
- * @returns {{icon: JSX.Element, label: string, fn: () => void, ownerOnly?: boolean }[]} 
+ * @returns {{icon: JSX.Element, label: string, fn: () => void, ownerOnly?: boolean }[]}
  */
 const codeActions = (code, page) => ([
   {icon: <EditOutlined />, label: "code:Edit", fn: () => Setting.goToLink(`code/${code.name}`), ownerOnly: true},
@@ -102,7 +102,7 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
+   *
    * @returns {CodeBackend.Code}
    */
   newCode() {
@@ -131,8 +131,8 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
-   * @param {CodeBackend.Code} code 
+   *
+   * @param {CodeBackend.Code} code
    */
   deleteCode(code) {
     CodeBackend.deleteCode(code)
@@ -150,9 +150,9 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
+   *
    * @param {string[] | null} keywords
-   * @param {Setting.CodeTag[] | null} tags 
+   * @param {Setting.CodeTag[] | null} tags
    */
   searchCode(keywords, tags) {
     keywords = keywords ?? this.state.searchKeywords;
@@ -165,8 +165,8 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
-   * @param {Setting.CodeTag} tag 
+   *
+   * @param {Setting.CodeTag} tag
    */
   tagOnClicAction(tag) {
     if (this.state.searchTags.find(existedTag => existedTag.label === tag.label)) {
@@ -187,8 +187,8 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
-   * @param {string} value 
+   *
+   * @param {string} value
    */
   searchOnInputAction(value) {
     const keywords = value.trim().length === 0 ? [] : value.split(" ");
@@ -210,7 +210,10 @@ class CodeListPage extends React.Component {
 
   renderTopBanner() {
     return <div className="top-banner">
-      <h1>{this.state.displayMyWork ? i18next.t("general:Your Code") : i18next.t("general:Code")}</h1>
+      <h1>{
+        this.state.displayMyWork ? i18next.t("general:Your Code") :
+          i18next.t("general:Code")}
+      </h1>
       <p>{!this.state.displayMyWork && i18next.t("code:Explore and run machine learning code with Confita Notebooks.")}</p>
       <div>
         <button onClick={this.doIfSignin(this.addCode.bind(this))}><PlusOutlined style={{fontSize: "large"}} />{i18next.t("code:New Notebook")}</button>
@@ -220,14 +223,14 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
-   * @param {{ tags: Setting.CodeTag[] }} props 
+   *
+   * @param {{ tags: Setting.CodeTag[] }} props
    */
   renderSearchArea({tags}) {
 
     /**
-     * 
-     * @type {React.FC<{ category: string, tags: Setting.CodeTag[] }>} 
+     *
+     * @type {React.FC<{ category: string, tags: Setting.CodeTag[] }>}
      */
     const FilterContentRow = ({category, tags}) => <div>
       <p>{category.toUpperCase()}</p>
@@ -264,14 +267,14 @@ class CodeListPage extends React.Component {
   }
 
   /**
-    * 
-    * @param {{ rows: { tag: Setting.CodeTag, codes: CodeBackend.Code[] }[] }} props 
+    *
+    * @param {{ rows: { tag: Setting.CodeTag, codes: CodeBackend.Code[] }[] }} props
     */
   renderCodeList({rows}) {
 
     /**
-      * 
-      * @type {React.FC<{code: CodeBackend.Code}>} 
+      *
+      * @type {React.FC<{code: CodeBackend.Code}>}
       */
     const CodeListRowItem = ({code}) => {
       return <li className="code-list-row-item" onClick={() => Setting.goToLink(`code/${code.name}`)}>
@@ -294,8 +297,8 @@ class CodeListPage extends React.Component {
     };
 
     /**
-      * 
-      * @type {React.FC<{ tag: Setting.CodeTag ,codes: CodeBackend.Code[]}>} 
+      *
+      * @type {React.FC<{ tag: Setting.CodeTag ,codes: CodeBackend.Code[]}>}
       */
     const CodeListRow = ({tag, codes}) => {
       return <li className="code-list-row">
@@ -306,8 +309,8 @@ class CodeListPage extends React.Component {
     };
 
     /**
-      * 
-      * @type {React.FC<{ rows: { tag: Setting.CodeTag, codes: CodeBackend.Code[] }[] }>} 
+      *
+      * @type {React.FC<{ rows: { tag: Setting.CodeTag, codes: CodeBackend.Code[] }[] }>}
       */
     const CodeList = ({rows}) => {
       return <ul className="code-list">
@@ -319,12 +322,12 @@ class CodeListPage extends React.Component {
   }
 
   /**
-   * 
+   *
    * @param {{ codes: CodeBackend.Code[], keywords: string[], tags: Setting.CodeTag[] }} props
    */
   renderSearchResultList({codes, keywords, tags}) {
     /**
-      *  
+      *
       * @type {React.FC<{ code: CodeBackend.Code }>}
       */
     const SearchResultListRow = ({code}) => {
@@ -346,8 +349,8 @@ class CodeListPage extends React.Component {
     };
 
     /**
-      * 
-      * @type {React.FC<{ codes: CodeBackend.Code[] }>} 
+      *
+      * @type {React.FC<{ codes: CodeBackend.Code[] }>}
       */
     const SearchResultList = ({codes}) => {
 
