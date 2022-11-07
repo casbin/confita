@@ -80,6 +80,7 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	//	email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId()[:8])
 	//}
 	email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
+	phone := fmt.Sprintf("186%s", util.GenerateNumber(10000000, 99999999))
 
 	if displayName == "" {
 		displayName = name
@@ -95,7 +96,7 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 		"",
 		"",
 		"",
-		"",
+		phone,
 		"",
 		affiliation,
 		"",

@@ -18,6 +18,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"strconv"
 	"strings"
 	"unicode"
@@ -129,6 +130,11 @@ func WriteBytesToPath(b []byte, path string) {
 
 func GenerateId() string {
 	return uuid.NewString()
+}
+
+func GenerateNumber(min int, max int) string {
+	res := rand.Intn(max-min) + min
+	return strconv.Itoa(res)
 }
 
 func IsChinese(str string) bool {
