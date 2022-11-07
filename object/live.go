@@ -15,6 +15,7 @@
 package object
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
@@ -51,7 +52,8 @@ func getLiveDomainOnlineCount(room *Room) map[string]int {
 
 	response, err := LiveClient.DescribeLiveDomainOnlineUserNum(request)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return nil
 	}
 
 	res := map[string]int{}
