@@ -293,7 +293,7 @@ class RoomListPage extends React.Component {
                   (startUrl === "") ? (
                     <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
-                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                    <Tooltip placement="topLeft" color={"white"} overlayStyle={{maxWidth: "1000px"}} title={<QrCode url={startUrl} />}>
                       <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )

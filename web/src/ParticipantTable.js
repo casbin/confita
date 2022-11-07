@@ -207,7 +207,7 @@ class ParticipantTable extends React.Component {
                   (text === "") ? (
                     <Button disabled={text === ""} style={{marginRight: "5px"}} danger size="small">{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
-                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                    <Tooltip placement="topLeft" color={"white"} overlayStyle={{maxWidth: "1000px"}} title={<QrCode url={startUrl} />}>
                       <Button disabled={text === ""} style={{marginRight: "5px"}} danger size="small">{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )
@@ -228,7 +228,7 @@ class ParticipantTable extends React.Component {
                   (text === "") ? (
                     <Button disabled={text === ""} style={{marginRight: "5px"}} size="small">{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
-                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={text} />}>
+                    <Tooltip placement="topLeft" color={"white"} overlayStyle={{maxWidth: "1000px"}} title={<QrCode url={text} />}>
                       <Button disabled={text === ""} style={{marginRight: "5px"}} size="small">{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )
