@@ -70,16 +70,16 @@ func approveMeetingRegistrant(meetingNumber string, email string) {
 	}
 }
 
-func addMeetingRegistrant(meetingNumber string, name string, displayName string, email string, affiliation string) string {
+func addMeetingRegistrant(meetingNumber string, name string, displayName string, email string, affiliation string, isPanelist bool) string {
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error
 
-	//if !util.IsChinese(name) {
-	//	email = fmt.Sprintf("%s@example-nowhere.com", name)
-	//} else {
-	//	email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId()[:8])
-	//}
-	email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
+	if email != "" {
+		email = fmt.Sprintf("%s.com", email)
+	} else {
+		email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
+	}
+
 	phone := fmt.Sprintf("186%s", util.GenerateNumber(10000000, 99999999))
 
 	if displayName == "" {
@@ -111,7 +111,9 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 
 	approveMeetingRegistrant(meetingNumber, email)
 
-	addWebinarPanelist(meetingNumber, displayName, email)
+	if isPanelist {
+		addWebinarPanelist(meetingNumber, displayName, email)
+	}
 
 	return resp.JoinUrl
 }
