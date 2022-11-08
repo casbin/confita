@@ -281,7 +281,7 @@ func RegisterRoom(id string, username string) *Room {
 		Email:       user.Email,
 		Affiliation: user.Affiliation,
 		Tag:         user.Tag,
-		Role:        "Participant",
+		Role:        "Panelist",
 		JoinUrl:     "",
 	}
 
