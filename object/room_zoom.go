@@ -16,6 +16,7 @@ package object
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/casbin/confita/proxy"
 	"github.com/casbin/confita/util"
@@ -58,7 +59,8 @@ func getMeetingRegistrantId(meetingNumber string, email string) string {
 func approveMeetingRegistrant(meetingNumber string, email string) {
 	id := getMeetingRegistrantId(meetingNumber, email)
 	if id == "" {
-		panic(fmt.Errorf("getMeetingRegistrantId() error, meetingNumber = %s, email = %s, id = %s", meetingNumber, email, id))
+		fmt.Printf("getMeetingRegistrantId() is empty, meetingNumber = %s, email = %s, may be it is panelist\n", meetingNumber, email)
+		return
 	}
 
 	meetingId := util.ParseInt(meetingNumber)
@@ -75,7 +77,7 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	var err error
 
 	if email != "" {
-		email = fmt.Sprintf("%s.com", email)
+		email = strings.Replace(email, "@", "@a-", 1)
 	} else {
 		email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
 	}
