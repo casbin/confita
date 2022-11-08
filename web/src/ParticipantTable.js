@@ -65,7 +65,7 @@ class ParticipantTable extends React.Component {
   }
 
   addRow(table) {
-    const row = {name: `Please select a user - ${table.length}`, createdTime: moment().format(), displayName: "", affiliation: "", email: "", tag: "", role: "Participant", joinUrl: ""};
+    const row = {name: `Please select a user - ${table.length}`, createdTime: moment().format(), displayName: "", affiliation: "", email: "", tag: "", role: "Panelist", joinUrl: ""};
     if (table === undefined) {
       table = [];
     }
@@ -171,14 +171,15 @@ class ParticipantTable extends React.Component {
         render: (text, record, index) => {
           // https://support.zoom.us/hc/en-us/articles/360040324512-Roles-in-a-meeting
           return (
-            <Select disabled={true} virtual={false} style={{width: "100%"}} value={text} onChange={(value => {
+            <Select virtual={false} style={{width: "100%"}} value={text} onChange={(value => {
               this.updateField(table, index, "role", value);
             })}>
               {
                 [
                   {id: "Host", name: "Host"},
-                  {id: "Co-host", name: "Co-host"},
-                  {id: "Participant", name: "Participant"},
+                  // {id: "Co-host", name: "Co-host"},
+                  {id: "Panelist", name: "Panelist"},
+                  {id: "Attendee", name: "Attendee"},
                 ].map((item, index) => <Option key={index} value={item.id}>{item.name}</Option>)
               }
             </Select>
