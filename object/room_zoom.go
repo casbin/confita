@@ -16,7 +16,6 @@ package object
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/casbin/confita/proxy"
 	"github.com/casbin/confita/util"
@@ -76,12 +75,7 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error
 
-	if email != "" {
-		email = strings.Replace(email, "@", "@a-", 1)
-	} else {
-		email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
-	}
-
+	email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
 	phone := fmt.Sprintf("186%s", util.GenerateNumber(10000000, 99999999))
 
 	if displayName == "" {
