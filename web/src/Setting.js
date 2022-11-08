@@ -139,6 +139,17 @@ export function isBranchUser(account) {
   return account?.tag === "Branch";
 }
 
+export function isPayedUser(account, payments) {
+  if (payments === null) {
+    return false;
+  }
+  return payments.filter(payment => payment.productName.includes("_online_") || payment.productName.includes("_early_")).length > 0;
+}
+
+export function isMeetingUser(account, payments) {
+  return isAdminUser(account) || isEditorUser(account) || isCommitteeUser(account) || isBranchUser(account) || isPayedUser(account, payments);
+}
+
 export function deepCopy(obj) {
   return Object.assign({}, obj);
 }

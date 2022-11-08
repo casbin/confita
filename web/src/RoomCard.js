@@ -33,8 +33,25 @@ class RoomCard extends React.Component {
     };
   }
 
+  requireRegistering() {
+    if (this.props.room.meetingNumber === "" || this.props.room.meetingNumber === "123456789") {
+      return false;
+    }
+
+    if (Setting.isAdminUser(this.props.account)) {
+      return false;
+    } else {
+      if (!Setting.isMeetingUser(this.props.account, this.props.payments)) {
+        return false;
+      } else if (this.getJoinUrl() === "") {
+        return true;
+      }
+      return false;
+    }
+  }
+
   UNSAFE_componentWillMount() {
-    if (!Setting.isAdminUser(this.props.account) && this.props.room.meetingNumber !== "" && this.getJoinUrl() === "") {
+    if (this.requireRegistering()) {
       this.registerRoom(this.props.index);
     }
 
@@ -114,7 +131,7 @@ class RoomCard extends React.Component {
       return (
         <div style={{textAlign: "center"}}>
           {
-            this.props.account === null ? null : (
+            (this.props.account === null || !Setting.isMeetingUser(this.props.account, this.props.payments)) ? null : (
               <React.Fragment>
                 <a target="_blank" rel="noreferrer" href={joinUrl}>
                   <Button disabled={room.meetingNumber === "" || joinUrl === "" || joinUrl === "(anonymous)" || room.status !== "Started"} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" >{i18next.t("room:Join In")}</Button>
@@ -280,7 +297,7 @@ class RoomCard extends React.Component {
 
   render() {
     return (
-      <Spin key={this.props.room.name} spinning={this.getJoinUrl() === "" && this.props.room.meetingNumber !== "123456789" && this.props.room.startUrl !== ""} size="large" tip={i18next.t("room:Registering...")} style={{paddingTop: "10%"}} >
+      <Spin key={this.props.room.name} spinning={this.requireRegistering()} size="large" tip={i18next.t("room:Registering...")} style={{paddingTop: "10%"}} >
         {
           this.renderContent()
         }

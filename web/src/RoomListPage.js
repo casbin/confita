@@ -38,7 +38,7 @@ class RoomListPage extends React.Component {
 
   UNSAFE_componentWillMount() {
     this.getGlobalRooms();
-    if (!this.props.isPublic) {
+    if (this.props.account !== undefined && this.props.account !== null) {
       this.getPayments();
     }
   }
@@ -366,7 +366,7 @@ class RoomListPage extends React.Component {
 
   renderCard(index, room, isSingle) {
     return (
-      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} onRegisterRoom={(i) => {this.registerRoom(i);}} />
+      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} payments={this.state.payments} onRegisterRoom={(i) => {this.registerRoom(i);}} />
     );
   }
 
@@ -437,11 +437,11 @@ class RoomListPage extends React.Component {
       return null;
     }
 
-    if (Setting.isEditorUser(this.props.account) || Setting.isCommitteeUser(this.props.account) || Setting.isBranchUser(this.props.account) || Setting.isAdminUser(this.props.account)) {
+    if (this.props.isPublic) {
       return null;
     }
 
-    if (this.state.payments.filter(payment => payment.productName.includes("_online_") || payment.productName.includes("_early_")).length > 0) {
+    if (Setting.isMeetingUser(this.props.account, this.state.payments)) {
       return null;
     }
 
