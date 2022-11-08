@@ -111,5 +111,21 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 
 	approveMeetingRegistrant(meetingNumber, email)
 
+	addWebinarPanelist(meetingNumber, displayName, email)
+
 	return resp.JoinUrl
+}
+
+func addWebinarPanelist(meetingNumber string, displayName string, email string) {
+	panelist := zoomAPI.Panelist{
+		Email: email,
+		Name:  displayName,
+	}
+	panelists := []zoomAPI.Panelist{panelist}
+
+	meetingId := util.ParseInt(meetingNumber)
+	err := zoomClient.AddWebinarPanelists(meetingId, panelists)
+	if err != nil {
+		panic(err)
+	}
 }

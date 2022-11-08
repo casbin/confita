@@ -13,7 +13,7 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/google/uuid v1.3.0
-	github.com/nomeguy/zoom-go v0.0.5
+	github.com/nomeguy/zoom-go v0.0.6
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.18.1 // indirect
 	github.com/prometheus/client_golang v1.11.0 // indirect
