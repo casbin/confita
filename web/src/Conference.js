@@ -25,7 +25,8 @@ class Conference extends React.Component {
     // noinspection JSAnnotator
     this.state = {
       classes: props,
-      // selectedKey: this.props.conference.defaultItem,
+      selectedKey: {key: "赛题与数据"},
+      topselectedKey: {key: "顶部一"},
       conference: {
         owner: "admin",
         name: "casbin",
@@ -39,6 +40,7 @@ class Conference extends React.Component {
         carousels: ["https://storage.googleapis.com/kaggle-competitions/kaggle/15696/logos/header.png?t=2019-10-04-16-16-53"],
         carouselHeight: "200",
         tags: [],
+        openKeys: ["赛制"],
         datasetUrl: "",
         datasetPreviewUrl: "",
         previewData: "",
@@ -52,10 +54,23 @@ class Conference extends React.Component {
         address: "3663 Zhongshan Road North",
         enableSubmission: false,
         defaultItem: "赛题与数据",
+        topItems: [{
+          "key": "顶部一",
+          "title": "顶部一",
+          "titleEn": "顶部一",
+          "children": [],
+        },
+        {
+          "key": "顶部二",
+          "title": "顶部二",
+          "titleEn": "顶部二",
+          "children": [],
+        },
+        ],
         treeItems: [{
           "key": "赛题与数据",
           "title": "赛题与数据",
-          "content": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>赛题描述</strong></h2><p style=\"text-align:start;text-indent:2em;\">表位（Epitope）是存在于抗原表面的，决定抗原特异性的特殊性结构的化学基团称为抗原决定簇，又称表位。抗原通过表位与相应淋巴细胞表面抗原受体结合，从而激活胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原淋巴细胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原分子可具有一种或多种不同的表位，其大小相当于相应抗体的抗原结合部位，每种表位只有一种抗原特异性。因此，表位是被免疫细胞识别的靶结构，也是免疫反应具有特异性的基础，其性质、数目和空间构型决定着抗原的特异性。与之对应的抗体结合部位（Paratope）是与抗原表位相结合的抗体上的位点。</p><div class=\"media-wrap image-wrap\"><img src=\"https://img.alicdn.com/imgextra/i2/O1CN01RhvCUS1qnMywOOeWa_!!6000000005540-...",
+          "content": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>赛题描述</strong></h2><p style=\"text-align:start;text-indent:2em;\">表位（Epitope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性结构的化学基团称为抗原决定簇，又称表位。抗原通过表位与相应淋巴细胞表面抗原受体结合，从而激活胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原淋巴细胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原分子可具有一种或多种不同的表位，其大小相当于相应抗体的抗原结合部位，每种表位只有一种抗原特异性。因此，表位是被免疫细胞识别的靶结构，也是免疫反应具有特异性的基础，其性质、数目和空间构型决定着抗原的特异性。与之对应的抗体结合部位（Paratope）是与抗原表位相结合的抗体上的位点。</p><div class=\"media-wrap image-wrap\"><img src=\"https://img.alicdn.com/imgextra/i2/O1CN01RhvCUS1qnMywOOeWa_!!6000000005540-...",
           "titleEn": "赛题与数据",
           "contentEn": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>赛题描述</strong></h2><p style=\"text-align:start;text-indent:2em;\">表位（Epitope）是存在于抗原表面的，决定抗原特异性的特殊性结构的化学基团称为抗原决定簇，又称表位。抗原通过表位与相应淋巴细胞表面抗原受体结合，从而激活淋巴细胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原分子可胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原具有一种或多种不同的表位，其大小相当于相应抗体的抗原结合部位，每种表位只有一种抗原特异性。因此，表位是被免疫细胞识别的靶结构，也是免疫反应具有特异性的基础，其性质、数目和空间构型决定着抗原的特异性。与之对应的抗体结合部位（Paratope）是与抗原表位相结合的抗体上的位点。</p><div class=\"media-wrap image-wrap\"><img src=\"https://img.alicdn.com/imgextra/i2/O1CN01RhvCUS1qnMywOOeWa_!!6000000005540-...",
           "children": [],
@@ -74,7 +89,13 @@ class Conference extends React.Component {
           "content": "二级菜单",
           "titleEn": "二级菜单",
           "contentEn": "二级菜单",
-          "children": [{}, {}],
+          "children": [{
+            "key": "二级菜单",
+            "title": "二级菜单",
+            "content": "二级菜单",
+            "titleEn": "二级菜单",
+            "contentEn": "二级菜单",
+          }],
         },
         {
           "key": "容器镜像",
@@ -89,9 +110,16 @@ class Conference extends React.Component {
   }
 
   handleClick = info => {
-    const selectedKey = info.key;
     this.setState({
-      selectedKey: selectedKey,
+      selectedKey: info,
+    });
+  };
+
+  handletopClick = info => {
+    // eslint-disable-next-line no-console
+    console.log(this.state.topselectedKey);
+    this.setState({
+      topselectedKey: info,
     });
   };
 
@@ -109,12 +137,12 @@ class Conference extends React.Component {
     return (
       <Menu
         // style={{ width: 256 }}
-        selectedKeys={[this.state.selectedKey]}
+        defaultselectedKeys={[this.state.selectedKey]}
         defaultOpenKeys={["sub1"]}
         mode={mode}
         theme={theme}
         className={"conferenceMenu"}
-        style={{border: "0px solid", backgroundColor: "white"}}
+        style={{backgroundColor: "white"}}
         onClick={this.handleClick}
       >
         {
@@ -185,19 +213,19 @@ class Conference extends React.Component {
       return null;
     }
 
-    const res = treeItems.map(treeItem => {
-      if (treeItem.title === this.state.selectedKey) {
+    const res = treeItems?.map(treeItem => {
+      if (treeItem.key === this.state.selectedKey.key) {
         return treeItem;
       } else {
-        return this.getSelectedTreeItem(treeItem.children);
+        return null;
       }
     }).filter(treeItem => treeItem !== null);
+    // if (treeItems.length > 0) {
+    return res;
 
-    if (res.length > 0) {
-      return res[0];
-    } else {
-      return null;
-    }
+    // } else {
+    //   return null;
+    // }
   }
 
   renderPage(treeItem) {
@@ -219,17 +247,12 @@ class Conference extends React.Component {
     );
   }
 
-  renderCompetition(conference, conferencetree) {
-    // eslint-disable-next-line no-console
-    console.log(conference);
+  renderCompetition(conference) {
     if (conference.type !== "Competition") {
       return null;
     }
-    const mode = "horizontal";
-
-    const theme = "light";
     return (
-      <div style={{marginTop: "20px", marginBottom: "20px"}}>
+      <div style={{marginTop: "20px"}}>
         <Alert
           banner
           showIcon={false}
@@ -244,7 +267,7 @@ class Conference extends React.Component {
               }
             </h2>}
           description={<div style={{color: "white"}}>
-            <h3>
+            <h3 style={{color: "white"}}>
               {conference.introduction}
             </h3>
             <div>
@@ -266,30 +289,33 @@ class Conference extends React.Component {
               <div style={{fontSize: 30, color: "rgb(255,77,79)"}}>
                  ￥{`${conference.bonus}`.replace("000", ",000")}
               </div>
-              <Button style={{marginTop: "20px"}} shape={"round"} type="primary" onClick={() => this.props.history.push("/submissions")}>
-                {i18next.t("conference:Apple Now")}
-              </Button>
-              <Button style={{marginTop: "10px"}} shape={"round"} type="primary" danger onClick={() => Setting.openLinkSafe(conference.resultUrl)}>
-                {i18next.t("conference:View Result")}
-              </Button>
             </Space>
           }
         />
+      </div>
+    );
+  }
+  rendertopmenu(conferencetree) {
+    const mode = "horizontal";
+
+    const theme = "light";
+    return (
+      <div style={{marginBottom: "20px", position: "sticky", top: "0"}}>
         <Menu
-          // style={{ width: 256 }}
-          selectedKeys={[this.state.selectedKey]}
+        // style={{ width: 256 }}
+          defaultselectedKeys={[this.state.topselectedKey]}
           defaultOpenKeys={["sub1"]}
           mode={mode}
           theme={theme}
-          className={"conferenceMenu"}
-          style={{border: "1px solid rgb(240,240,240)", backgroundColor: "white"}}
-          onClick={this.handleClick}
+          className={"conferencetopMenu"}
+          style={{border: "1px solid rgb(240,240,240)", backgroundColor: "white", position: "sticky", top: "0", zIndex: "auto"}}
+          onClick={this.handletopClick}
         >
           {
             conferencetree.map((treeItem, i) => {
-              // if (i === 0) {
-              //   return null;
-              // }
+            // if (i === 0) {
+            //   return null;
+            // }
 
               if (treeItem.children.length === 0) {
                 return (
@@ -351,7 +377,7 @@ class Conference extends React.Component {
   }
   rendersteps(conference) {
     return (
-      <Steps style={{marginTop: "20px"}} current={1} progressDot={(dot, {status, index}) => {
+      <Steps style={{marginTop: "30px"}} current={1} progressDot={(dot, {status, index}) => {
         return (
           <Popover
             content={
@@ -370,21 +396,42 @@ class Conference extends React.Component {
       </Steps>
     );
   }
+  renderTitle(title) {
+    return (
+      <div style={{color: "#00000066", backgroundColor: "#FBFBFB", border: "1px solid #dedfe0", borderRadius: "4px solid #dedfe0", borderBottom: "none", padding: "12px 16px"}}>
+        {title}
+      </div>
+    );
+  }
   render() {
     const conference = this.state.conference;
 
     if (!Setting.isMobile()) {
       return (
-        <div>
+        <div style={{marginLeft: "10%", marginRight: "10%"}}>
           <Row>
             <Col span={24} >
               {
-                this.renderCompetition(conference, conference.treeItems)
+                this.renderCompetition(conference)
               }
             </Col>
           </Row>
-          <Row style={{border: "1px solid", borderRadius: "5px solid"}}>
-            <Col span={4} >
+          <Row style={{position: "sticky", top: "0", zIndex: "1"}}>
+            <Col span={24} >
+              {
+                this.rendertopmenu(conference.topItems)
+              }
+            </Col>
+          </Row>
+          <Row style={{zIndex: "1"}}>
+            <Col span={24} >
+              {
+                this.renderTitle(this.state.topselectedKey.key)
+              }
+            </Col>
+          </Row>
+          <Row style={{border: "1px solid #dedfe0"}}>
+            <Col span={4} style={{borderRight: "1px solid #dedfe0"}}>
               {
                 this.renderMenu(conference.treeItems)
               }
@@ -393,7 +440,7 @@ class Conference extends React.Component {
             </Col>
             <Col span={19} >
               {
-                this.renderPage(conference.treeItems[0])
+                this.renderPage(this.getSelectedTreeItem(this.state.conference.treeItems)[0])
               }
             </Col>
           </Row>
@@ -403,6 +450,18 @@ class Conference extends React.Component {
               {this.rendersteps(conference.treeItems[0])}
             </Col>
             <Col span={2}></Col>
+          </Row>
+          <Row>
+            <Col span={12}>
+              <Button style={{marginLeft: "45%", marginBottom: "20px", marginTop: "20px"}} shape={""} type="primary" onClick={() => this.props.history.push("/submissions")}>
+                {i18next.t("conference:Apple Now")}
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button style={{marginLeft: "45%", marginBottom: "20px", marginTop: "20px"}} shape={""} type="primary" danger onClick={() => Setting.openLinkSafe(conference.resultUrl)}>
+                {i18next.t("conference:View Result")}
+              </Button>
+            </Col>
           </Row>
         </div>
       );
