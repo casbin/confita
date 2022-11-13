@@ -30,6 +30,11 @@ code {
   padding: 2px !important;
 }
 
+/*.ant-menu-item-active {*/
+/*  background-color: #7f5de3 !important;*/
+/*  color: white !important;*/
+/*}*/
+
 .highlight-row {
   background: rgb(249,198,205);
 }
@@ -76,5 +81,12 @@ code {
 /*}*/
 
 .conferenceMenu {
-  background-color: rgb(242,242,242) !important;
+  background-color: white;
+  position: sticky;
+  top: 49px;
+}
+
+.topMenu {
+  position: sticky;
+  top: 0;
 }

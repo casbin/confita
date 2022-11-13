@@ -32,6 +32,7 @@ import PaymentListPage from "./PaymentListPage";
 import RoomListPage from "./RoomListPage";
 import RoomEditPage from "./RoomEditPage";
 import RoomPage from "./RoomPage";
+import Conference from "./Conference";
 import SigninPage from "./SigninPage";
 import i18next from "i18next";
 import SelectLanguageBox from "./SelectLanguageBox";
@@ -456,6 +457,7 @@ class App extends Component {
           <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)} />
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)} />
           <Route path="/competitions" render={(props) => <CompetitionListPage account={this.state.account} {...props} />} />
+          <Route path="/conference" render={(props) => <Conference account={this.state.account} {...props} />} />
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
           <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)} />

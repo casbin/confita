@@ -16,6 +16,7 @@ import React from "react";
 import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
+import {Link} from "react-router-dom";
 
 const {SubMenu} = Menu;
 const {Step} = Steps;
@@ -25,7 +26,8 @@ class Conference extends React.Component {
     // noinspection JSAnnotator
     this.state = {
       classes: props,
-      selectedKey: {key: "赛题与数据"},
+      defaultItem: "赛题与数据",
+      selectedKey: {key: "赛题与数据", keyPath: ["赛题与数据"]},
       topselectedKey: {key: "顶部一"},
       conference: {
         owner: "admin",
@@ -40,6 +42,7 @@ class Conference extends React.Component {
         carousels: ["https://storage.googleapis.com/kaggle-competitions/kaggle/15696/logos/header.png?t=2019-10-04-16-16-53"],
         carouselHeight: "200",
         tags: [],
+        defaultItem: "",
         openKeys: ["赛制"],
         datasetUrl: "",
         datasetPreviewUrl: "",
@@ -53,7 +56,6 @@ class Conference extends React.Component {
         location: "Beijing, China",
         address: "3663 Zhongshan Road North",
         enableSubmission: false,
-        defaultItem: "赛题与数据",
         topItems: [{
           "key": "顶部一",
           "title": "顶部一",
@@ -68,16 +70,18 @@ class Conference extends React.Component {
         },
         ],
         treeItems: [{
-          "key": "赛题与数据",
+          "key": "question",
           "title": "赛题与数据",
+          "path": "/conference/question",
           "content": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>赛题描述</strong></h2><p style=\"text-align:start;text-indent:2em;\">表位（Epitope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性tope）是存在于抗原表面的，决定抗原特异性的特殊性结构的化学基团称为抗原决定簇，又称表位。抗原通过表位与相应淋巴细胞表面抗原受体结合，从而激活胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原淋巴细胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原分子可具有一种或多种不同的表位，其大小相当于相应抗体的抗原结合部位，每种表位只有一种抗原特异性。因此，表位是被免疫细胞识别的靶结构，也是免疫反应具有特异性的基础，其性质、数目和空间构型决定着抗原的特异性。与之对应的抗体结合部位（Paratope）是与抗原表位相结合的抗体上的位点。</p><div class=\"media-wrap image-wrap\"><img src=\"https://img.alicdn.com/imgextra/i2/O1CN01RhvCUS1qnMywOOeWa_!!6000000005540-...",
           "titleEn": "赛题与数据",
           "contentEn": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>赛题描述</strong></h2><p style=\"text-align:start;text-indent:2em;\">表位（Epitope）是存在于抗原表面的，决定抗原特异性的特殊性结构的化学基团称为抗原决定簇，又称表位。抗原通过表位与相应淋巴细胞表面抗原受体结合，从而激活淋巴细胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原分子可胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原原胞，引起免疫应答；抗原也借此与相应抗体或致敏淋巴细胞发生特异性结合。单个抗原具有一种或多种不同的表位，其大小相当于相应抗体的抗原结合部位，每种表位只有一种抗原特异性。因此，表位是被免疫细胞识别的靶结构，也是免疫反应具有特异性的基础，其性质、数目和空间构型决定着抗原的特异性。与之对应的抗体结合部位（Paratope）是与抗原表位相结合的抗体上的位点。</p><div class=\"media-wrap image-wrap\"><img src=\"https://img.alicdn.com/imgextra/i2/O1CN01RhvCUS1qnMywOOeWa_!!6000000005540-...",
           "children": [],
         },
         {
-          "key": "赛制",
+          "key": "rules",
           "title": "赛制",
+          "path": "/conference/rules",
           "content": "<p style=\"text-align:start;text-indent:2em;\"><strong>“云上进化”2022全球AI生物智药大赛赛道二“抗原抗体结合Epitope和Paratope精准确定”</strong></p><h2 style=\"text-align:start;text-indent:2em;\"><strong>背景介绍</strong></h2><p style=\"text-align:start;text-indent:2em;\">近年来，AI+医疗的应用场景不断延伸。在传统制药行业，AI逐渐应用于药物靶点发现、虚拟筛选、化合物/生物结构合成、理化性质预测等多个流程。由SARS-CoV-2（新型冠状病毒）引发的疫情，从2019年底出现开始，就给世界人民的生命健康安全带来了巨大的威胁。面对全球疫情的多次反弹、病毒的快速变异、疫苗突破性感染率上升，小分子药的无后遗症治愈复杂有难度，通过广谱中和抗体在新冠病毒暴露人群进行应急预防和早期治疗，成为巩固疫苗接种形成的免疫屏障的重要手段。为了加快推进广谱中和抗体研发进度，AI的辅助必不可少。在一些创新药物研发的细分领...",
           "titleEn": "赛制",
           "contentEn": "<p style=\"text-align:start;text-indent:2em;\"><strong>“云上进化”2022全球AI生物智药大赛赛道二“抗原抗体结合Epitope和Paratope精准确定”</strong></p><h2 style=\"text-align:start;text-indent:2em;\"><strong>背景介绍</strong></h2><p style=\"text-align:start;text-indent:2em;\">近年来，AI+医疗的应用场景不断延伸。在传统制药行业，AI逐渐应用于药物靶点发现、虚拟筛选、化合物/生物结构合成、理化性质预测等多个流程。由SARS-CoV-2（新型冠状病毒）引发的疫情，从2019年底出现开始，就给世界人民的生命健康安全带来了巨大的威胁。面对全球疫情的多次反弹、病毒的快速变异、疫苗突破性感染率上升，小分子药的无后遗症治愈复杂有难度，通过广谱中和抗体在新冠病毒暴露人群进行应急预防和早期治疗，成为巩固疫苗接种形成的免疫屏障的重要手段。为了加快推进广谱中和抗体研发进度，AI的辅助必不可少。在一些创新药物研发的细分领...",
@@ -100,6 +104,7 @@ class Conference extends React.Component {
         {
           "key": "容器镜像",
           "title": "容器镜像",
+          "path": "/conference/docker",
           "content": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>提交说明</strong></h2><p style=\"text-align:start;text-indent:2em;\">平台提供了基于GPU计算资源的提交镜像的方式，将本地代码打包成镜像提交，推送至阿里云容器镜像仓库后，在天池提交页面中输入镜像地址、用户名和仓库密码。由比赛平台拉取镜像运行，运行结束即可在成绩页面查询评测结果和日志。</p><h2 style=\"text-align:start;text-indent:2em;\"><strong>1. 资源配置：</strong></h2><p style=\"text-align:start;text-indent:2em;\">GPU实例规格<code>ecs.gn7i-c16g1.4xlarge</code>(<a href=\"https://help.aliyun.com/document_detail/25378.html\" target=\"_blank\">https://help.aliyun.com/documen...",
           "titleEn": "容器镜像",
           "contentEn": "<h2 style=\"text-align:start;text-indent:2em;\"><strong>提交说明</strong></h2><p style=\"text-align:start;text-indent:2em;\">平台提供了基于GPU计算资源的提交镜像的方式，将本地代码打包成镜像提交，推送至阿里云容器镜像仓库后，在天池提交页面中输入镜像地址、用户名和仓库密码。由比赛平台拉取镜像运行，运行结束即可在成绩页面查询评测结果和日志。</p><h2 style=\"text-align:start;text-indent:2em;\"><strong>1. 资源配置：</strong></h2><p style=\"text-align:start;text-indent:2em;\">GPU实例规格<code>ecs.gn7i-c16g1.4xlarge</code>(<a href=\"https://help.aliyun.com/document_detail/25378.html\" target=\"_blank\">https://help.aliyun.com/documen...",
@@ -107,6 +112,24 @@ class Conference extends React.Component {
         }],
       },
     };
+    const thiskey = this.handleUrl();
+    // eslint-disable-next-line no-console
+    console.log(thiskey);
+  }
+  UNSAFE_componentWillMount() {
+    let defaultSelectedKey = "赛题与数据";
+    if (this.handleUrl() === "rules") {
+      defaultSelectedKey = "赛制";
+    }
+
+    this.setState({defaultItem: defaultSelectedKey});
+  }
+
+  handleUrl() {
+    const url = this.props.location.pathname;
+    const thiskeys = url.split("/");
+    const thiskey = thiskeys[thiskeys.length - 1];
+    return thiskey;
   }
 
   handleClick = info => {
@@ -137,7 +160,7 @@ class Conference extends React.Component {
     return (
       <Menu
         // style={{ width: 256 }}
-        defaultselectedKeys={[this.state.selectedKey]}
+        defaultSelectedKeys={[this.state.defaultItem]}
         defaultOpenKeys={["sub1"]}
         mode={mode}
         theme={theme}
@@ -153,6 +176,7 @@ class Conference extends React.Component {
             if (treeItem.children.length === 0) {
               return (
                 <Menu.Item key={treeItem.title}>
+                  <Link to={treeItem.path}></Link>
                   {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
                 </Menu.Item>
               );
@@ -214,7 +238,7 @@ class Conference extends React.Component {
     }
 
     const res = treeItems?.map(treeItem => {
-      if (treeItem.key === this.state.selectedKey.key) {
+      if (treeItem.key === this.handleUrl()) {
         return treeItem;
       } else {
         return null;
@@ -234,7 +258,6 @@ class Conference extends React.Component {
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       );
     }
-
     return (
       <div>
         {/* <div style={{textAlign: "center", fontSize: "x-large"}}>*/}
@@ -303,7 +326,7 @@ class Conference extends React.Component {
       <div style={{marginBottom: "20px", position: "sticky", top: "0"}}>
         <Menu
         // style={{ width: 256 }}
-          defaultselectedKeys={[this.state.topselectedKey]}
+          defaultselectedkeys={[this.state.topselectedKey]}
           defaultOpenKeys={["sub1"]}
           mode={mode}
           theme={theme}
@@ -405,7 +428,6 @@ class Conference extends React.Component {
   }
   render() {
     const conference = this.state.conference;
-
     if (!Setting.isMobile()) {
       return (
         <div style={{marginLeft: "10%", marginRight: "10%"}}>
