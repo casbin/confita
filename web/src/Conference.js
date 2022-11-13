@@ -112,9 +112,6 @@ class Conference extends React.Component {
         }],
       },
     };
-    const thiskey = this.handleUrl();
-    // eslint-disable-next-line no-console
-    console.log(thiskey);
   }
   UNSAFE_componentWillMount() {
     let defaultSelectedKey = "赛题与数据";
@@ -139,8 +136,6 @@ class Conference extends React.Component {
   };
 
   handletopClick = info => {
-    // eslint-disable-next-line no-console
-    console.log(this.state.topselectedKey);
     this.setState({
       topselectedKey: info,
     });
