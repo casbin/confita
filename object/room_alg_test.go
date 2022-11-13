@@ -24,7 +24,7 @@ func TestGenerateSignature(t *testing.T) {
 }
 
 func TestAddMeetingRegistrant(t *testing.T) {
-	println(addMeetingRegistrant("123456789", "alice", "Alice", "alice@example.com", "Example Inc."))
+	println(addMeetingRegistrant("123456789", "alice", "Alice", "alice@example.com", "Example Inc.", true))
 }
 
 func TestGetZakExpireTime(t *testing.T) {

@@ -20,6 +20,7 @@ import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import ParticipantTable from "./ParticipantTable";
+import SlotTable from "./SlotTable";
 import moment from "moment";
 import Video from "./Video";
 import copy from "copy-to-clipboard";
@@ -340,6 +341,18 @@ class RoomEditPage extends React.Component {
               table={this.state.room.participants}
               room={this.state.room}
               onUpdateTable={(value) => {this.updateRoomField("participants", value);}}
+            />
+          </Col>
+        </Row>
+        <Row style={{marginTop: "20px"}} >
+          <Col style={{marginTop: "5px"}} span={(Setting.isMobile()) ? 22 : 2}>
+            {i18next.t("room:Slots")}:
+          </Col>
+          <Col span={22} >
+            <SlotTable
+              title={i18next.t("room:Slots")}
+              table={this.state.room.slots}
+              onUpdateTable={(value) => {this.updateRoomField("slots", value);}}
             />
           </Col>
         </Row>

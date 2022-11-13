@@ -20,12 +20,13 @@ import (
 )
 
 type Code struct {
-	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
-	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
-	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
-	DisplayName string `xorm:"varchar(100)" json:"displayName"`
-
-	Notebook string `xorm:"varchar(100)" json:"notebook"`
+	Owner       string   `xorm:"varchar(100) notnull pk" json:"owner"`
+	Name        string   `xorm:"varchar(100) notnull pk" json:"name"`
+	CreatedTime string   `xorm:"varchar(100)" json:"createdTime"`
+	DisplayName string   `xorm:"varchar(100)" json:"displayName"`
+	Notebook    string   `xorm:"varchar(100)" json:"notebook"`
+	Tags        []string `xorm:"varchar(100)" json:"tags"`
+	ImgUrl      string   `xorm:"varchar(100)" json:"imgUrl"`
 }
 
 func GetGlobalCodes() []*Code {

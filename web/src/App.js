@@ -14,7 +14,7 @@
 
 import React, {Component} from "react";
 import {Link, Redirect, Route, Switch, withRouter} from "react-router-dom";
-import {Avatar, BackTop, Dropdown, Layout, Menu, Modal} from "antd";
+import {Avatar, BackTop, Col, Dropdown, Layout, List, Menu, Modal, Popover, Row} from "antd";
 import {CloseCircleTwoTone, DownOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
 import "./App.less";
 import * as Setting from "./Setting";
@@ -420,6 +420,58 @@ class App extends Component {
     }
   }
 
+  renderContact() {
+    if (Conf.ContactInfo.length === 0) {
+      return null;
+    }
+
+    return (
+      <Popover content={
+        <div style={{width: "300px"}}>
+          <List
+            itemLayout="horizontal"
+            dataSource={Conf.ContactInfo}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.logo} />}
+                  title={<a target="_blank" rel="noreferrer" href={item.joinLink}>{item.title}</a>}
+                  description={
+                    <div>
+                      <Row>
+                        <Col span={10}>
+                          {i18next.t("room:Meeting ID")}:
+                        </Col>
+                        <Col span={14}>
+                          {item.meetingId}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col span={10}>
+                          {i18next.t("room:Passcode")}:
+                        </Col>
+                        <Col span={14}>
+                          {item.passcode}
+                        </Col>
+                      </Row>
+                    </div>
+                  }
+                />
+              </List.Item>
+            )}
+          />
+        </div>
+      } trigger="click">
+        <div key="/support" style={{marginRight: "1rem"}}>
+
+          <a href={Setting.getSignupUrl()} className="signup-button">
+            {i18next.t("room:Support")}
+          </a>
+        </div>
+      </Popover>
+    );
+  }
+
   renderContent() {
     return (
       <div>
@@ -444,6 +496,9 @@ class App extends Component {
           <div
             className="top-right-layout"
           >
+            {
+              this.renderContact()
+            }
             <SelectLanguageBox />
             {
               this.renderAccount()
@@ -460,7 +515,7 @@ class App extends Component {
           <Route path="/conference" render={(props) => <Conference account={this.state.account} {...props} />} />
           <Route exact path="/conferences" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceListPage account={this.state.account} {...props} />)} />
           <Route exact path="/conferences/:conferenceName" render={(props) => this.renderSigninIfNotSignedIn(<ConferenceEditPage account={this.state.account} {...props} />)} />
-          <Route exact path="/code" render={(props) => this.renderSigninIfNotSignedIn(<CodeListPage account={this.state.account} {...props} />)} />
+          <Route exact path="/code" render={(props) => <CodeListPage account={this.state.account} {...props} />} />
           <Route exact path="/code/:codeName" render={(props) => this.renderSigninIfNotSignedIn(<CodeEditPage account={this.state.account} {...props} />)} />
           <Route exact path="/submissions" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionListPage account={this.state.account} {...props} />)} />
           <Route exact path="/submissions/:userName/:submissionName" render={(props) => this.renderSigninIfNotSignedIn(<SubmissionEditPage account={this.state.account} {...props} />)} />
