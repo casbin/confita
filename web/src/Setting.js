@@ -143,7 +143,7 @@ export function isPayedUser(account, payments) {
   if (payments === null) {
     return false;
   }
-  return payments.filter(payment => payment.productName.includes("_online_") || payment.productName.includes("_early_")).length > 0;
+  return payments.filter(payment => payment.productName.includes("_standard_") || payment.productName.includes("_online_") || payment.productName.includes("_early_")).length > 0;
 }
 
 export function isMeetingUser(account, payments) {

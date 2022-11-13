@@ -56,7 +56,7 @@ class RoomListPage extends React.Component {
     PaymentBackend.getPayments(this.props.account.name)
       .then((payments) => {
         this.setState({
-          payments: payments.filter(payment => payment.state === "Paid"),
+          payments: payments.filter(payment => (payment.state === "Paid" && !payment.message.includes("Refund"))),
         });
       });
   }
