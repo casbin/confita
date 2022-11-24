@@ -14,7 +14,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Card, Col, Modal, Popconfirm, Row, Switch, Table, Tooltip} from "antd";
+import {Button, Card, Col, Modal, Popconfirm, Row, Spin, Switch, Table, Tooltip} from "antd";
 import {CloseCircleTwoTone, PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
@@ -38,7 +38,7 @@ class RoomListPage extends React.Component {
 
   UNSAFE_componentWillMount() {
     this.getGlobalRooms();
-    if (!this.props.isPublic) {
+    if (this.props.account !== undefined && this.props.account !== null) {
       this.getPayments();
     }
   }
@@ -56,7 +56,7 @@ class RoomListPage extends React.Component {
     PaymentBackend.getPayments(this.props.account.name)
       .then((payments) => {
         this.setState({
-          payments: payments.filter(payment => payment.state === "Paid"),
+          payments: payments.filter(payment => (payment.state === "Paid" && !payment.message.includes("Refund"))),
         });
       });
   }
@@ -78,6 +78,7 @@ class RoomListPage extends React.Component {
       passcode: "123456",
       inviteLink: "https://zoom.us/j/123456789?pwd=123456",
       participants: [],
+      slots: [],
       status: "Ended",
       isPublic: false,
       ingestDomain: "",
@@ -276,20 +277,23 @@ class RoomListPage extends React.Component {
         width: "270px",
         render: (text, room, index) => {
           const startUrl = room.startUrl;
-          const participant = room.participants.filter(participant => participant.name === this.props.account.name)[0];
-          const joinUrl = participant === undefined ? "" : participant.joinUrl;
 
           if (Setting.isAdminUser(this.props.account)) {
             return (
               <div>
                 <a target="_blank" rel="noreferrer" href={startUrl}>
-                  <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Join In")}</Button>
+                  <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>
+                    {
+                      room.status === "Started" ? i18next.t("room:Join In") :
+                        i18next.t("room:Start Meeting")
+                    }
+                  </Button>
                 </a>
                 {
                   (startUrl === "") ? (
                     <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                   ) : (
-                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={startUrl} />}>
+                    <Tooltip placement="topLeft" color={"white"} overlayStyle={{maxWidth: "1000px"}} title={<QrCode url={startUrl} />}>
                       <Button disabled={startUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} danger>{i18next.t("room:Scan QR Code")}</Button>
                     </Tooltip>
                   )
@@ -311,33 +315,7 @@ class RoomListPage extends React.Component {
               </div>
             );
           } else {
-            return (
-              <div>
-                {
-                  joinUrl !== "" ? null : (
-                    <Button disabled={room.meetingNumber === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.registerRoom(index)}>
-                      {i18next.t("room:Register")}
-                    </Button>
-                  )
-                }
-                <a target="_blank" rel="noreferrer" href={joinUrl}>
-                  <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary">{i18next.t("room:Join In")}</Button>
-                </a>
-                {
-                  (room.meetingNumber === "" || joinUrl === "") ? (
-                    <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
-                  ) : (
-                    <Tooltip placement="topLeft" color={"rgb(0,0,0,0)"} title={<QrCode url={joinUrl} />}>
-                      <Button disabled={room.meetingNumber === "" || joinUrl === ""} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}>{i18next.t("room:Scan QR Code")}</Button>
-                    </Tooltip>
-                  )
-                }
-                <Button disabled={!room.isLive} icon={<VideoCameraOutlined />} style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>
-                  {i18next.t("room:Watch Live")}
-                  {Setting.getRoomLiveUserCount(room)}
-                </Button>
-              </div>
-            );
+            return null;
           }
         },
       },
@@ -388,14 +366,15 @@ class RoomListPage extends React.Component {
 
   renderCard(index, room, isSingle) {
     return (
-      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} onRegisterRoom={(i) => {this.registerRoom(i);}} />
+      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} payments={this.state.payments} onRegisterRoom={(i) => {this.registerRoom(i);}} />
     );
   }
 
-  renderCards() {
-    const rooms = this.state.rooms;
+  renderCards(rooms) {
     if (rooms === null) {
-      return null;
+      return (
+        <Spin spinning={true} size="large" tip={i18next.t("general:Loading...")} style={{paddingTop: "10%"}} />
+      );
     }
 
     const isSingle = rooms.length === 1;
@@ -425,7 +404,7 @@ class RoomListPage extends React.Component {
     }
   }
 
-  renderCalendar() {
+  renderCalendar(rooms) {
     return (
       <React.Fragment>
         {
@@ -441,7 +420,7 @@ class RoomListPage extends React.Component {
         <Row style={{width: "100%"}}>
           <Col span={24} style={{display: "flex", justifyContent: "center"}} >
             {
-              this.renderCards()
+              this.renderCards(rooms)
             }
           </Col>
         </Row>
@@ -458,11 +437,11 @@ class RoomListPage extends React.Component {
       return null;
     }
 
-    if (Setting.isEditorUser(this.props.account) || Setting.isCommitteeUser(this.props.account) || Setting.isAdminUser(this.props.account)) {
+    if (this.props.isPublic) {
       return null;
     }
 
-    if (this.state.payments.filter(payment => payment.productName.includes("_online_")).length > 0) {
+    if (Setting.isMeetingUser(this.props.account, this.state.payments)) {
       return null;
     }
 
@@ -502,7 +481,7 @@ class RoomListPage extends React.Component {
         <Row style={{width: "100%"}}>
           <Col span={24}>
             {
-              this.state.isRoomCalendar ? this.renderCalendar() : this.renderTable(this.state.rooms)
+              this.state.isRoomCalendar ? this.renderCalendar(this.state.rooms) : this.renderTable(this.state.rooms)
             }
           </Col>
           {

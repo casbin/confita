@@ -58,7 +58,8 @@ func getMeetingRegistrantId(meetingNumber string, email string) string {
 func approveMeetingRegistrant(meetingNumber string, email string) {
 	id := getMeetingRegistrantId(meetingNumber, email)
 	if id == "" {
-		panic(fmt.Errorf("getMeetingRegistrantId() error, meetingNumber = %s, email = %s, id = %s", meetingNumber, email, id))
+		fmt.Printf("getMeetingRegistrantId() is empty, meetingNumber = %s, email = %s, may be it is panelist\n", meetingNumber, email)
+		return
 	}
 
 	meetingId := util.ParseInt(meetingNumber)
@@ -70,16 +71,12 @@ func approveMeetingRegistrant(meetingNumber string, email string) {
 	}
 }
 
-func addMeetingRegistrant(meetingNumber string, name string, displayName string, email string, affiliation string) string {
+func addMeetingRegistrant(meetingNumber string, name string, displayName string, email string, affiliation string, isPanelist bool) string {
 	var resp zoomAPI.AddMeetingRegistrantResponse
 	var err error
 
-	//if !util.IsChinese(name) {
-	//	email = fmt.Sprintf("%s@example-nowhere.com", name)
-	//} else {
-	//	email = fmt.Sprintf("%s@example-nowhere.com", util.GenerateId()[:8])
-	//}
 	email = fmt.Sprintf("%s%s@example-nowhere.com", util.GenerateId()[:8], util.GenerateId()[:8])
+	phone := fmt.Sprintf("186%s", util.GenerateNumber(10000000, 99999999))
 
 	if displayName == "" {
 		displayName = name
@@ -95,7 +92,7 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 		"",
 		"",
 		"",
-		"",
+		phone,
 		"",
 		affiliation,
 		"",
@@ -110,5 +107,23 @@ func addMeetingRegistrant(meetingNumber string, name string, displayName string,
 
 	approveMeetingRegistrant(meetingNumber, email)
 
+	if isPanelist {
+		addWebinarPanelist(meetingNumber, displayName, email)
+	}
+
 	return resp.JoinUrl
+}
+
+func addWebinarPanelist(meetingNumber string, displayName string, email string) {
+	panelist := zoomAPI.Panelist{
+		Email: email,
+		Name:  displayName,
+	}
+	panelists := []zoomAPI.Panelist{panelist}
+
+	meetingId := util.ParseInt(meetingNumber)
+	err := zoomClient.AddWebinarPanelists(meetingId, panelists)
+	if err != nil {
+		panic(err)
+	}
 }

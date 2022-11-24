@@ -247,9 +247,10 @@ func DeleteRoom(room *Room) bool {
 }
 
 func (room *Room) updateRoomRegistrants() {
-	for _, participant := range room.Participants {
+	for i, participant := range room.Participants {
 		if participant.JoinUrl == "" {
-			joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation)
+			isPanelist := i < 99
+			joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation, isPanelist)
 			participant.JoinUrl = joinUrl
 		}
 	}
@@ -261,10 +262,11 @@ func RegisterRoom(id string, username string) *Room {
 		return nil
 	}
 
-	for _, participant := range room.Participants {
+	for i, participant := range room.Participants {
 		if participant.Name == username {
 			if participant.JoinUrl == "" {
-				joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation)
+				isPanelist := i < 99
+				joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation, isPanelist)
 				participant.JoinUrl = joinUrl
 
 				UpdateRoom(room.GetId(), room)
@@ -281,11 +283,12 @@ func RegisterRoom(id string, username string) *Room {
 		Email:       user.Email,
 		Affiliation: user.Affiliation,
 		Tag:         user.Tag,
-		Role:        "Participant",
+		Role:        "Panelist",
 		JoinUrl:     "",
 	}
 
-	joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation)
+	isPanelist := len(room.Participants) < 99
+	joinUrl := addMeetingRegistrant(room.MeetingNumber, participant.Name, participant.DisplayName, participant.Email, participant.Affiliation, isPanelist)
 	participant.JoinUrl = joinUrl
 	room.Participants = append(room.Participants, participant)
 
@@ -320,4 +323,15 @@ func (room *Room) updateRoomStartUrl() {
 		room.StartUrl = startUrl
 		UpdateRoom(room.GetId(), room)
 	}
+}
+
+func UpdateRoomStatus(meetingNumber string, status string) {
+	room := Room{Owner: "admin", MeetingNumber: meetingNumber}
+	_, err := adapter.engine.Get(&room)
+	if err != nil {
+		panic(err)
+	}
+
+	room.Status = status
+	UpdateRoom(room.GetId(), &room)
 }

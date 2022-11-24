@@ -7,10 +7,13 @@
   },
   "code": {
     "Edit Code": "Edit Code",
+    "Explore and run machine learning code with Confita Notebooks.": "Explore and run machine learning code with Confita Notebooks.",
+    "New Notebook": "New Notebook",
     "Notebook": "Notebook"
   },
   "competition": {
-    "Ongoing": "Ongoing"
+    "Ongoing": "Ongoing",
+    "Organizer": "Organizer"
   },
   "conference": {
     "Address": "Address",
@@ -58,6 +61,7 @@
     "Edit": "Edit",
     "Email": "Email",
     "Home": "Home",
+    "Loading...": "Loading...",
     "Name": "Name",
     "No.": "No.",
     "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.": "Only one session is allowed to access this page. You have signed in from another place, this session has been ended automatically. If you want to sign in with this device again, please click 'Sign Out', and sign in with this device, the other session will be kicked off.",
@@ -76,7 +80,8 @@
     "User": "User",
     "Users": "Users",
     "Videos": "Videos",
-    "You have signed in from another place...": "You have signed in from another place..."
+    "You have signed in from another place...": "You have signed in from another place...",
+    "Your Code": "Your Code"
   },
   "payment": {
     "Affiliation": "Affiliation",
@@ -130,9 +135,9 @@
     "Invite link": "Invite link",
     "Is public": "Is public",
     "Join In": "Join In",
-    "Joining...": "Joining...",
     "Live": "Live",
     "Location": "Location",
+    "Meeting ID": "Meeting ID",
     "Meeting No.": "Meeting No.",
     "Mobile streaming auth key": "Mobile streaming auth key",
     "No Content": "No Content",
@@ -140,22 +145,26 @@
     "Participants": "Participants",
     "Passcode": "Passcode",
     "Playback": "Playback",
-    "Register": "Register",
+    "Registering...": "Registering...",
     "Role": "Role",
     "SDK key": "SDK key",
     "Scan QR Code": "Scan QR Code",
     "Signature": "Signature",
+    "Slots": "Slots",
     "Speaker": "Speaker",
+    "Start Meeting": "Start Meeting",
     "Start URL": "Start URL",
     "Start time": "Start time",
     "Started": "Started",
     "Streaming URL": "Streaming URL",
     "Streaming auth key": "Streaming auth key",
     "Streaming domain": "Streaming domain",
+    "Support": "Support",
     "Time": "Time",
     "Video URL": "Video URL",
     "Video height": "Video height",
     "Video width": "Video width",
+    "View Agenda": "View Agenda",
     "Watch Live": "Watch Live",
     "Watch Playback": "Watch Playback",
     "You need to pay first to enter meeting rooms": "You need to pay first to enter meeting rooms",

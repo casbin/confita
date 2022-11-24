@@ -135,6 +135,21 @@ export function isCommitteeUser(account) {
   return account?.tag === "Committee";
 }
 
+export function isBranchUser(account) {
+  return account?.tag === "Branch";
+}
+
+export function isPayedUser(account, payments) {
+  if (payments === null) {
+    return false;
+  }
+  return payments.filter(payment => payment.productName.includes("_standard_") || payment.productName.includes("_online_") || payment.productName.includes("_early_")).length > 0;
+}
+
+export function isMeetingUser(account, payments) {
+  return isAdminUser(account) || isEditorUser(account) || isCommitteeUser(account) || isBranchUser(account) || isPayedUser(account, payments);
+}
+
 export function deepCopy(obj) {
   return Object.assign({}, obj);
 }
@@ -437,3 +452,24 @@ export function getRoomLiveUserCount(room) {
     </span>
   );
 }
+
+export class CodeTag {
+  label = "";
+  /**
+   * @type {(code:any) => boolean}
+   */
+  filter = code => true;
+}
+
+/**
+ *
+ * @returns {Record<string, (string | CodeTag)[]>}
+ */
+export const getCodeTags = () => ({
+  general: [{label: "All notebooks", filter: () => true}, "Recently Viewed", "Beginner", "NLP", "Random Forest"],
+  language: ["Python", "R"],
+  maintained: ["Scheduled notebook"],
+  accelerator: ["GPU", "TPU"],
+  types: ["Dataset", "Competition notebook"],
+  outputs: ["Visualizations", "Data"],
+});

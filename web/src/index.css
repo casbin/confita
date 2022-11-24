@@ -90,3 +90,11 @@ code {
   position: sticky;
   top: 0;
 }
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding: 4px 16px !important;
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  padding: 4px 16px !important;
+}
