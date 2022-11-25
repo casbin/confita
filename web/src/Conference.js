@@ -326,10 +326,17 @@ class Conference extends React.Component {
           </Popover>
         );
       }}>
-        <Step title="报名" description="04/06-05/11" />
-        <Step title="初赛" description="06/01-07/31" />
-        <Step title="复赛" description="08/01-09/30" />
-        <Step title="决赛" description="09/30" />
+        {
+          this.state.conference.steps.map((step, i) => {
+            return (
+              <Step key={step.title} description={step.date}></Step>
+            );
+          })
+        }
+        {/*<Step title="报名" description="04/06-05/11" />*/}
+        {/*<Step title="初赛" description="06/01-07/31" />*/}
+        {/*<Step title="复赛" description="08/01-09/30" />*/}
+        {/*<Step title="决赛" description="09/30" />*/}
       </Steps>
     );
   }
