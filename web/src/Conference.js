@@ -333,10 +333,10 @@ class Conference extends React.Component {
             );
           })
         }
-        {/*<Step title="报名" description="04/06-05/11" />*/}
-        {/*<Step title="初赛" description="06/01-07/31" />*/}
-        {/*<Step title="复赛" description="08/01-09/30" />*/}
-        {/*<Step title="决赛" description="09/30" />*/}
+        {/* <Step title="报名" description="04/06-05/11" />*/}
+        {/* <Step title="初赛" description="06/01-07/31" />*/}
+        {/* <Step title="复赛" description="08/01-09/30" />*/}
+        {/* <Step title="决赛" description="09/30" />*/}
       </Steps>
     );
   }
