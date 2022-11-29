@@ -365,8 +365,9 @@ class RoomListPage extends React.Component {
   }
 
   renderCard(index, room, isSingle) {
+    const time = (room.startTime === "") ? "" : `${room.startTime} - ${room.endTime}, ${room.location}`;
     return (
-      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={`${room.startTime} - ${room.endTime}, ${room.location}`} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} payments={this.state.payments} onRegisterRoom={(i) => {this.registerRoom(i);}} />
+      <RoomCard logo={room.imageUrl} link={room.startUrl} title={room.displayName} desc={room.speaker} time={time} isSingle={isSingle} key={room.name} index={index} room={room} account={this.props.account} payments={this.state.payments} onRegisterRoom={(i) => {this.registerRoom(i);}} />
     );
   }
 

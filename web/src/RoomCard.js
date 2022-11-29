@@ -116,14 +116,14 @@ class RoomCard extends React.Component {
             {Setting.getRoomLiveUserCount(room)}
           </Button>
           <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
-          <Button style={{marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
+          <Button style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
             onConfirm={() => this.deleteRoom(index)}
             okText="OK"
             cancelText="Cancel"
           >
-            <Button type="danger">{i18next.t("general:Delete")}</Button>
+            <Button style={{marginBottom: "10px"}} type="danger">{i18next.t("general:Delete")}</Button>
           </Popconfirm>
         </div>
       );
@@ -233,9 +233,15 @@ class RoomCard extends React.Component {
               {desc}
             </span>
           } />
-          <br />
-          <Meta title={""} description={time} />
-          <br />
+          {
+            time === "" ? null : (
+              <React.Fragment>
+                <br />
+                <Meta title={""} description={time} />
+                <br />
+              </React.Fragment>
+            )
+          }
           <br />
           {
             !showButtons ? null : this.renderButtons(index, room)
@@ -282,6 +288,8 @@ class RoomCard extends React.Component {
       desc = slot.title;
       time = slot.speaker;
     }
+    // eslint-disable-next-line no-console
+    console.log(time);
 
     let showButtons = true;
     if (Setting.isBranchUser(this.props.account)) {

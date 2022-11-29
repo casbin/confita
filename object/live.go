@@ -117,6 +117,16 @@ func GetRoomsWithLive(rooms []*Room) []*Room {
 		return rooms
 	}
 
+	isEnded := true
+	for _, room := range rooms {
+		if room.MeetingNumber != "" && room.MeetingNumber != "123456789" {
+			isEnded = false
+		}
+	}
+	if isEnded {
+		return rooms
+	}
+
 	var roomWithDomain *Room = nil
 	for _, room := range rooms {
 		if room.StreamingDomain != "" {
