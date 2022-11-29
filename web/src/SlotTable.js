@@ -168,15 +168,28 @@ class SlotTable extends React.Component {
           );
         },
       },
+      // {
+      //   title: i18next.t("room:Location"),
+      //   dataIndex: "location",
+      //   key: "location",
+      //   width: "70px",
+      //   render: (text, record, index) => {
+      //     return (
+      //       <Input value={text} onChange={e => {
+      //         this.updateField(table, index, "location", e.target.value);
+      //       }} />
+      //     );
+      //   },
+      // },
       {
-        title: i18next.t("room:Location"),
-        dataIndex: "location",
-        key: "location",
-        width: "70px",
+        title: i18next.t("room:Video URL"),
+        dataIndex: "videoUrl",
+        key: "videoUrl",
+        width: "200px",
         render: (text, record, index) => {
           return (
             <Input value={text} onChange={e => {
-              this.updateField(table, index, "location", e.target.value);
+              this.updateField(table, index, "videoUrl", e.target.value);
             }} />
           );
         },

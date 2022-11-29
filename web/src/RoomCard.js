@@ -15,7 +15,7 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {Button, Card, Col, Collapse, Popconfirm, Spin, Tag, Tooltip} from "antd";
-import {CalendarOutlined, ClockCircleOutlined, PlayCircleOutlined, SyncOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import {CalendarOutlined, ClockCircleOutlined, SyncOutlined, VideoCameraOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
 import i18next from "i18next";
 import QrCode from "./QrCode";
@@ -115,7 +115,7 @@ class RoomCard extends React.Component {
             {i18next.t("room:Watch Live")}
             {Setting.getRoomLiveUserCount(room)}
           </Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          {/* <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>*/}
           <Button style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
           <Popconfirm
             title={`Sure to delete room: ${room.name} ?`}
@@ -154,7 +154,7 @@ class RoomCard extends React.Component {
             {i18next.t("room:Watch Live")}
             {Setting.getRoomLiveUserCount(room)}
           </Button>
-          <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+          {/* <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginRight: "10px", marginBottom: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>*/}
         </div>
       );
     }
@@ -209,7 +209,7 @@ class RoomCard extends React.Component {
               &nbsp;
               {i18next.t("room:View Agenda")}
             </div>} key="agenda">
-              <Slot slots={room.slots} />
+              <Slot account={this.props.account} room={room} slots={room.slots} />
             </Panel>
           </Collapse>
         </div>
@@ -246,7 +246,7 @@ class RoomCard extends React.Component {
           {
             !showButtons ? null : this.renderButtons(index, room)
           }
-          <Slot slots={room.slots} />
+          <Slot account={this.props.account} room={room} slots={room.slots} />
         </Card>
       </Col>
     );

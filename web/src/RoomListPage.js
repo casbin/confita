@@ -15,7 +15,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Button, Card, Col, Modal, Popconfirm, Row, Spin, Switch, Table, Tooltip} from "antd";
-import {CloseCircleTwoTone, PlayCircleOutlined, VideoCameraOutlined} from "@ant-design/icons";
+import {CloseCircleTwoTone, VideoCameraOutlined} from "@ant-design/icons";
 import moment from "moment";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
@@ -302,7 +302,7 @@ class RoomListPage extends React.Component {
                   {i18next.t("room:Watch Live")}
                   {Setting.getRoomLiveUserCount(room)}
                 </Button>
-                <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>
+                {/* <Button disabled={room.isLive || room.videoUrl === ""} icon={<PlayCircleOutlined />} style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}/view`)}>{i18next.t("room:Watch Playback")}</Button>*/}
                 <Button style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${room.owner}/${room.name}`)}>{i18next.t("general:Edit")}</Button>
                 <Popconfirm
                   title={`Sure to delete room: ${room.name} ?`}

@@ -46,6 +46,7 @@ class Video extends React.Component {
 
   render() {
     const room = this.props.room;
+    const slot = this.props.slot;
     const width = !Setting.isMobile() ? `${room.videoWidth}px` : "100%";
     const height = !Setting.isMobile() ? `${room.videoHeight}px` : "100%";
 
@@ -57,6 +58,9 @@ class Video extends React.Component {
     } else if (room.videoUrl !== "") {
       isLive = false;
       source = room.videoUrl;
+    } else if (slot !== undefined && slot !== null && slot.videoUrl !== "") {
+      isLive = false;
+      source = slot.videoUrl;
     } else {
       return null;
     }

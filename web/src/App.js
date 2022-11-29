@@ -521,6 +521,7 @@ class App extends Component {
           <Route exact path="/rooms" render={(props) => this.renderSigninIfNotSignedIn(<RoomListPage key={"rooms"} account={this.state.account} {...props} />)} />
           <Route exact path="/rooms/:userName/:roomName" render={(props) => this.renderSigninIfNotSignedIn(<RoomEditPage account={this.state.account} {...props} />)} />
           <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
+          <Route exact path="/rooms/:userName/:roomName/:slotName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
           <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />} />
         </Switch>
       </div>

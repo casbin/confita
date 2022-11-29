@@ -13,9 +13,11 @@
 // limitations under the License.
 
 import React from "react";
-import {Timeline} from "antd";
-import {SyncOutlined} from "@ant-design/icons";
+import {withRouter} from "react-router-dom";
+import {Button, Timeline} from "antd";
+import {PlayCircleOutlined, SyncOutlined} from "@ant-design/icons";
 import * as Setting from "./Setting";
+import i18next from "i18next";
 
 class Slot extends React.Component {
   constructor(props) {
@@ -53,7 +55,14 @@ class Slot extends React.Component {
 
               return (
                 <Timeline.Item key={i} color={this.getSlotColor(slot)} dot={this.getSlotDot(slot)}>
-                  <p>{slot.date} &nbsp;&nbsp; {Setting.getTag(`${slot.startTime}-${slot.endTime}`)}</p>
+                  <p>
+                    {slot.date} &nbsp;&nbsp; {Setting.getTag(`${slot.startTime}-${slot.endTime}`)}
+                    {
+                      (this.props.account === undefined || this.props.account === null || slot.videoUrl === "") ? null : (
+                        <Button icon={<PlayCircleOutlined />} size={"small"} style={{marginBottom: "10px", marginRight: "10px"}} type="primary" onClick={() => this.props.history.push(`/rooms/${this.props.room.owner}/${this.props.room.name}/${i}/view`)}>{i18next.t("room:Playback")}</Button>
+                      )
+                    }
+                  </p>
                   <p style={{fontWeight: "bold"}}>{slot.title}</p>
                   <p>{slot.speaker}</p>
                   {
@@ -71,4 +80,4 @@ class Slot extends React.Component {
   }
 }
 
-export default Slot;
+export default withRouter(Slot);

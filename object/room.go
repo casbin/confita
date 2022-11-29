@@ -43,6 +43,7 @@ type Slot struct {
 	Title     string `xorm:"varchar(100)" json:"title"`
 	Speaker   string `xorm:"varchar(100)" json:"speaker"`
 	Location  string `xorm:"varchar(100)" json:"location"`
+	VideoUrl  string `xorm:"varchar(255)" json:"videoUrl"`
 }
 
 type Room struct {

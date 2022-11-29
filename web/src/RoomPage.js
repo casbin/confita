@@ -27,13 +27,16 @@ class RoomPage extends React.Component {
       classes: props,
       userName: props.match?.params.userName,
       roomName: props.match?.params.roomName,
+      slotName: props.match?.params.slotName,
       room: null,
     };
   }
 
   UNSAFE_componentWillMount() {
     this.getRoom();
-    this.incrementRoomViewer();
+    if (this.state.slotName === undefined) {
+      this.incrementRoomViewer();
+    }
   }
 
   getRoom() {
@@ -58,19 +61,53 @@ class RoomPage extends React.Component {
     return this.props.room !== undefined ? this.props.room : this.state.room;
   }
 
+  getSlot(room) {
+    if (this.state.slotName === undefined) {
+      return null;
+    } else {
+      return room.slots[this.state.slotName];
+    }
+  }
+
   getRoomTitle(room) {
     let type;
     if (room.isLive) {
       type = i18next.t("room:Live");
       const viewers = i18next.t("room:viewers");
-      return `${room.displayName} (${type}, ${viewers}: ${room.viewerCount})`;
+      return `${Setting.getLanguageText(room.displayName)} (${type}, ${viewers}: ${room.viewerCount})`;
     } else if (room.videoUrl !== "") {
       type = i18next.t("room:Playback");
+    } else if (this.state.slotName !== undefined) {
+      const slot = this.getSlot(room);
+      if (slot !== null && slot.videoUrl !== "") {
+        type = i18next.t("room:Playback");
+      } else {
+        type = i18next.t("room:No Content");
+      }
+      return `${slot.title} (${type})`;
     } else {
       type = i18next.t("room:No Content");
     }
 
-    return `${room.displayName} (${type})`;
+    return `${Setting.getLanguageText(room.displayName)} (${type})`;
+  }
+
+  getRoomSubtitle(room) {
+    if (this.state.slotName !== undefined) {
+      const slot = this.getSlot(room);
+      return (
+        <React.Fragment>
+          <div>
+            {slot.speaker}
+          </div>
+          <div>
+            {slot.date}&nbsp;&nbsp;&nbsp;&nbsp;{`${slot.startTime}-${slot.endTime}`}
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return null;
+    }
   }
 
   renderVideo(room) {
@@ -81,7 +118,12 @@ class RoomPage extends React.Component {
             this.getRoomTitle(room)
           }
         </div>
-        <Video room={room} />
+        <div style={{fontSize: 18, marginBottom: "20px"}}>
+          {
+            this.getRoomSubtitle(room)
+          }
+        </div>
+        <Video room={room} slot={this.getSlot(room)} />
       </div>
     );
   }
@@ -92,7 +134,10 @@ class RoomPage extends React.Component {
     }
 
     const nodeId = `comments-${Conf.DefaultConferenceName}`;
-    const title = encodeURIComponent(`Comments - ${this.state.room.displayName}`);
+    let title = encodeURIComponent(`Comments - ${this.state.room.displayName}`);
+    if (this.state.slotName !== undefined) {
+      title += ` - ${this.state.slotName}`;
+    }
     const author = (this.props.account === null) ? "admin" : this.props.account.name;
     const urlPath = encodeURIComponent(`|comment|${this.state.room.displayName}`);
 
