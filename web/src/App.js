@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React, {Component} from "react";
+import React, {Component} from "react"
 import {Link, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {Avatar, BackTop, Dropdown, Layout, Menu, Modal} from "antd";
 import {CloseCircleTwoTone, DownOutlined, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
