@@ -34,7 +34,8 @@
     "test": "craco test",
     "eject": "craco eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "fix": "eslint --fix src/*.js src/backend/*.js"
+    "fix": "eslint --fix src/*.js src/backend/*.js",
+    "lint": "eslint src/*.js src/backend/*.js"
   },
   "eslintConfig": {
     "extends": [
