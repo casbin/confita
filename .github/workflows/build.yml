@@ -1,0 +1,19 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  frontend-linter:
+    name: Frontend Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+        # cache
+      - uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: ./web
+      - run: yarn install && yarn run lint
+        working-directory: ./web
