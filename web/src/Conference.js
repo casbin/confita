@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import React from "react";
+import {withRouter} from "react-router-dom";
 import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
@@ -29,8 +30,15 @@ class Conference extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      selectedKey: this.props.history.location.pathname,
+    });
+  }
+
   handleClick = info => {
     const selectedKey = info.key;
+    this.props.history.push(info.key);
     this.setState({
       selectedKey: selectedKey,
     });
@@ -294,4 +302,4 @@ class Conference extends React.Component {
   }
 }
 
-export default Conference;
+export default withRouter(Conference);
