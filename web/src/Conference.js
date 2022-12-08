@@ -31,9 +31,12 @@ class Conference extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      selectedKey: (/\/(.*)/g.exec(this.props.history.location.pathname) ?? [])[1],
-    });
+    const match = /\/(.+)/.exec(this.props.history.location.pathname);
+    if (match !== null) {
+      this.setState({
+        selectedKey: match[1],
+      });
+    }
   }
 
   handleClick = info => {
