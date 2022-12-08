@@ -32,7 +32,7 @@ class Conference extends React.Component {
 
   componentDidMount() {
     this.setState({
-      selectedKey: this.props.history.location.pathname,
+      selectedKey: (/\/(.*)/g.exec(this.props.history.location.pathname) ?? [])[1],
     });
   }
 
