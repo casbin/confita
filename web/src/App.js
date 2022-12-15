@@ -507,7 +507,6 @@ class App extends Component {
         <Switch>
           <Route exact path="/callback" component={AuthCallback} />
           <Route exact path="/" render={(props) => <HomePage account={this.state.account} {...props} />} />
-          <Route exact path="/:menu" render={(props) => <HomePage account={this.state.account} {...props} />} />
           <Route exact path="/signin" render={(props) => this.renderHomeIfSignedIn(<SigninPage {...props} />)} />
           <Route exact path="/payments" render={(props) => this.renderSigninIfNotSignedIn(<PaymentPage account={this.state.account} {...props} />)} />
           <Route exact path="/contact" render={(props) => this.renderSigninIfNotSignedIn(<ContactPage account={this.state.account} {...props} />)} />
@@ -524,6 +523,7 @@ class App extends Component {
           <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
           <Route exact path="/rooms/:userName/:roomName/:slotName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
           <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />} />
+          <Route exact path="/:menu" render={(props) => <HomePage account={this.state.account} {...props} />} />
         </Switch>
       </div>
     );
