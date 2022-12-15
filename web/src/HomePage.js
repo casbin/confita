@@ -79,7 +79,13 @@ class HomePage extends React.Component {
             this.renderCarousel(this.state.conference)
           }
         </div>
-        <Conference conference={this.state.conference} language={Setting.getLanguage()} history={this.props.history} />
+        <Conference
+          conference={this.state.conference}
+          language={Setting.getLanguage()}
+          history={this.props.history}
+          path="/"
+          enableMenuPath={true}
+        />
       </div>
     );
   }

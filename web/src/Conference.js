@@ -26,12 +26,18 @@ class Conference extends React.Component {
     super(props);
     this.state = {
       classes: props,
-      selectedKey: this.props.conference.defaultItem,
+      enableMenuPath: props.enableMenuPath || false,
+      path: props.path || "/",
+      selectedKey: props.conference.defaultItem,
     };
   }
 
   componentDidMount() {
-    const match = /\/(.+)/.exec(this.props.history.location.pathname);
+    if (!this.props.enableMenuPath) {
+      return;
+    }
+
+    const match = new RegExp(`${this.props.path}(.+)`).exec(this.props.history.location.pathname);
     if (match !== null) {
       this.setState({
         selectedKey: match[1],
@@ -41,7 +47,9 @@ class Conference extends React.Component {
 
   handleClick = info => {
     const selectedKey = info.key;
-    this.props.history.push(info.key);
+    if (this.props.enableMenuPath) {
+      this.props.history.push(`${this.props.path}${info.key}`);
+    }
     this.setState({
       selectedKey: selectedKey,
     });
