@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import React from "react";
+import {Link, withRouter} from "react-router-dom";
 import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
@@ -21,20 +22,53 @@ const {SubMenu} = Menu;
 const {Step} = Steps;
 
 class Conference extends React.Component {
+  static defaultProps = {
+    path: "/",
+    enableMenuPath: false,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       classes: props,
-      selectedKey: this.props.conference.defaultItem,
+      selectedKey: props.conference.defaultItem,
     };
   }
 
-  handleClick = info => {
-    const selectedKey = info.key;
-    this.setState({
-      selectedKey: selectedKey,
-    });
-  };
+  componentDidMount() {
+    this.updateSelectedKey();
+  }
+
+  componentDidUpdate() {
+    this.updateSelectedKey();
+  }
+
+  shouldComponentUpdate(nextProp, nextState) {
+    if (nextState.selectedKey !== this.state.selectedKey || nextProp.conference !== this.props.conference) {
+
+      const selectedTreeItem = this.getSelectedTreeItem(nextState.selectedKey, nextProp.conference.treeItems);
+
+      if (typeof this.props.onMatchTreeItem === "function") {
+        this.props.onMatchTreeItem(!!selectedTreeItem);
+      }
+
+      return true;
+    }
+    return false;
+  }
+
+  updateSelectedKey() {
+    if (!this.props.enableMenuPath) {
+      return;
+    }
+
+    const match = new RegExp(`${this.props.path}([^/]+)$`).exec(this.props.history.location.pathname);
+    if (match !== null) {
+      this.setState({
+        selectedKey: match[1],
+      });
+    }
+  }
 
   renderMenu(treeItems) {
     let mode;
@@ -66,8 +100,10 @@ class Conference extends React.Component {
 
             if (treeItem.children.length === 0) {
               return (
-                <Menu.Item key={treeItem.title}>
-                  {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
+                <Menu.Item key={treeItem.title} onClick={this.updateSelectedKey.bind(this)}>
+                  <Link to={`${this.props.path}${treeItem.title}`}>
+                    {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
+                  </Link>
                 </Menu.Item>
               );
             } else {
@@ -76,8 +112,10 @@ class Conference extends React.Component {
                   {
                     treeItem.children.map((treeItem2, i) => {
                       return (
-                        <Menu.Item key={treeItem2.title}>
-                          {this.props.language !== "en" ? treeItem2.title : treeItem2.titleEn}
+                        <Menu.Item key={treeItem2.title} onClick={this.updateSelectedKey.bind(this)}>
+                          <Link to={`${this.props.path}${treeItem.title}/${treeItem2.title}`}>
+                            {this.props.language !== "en" ? treeItem2.title : treeItem2.titleEn}
+                          </Link>
                         </Menu.Item>
                       );
                     })
@@ -122,16 +160,16 @@ class Conference extends React.Component {
     );
   }
 
-  getSelectedTreeItem(treeItems) {
-    if (this.state.selectedKey === null) {
+  getSelectedTreeItem(selectedKey, treeItems) {
+    if (selectedKey === null) {
       return null;
     }
 
     const res = treeItems.map(treeItem => {
-      if (treeItem.title === this.state.selectedKey) {
+      if (treeItem.title === selectedKey) {
         return treeItem;
       } else {
-        return this.getSelectedTreeItem(treeItem.children);
+        return this.getSelectedTreeItem(selectedKey, treeItem.children);
       }
     }).filter(treeItem => treeItem !== null);
 
@@ -235,6 +273,11 @@ class Conference extends React.Component {
 
   render() {
     const conference = this.props.conference;
+    const selectedTreeItem = this.getSelectedTreeItem(this.state.selectedKey, conference.treeItems);
+
+    if (!selectedTreeItem) {
+      return null;
+    }
 
     if (!Setting.isMobile()) {
       return (
@@ -256,7 +299,7 @@ class Conference extends React.Component {
             </Col>
             <Col span={19} >
               {
-                this.renderPage(this.getSelectedTreeItem(conference.treeItems))
+                this.renderPage(selectedTreeItem)
               }
             </Col>
           </Row>
@@ -283,7 +326,7 @@ class Conference extends React.Component {
             <Col span={1} />
             <Col span={22} >
               {
-                this.renderPage(this.getSelectedTreeItem(conference.treeItems))
+                this.renderPage(selectedTreeItem)
               }
             </Col>
             <Col span={1} />
@@ -294,4 +337,4 @@ class Conference extends React.Component {
   }
 }
 
-export default Conference;
+export default withRouter(Conference);

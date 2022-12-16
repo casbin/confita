@@ -25,6 +25,7 @@ class HomePage extends React.Component {
     this.state = {
       classes: props,
       conference: null,
+      isMatchConferenceTreeItem: true,
     };
   }
 
@@ -67,6 +68,12 @@ class HomePage extends React.Component {
     );
   }
 
+  handleMatchConferenceTreeItem(isMatched) {
+    this.setState({
+      isMatchConferenceTreeItem: isMatched,
+    });
+  }
+
   renderHome() {
     if (this.state.conference === null) {
       return null;
@@ -79,12 +86,23 @@ class HomePage extends React.Component {
             this.renderCarousel(this.state.conference)
           }
         </div>
-        <Conference conference={this.state.conference} language={Setting.getLanguage()} history={this.props.history} />
+        <Conference
+          conference={this.state.conference}
+          language={Setting.getLanguage()}
+          history={this.props.history}
+          path="/"
+          enableMenuPath={true}
+          onMatchTreeItem={this.handleMatchConferenceTreeItem.bind(this)}
+        />
       </div>
     );
   }
 
   render() {
+    if (!this.state.isMatchConferenceTreeItem) {
+      return null;
+    }
+
     return (
       <div>
         <Row style={{width: "100%"}}>
