@@ -97,7 +97,7 @@ class App extends Component {
     } else if (uri.includes("/public-rooms")) {
       this.setState({selectedMenuKey: "/public-rooms"});
     } else {
-      this.setState({selectedMenuKey: "null"});
+      this.setState({selectedMenuKey: "/"});
     }
   }
 
@@ -523,6 +523,7 @@ class App extends Component {
           <Route exact path="/rooms/:userName/:roomName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
           <Route exact path="/rooms/:userName/:roomName/:slotName/view" render={(props) => <RoomPage account={this.state.account} {...props} />} />
           <Route exact path="/public-rooms" render={(props) => <RoomListPage key={"public-rooms"} account={this.state.account} isPublic={true} {...props} />} />
+          <Route exact path="/:menu+" render={(props) => <HomePage account={this.state.account} {...props} />} />
         </Switch>
       </div>
     );
