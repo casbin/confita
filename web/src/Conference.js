@@ -29,9 +29,12 @@ class Conference extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const selectedKey = this.getSelectedKey(props);
+
     this.state = {
       classes: props,
-      selectedKey: props.conference.defaultItem,
+      selectedKey: selectedKey || props.conference.defaultItem,
     };
   }
 
@@ -57,17 +60,26 @@ class Conference extends React.Component {
     return false;
   }
 
-  updateSelectedKey() {
-    if (!this.props.enableMenuPath) {
-      return;
+  getSelectedKey(props) {
+    if (!props.enableMenuPath) {
+      return null;
     }
 
-    const match = new RegExp(`${this.props.path}([^/]+)$`).exec(this.props.history.location.pathname);
-    if (match !== null) {
-      this.setState({
-        selectedKey: match[1],
-      });
+    const match = new RegExp(`${props.path}([^/]+)$`).exec(props.history.location.pathname);
+
+    if (match === null) {
+      return null;
     }
+
+    return match[1];
+  }
+
+  updateSelectedKey() {
+    const selectedKey = this.getSelectedKey(this.props);
+    if (selectedKey === null) {
+      return;
+    }
+    this.setState({selectedKey});
   }
 
   renderMenu(treeItems) {
