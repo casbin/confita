@@ -112,20 +112,20 @@ class Conference extends React.Component {
 
             if (treeItem.children.length === 0) {
               return (
-                <Menu.Item key={treeItem.title} onClick={this.updateSelectedKey.bind(this)}>
-                  <Link to={`${this.props.path}${treeItem.title}`}>
+                <Menu.Item key={treeItem.titleEn} onClick={this.updateSelectedKey.bind(this)}>
+                  <Link to={`${this.props.path}${treeItem.titleEn}`}>
                     {this.props.language !== "en" ? treeItem.title : treeItem.titleEn}
                   </Link>
                 </Menu.Item>
               );
             } else {
               return (
-                <SubMenu key={treeItem.title} title={this.props.language !== "en" ? treeItem.title : treeItem.titleEn}>
+                <SubMenu key={treeItem.titleEn} title={this.props.language !== "en" ? treeItem.title : treeItem.titleEn}>
                   {
                     treeItem.children.map((treeItem2, i) => {
                       return (
-                        <Menu.Item key={treeItem2.title} onClick={this.updateSelectedKey.bind(this)}>
-                          <Link to={`${this.props.path}${treeItem.title}/${treeItem2.title}`}>
+                        <Menu.Item key={treeItem2.titleEn} onClick={this.updateSelectedKey.bind(this)}>
+                          <Link to={`${this.props.path}${treeItem.titleEn}/${treeItem2.titleEn}`}>
                             {this.props.language !== "en" ? treeItem2.title : treeItem2.titleEn}
                           </Link>
                         </Menu.Item>
@@ -178,7 +178,7 @@ class Conference extends React.Component {
     }
 
     const res = treeItems.map(treeItem => {
-      if (treeItem.title === selectedKey) {
+      if (treeItem.titleEn === selectedKey) {
         return treeItem;
       } else {
         return this.getSelectedTreeItem(selectedKey, treeItem.children);
