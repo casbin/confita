@@ -26,11 +26,17 @@ class HomePage extends React.Component {
       classes: props,
       conference: null,
       isMatchConferenceTreeItem: true,
+      language: Setting.getLanguage(),
     };
   }
 
   UNSAFE_componentWillMount() {
     this.getConference();
+    Setting.onLanguageChange(language => {
+      this.setState({
+        language,
+      });
+    });
   }
 
   getConference() {
@@ -88,7 +94,7 @@ class HomePage extends React.Component {
         </div>
         <Conference
           conference={this.state.conference}
-          language={Setting.getLanguage()}
+          language={this.state.language}
           history={this.props.history}
           path="/"
           enableMenuPath={true}

@@ -47,6 +47,9 @@ class Conference extends React.Component {
   }
 
   shouldComponentUpdate(nextProp, nextState) {
+    if (nextProp.language !== this.props.language) {
+      return true;
+    }
     if (nextState.selectedKey !== this.state.selectedKey || nextProp.conference !== this.props.conference) {
 
       const selectedTreeItem = this.getSelectedTreeItem(nextState.selectedKey, nextProp.conference.treeItems);
