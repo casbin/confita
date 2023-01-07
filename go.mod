@@ -9,6 +9,7 @@ require (
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/casdoor/casdoor-go-sdk v0.3.3
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/chromedp/chromedp v0.8.6
 	github.com/cristalhq/jwt/v4 v4.0.0
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/google/go-cmp v0.5.6 // indirect
