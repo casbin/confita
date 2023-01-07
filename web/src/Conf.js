@@ -40,3 +40,6 @@ export const CasnodeEndpoint = "http://localhost:3000";
 export const QrCodeImageUrl = "";
 
 export const ContactInfo = [];
+
+export const title = "Confita";
+export const titleEn = "Confita (En)";

@@ -17,6 +17,8 @@ import {Link, withRouter} from "react-router-dom";
 import {Alert, Button, Col, Empty, Menu, Popover, Row, Space, Steps} from "antd";
 import * as Setting from "./Setting";
 import i18next from "i18next";
+import * as Conf from "./Conf";
+import {Helmet} from "react-helmet";
 
 const {SubMenu} = Menu;
 const {Step} = Steps;
@@ -209,6 +211,9 @@ class Conference extends React.Component {
         {/*    treeItem.title*/}
         {/*  }*/}
         {/* </div>*/}
+        <Helmet>
+          <title>{this.props.language !== "en" ? `${treeItem.title} - ${Conf.title}` : `${treeItem.titleEn} - ${Conf.titleEn}`}</title>
+        </Helmet>
         <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{__html: this.props.language !== "en" ? treeItem.content : treeItem.contentEn}} />
       </div>
     );

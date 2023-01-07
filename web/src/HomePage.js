@@ -18,6 +18,7 @@ import Conference from "./Conference";
 import * as ConferenceBackend from "./backend/ConferenceBackend";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
+import {Helmet} from "react-helmet";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -87,6 +88,9 @@ class HomePage extends React.Component {
 
     return (
       <div>
+        <Helmet>
+          <title>{this.state.language !== "en" ? Conf.title : Conf.titleEn}</title>
+        </Helmet>
         <div style={{marginBottom: "-8px"}}>
           {
             this.renderCarousel(this.state.conference)

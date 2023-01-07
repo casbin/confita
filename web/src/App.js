@@ -541,7 +541,17 @@ class App extends Component {
           textAlign: "center",
         }
       }>
-        Made with <span style={{color: "rgb(255, 255, 255)"}}>❤️</span> by <a style={{fontWeight: "bold", color: "black"}} target="_blank" rel="noreferrer" href="https://casbin.org">Casbin</a>, {Setting.isMobile() ? "Mobile" : "Desktop"} View
+        {
+          Setting.getLanguage() !== "en" ? (
+            <React.Fragment>
+              {Conf.title}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {Conf.titleEn}
+            </React.Fragment>
+          )
+        }
       </Footer>
     );
   }
