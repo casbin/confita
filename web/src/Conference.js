@@ -213,6 +213,14 @@ class Conference extends React.Component {
         {/* </div>*/}
         <Helmet>
           <title>{this.props.language !== "en" ? `${treeItem.title} - ${Conf.title}` : `${treeItem.titleEn} - ${Conf.titleEn}`}</title>
+          <meta
+            name="description"
+            content={this.state.language !== "en" ? treeItem.content : treeItem.contentEn}
+          />
+          <meta
+            name="keywords"
+            content={this.state.language !== "en" ? treeItem.title : treeItem.titleEn}
+          />
         </Helmet>
         <div style={{marginTop: "40px"}} dangerouslySetInnerHTML={{__html: this.props.language !== "en" ? treeItem.content : treeItem.contentEn}} />
       </div>

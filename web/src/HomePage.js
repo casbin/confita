@@ -90,6 +90,14 @@ class HomePage extends React.Component {
       <div>
         <Helmet>
           <title>{this.state.language !== "en" ? Conf.title : Conf.titleEn}</title>
+          <meta
+            name="description"
+            content={this.state.language !== "en" ? Conf.title : Conf.titleEn}
+          />
+          <meta
+            name="keywords"
+            content={this.state.language !== "en" ? Conf.title : Conf.titleEn}
+          />
         </Helmet>
         <div style={{marginBottom: "-8px"}}>
           {
