@@ -309,7 +309,7 @@ class ConferenceEditPage extends React.Component {
           <Col span={22} >
             <Select virtual={false} style={{width: "100%"}} value={this.state.conference.defaultItem} onChange={value => {this.updateConferenceField("defaultItem", value);}}>
               {
-                this.state.conference.treeItems.filter(treeItem => treeItem.children.length === 0).map((treeItem, index) => <Option key={treeItem.title}>{`${treeItem.title} | ${treeItem.titleEn}`}</Option>)
+                this.state.conference.treeItems.filter(treeItem => treeItem.children.length === 0).map((treeItem, index) => <Option key={treeItem.titleEn}>{`${treeItem.title} | ${treeItem.titleEn}`}</Option>)
               }
             </Select>
           </Col>
