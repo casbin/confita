@@ -266,6 +266,15 @@ export function getLanguage() {
   return i18next.language;
 }
 
+export function onLanguageChange(callBack) {
+  if (typeof callBack !== "function") {
+    return null;
+  }
+
+  i18next.on("languageChanged", callBack);
+  return () => i18next.off("languageChanged", callBack);
+}
+
 export function setLanguage(language) {
   localStorage.setItem("language", language);
   changeMomentLanguage(language);
