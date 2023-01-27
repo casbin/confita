@@ -40,7 +40,7 @@ func addUserSession(claims *auth.Claims, sessionId string) {
 	session := &Session{
 		Owner:       claims.Owner,
 		Name:        claims.Name,
-		Application: claims.SignupApplication,
+		Application: beego.AppConfig.String("casdoorApplication"),
 		SessionId:   []string{sessionId},
 		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
 	}
@@ -54,7 +54,7 @@ func clearUserDuplicated(claims *auth.Claims) {
 	session := &Session{
 		Owner:       claims.Owner,
 		Name:        claims.Name,
-		Application: claims.SignupApplication,
+		Application: beego.AppConfig.String("casdoorApplication"),
 	}
 
 	postBytes, _ := json.Marshal(session)
@@ -66,7 +66,7 @@ func isUserDuplicated(claims *auth.Claims, sessionId string) bool {
 	session := &Session{
 		Owner:       claims.Owner,
 		Name:        claims.Name,
-		Application: claims.SignupApplication,
+		Application: beego.AppConfig.String("casdoorApplication"),
 		SessionId:   []string{sessionId},
 		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
 	}
