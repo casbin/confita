@@ -17,6 +17,7 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/astaxie/beego"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -35,13 +36,12 @@ type Session struct {
 	SessionId []string `json:"sessionId"`
 }
 
-func addUserSession(claims *auth.Claims) {
+func addUserSession(claims *auth.Claims, sessionId string) {
 	session := &Session{
-		Owner: claims.Owner,
-		Name:  claims.Name,
-		//TODO
-		Application: "app-confita",
-		SessionId:   []string{claims.ID},
+		Owner:       claims.Owner,
+		Name:        claims.Name,
+		Application: claims.SignupApplication,
+		SessionId:   []string{sessionId},
 		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
 	}
 
@@ -52,24 +52,22 @@ func addUserSession(claims *auth.Claims) {
 
 func clearUserDuplicated(claims *auth.Claims) {
 	session := &Session{
-		Owner: claims.Owner,
-		Name:  claims.Name,
-		//TODO
-		Application: "app-confita",
+		Owner:       claims.Owner,
+		Name:        claims.Name,
+		Application: claims.SignupApplication,
 	}
 
 	postBytes, _ := json.Marshal(session)
 	doPost("delete-user-session", nil, postBytes, false)
 }
 
-func isUserDuplicated(claims *auth.Claims) bool {
+func isUserDuplicated(claims *auth.Claims, sessionId string) bool {
 
 	session := &Session{
-		Owner: claims.Owner,
-		Name:  claims.Name,
-		//TODO
-		Application: "app-confita",
-		SessionId:   []string{claims.ID},
+		Owner:       claims.Owner,
+		Name:        claims.Name,
+		Application: claims.SignupApplication,
+		SessionId:   []string{sessionId},
 		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
 	}
 
@@ -103,8 +101,10 @@ func doPost(action string, queryMap map[string]string, postBytes []byte, isFile 
 		return nil, err
 	}
 
-	//TODO
-	req.SetBasicAuth("4204b22726f5ff8c9efe", "feb5012f4fe01a8d2be51fde7b912fcdd984a03c")
+	clientId := beego.AppConfig.String("clientId")
+	clientSecret := beego.AppConfig.String("clientSecret")
+
+	req.SetBasicAuth(clientId, clientSecret)
 	req.Header.Set("Content-Type", contentType)
 
 	resp, err = client.Do(req)
