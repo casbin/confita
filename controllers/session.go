@@ -15,31 +15,141 @@
 package controllers
 
 import (
-	"fmt"
+	"bytes"
+	"encoding/json"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"strconv"
 
 	"github.com/casdoor/casdoor-go-sdk/auth"
 )
 
-var sessionMap = map[string]int64{}
+type Session struct {
+	Owner       string `xorm:"varchar(100) notnull pk" json:"owner"`
+	Name        string `xorm:"varchar(100) notnull pk" json:"name"`
+	Application string `xorm:"varchar(100) notnull pk default ''" json:"application"`
+	CreatedTime string `xorm:"varchar(100)" json:"createdTime"`
+
+	SessionId []string `json:"sessionId"`
+}
+
+func addUserSession(claims *auth.Claims) {
+	session := &Session{
+		Owner: claims.Owner,
+		Name:  claims.Name,
+		//TODO
+		Application: "app-confita",
+		SessionId:   []string{claims.ID},
+		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
+	}
+
+	postBytes, _ := json.Marshal(session)
+
+	doPost("add-user-session", nil, postBytes, false)
+}
 
 func clearUserDuplicated(claims *auth.Claims) {
-	userId := fmt.Sprintf("%s/%s", claims.Owner, claims.Name)
-	delete(sessionMap, userId)
+	session := &Session{
+		Owner: claims.Owner,
+		Name:  claims.Name,
+		//TODO
+		Application: "app-confita",
+	}
+
+	postBytes, _ := json.Marshal(session)
+	doPost("delete-user-session", nil, postBytes, false)
 }
 
 func isUserDuplicated(claims *auth.Claims) bool {
-	userId := fmt.Sprintf("%s/%s", claims.Owner, claims.Name)
-	unixTimestamp := claims.IssuedAt.Unix()
 
-	sessionUnixTimestamp, ok := sessionMap[userId]
-	if !ok {
-		sessionMap[userId] = unixTimestamp
-		return false
+	session := &Session{
+		Owner: claims.Owner,
+		Name:  claims.Name,
+		//TODO
+		Application: "app-confita",
+		SessionId:   []string{claims.ID},
+		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
+	}
+
+	postBytes, _ := json.Marshal(session)
+
+	resp, _ := doPost("is-user-session-duplicated", nil, postBytes, false)
+
+	return resp.Data == true
+}
+
+func doPost(action string, queryMap map[string]string, postBytes []byte, isFile bool) (*Response, error) {
+	client := &http.Client{}
+	url := auth.GetUrl(action, queryMap)
+
+	var resp *http.Response
+	var err error
+	var contentType string
+	var body io.Reader
+	if isFile {
+		contentType, body, err = createForm(map[string][]byte{"file": postBytes})
+		if err != nil {
+			return nil, err
+		}
 	} else {
-		if unixTimestamp == sessionUnixTimestamp {
-			return false
-		} else {
-			return true
+		contentType = "text/plain;charset=UTF-8"
+		body = bytes.NewReader(postBytes)
+	}
+
+	req, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, err
+	}
+
+	//TODO
+	req.SetBasicAuth("4204b22726f5ff8c9efe", "feb5012f4fe01a8d2be51fde7b912fcdd984a03c")
+	req.Header.Set("Content-Type", contentType)
+
+	resp, err = client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			return
+		}
+	}(resp.Body)
+
+	respByte, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var response Response
+	err = json.Unmarshal(respByte, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return &response, nil
+}
+
+func createForm(formData map[string][]byte) (string, io.Reader, error) {
+	// https://tonybai.com/2021/01/16/upload-and-download-file-using-multipart-form-over-http/
+
+	body := new(bytes.Buffer)
+	w := multipart.NewWriter(body)
+	defer w.Close()
+
+	for k, v := range formData {
+		pw, err := w.CreateFormFile(k, "file")
+		if err != nil {
+			panic(err)
+		}
+
+		_, err = pw.Write(v)
+		if err != nil {
+			panic(err)
 		}
 	}
+
+	return w.FormDataContentType(), body, nil
 }

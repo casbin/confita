@@ -16,7 +16,6 @@ package controllers
 
 import (
 	_ "embed"
-
 	"github.com/astaxie/beego"
 	"github.com/casdoor/casdoor-go-sdk/auth"
 )
@@ -56,6 +55,7 @@ func (c *ApiController) Signin() {
 
 	claims.AccessToken = token.AccessToken
 	c.SetSessionClaims(claims)
+	addUserSession(claims)
 
 	c.ResponseOk(claims)
 }
