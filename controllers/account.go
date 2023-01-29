@@ -16,6 +16,7 @@ package controllers
 
 import (
 	_ "embed"
+
 	"github.com/astaxie/beego"
 	"github.com/casdoor/casdoor-go-sdk/auth"
 )
@@ -55,7 +56,7 @@ func (c *ApiController) Signin() {
 
 	claims.AccessToken = token.AccessToken
 	c.SetSessionClaims(claims)
-	addUserSession(claims, c.Ctx.Input.CruSession.SessionID())
+	addUserSession(beego.AppConfig.String("casdoorOrganization"), beego.AppConfig.String("casdoorApplication"), claims.Name, c.Ctx.Input.CruSession.SessionID())
 
 	c.ResponseOk(claims)
 }
@@ -63,7 +64,7 @@ func (c *ApiController) Signin() {
 func (c *ApiController) Signout() {
 	claims := c.GetSessionClaims()
 	if claims != nil {
-		clearUserDuplicated(claims)
+		clearUserDuplicated(beego.AppConfig.String("casdoorOrganization"), beego.AppConfig.String("casdoorApplication"), claims.Name)
 	}
 
 	c.SetSessionClaims(nil)
@@ -77,8 +78,7 @@ func (c *ApiController) GetAccount() {
 	}
 
 	claims := c.GetSessionClaims()
-
-	if isUserDuplicated(claims, c.Ctx.Input.CruSession.SessionID()) {
+	if isUserSessionDuplicated(beego.AppConfig.String("casdoorOrganization"), beego.AppConfig.String("casdoorApplication"), claims.Name, c.Ctx.Input.CruSession.SessionID()) {
 		if !claims.IsAdmin {
 			c.ResponseError("you have signed in from another place, this session has been ended")
 			return

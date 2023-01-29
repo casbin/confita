@@ -17,13 +17,14 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/astaxie/beego"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	"strconv"
 
+	"github.com/astaxie/beego"
+	"github.com/casbin/confita/util"
 	"github.com/casdoor/casdoor-go-sdk/auth"
 )
 
@@ -36,13 +37,13 @@ type Session struct {
 	SessionId []string `json:"sessionId"`
 }
 
-func addUserSession(claims *auth.Claims, sessionId string) {
+func addUserSession(org string, app string, userName string, sessionId string) {
 	session := &Session{
-		Owner:       claims.Owner,
-		Name:        claims.Name,
-		Application: beego.AppConfig.String("casdoorApplication"),
+		Owner:       org,
+		Name:        userName,
+		Application: app,
 		SessionId:   []string{sessionId},
-		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
+		CreatedTime: util.GetCurrentTime(),
 	}
 
 	postBytes, _ := json.Marshal(session)
@@ -50,30 +51,29 @@ func addUserSession(claims *auth.Claims, sessionId string) {
 	doPost("add-user-session", nil, postBytes, false)
 }
 
-func clearUserDuplicated(claims *auth.Claims) {
+func clearUserDuplicated(org string, app string, userName string) {
 	session := &Session{
-		Owner:       claims.Owner,
-		Name:        claims.Name,
-		Application: beego.AppConfig.String("casdoorApplication"),
+		Owner:       org,
+		Name:        userName,
+		Application: app,
 	}
 
 	postBytes, _ := json.Marshal(session)
+
 	doPost("delete-user-session", nil, postBytes, false)
 }
 
-func isUserDuplicated(claims *auth.Claims, sessionId string) bool {
-
-	session := &Session{
-		Owner:       claims.Owner,
-		Name:        claims.Name,
-		Application: beego.AppConfig.String("casdoorApplication"),
-		SessionId:   []string{sessionId},
-		CreatedTime: strconv.FormatInt(claims.IssuedAt.Unix(), 10),
+func isUserSessionDuplicated(org string, app string, userName string, sessionId string) bool {
+	queryMap := map[string]string{
+		"owner":       org,
+		"name":        userName,
+		"application": app,
+		"sessionId":   sessionId,
 	}
 
-	postBytes, _ := json.Marshal(session)
+	url := auth.GetUrl("is-user-session-duplicated", queryMap)
 
-	resp, _ := doPost("is-user-session-duplicated", nil, postBytes, false)
+	resp, _ := doGetResponse(url)
 
 	return resp.Data == true
 }
@@ -152,4 +152,20 @@ func createForm(formData map[string][]byte) (string, io.Reader, error) {
 	}
 
 	return w.FormDataContentType(), body, nil
+}
+
+func doGetResponse(url string) (*Response, error) {
+	respBytes, err := auth.DoGetBytesRaw(url)
+
+	var response Response
+	err = json.Unmarshal(respBytes, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Status != "ok" {
+		return nil, fmt.Errorf(response.Msg)
+	}
+
+	return &response, nil
 }
