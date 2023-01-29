@@ -24,7 +24,6 @@ import (
 	"net/http"
 
 	"github.com/astaxie/beego"
-	"github.com/casbin/confita/util"
 	"github.com/casdoor/casdoor-go-sdk/auth"
 )
 
@@ -43,7 +42,6 @@ func addUserSession(org string, app string, userName string, sessionId string) {
 		Name:        userName,
 		Application: app,
 		SessionId:   []string{sessionId},
-		CreatedTime: util.GetCurrentTime(),
 	}
 
 	postBytes, _ := json.Marshal(session)
