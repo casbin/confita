@@ -57,6 +57,10 @@ func (c *ApiController) Signin() {
 	claims.AccessToken = token.AccessToken
 	c.SetSessionClaims(claims)
 
+	if !IsSessionDuplicated(claims.Name, c.Ctx.Input.CruSession.SessionID()) {
+		AddSession(claims.Name, c.Ctx.Input.CruSession.SessionID())
+	}
+
 	c.ResponseOk(claims)
 }
 
@@ -82,8 +86,6 @@ func (c *ApiController) GetAccount() {
 			c.ResponseError("you have signed in from another place, this session has been ended")
 			return
 		}
-	} else {
-		AddSession(claims.Name, c.Ctx.Input.CruSession.SessionID())
 	}
 
 	c.ResponseOk(claims)
