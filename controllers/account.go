@@ -56,7 +56,6 @@ func (c *ApiController) Signin() {
 
 	claims.AccessToken = token.AccessToken
 	c.SetSessionClaims(claims)
-	addUserSession(beego.AppConfig.String("casdoorOrganization"), beego.AppConfig.String("casdoorApplication"), claims.Name, c.Ctx.Input.CruSession.SessionID())
 
 	c.ResponseOk(claims)
 }
@@ -64,7 +63,7 @@ func (c *ApiController) Signin() {
 func (c *ApiController) Signout() {
 	claims := c.GetSessionClaims()
 	if claims != nil {
-		clearUserDuplicated(beego.AppConfig.String("casdoorOrganization"), beego.AppConfig.String("casdoorApplication"), claims.Name)
+		DeleteSession(claims.Name)
 	}
 
 	c.SetSessionClaims(nil)
@@ -78,11 +77,13 @@ func (c *ApiController) GetAccount() {
 	}
 
 	claims := c.GetSessionClaims()
-	if isUserSessionDuplicated(beego.AppConfig.String("casdoorOrganization"), beego.AppConfig.String("casdoorApplication"), claims.Name, c.Ctx.Input.CruSession.SessionID()) {
+	if IsSessionDuplicated(claims.Name, c.Ctx.Input.CruSession.SessionID()) {
 		if !claims.IsAdmin {
 			c.ResponseError("you have signed in from another place, this session has been ended")
 			return
 		}
+	} else {
+		AddSession(claims.Name, c.Ctx.Input.CruSession.SessionID())
 	}
 
 	c.ResponseOk(claims)

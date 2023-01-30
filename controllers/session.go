@@ -36,44 +36,121 @@ type Session struct {
 	SessionId []string `json:"sessionId"`
 }
 
-func addUserSession(org string, app string, userName string, sessionId string) {
+func GetSessions() ([]*Session, error) {
+	queryMap := map[string]string{
+		"owner": getOrg(),
+	}
+
+	url := auth.GetUrl("get-sessions", queryMap)
+
+	bytes, err := auth.DoGetBytesRaw(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var sessions []*Session
+	err = json.Unmarshal(bytes, &sessions)
+	if err != nil {
+		return nil, err
+	}
+	return sessions, nil
+}
+
+func GetSession(userName string) (*Session, error) {
+	queryMap := map[string]string{
+		"sessionPkId": fmt.Sprintf("%s/%s/%s", getOrg(), userName, getApp()),
+	}
+
+	url := auth.GetUrl("get-session", queryMap)
+
+	bytes, err := auth.DoGetBytesRaw(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var session *Session
+	err = json.Unmarshal(bytes, &session)
+	if err != nil {
+		return nil, err
+	}
+	return session, nil
+}
+
+func UpdateSession(userName string, sessionId string) (bool, error) {
 	session := &Session{
-		Owner:       org,
+		Owner:       getOrg(),
 		Name:        userName,
-		Application: app,
+		Application: getApp(),
 		SessionId:   []string{sessionId},
 	}
 
 	postBytes, _ := json.Marshal(session)
 
-	doPost("add-user-session", nil, postBytes, false)
+	resp, err := doPost("update-session", nil, postBytes, false)
+
+	if err != nil {
+		return false, err
+	}
+
+	return resp.Data == "Affected", nil
 }
 
-func clearUserDuplicated(org string, app string, userName string) {
+func AddSession(userName string, sessionId string) (bool, error) {
 	session := &Session{
-		Owner:       org,
+		Owner:       getOrg(),
 		Name:        userName,
-		Application: app,
+		Application: getApp(),
+		SessionId:   []string{sessionId},
 	}
 
 	postBytes, _ := json.Marshal(session)
 
-	doPost("delete-user-session", nil, postBytes, false)
+	resp, err := doPost("add-session", nil, postBytes, false)
+
+	if err != nil {
+		return false, err
+	}
+
+	return resp.Data == "Affected", nil
 }
 
-func isUserSessionDuplicated(org string, app string, userName string, sessionId string) bool {
+func DeleteSession(userName string) (bool, error) {
+	session := &Session{
+		Owner:       getOrg(),
+		Name:        userName,
+		Application: getApp(),
+	}
+
+	postBytes, _ := json.Marshal(session)
+
+	resp, err := doPost("delete-session", nil, postBytes, false)
+
+	if err != nil {
+		return false, err
+	}
+
+	return resp.Data == "Affected", nil
+}
+
+func IsSessionDuplicated(userName string, sessionId string) bool {
 	queryMap := map[string]string{
-		"owner":       org,
-		"name":        userName,
-		"application": app,
+		"sessionPkId": fmt.Sprintf("%s/%s/%s", getOrg(), userName, getApp()),
 		"sessionId":   sessionId,
 	}
 
-	url := auth.GetUrl("is-user-session-duplicated", queryMap)
+	url := auth.GetUrl("is-session-duplicated", queryMap)
 
 	resp, _ := doGetResponse(url)
 
 	return resp.Data == true
+}
+
+func getOrg() string {
+	return beego.AppConfig.String("casdoorOrganization")
+}
+
+func getApp() string {
+	return beego.AppConfig.String("casdoorApplication")
 }
 
 func doPost(action string, queryMap map[string]string, postBytes []byte, isFile bool) (*Response, error) {
