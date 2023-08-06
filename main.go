@@ -42,7 +42,7 @@ func main() {
 	}))
 
 	// Cors Post method issue
-	// https://github.com/astaxie/beego/issues/1037
+	// https://github.com/beego/beego/issues/1037
 	beego.InsertFilter("*", beego.BeforeRouter, func(ctx *context.Context) {
 		if ctx.Input.Method() == "OPTIONS" {
 			ctx.WriteString("ok")

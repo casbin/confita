@@ -47,7 +47,7 @@ func init() {
 }
 
 func (c *ApiController) WebhookRoom() {
-	// https://marketplace.zoom.us/docs/guides/build/webhook-only-app/
+	// https://developers.zoom.us/docs/api/rest/webhook-only-app/
 	var event MeetingEvent
 	err := json.Unmarshal(c.Ctx.Input.RequestBody, &event)
 	if err != nil {
