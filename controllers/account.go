@@ -63,7 +63,7 @@ func (c *ApiController) Signin() {
 func (c *ApiController) Signout() {
 	claims := c.GetSessionClaims()
 	if claims != nil {
-		clearUserDuplicated(claims)
+		DeleteSession(claims.Name)
 	}
 
 	c.SetSessionClaims(nil)
@@ -77,12 +77,13 @@ func (c *ApiController) GetAccount() {
 	}
 
 	claims := c.GetSessionClaims()
-
-	if isUserDuplicated(claims) {
+	if IsSessionDuplicated(claims.Name, c.Ctx.Input.CruSession.SessionID()) {
 		if !claims.IsAdmin {
 			c.ResponseError("you have signed in from another place, this session has been ended")
 			return
 		}
+	} else {
+		AddSession(claims.Name, c.Ctx.Input.CruSession.SessionID())
 	}
 
 	c.ResponseOk(claims)
